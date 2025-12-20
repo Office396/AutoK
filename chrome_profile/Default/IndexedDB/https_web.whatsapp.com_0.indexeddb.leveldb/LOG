@@ -1,0 +1,13 @@
+2025/12/20-07:47:53.661 1958 Reusing MANIFEST C:\wd\Autok\chrome_profile\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2025/12/20-07:47:53.662 1958 Recovering log #987
+2025/12/20-07:47:53.668 1958 Reusing old log C:\wd\Autok\chrome_profile\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000987.log 
+2025/12/20-07:47:53.987 3424 Level-0 table #992: started
+2025/12/20-07:47:53.993 3424 Level-0 table #992: 193076 bytes OK
+2025/12/20-07:47:53.994 3424 Delete type=0 #987
+2025/12/20-07:47:53.994 1958 Manual compaction at level-0 from '\x00\x93\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x94\x00\x00\x00' @ 0 : 0; will stop at (end)
+2025/12/20-07:47:54.034 3f14 Compacting 1@1 + 1@2 files
+2025/12/20-07:47:54.080 3f14 Generated table #993@1: 50753 keys, 1941837 bytes
+2025/12/20-07:47:54.080 3f14 Compacted 1@1 + 1@2 files => 1941837 bytes
+2025/12/20-07:47:54.081 3f14 compacted to: files[ 0 0 1 0 0 0 0 ]
+2025/12/20-07:47:54.081 3f14 Delete type=2 #989
+2025/12/20-07:47:54.081 3f14 Delete type=2 #992

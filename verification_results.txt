@@ -1,0 +1,53 @@
+
+Processing: CurrentAlarms20251220033517944.xlsx
+============================================================
+✅ Found 4 valid alarms
+
+Snapshot of first 5 alarms:
+1. [Major] CSL Fault @ LHR0664 (12-20-2025 02:40:23) 
+2. [Major] CSL Fault @ LHR5025 (12-20-2025 02:50:53) 
+3. [Major] CSL Fault @ LHR6284 (12-20-2025 02:53:31) 
+4. [Major] CSL Fault @ LHR9969 (12-19-2025 15:33:56) 
+
+Processing: CurrentAlarms20251219081748639.xlsx
+============================================================
+✅ Found 22 valid alarms
+
+Snapshot of first 5 alarms:
+1. [Major] Cell Unavailable @ LHR6891 (12-19-2025 00:01:10) 
+2. [Major] Cell Unavailable @ LHR9233 (12-19-2025 00:41:42) 
+3. [Major] Cell Unavailable @ LHR9233 (12-19-2025 00:41:42) 
+4. [Major] Cell Unavailable @ LHR9233 (12-19-2025 00:41:42) 
+5. [Major] Cell Unavailable @ LHR9233 (12-19-2025 00:41:45) 
+
+Processing: CurrentAlarms20251219081657030.xlsx
+============================================================
+✅ Found 29 valid alarms
+
+Snapshot of first 5 alarms:
+1. [Major] RF Unit Maintenance Link Failure @ LHR4740 (12-19-2025 08:07:11) 
+2. [Major] RF Unit Maintenance Link Failure @ LHR4740 (12-19-2025 08:07:11) 
+3. [Major] RF Unit Maintenance Link Failure @ LHR4740 (12-19-2025 08:07:11) 
+4. [Major] RF Unit Maintenance Link Failure @ LHR4740 (12-19-2025 08:07:11) 
+5. [Major] RF Unit Maintenance Link Failure @ LHR4740 (12-19-2025 08:07:11) 
+
+Processing: CurrentAlarms20251219081603376.xlsx
+============================================================
+✅ Found 184 valid alarms
+
+Snapshot of first 5 alarms:
+1. [Major] System on Battery @ LHR8781 (12-19-2025 08:15:29) 
+2. [Major] Battery High Temp @ LHR9222 (12-19-2025 08:15:07) 
+3. [Major] Low Voltage @ LHR0077 (12-19-2025 08:14:01) [TOGGLE]
+4. [Major] Low Voltage @ LHR9679 (12-19-2025 08:11:39) 
+5. [Major] Genset running @ LHR3326 (12-19-2025 08:06:24) 
+
+Processing: CurrentAlarms20251219081511698.xlsx
+============================================================
+✅ Found 4 valid alarms
+
+Snapshot of first 5 alarms:
+1. [Major] CSL Fault @ LHR5017 (12-19-2025 08:05:06) 
+2. [Major] CSL Fault @ LHR5414 (12-19-2025 03:16:46) 
+3. [Major] CSL Fault @ LHR9233 (12-19-2025 04:28:31) 
+4. [Major] CSL Fault @ RUR5676 (12-19-2025 04:50:11) 

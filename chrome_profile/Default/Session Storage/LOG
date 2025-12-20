@@ -1,0 +1,27 @@
+2025/12/20-07:47:52.922 568c Reusing MANIFEST C:\wd\Autok\chrome_profile\Default\Session Storage/MANIFEST-000001
+2025/12/20-07:47:52.925 568c Recovering log #486
+2025/12/20-07:47:52.926 568c Reusing old log C:\wd\Autok\chrome_profile\Default\Session Storage/000486.log 
+2025/12/20-07:48:27.780 3668 Level-0 table #490: started
+2025/12/20-07:48:27.786 3668 Level-0 table #490: 19426 bytes OK
+2025/12/20-07:48:27.788 3668 Delete type=0 #486
+2025/12/20-07:48:30.988 3668 Level-0 table #492: started
+2025/12/20-07:48:30.995 3668 Level-0 table #492: 15260 bytes OK
+2025/12/20-07:48:30.997 3668 Delete type=0 #489
+2025/12/20-07:48:30.997 3668 Compacting 4@0 + 1@1 files
+2025/12/20-07:48:31.004 3668 Generated table #493@0: 5512 keys, 86016 bytes
+2025/12/20-07:48:31.004 3668 Compacted 4@0 + 1@1 files => 86016 bytes
+2025/12/20-07:48:31.005 3668 compacted to: files[ 0 1 1 0 0 0 0 ]
+2025/12/20-07:48:31.006 3668 Delete type=2 #483
+2025/12/20-07:48:31.006 3668 Delete type=2 #485
+2025/12/20-07:48:31.006 3668 Delete type=2 #487
+2025/12/20-07:48:31.006 3668 Delete type=2 #490
+2025/12/20-07:48:31.006 3668 Delete type=2 #492
+2025/12/20-07:49:00.592 3668 Level-0 table #495: started
+2025/12/20-07:49:00.597 3668 Level-0 table #495: 14857 bytes OK
+2025/12/20-07:49:00.598 3668 Delete type=0 #491
+2025/12/20-07:52:00.579 3668 Level-0 table #497: started
+2025/12/20-07:52:00.585 3668 Level-0 table #497: 12253 bytes OK
+2025/12/20-07:52:00.586 3668 Delete type=0 #494
+2025/12/20-07:58:23.074 3668 Level-0 table #499: started
+2025/12/20-07:58:23.078 3668 Level-0 table #499: 16805 bytes OK
+2025/12/20-07:58:23.080 3668 Delete type=0 #496

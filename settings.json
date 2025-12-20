@@ -1,0 +1,50 @@
+{
+    "credentials": {
+        "username": "HUWMSTEM",
+        "password": "Dripper#400"
+    },
+    "timing": {
+        "csl_fault": 0,
+        "rf_unit_failure": 30,
+        "cell_unavailable": 30,
+        "low_voltage": 30,
+        "ac_main_failure": 60,
+        "system_on_battery": 30,
+        "battery_high_temp": 30,
+        "genset_operation": 60,
+        "mains_failure": 60
+    },
+    "mbu_groups": {
+        "C1-LHR-01": "C1-LHR-MBU-01",
+        "C1-LHR-02": "MBU C1-LHR-02",
+        "C1-LHR-03": "C1-LHR-03",
+        "C1-LHR-04": "MBU C1-LHR-04",
+        "C1-LHR-05": "MBU C1 LHR-05",
+        "C1-LHR-06": "MBU C1-LHR-06 Hotline",
+        "C1-LHR-07": "MBU-C1-LHR-07",
+        "C1-LHR-08": "MBU C1-LHR-08 Hotline"
+    },
+    "b2s_groups": {
+        "ATL": "JAZZ ATL CA-LHR-C1",
+        "Edotco": "Jazz~edotco C1 & C4",
+        "Enfrashare": "Jazz Enfrashare MPL C1",
+        "Tawal": "TAWAL - Jazz (Central-A)"
+    },
+    "omo_groups": {
+        "Zong": "MPL JAZZ & CMPAK",
+        "CM-PAK": "MPL JAZZ & CMPAK",
+        "CMPAK": "MPL JAZZ & CMPAK",
+        "Ufone": "Ufone Jazz Sites Huawei Group",
+        "UFONE": "Ufone Jazz Sites Huawei Group",
+        "Telenor": "TP JAZZ Shared Sites C1",
+        "TELENOR": "TP JAZZ Shared Sites C1"
+    },
+    "master_file_path": "C:\\wd\\Autok\\data\\Master_Data.xlsx",
+    "check_interval_seconds": 30,
+    "auto_start": false,
+    "separate_browser_window": false,
+    "skip_toggle_mbus": [
+        "C1-LHR-04",
+        "C1-LHR-05"
+    ]
+}
