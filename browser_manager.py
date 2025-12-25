@@ -22,7 +22,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import (
-    TimeoutException,
+    TimeoutException, 
     WebDriverException,
     ElementNotInteractableException,
     StaleElementReferenceException
@@ -118,15 +118,20 @@ class BrowserManager:
         # options.add_argument('--no-sandbox')  # Potentially unstable on Windows
         options.add_argument('--disable-dev-shm-usage')  # Reduce memory pressure
         options.add_argument('--remote-allow-origins=*')  # Fix for Chrome 111+ connection issues
-        
-        # EXPERIMENTAL: Optimization flags - APPLY ONLY TO WHATSAPP
-        # These flags prevent background freezing but can cause Portal to crash
+
+        # WhatsApp specific settings
         if profile_name == "whatsapp":
-            options.add_argument('--disable-features=CalculateNativeWinOcclusion')
-            options.add_argument('--disable-background-timer-throttling')
-            options.add_argument('--disable-backgrounding-occluded-windows')
-            options.add_argument('--disable-renderer-backgrounding')
-            options.add_argument('--disable-ipc-flooding-protection')
+            options.add_argument('--disable-web-security')
+            options.add_argument('--disable-features=VizDisplayCompositor')
+        
+        # Optimization flags - REMOVED for WhatsApp to prevent loading issues
+        # These flags can cause WhatsApp Web to not load QR code properly
+        # if profile_name == "whatsapp":
+        #     options.add_argument('--disable-features=CalculateNativeWinOcclusion')
+        #     options.add_argument('--disable-background-timer-throttling')
+        #     options.add_argument('--disable-backgrounding-occluded-windows')
+        #     options.add_argument('--disable-renderer-backgrounding')
+        #     options.add_argument('--disable-ipc-flooding-protection')
         
         options.add_argument('--disable-blink-features=AutomationControlled')
         options.add_experimental_option("excludeSwitches", ["enable-automation"])
@@ -213,7 +218,16 @@ class BrowserManager:
                 # Step 3: Open WhatsApp Web in its dedicated browser
                 logger.info("Opening WhatsApp Web...")
                 self.whatsapp_driver.get(self.WHATSAPP_URL)
-                time.sleep(4)
+                time.sleep(2)
+
+                # Ensure WhatsApp window gets focus
+                try:
+                    self.whatsapp_driver.execute_script("window.focus();")
+                    logger.info("WhatsApp window focused")
+                except Exception as e:
+                    logger.warning(f"Could not focus WhatsApp window: {e}")
+
+                time.sleep(2)
                 
                 # Check WhatsApp status
                 self._check_whatsapp_status()
@@ -228,7 +242,7 @@ class BrowserManager:
                 
                 # Step 5: Login to portal
                 login_success = self._login_to_huawei_portal()
-
+                
                 if login_success:
                     logger.info("Waiting for portal to load after login...")
                     time.sleep(3)  # Reduced delay
@@ -238,7 +252,7 @@ class BrowserManager:
                 else:
                     logger.warning("Portal login may have failed, opening other tabs anyway...")
                     time.sleep(1)
-                    self._open_other_portal_tabs()
+                    # Don't open other tabs at startup - open on demand
                 
                 self._notify_status()
                 logger.success("Both browsers started successfully")
@@ -651,11 +665,11 @@ class BrowserManager:
         if not self.is_session_alive():
             return self.recover_session()
         return True
-
+    
     def get_driver(self) -> Optional[webdriver.Chrome]:
         """Get the WebDriver instance"""
         return self.driver
-
+    
     def get_status(self) -> BrowserStatus:
         """Get current browser status"""
         return self.status

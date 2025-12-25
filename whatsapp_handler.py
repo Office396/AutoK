@@ -263,9 +263,7 @@ class WhatsAppHandler:
                 self._notify_status(WhatsAppStatus.DISCONNECTED)
                 return WhatsAppStatus.DISCONNECTED
             
-            # Switch to WhatsApp tab
-            browser_manager.switch_to_tab(TabType.WHATSAPP)
-            time.sleep(0.5)
+            # WhatsApp runs in dedicated browser instance - no need to switch tabs
             
             # First check URL to ensure we're on WhatsApp
             try:
@@ -532,8 +530,8 @@ class WhatsAppHandler:
             # If most words match, consider it a match
             common_words = group_words.intersection(title_words)
             if len(common_words) >= min(len(group_words), len(title_words)) * 0.8:  # 80% overlap
-                return True
-
+                    return True
+            
             return False
         except:
             return False
@@ -594,10 +592,10 @@ class WhatsAppHandler:
         """
         Find and open a group directly from chat list by title attribute.
         This is faster than using the search bar and avoids search delays.
-
+        
         Args:
             group_name: Name of the group to find
-
+            
         Returns:
             True if group found and opened
         """
@@ -606,7 +604,7 @@ class WhatsAppHandler:
             if not driver:
                 logger.error("No driver available for group selection")
                 return False
-
+            
             # Ensure chat list is refreshed and visible
             logger.info(f"DEBUG find_and_open_group_direct: Refreshing chat list before search")
             self._refresh_chat_list()
@@ -614,7 +612,7 @@ class WhatsAppHandler:
             # No need to switch tabs - WhatsApp is in separate browser instance
 
             logger.info(f"DEBUG find_and_open_group_direct: Looking for group '{group_name}'")
-
+            
             # Find chat list container - try multiple selectors based on HTML structure
             chat_list = None
             chat_list_selectors = [
@@ -629,7 +627,7 @@ class WhatsAppHandler:
                     chat_list = driver.find_element(by, selector)
                     logger.info(f"DEBUG: Found chat list with selector: {selector}")
                     break
-                except:
+            except:
                     continue
 
             if not chat_list:
@@ -653,15 +651,15 @@ class WhatsAppHandler:
                         if rows:
                             logger.info(f"DEBUG: Found {len(rows)} rows with alternative selector: {selector}")
                             break
-                    except:
+                except:
                         continue
 
             if not rows:
                 logger.error("No chat rows found in chat list")
-                return False
-
+                    return False
+            
             logger.info(f"DEBUG: Found {len(rows)} chat rows to search through")
-
+            
             # Search through rows for matching group name
             for row in rows:
                 try:
@@ -688,7 +686,7 @@ class WhatsAppHandler:
 
                     title = title.strip()
                     logger.info(f"DEBUG: Found chat title: '{title}'")
-
+                    
                     # Match group name - try multiple matching strategies
                     group_match = False
 
@@ -769,7 +767,7 @@ class WhatsAppHandler:
                                 logger.warning(f"DEBUG: Element click failed, trying JavaScript: {e2}")
                                 try:
                                     # Last resort: JavaScript click
-                                    driver.execute_script("arguments[0].click();", row)
+                        driver.execute_script("arguments[0].click();", row)
                                     logger.info(f"DEBUG: JavaScript click successful on '{title}'")
                                     click_success = True
                                 except Exception as e3:
@@ -788,16 +786,16 @@ class WhatsAppHandler:
                         max_attempts = 5  # Increased attempts
 
                         while verification_attempts < max_attempts:
-                            # Verify we're in the right chat
-                            if self._verify_current_chat(group_name):
+                        # Verify we're in the right chat
+                        if self._verify_current_chat(group_name):
                                 logger.success(f"Successfully opened group: {group_name}")
-                                return True
+                            return True
 
                             verification_attempts += 1
                             if verification_attempts < max_attempts:
                                 logger.info(f"Chat verification attempt {verification_attempts} failed, waiting longer...")
                                 time.sleep(3.0)  # Increased wait between attempts
-                            else:
+                        else:
                                 # Final attempt - check if we opened any chat at all
                                 try:
                                     current_title = self._get_current_chat_title()
@@ -806,7 +804,7 @@ class WhatsAppHandler:
                                         # Try to continue anyway if it's close enough
                                         if group_name.lower() in current_title.lower() or current_title.lower() in group_name.lower():
                                             logger.info(f"Close enough match - proceeding with '{current_title}'")
-                                            return True
+                            return True
                                         else:
                                             # Try one more click if we're still on the wrong chat
                                             logger.info("DEBUG: Trying one more click on the group...")
@@ -833,11 +831,11 @@ class WhatsAppHandler:
                 except Exception as e:
                     logger.error(f"Error processing row: {e}")
                     continue
-
+            
             # If direct search failed
             logger.warning(f"Group '{group_name}' not found in chat list")
             return False
-
+            
         except Exception as e:
             logger.error(f"Error finding group directly: {e}")
             return False
@@ -1136,12 +1134,12 @@ class WhatsAppMessageFormatter:
     """
     Formats alarm messages for WhatsApp according to specific formats
     """
-
+    
     @staticmethod
     def format_mbu_alarms(alarms: List, alarm_type: str) -> str:
         """
         Format alarms for MBU group
-
+        
         Formats:
         - CSL Fault: CSL Fault\t12-24-2025 02:42:05\tRUR5677__S_Padri
         - RF Unit: RF Unit Maintenance Link Failure\t12-23-2025 23:53:46\tLTE_LHR9239__S_BhogiwalGridStation
@@ -1150,14 +1148,14 @@ class WhatsAppMessageFormatter:
         """
         if not alarms:
             return ""
-
+        
         # Format alarms exactly as they appear in portal export
         lines = []
         for alarm in alarms:
             # Use the exact format from portal export: AlarmType Timestamp SiteName
             line = f"{alarm.alarm_type}\t{alarm.timestamp_str}\t{alarm.site_name}"
             lines.append(line)
-
+        
         return '\n'.join(lines)
     
     @staticmethod
@@ -1184,7 +1182,7 @@ class WhatsAppMessageFormatter:
     def format_b2s_alarms(alarms: List) -> str:
         """
         Format alarms for B2S/OMO group
-
+        
         Formats:
         - CSL: C1-LHR-03\tCSL Fault      RUR5677__S_Padri      12-24-2025 02:42:05      EC1-LHR-02599
         - RF Unit: C1-LHR-04\tLHR70\tRF Unit Maintenance Link Failure      LHR9239__S_BhogiwalGridStation      12-23-2025 23:53:46      ATLHR142
@@ -1193,18 +1191,18 @@ class WhatsAppMessageFormatter:
         """
         if not alarms:
             return ""
-
+        
         lines = []
         for alarm in alarms:
             mbu = alarm.mbu or ""
             ring_id = alarm.ftts_ring_id or "#N/A"
             b2s_id = alarm.b2s_id or ""
-
+            
             # Format B2S alarms exactly as specified: MBU AlarmType SiteName Timestamp B2S_ID
             line = f"{mbu}\t{alarm.alarm_type}\t{alarm.site_name}\t{alarm.timestamp_str}\t{b2s_id}"
 
             lines.append(line)
-
+        
         return '\n'.join(lines)
     
     @staticmethod

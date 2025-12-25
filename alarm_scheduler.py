@@ -187,8 +187,8 @@ class AlarmScheduler:
                         if not message.strip():
                             logger.error(f"DEBUG: EMPTY MESSAGE generated for {alarm_type}!")
                         else:
-                            self.send_callback(batch.group_name, message, alarm_type)
-                            logger.alarm_batch_sent(alarm_type, len(batch.alarms), batch.group_name)
+                        self.send_callback(batch.group_name, message, alarm_type)
+                        logger.alarm_batch_sent(alarm_type, len(batch.alarms), batch.group_name)
                     
                     # Send toggle alarms (if not skipped for this MBU)
                     if batch.toggle_alarms and not alarm_processor.should_skip_toggle_for_mbu(mbu):
