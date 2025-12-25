@@ -338,8 +338,9 @@ class AlarmProcessor:
     ) -> ProcessedAlarm:
         """Create a ProcessedAlarm object"""
         
-        # Generate unique ID
-        alarm_id = f"{alarm_type}_{site_code}_{timestamp_str}".replace(" ", "_").replace(":", "-")
+        # Generate unique ID - include raw_data to allow duplicates
+        import hashlib
+        alarm_id = hashlib.md5(f"{alarm_type}_{site_code}_{timestamp_str}_{raw_data}".encode()).hexdigest()[:16]
         
         # Determine category
         category = self._categorize_alarm(alarm_type)
@@ -675,8 +676,22 @@ class AlarmProcessor:
         return stats
 
 
-# Create global instance
-alarm_processor = AlarmProcessor()
+# Lazy global instance to avoid import-time initialization issues
+class _LazyAlarmProcessor:
+    """Lazy wrapper to avoid creating AlarmProcessor on import"""
+    _instance = None
+
+    @classmethod
+    def get_instance(cls):
+        if cls._instance is None:
+            cls._instance = AlarmProcessor()
+        return cls._instance
+
+    def __getattr__(self, name):
+        return getattr(self.get_instance(), name)
+
+# Create lazy instance
+alarm_processor = _LazyAlarmProcessor()
 
 
 # Test function

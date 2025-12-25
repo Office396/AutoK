@@ -13,6 +13,7 @@ import queue
 
 from config import settings, AlarmTypes
 from alarm_processor import ProcessedAlarm, AlarmBatch, alarm_processor
+from whatsapp_handler import WhatsAppHandler, WhatsAppMessageFormatter
 from logger_module import logger
 
 
@@ -180,13 +181,19 @@ class AlarmScheduler:
                     
                     # Send regular alarms
                     if batch.alarms:
-                        message = alarm_processor.format_mbu_message(batch.alarms)
-                        self.send_callback(batch.group_name, message, alarm_type)
-                        logger.alarm_batch_sent(alarm_type, len(batch.alarms), batch.group_name)
+                        logger.info(f"DEBUG: Processing {len(batch.alarms)} alarms for {alarm_type} in group {batch.group_name}")
+                        message = WhatsAppMessageFormatter.format_mbu_alarms(batch.alarms, alarm_type)
+                        logger.info(f"DEBUG: Generated MBU message for {alarm_type}: length={len(message)}, preview='{message[:100]}'")
+                        if not message.strip():
+                            logger.error(f"DEBUG: EMPTY MESSAGE generated for {alarm_type}!")
+                        else:
+                            self.send_callback(batch.group_name, message, alarm_type)
+                            logger.alarm_batch_sent(alarm_type, len(batch.alarms), batch.group_name)
                     
                     # Send toggle alarms (if not skipped for this MBU)
                     if batch.toggle_alarms and not alarm_processor.should_skip_toggle_for_mbu(mbu):
-                        toggle_message = alarm_processor.format_toggle_message(batch.toggle_alarms)
+                        toggle_message = WhatsAppMessageFormatter.format_toggle_alarms(batch.toggle_alarms)
+                        logger.info(f"DEBUG: Generated toggle message: length={len(toggle_message)}, preview='{toggle_message[:100]}'")
                         self.send_callback(batch.group_name, toggle_message, f"{alarm_type} (Toggle)")
                         logger.alarm_batch_sent(f"{alarm_type} (Toggle)", len(batch.toggle_alarms), batch.group_name)
             
@@ -196,7 +203,7 @@ class AlarmScheduler:
                 if alarm_type in type_batches:
                     batch = type_batches[alarm_type]
                     if batch.alarms:
-                        message = alarm_processor.format_b2s_message(batch.alarms)
+                        message = WhatsAppMessageFormatter.format_b2s_alarms(batch.alarms)
                         self.send_callback(batch.group_name, message, alarm_type)
                         logger.alarm_batch_sent(alarm_type, len(batch.alarms), batch.group_name)
             
@@ -206,7 +213,7 @@ class AlarmScheduler:
                 if alarm_type in type_batches:
                     batch = type_batches[alarm_type]
                     if batch.alarms:
-                        message = alarm_processor.format_omo_message(batch.alarms)
+                        message = WhatsAppMessageFormatter.format_omo_alarms(batch.alarms)
                         self.send_callback(batch.group_name, message, alarm_type)
                         logger.alarm_batch_sent(alarm_type, len(batch.alarms), batch.group_name)
                         

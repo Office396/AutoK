@@ -59,40 +59,66 @@ class SiteInfo:
         self.omo_company = self._get_omo_company(self.power_status)
     
     def _get_b2s_company(self, power_status: str) -> Optional[str]:
-        """Get B2S company from power status"""
+        """Get B2S company from power status with intelligent matching"""
         if not power_status:
             return None
-        ps_lower = power_status.lower().strip()
-        
+
+        # Normalize the power status - handle case, spaces, and common variations
+        ps_normalized = power_status.lower().strip()
+
+        # Remove extra spaces and normalize separators
+        ps_normalized = ' '.join(ps_normalized.split())
+        ps_normalized = ps_normalized.replace('/', ' ').replace('\\', ' ').replace('-', ' ')
+
         b2s_patterns = {
-            "ATL": ["guest/atl", "atl"],
-            "Edotco": ["guest/edotco", "edotco"],
-            "Enfrashare": ["guest/enfrashare", "enfrashare"],
-            "Tawal": ["guest/tawal", "tawal"]
+            "ATL": ["guest atl", "atl", "atlantic"],
+            "Edotco": ["guest edotco", "edotco", "e dotco", "e.co"],
+            "Enfrashare": ["guest enfrashare", "enfrashare", "enfra share", "enfra"],
+            "Tawal": ["guest tawal", "tawal"]
         }
-        
+
         for company, patterns in b2s_patterns.items():
             for pattern in patterns:
-                if pattern in ps_lower:
+                # Check if pattern exists in normalized string
+                if pattern in ps_normalized:
                     return company
+
+                # Also check if normalized string contains key parts
+                pattern_parts = pattern.split()
+                if all(part in ps_normalized for part in pattern_parts):
+                    return company
+
         return None
     
     def _get_omo_company(self, power_status: str) -> Optional[str]:
-        """Get OMO company from power status"""
+        """Get OMO company from power status with intelligent matching"""
         if not power_status:
             return None
-        ps_lower = power_status.lower().strip()
-        
+
+        # Normalize the power status - handle case, spaces, and common variations
+        ps_normalized = power_status.lower().strip()
+
+        # Remove extra spaces and normalize separators
+        ps_normalized = ' '.join(ps_normalized.split())
+        ps_normalized = ps_normalized.replace('/', ' ').replace('\\', ' ').replace('-', ' ')
+
         omo_patterns = {
-            "Zong": ["guest/zong", "cm-pak", "cmpak", "jazz guest/cm-pak", "jazz host/cm-pak"],
-            "Ufone": ["guest/ufone", "jazz guest/ufone", "jazz host/ufone"],
-            "Telenor": ["guest/telenor", "jazz guest/telenor"]
+            "Zong": ["guest zong", "cm pak", "cmpak", "jazz guest cm pak", "jazz host cm pak", "zong"],
+            "Ufone": ["guest ufone", "jazz guest ufone", "jazz host ufone", "ufone"],
+            "Telenor": ["guest telenor", "jazz guest telenor", "telenor"]
         }
-        
+
         for company, patterns in omo_patterns.items():
             for pattern in patterns:
-                if pattern in ps_lower:
+                # Check if pattern exists in normalized string
+                if pattern in ps_normalized:
                     return company
+
+                # Also check if normalized string contains key parts
+                pattern_parts = pattern.split()
+                if all(part in ps_normalized for part in pattern_parts):
+                    return company
+
         return None
     
     @property

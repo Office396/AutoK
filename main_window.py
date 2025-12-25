@@ -41,12 +41,38 @@ class MainWindow(ctk.CTk):
         # Configure colors
         self.configure(fg_color=Colors.BG_DARK)
 
-        # ===== ADD THESE LINES FOR SMOOTH UI =====
+        # ===== UI OPTIMIZATIONS FOR SMOOTH PERFORMANCE =====
         # Disable window transparency for better performance
         self.attributes('-alpha', 1.0)
-        
+
+        # Configure for better performance
+        self.configure(fg_color=Colors.BG_DARK)
+
         # Update idle tasks for smoother rendering
         self.update_idletasks()
+
+        # Optimize drawing - reduce flicker
+        self.option_add('*tearOff', False)
+
+        # Set up proper threading for UI updates
+        self.after(100, self._setup_ui_updates)
+
+    def _setup_ui_updates(self):
+        """Set up periodic UI updates for smooth performance"""
+        # Update UI every 500ms for smooth stats display
+        self.after(500, self._update_ui_stats)
+
+    def _update_ui_stats(self):
+        """Update UI stats periodically"""
+        try:
+            # Update stats if dashboard is active
+            if hasattr(self, 'current_view') and isinstance(self.current_view, DashboardView):
+                self.current_view.update_stats()
+        except:
+            pass
+
+        # Schedule next update
+        self.after(500, self._update_ui_stats)
         
         # Set DPI awareness for sharper text (Windows)
         try:

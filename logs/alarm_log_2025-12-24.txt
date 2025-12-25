@@ -1,0 +1,761 @@
+[2025-12-24 07:38:19] [INFO] WhatsApp logged in - found: #pane-side
+[2025-12-24 07:38:19] [INFO] Opening Main Topology for login...
+[2025-12-24 07:38:19] [INFO] Waiting for login page to load...
+[2025-12-24 07:38:24] [INFO] Logging in to Huawei MAE Portal...
+[2025-12-24 07:38:24] [INFO] Username: HUWMSTEM
+[2025-12-24 07:38:39] [INFO] Already logged in
+[2025-12-24 07:38:39] [INFO] Waiting for portal to load after login...
+[2025-12-24 07:38:48] [INFO] Opening CSL Fault...
+[2025-12-24 07:38:51] [INFO] Opening RF Unit...
+[2025-12-24 07:38:54] [INFO] Opening NodeB Cell...
+[2025-12-24 07:38:56] [INFO] Opening All Alarms...
+[2025-12-24 07:38:59] [SUCCESS] Both browsers started successfully
+[2025-12-24 07:38:59] [INFO] Checking WhatsApp connection...
+[2025-12-24 07:38:59] [INFO] Initializing WhatsApp handler status...
+[2025-12-24 07:38:59] [WARNING] Tab handle not found for WhatsApp Web
+[2025-12-24 07:38:59] [DEBUG] WhatsApp connected - found: #pane-side
+[2025-12-24 07:38:59] [INFO] WhatsApp status changed to: Connected
+[2025-12-24 07:38:59] [SUCCESS] WhatsApp is now connected!
+[2025-12-24 07:38:59] [INFO] WhatsApp handler status: Connected
+[2025-12-24 07:38:59] [INFO] Starting WhatsApp message sender...
+[2025-12-24 07:38:59] [INFO] WhatsApp message sender started
+[2025-12-24 07:38:59] [INFO] Starting alarm scheduler...
+[2025-12-24 07:38:59] [INFO] Alarm scheduler started
+[2025-12-24 07:38:59] [INFO] Starting portal monitor...
+[2025-12-24 07:38:59] [INFO] Starting portal check cycle...
+[2025-12-24 07:38:59] [INFO] Portal monitor started (interval: 30s)
+[2025-12-24 07:38:59] [INFO] Checking portal: CSL Fault
+[2025-12-24 07:38:59] [INFO] Exporting alarms from CSL Fault...
+[2025-12-24 07:38:59] [SUCCESS] Automation started successfully!
+[2025-12-24 07:38:59] [INFO] Refreshing portal to get latest alarms...
+[2025-12-24 07:39:04] [INFO] Waiting for alarm table to load...
+[2025-12-24 07:39:25] [INFO] Table not found in main page, checking iframes...
+[2025-12-24 07:39:25] [INFO] Found 2 iframes
+[2025-12-24 07:39:25] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-24 07:39:25] [INFO] Export operations will use iframe context
+[2025-12-24 07:39:25] [INFO] Clicking export button for C1 OML Fault...
+[2025-12-24 07:39:29] [INFO] Selecting 'All' alarms option...
+[2025-12-24 07:39:32] [INFO] Waiting for export dialog...
+[2025-12-24 07:39:32] [INFO] Ensuring XLSX format is selected...
+[2025-12-24 07:39:49] [INFO] Clicking OK to start export...
+[2025-12-24 07:39:49] [INFO] Waiting for file download...
+[2025-12-24 07:39:50] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251224073949201.xlsx
+[2025-12-24 07:39:50] [DEBUG] Switched back to default content after export operations
+[2025-12-24 07:39:50] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251224073949201.xlsx
+[2025-12-24 07:39:50] [INFO] Processed 3 alarms from C:\wd\Autok\exports\CurrentAlarms20251224073949201.xlsx
+[2025-12-24 07:39:50] [INFO] Processed 3 alarms from CSL Fault
+[2025-12-24 07:39:50] [INFO] Found 3 alarms from CSL Fault (3 new)
+[2025-12-24 07:39:50] [INFO] Checking portal: All Alarms
+[2025-12-24 07:39:50] [INFO] Exporting alarms from All Alarms...
+[2025-12-24 07:39:50] [INFO] Refreshing portal to get latest alarms...
+[2025-12-24 07:39:55] [INFO] Waiting for alarm table to load...
+[2025-12-24 07:40:16] [INFO] Table not found in main page, checking iframes...
+[2025-12-24 07:40:16] [INFO] Found 5 iframes
+[2025-12-24 07:40:16] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-24 07:40:16] [INFO] Export operations will use iframe context
+[2025-12-24 07:40:16] [INFO] Clicking export button for c1-c2 All Alarm...
+[2025-12-24 07:40:20] [INFO] Selecting 'All' alarms option...
+[2025-12-24 07:40:23] [INFO] Waiting for export dialog...
+[2025-12-24 07:40:23] [INFO] Ensuring XLSX format is selected...
+[2025-12-24 07:40:40] [INFO] Clicking OK to start export...
+[2025-12-24 07:40:40] [INFO] Waiting for file download...
+[2025-12-24 07:40:42] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251224074040158.xlsx
+[2025-12-24 07:40:42] [DEBUG] Switched back to default content after export operations
+[2025-12-24 07:40:42] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251224074040158.xlsx
+[2025-12-24 07:40:42] [INFO] Processed 181 alarms from C:\wd\Autok\exports\CurrentAlarms20251224074040158.xlsx
+[2025-12-24 07:40:42] [INFO] Processed 181 alarms from All Alarms
+[2025-12-24 07:40:42] [INFO] Found 181 alarms from All Alarms (181 new)
+[2025-12-24 07:40:47] [INFO] Checking portal: RF Unit
+[2025-12-24 07:40:47] [INFO] Exporting alarms from RF Unit...
+[2025-12-24 07:40:47] [INFO] Refreshing portal to get latest alarms...
+[2025-12-24 07:40:52] [INFO] Waiting for alarm table to load...
+[2025-12-24 07:41:13] [INFO] Table not found in main page, checking iframes...
+[2025-12-24 07:41:13] [INFO] Found 3 iframes
+[2025-12-24 07:41:13] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-24 07:41:13] [INFO] Export operations will use iframe context
+[2025-12-24 07:41:13] [INFO] Clicking export button for RF-Unit AR...
+[2025-12-24 07:41:17] [INFO] Selecting 'All' alarms option...
+[2025-12-24 07:41:20] [INFO] Waiting for export dialog...
+[2025-12-24 07:41:20] [INFO] Ensuring XLSX format is selected...
+[2025-12-24 07:41:37] [INFO] Clicking OK to start export...
+[2025-12-24 07:41:37] [INFO] Waiting for file download...
+[2025-12-24 07:41:38] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251224074137198.xlsx
+[2025-12-24 07:41:38] [DEBUG] Switched back to default content after export operations
+[2025-12-24 07:41:38] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251224074137198.xlsx
+[2025-12-24 07:41:38] [INFO] Processed 28 alarms from C:\wd\Autok\exports\CurrentAlarms20251224074137198.xlsx
+[2025-12-24 07:41:38] [INFO] Processed 28 alarms from RF Unit
+[2025-12-24 07:41:38] [INFO] Found 28 alarms from RF Unit (9 new)
+[2025-12-24 07:41:38] [INFO] Checking portal: NodeB Cell
+[2025-12-24 07:41:38] [INFO] Exporting alarms from NodeB Cell...
+[2025-12-24 07:41:38] [INFO] Refreshing portal to get latest alarms...
+[2025-12-24 07:41:43] [INFO] Waiting for alarm table to load...
+[2025-12-24 07:42:04] [INFO] Table not found in main page, checking iframes...
+[2025-12-24 07:42:04] [INFO] Found 4 iframes
+[2025-12-24 07:42:04] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-24 07:42:04] [INFO] Export operations will use iframe context
+[2025-12-24 07:42:04] [INFO] Clicking export button for C1 NodeB UMTS Cell Unavailable...
+[2025-12-24 07:42:08] [INFO] Selecting 'All' alarms option...
+[2025-12-24 07:42:11] [INFO] Waiting for export dialog...
+[2025-12-24 07:42:11] [INFO] Ensuring XLSX format is selected...
+[2025-12-24 07:42:28] [INFO] Clicking OK to start export...
+[2025-12-24 07:42:28] [INFO] Waiting for file download...
+[2025-12-24 07:42:31] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251224074228179.xlsx
+[2025-12-24 07:42:31] [DEBUG] Switched back to default content after export operations
+[2025-12-24 07:42:31] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251224074228179.xlsx
+[2025-12-24 07:42:31] [INFO] Processed 25 alarms from C:\wd\Autok\exports\CurrentAlarms20251224074228179.xlsx
+[2025-12-24 07:42:31] [INFO] Processed 25 alarms from NodeB Cell
+[2025-12-24 07:42:31] [INFO] Found 25 alarms from NodeB Cell (7 new)
+[2025-12-24 07:42:31] [INFO] Total new alarms this cycle: 200
+[2025-12-24 07:42:31] [INFO] Waiting 30s for next check...
+[2025-12-24 07:43:01] [INFO] Starting portal check cycle...
+[2025-12-24 07:43:01] [INFO] Checking portal: CSL Fault
+[2025-12-24 07:43:01] [INFO] Exporting alarms from CSL Fault...
+[2025-12-24 07:43:01] [INFO] Refreshing portal to get latest alarms...
+[2025-12-24 07:43:06] [INFO] Waiting for alarm table to load...
+[2025-12-24 07:43:27] [INFO] Table not found in main page, checking iframes...
+[2025-12-24 07:43:27] [INFO] Found 2 iframes
+[2025-12-24 07:43:27] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-24 07:43:27] [INFO] Export operations will use iframe context
+[2025-12-24 07:43:27] [INFO] Clicking export button for C1 OML Fault...
+[2025-12-24 07:43:31] [INFO] Selecting 'All' alarms option...
+[2025-12-24 07:43:34] [INFO] Waiting for export dialog...
+[2025-12-24 07:43:34] [INFO] Ensuring XLSX format is selected...
+[2025-12-24 07:43:51] [INFO] Clicking OK to start export...
+[2025-12-24 07:43:51] [INFO] Waiting for file download...
+[2025-12-24 07:43:52] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251224074351898.xlsx
+[2025-12-24 07:43:52] [DEBUG] Switched back to default content after export operations
+[2025-12-24 07:43:52] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251224074351898.xlsx
+[2025-12-24 07:43:52] [INFO] Processed 3 alarms from C:\wd\Autok\exports\CurrentAlarms20251224074351898.xlsx
+[2025-12-24 07:43:52] [INFO] Processed 3 alarms from CSL Fault
+[2025-12-24 07:43:52] [INFO] Found 3 alarms from CSL Fault (0 new)
+[2025-12-24 07:43:53] [INFO] Checking portal: All Alarms
+[2025-12-24 07:43:53] [INFO] Exporting alarms from All Alarms...
+[2025-12-24 07:43:53] [INFO] Refreshing portal to get latest alarms...
+[2025-12-24 07:43:59] [INFO] Waiting for alarm table to load...
+[2025-12-24 07:44:19] [INFO] Table not found in main page, checking iframes...
+[2025-12-24 07:44:19] [INFO] Found 5 iframes
+[2025-12-24 07:44:19] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-24 07:44:19] [INFO] Export operations will use iframe context
+[2025-12-24 07:44:19] [INFO] Clicking export button for c1-c2 All Alarm...
+[2025-12-24 07:44:24] [INFO] Selecting 'All' alarms option...
+[2025-12-24 07:44:27] [INFO] Waiting for export dialog...
+[2025-12-24 07:44:27] [INFO] Ensuring XLSX format is selected...
+[2025-12-24 07:44:43] [INFO] Clicking OK to start export...
+[2025-12-24 07:44:44] [INFO] Waiting for file download...
+[2025-12-24 07:44:46] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251224074444083.xlsx
+[2025-12-24 07:44:46] [DEBUG] Switched back to default content after export operations
+[2025-12-24 07:44:46] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251224074444083.xlsx
+[2025-12-24 07:44:46] [INFO] Processed 204 alarms from C:\wd\Autok\exports\CurrentAlarms20251224074444083.xlsx
+[2025-12-24 07:44:46] [INFO] Processed 204 alarms from All Alarms
+[2025-12-24 07:44:46] [INFO] Found 204 alarms from All Alarms (25 new)
+[2025-12-24 07:44:53] [INFO] Checking portal: RF Unit
+[2025-12-24 07:44:53] [INFO] Exporting alarms from RF Unit...
+[2025-12-24 07:44:53] [INFO] Refreshing portal to get latest alarms...
+[2025-12-24 07:44:58] [INFO] Waiting for alarm table to load...
+[2025-12-24 07:45:14] [INFO] Forcing send of all pending alarms...
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Low Voltage | Count: 3 | Group: MBU-C1-LHR-07
+[2025-12-24 07:45:14] [INFO] Attempting to send message to: MBU-C1-LHR-07
+[2025-12-24 07:45:14] [INFO] DEBUG send_message: Entry point - group=MBU-C1-LHR-07, msg_len=172
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Low Voltage (Toggle) | Count: 1 | Group: MBU-C1-LHR-07
+[2025-12-24 07:45:14] [INFO] WhatsApp status changed to: Sending Message
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Low Voltage | Count: 8 | Group: MBU C1-LHR-02
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Low Voltage | Count: 5 | Group: MBU C1-LHR-08 Hotline
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Low Voltage | Count: 3 | Group: MBU C1-LHR-06 Hotline
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Low Voltage | Count: 9 | Group: MBU C1 LHR-05
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Low Voltage | Count: 5 | Group: C1-LHR-03
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Low Voltage | Count: 2 | Group: MBU C1-LHR-04
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Low Voltage | Count: 9 | Group: Jazz Enfrashare MPL C1
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Low Voltage | Count: 13 | Group: Jazz~edotco C1 & C4
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Low Voltage | Count: 2 | Group: JAZZ ATL CA-LHR-C1
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: AC Main Failure | Count: 12 | Group: C1-LHR-03
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: AC Main Failure | Count: 5 | Group: MBU-C1-LHR-07
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: AC Main Failure | Count: 10 | Group: MBU C1-LHR-08 Hotline
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: AC Main Failure | Count: 15 | Group: MBU C1-LHR-02
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: AC Main Failure (Toggle) | Count: 2 | Group: MBU C1-LHR-02
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: AC Main Failure | Count: 6 | Group: MBU C1-LHR-06 Hotline
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: AC Main Failure | Count: 17 | Group: MBU C1 LHR-05
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: AC Main Failure | Count: 4 | Group: MBU C1-LHR-04
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: AC Main Failure | Count: 16 | Group: Jazz Enfrashare MPL C1
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: AC Main Failure | Count: 15 | Group: Jazz~edotco C1 & C4
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: AC Main Failure | Count: 2 | Group: JAZZ ATL CA-LHR-C1
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: AC Main Failure | Count: 1 | Group: MPL JAZZ & CMPAK
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Genset running | Count: 5 | Group: MBU C1-LHR-08 Hotline
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Genset running | Count: 9 | Group: MBU C1-LHR-02
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Genset running | Count: 6 | Group: C1-LHR-03
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Genset running | Count: 3 | Group: MBU C1-LHR-06 Hotline
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Genset running | Count: 7 | Group: MBU C1 LHR-05
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Genset running | Count: 1 | Group: C1-LHR-MBU-01
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Genset running | Count: 1 | Group: MBU C1-LHR-04
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Genset running | Count: 1 | Group: TAWAL - Jazz (Central-A)
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Genset running | Count: 3 | Group: Jazz Enfrashare MPL C1
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Genset running | Count: 1 | Group: JAZZ ATL CA-LHR-C1
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Genset running | Count: 2 | Group: Jazz~edotco C1 & C4
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: System on Battery | Count: 6 | Group: C1-LHR-03
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: System on Battery | Count: 4 | Group: MBU C1-LHR-06 Hotline
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: System on Battery | Count: 9 | Group: MBU C1 LHR-05
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: System on Battery | Count: 1 | Group: MBU-C1-LHR-07
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: System on Battery (Toggle) | Count: 1 | Group: MBU-C1-LHR-07
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: System on Battery | Count: 3 | Group: MBU C1-LHR-08 Hotline
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: System on Battery | Count: 8 | Group: MBU C1-LHR-02
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: System on Battery | Count: 2 | Group: MBU C1-LHR-04
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: System on Battery | Count: 9 | Group: Jazz~edotco C1 & C4
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: System on Battery | Count: 3 | Group: Jazz Enfrashare MPL C1
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: System on Battery | Count: 5 | Group: JAZZ ATL CA-LHR-C1
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: System on Battery | Count: 1 | Group: TAWAL - Jazz (Central-A)
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Battery High Temp (Toggle) | Count: 1 | Group: C1-LHR-MBU-01
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Battery High Temp | Count: 7 | Group: MBU C1 LHR-05
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Battery High Temp | Count: 2 | Group: MBU C1-LHR-06 Hotline
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Battery High Temp | Count: 4 | Group: C1-LHR-03
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Battery High Temp | Count: 2 | Group: MBU C1-LHR-02
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Battery High Temp | Count: 1 | Group: MBU-C1-LHR-07
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Battery High Temp | Count: 4 | Group: MBU C1-LHR-04
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Battery High Temp | Count: 2 | Group: Jazz Enfrashare MPL C1
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Battery High Temp | Count: 5 | Group: Jazz~edotco C1 & C4
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Battery High Temp | Count: 1 | Group: JAZZ ATL CA-LHR-C1
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Battery High Temp | Count: 3 | Group: MPL JAZZ & CMPAK
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Battery High Temp | Count: 1 | Group: TP JAZZ Shared Sites C1
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: RF Unit Maintenance Link Failure | Count: 3 | Group: MBU-C1-LHR-07
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: RF Unit Maintenance Link Failure | Count: 1 | Group: MBU C1-LHR-02
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: RF Unit Maintenance Link Failure | Count: 1 | Group: MBU C1 LHR-05
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: RF Unit Maintenance Link Failure | Count: 2 | Group: MBU C1-LHR-04
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: RF Unit Maintenance Link Failure | Count: 1 | Group: C1-LHR-03
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: RF Unit Maintenance Link Failure | Count: 2 | Group: Jazz~edotco C1 & C4
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: RF Unit Maintenance Link Failure | Count: 1 | Group: JAZZ ATL CA-LHR-C1
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Cell Unavailable | Count: 1 | Group: MBU-C1-LHR-07
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Cell Unavailable | Count: 2 | Group: MBU C1-LHR-04
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Cell Unavailable | Count: 2 | Group: MBU C1 LHR-05
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Cell Unavailable | Count: 2 | Group: JAZZ ATL CA-LHR-C1
+[2025-12-24 07:45:14] [ALARM] BATCH SENT: Cell Unavailable | Count: 2 | Group: Jazz~edotco C1 & C4
+[2025-12-24 07:45:14] [INFO] DEBUG send_message: Switching to WhatsApp tab
+[2025-12-24 07:45:14] [INFO] DEBUG send_message: Finding group MBU-C1-LHR-07
+[2025-12-24 07:45:19] [INFO] Table not found in main page, checking iframes...
+[2025-12-24 07:45:19] [INFO] Found 3 iframes
+[2025-12-24 07:45:19] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-24 07:45:19] [INFO] Export operations will use iframe context
+[2025-12-24 07:45:19] [INFO] Clicking export button for RF-Unit AR...
+[2025-12-24 07:45:23] [INFO] Selecting 'All' alarms option...
+[2025-12-24 07:45:26] [INFO] Waiting for export dialog...
+[2025-12-24 07:45:26] [INFO] Ensuring XLSX format is selected...
+[2025-12-24 07:45:28] [INFO] Clicked group: MBU-C1-LHR-07
+[2025-12-24 07:45:28] [INFO] DEBUG send_message: Group opened, waiting for chat to load...
+[2025-12-24 07:45:30] [INFO] DEBUG send_message: Finding message input
+[2025-12-24 07:45:30] [INFO] DEBUG _find_clickable_element: Finding message_input
+[2025-12-24 07:45:43] [INFO] Clicking OK to start export...
+[2025-12-24 07:45:43] [INFO] Waiting for file download...
+[2025-12-24 07:45:44] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251224074543362.xlsx
+[2025-12-24 07:45:44] [DEBUG] Switched back to default content after export operations
+[2025-12-24 07:45:44] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251224074543362.xlsx
+[2025-12-24 07:45:44] [INFO] Processed 28 alarms from C:\wd\Autok\exports\CurrentAlarms20251224074543362.xlsx
+[2025-12-24 07:45:44] [INFO] Processed 28 alarms from RF Unit
+[2025-12-24 07:45:44] [INFO] Found 28 alarms from RF Unit (1 new)
+[2025-12-24 07:45:44] [INFO] Checking portal: NodeB Cell
+[2025-12-24 07:45:44] [INFO] Exporting alarms from NodeB Cell...
+[2025-12-24 07:45:44] [INFO] Refreshing portal to get latest alarms...
+[2025-12-24 07:45:50] [INFO] Waiting for alarm table to load...
+[2025-12-24 07:46:10] [INFO] Table not found in main page, checking iframes...
+[2025-12-24 07:46:10] [INFO] Found 4 iframes
+[2025-12-24 07:46:10] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-24 07:46:10] [INFO] Export operations will use iframe context
+[2025-12-24 07:46:10] [INFO] Clicking export button for C1 NodeB UMTS Cell Unavailable...
+[2025-12-24 07:46:14] [INFO] Selecting 'All' alarms option...
+[2025-12-24 07:46:18] [INFO] Waiting for export dialog...
+[2025-12-24 07:46:18] [INFO] Ensuring XLSX format is selected...
+[2025-12-24 07:46:34] [INFO] Clicking OK to start export...
+[2025-12-24 07:46:35] [INFO] Waiting for file download...
+[2025-12-24 07:46:38] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251224074635059.xlsx
+[2025-12-24 07:46:38] [DEBUG] Switched back to default content after export operations
+[2025-12-24 07:46:38] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251224074635059.xlsx
+[2025-12-24 07:46:38] [INFO] Processed 29 alarms from C:\wd\Autok\exports\CurrentAlarms20251224074635059.xlsx
+[2025-12-24 07:46:38] [INFO] Processed 29 alarms from NodeB Cell
+[2025-12-24 07:46:38] [INFO] Found 29 alarms from NodeB Cell (3 new)
+[2025-12-24 07:46:39] [INFO] Total new alarms this cycle: 29
+[2025-12-24 07:46:39] [INFO] Waiting 30s for next check...
+[2025-12-24 07:47:09] [INFO] Starting portal check cycle...
+[2025-12-24 07:47:09] [INFO] Checking portal: CSL Fault
+[2025-12-24 07:47:09] [INFO] Exporting alarms from CSL Fault...
+[2025-12-24 07:47:09] [INFO] Refreshing portal to get latest alarms...
+[2025-12-24 07:47:14] [INFO] Waiting for alarm table to load...
+[2025-12-24 07:47:33] [ERROR] DEBUG _find_clickable_element: Could not find message_input after 15s
+[2025-12-24 07:47:33] [ERROR] DEBUG send_message: Could not find message input - TIMEOUT
+[2025-12-24 07:47:33] [ERROR] DEBUG send_message: This means WhatsApp chat UI didn't load or selectors are wrong
+[2025-12-24 07:47:33] [WARNING] Retrying message to MBU-C1-LHR-07 (attempt 1/3)
+[2025-12-24 07:47:35] [INFO] Table not found in main page, checking iframes...
+[2025-12-24 07:47:35] [INFO] Found 2 iframes
+[2025-12-24 07:47:35] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-24 07:47:35] [INFO] Export operations will use iframe context
+[2025-12-24 07:47:35] [INFO] Clicking export button for C1 OML Fault...
+[2025-12-24 07:47:38] [INFO] Attempting to send message to: MBU-C1-LHR-07
+[2025-12-24 07:47:38] [INFO] DEBUG send_message: Entry point - group=MBU-C1-LHR-07, msg_len=76
+[2025-12-24 07:47:38] [INFO] WhatsApp status changed to: Sending Message
+[2025-12-24 07:47:38] [INFO] DEBUG send_message: Switching to WhatsApp tab
+[2025-12-24 07:47:38] [INFO] DEBUG send_message: Finding group MBU-C1-LHR-07
+[2025-12-24 07:47:39] [INFO] Selecting 'All' alarms option...
+[2025-12-24 07:47:42] [INFO] Waiting for export dialog...
+[2025-12-24 07:47:42] [INFO] Ensuring XLSX format is selected...
+[2025-12-24 07:47:51] [INFO] Clicked group: MBU-C1-LHR-07
+[2025-12-24 07:47:51] [INFO] DEBUG send_message: Group opened, waiting for chat to load...
+[2025-12-24 07:47:53] [INFO] DEBUG send_message: Finding message input
+[2025-12-24 07:47:53] [INFO] DEBUG _find_clickable_element: Finding message_input
+[2025-12-24 07:47:59] [INFO] Clicking OK to start export...
+[2025-12-24 07:47:59] [INFO] Waiting for file download...
+[2025-12-24 07:48:00] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251224074759580.xlsx
+[2025-12-24 07:48:00] [DEBUG] Switched back to default content after export operations
+[2025-12-24 07:48:00] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251224074759580.xlsx
+[2025-12-24 07:48:00] [INFO] Processed 3 alarms from C:\wd\Autok\exports\CurrentAlarms20251224074759580.xlsx
+[2025-12-24 07:48:00] [INFO] Processed 3 alarms from CSL Fault
+[2025-12-24 07:48:00] [INFO] Found 3 alarms from CSL Fault (0 new)
+[2025-12-24 07:48:00] [INFO] Checking portal: All Alarms
+[2025-12-24 07:48:00] [INFO] Exporting alarms from All Alarms...
+[2025-12-24 07:48:00] [INFO] Refreshing portal to get latest alarms...
+[2025-12-24 07:48:06] [INFO] Waiting for alarm table to load...
+[2025-12-24 07:48:26] [INFO] Table not found in main page, checking iframes...
+[2025-12-24 07:48:26] [INFO] Found 5 iframes
+[2025-12-24 07:48:26] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-24 07:48:26] [INFO] Export operations will use iframe context
+[2025-12-24 07:48:26] [INFO] Clicking export button for c1-c2 All Alarm...
+[2025-12-24 07:48:31] [INFO] Selecting 'All' alarms option...
+[2025-12-24 07:48:34] [INFO] Waiting for export dialog...
+[2025-12-24 07:48:34] [INFO] Ensuring XLSX format is selected...
+[2025-12-24 07:48:51] [INFO] Clicking OK to start export...
+[2025-12-24 07:48:51] [INFO] Waiting for file download...
+[2025-12-24 07:48:53] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251224074851243.xlsx
+[2025-12-24 07:48:53] [DEBUG] Switched back to default content after export operations
+[2025-12-24 07:48:53] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251224074851243.xlsx
+[2025-12-24 07:48:53] [INFO] Processed 206 alarms from C:\wd\Autok\exports\CurrentAlarms20251224074851243.xlsx
+[2025-12-24 07:48:53] [INFO] Processed 206 alarms from All Alarms
+[2025-12-24 07:48:53] [INFO] Found 206 alarms from All Alarms (6 new)
+[2025-12-24 07:48:58] [INFO] Checking portal: RF Unit
+[2025-12-24 07:48:58] [INFO] Exporting alarms from RF Unit...
+[2025-12-24 07:48:58] [INFO] Refreshing portal to get latest alarms...
+[2025-12-24 07:49:03] [INFO] Waiting for alarm table to load...
+[2025-12-24 07:49:24] [INFO] Table not found in main page, checking iframes...
+[2025-12-24 07:49:24] [INFO] Found 3 iframes
+[2025-12-24 07:49:24] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-24 07:49:24] [INFO] Export operations will use iframe context
+[2025-12-24 07:49:24] [INFO] Clicking export button for RF-Unit AR...
+[2025-12-24 07:49:28] [INFO] Selecting 'All' alarms option...
+[2025-12-24 07:49:31] [INFO] Waiting for export dialog...
+[2025-12-24 07:49:31] [INFO] Ensuring XLSX format is selected...
+[2025-12-24 07:49:48] [INFO] Clicking OK to start export...
+[2025-12-24 07:49:48] [INFO] Waiting for file download...
+[2025-12-24 07:49:49] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251224074948501.xlsx
+[2025-12-24 07:49:49] [DEBUG] Switched back to default content after export operations
+[2025-12-24 07:49:49] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251224074948501.xlsx
+[2025-12-24 07:49:49] [INFO] Processed 36 alarms from C:\wd\Autok\exports\CurrentAlarms20251224074948501.xlsx
+[2025-12-24 07:49:49] [INFO] Processed 36 alarms from RF Unit
+[2025-12-24 07:49:49] [INFO] Found 36 alarms from RF Unit (1 new)
+[2025-12-24 07:49:50] [INFO] Checking portal: NodeB Cell
+[2025-12-24 07:49:50] [INFO] Exporting alarms from NodeB Cell...
+[2025-12-24 07:49:50] [INFO] Refreshing portal to get latest alarms...
+[2025-12-24 07:49:55] [INFO] Waiting for alarm table to load...
+[2025-12-24 07:49:56] [ERROR] DEBUG _find_clickable_element: Could not find message_input after 15s
+[2025-12-24 07:49:56] [ERROR] DEBUG send_message: Could not find message input - TIMEOUT
+[2025-12-24 07:49:56] [ERROR] DEBUG send_message: This means WhatsApp chat UI didn't load or selectors are wrong
+[2025-12-24 07:49:56] [WARNING] Retrying message to MBU-C1-LHR-07 (attempt 1/3)
+[2025-12-24 07:50:01] [INFO] Attempting to send message to: MBU C1-LHR-08 Hotline
+[2025-12-24 07:50:01] [INFO] DEBUG send_message: Entry point - group=MBU C1-LHR-08 Hotline, msg_len=304
+[2025-12-24 07:50:01] [INFO] WhatsApp status changed to: Sending Message
+[2025-12-24 07:50:01] [INFO] DEBUG send_message: Switching to WhatsApp tab
+[2025-12-24 07:50:01] [INFO] DEBUG send_message: Finding group MBU C1-LHR-08 Hotline
+[2025-12-24 07:50:14] [INFO] Clicked group: MBU C1-LHR-08 Hotline
+[2025-12-24 07:50:14] [INFO] DEBUG send_message: Group opened, waiting for chat to load...
+[2025-12-24 07:50:16] [INFO] Table not found in main page, checking iframes...
+[2025-12-24 07:50:16] [INFO] Found 4 iframes
+[2025-12-24 07:50:16] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-24 07:50:16] [INFO] Export operations will use iframe context
+[2025-12-24 07:50:16] [INFO] Clicking export button for C1 NodeB UMTS Cell Unavailable...
+[2025-12-24 07:50:16] [INFO] DEBUG send_message: Finding message input
+[2025-12-24 07:50:16] [INFO] DEBUG _find_clickable_element: Finding message_input
+[2025-12-24 07:50:20] [INFO] Selecting 'All' alarms option...
+[2025-12-24 07:50:23] [INFO] Waiting for export dialog...
+[2025-12-24 07:50:24] [INFO] Ensuring XLSX format is selected...
+[2025-12-24 07:50:40] [INFO] Clicking OK to start export...
+[2025-12-24 07:50:40] [INFO] Waiting for file download...
+[2025-12-24 07:50:42] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251224075040843.xlsx
+[2025-12-24 07:50:42] [DEBUG] Switched back to default content after export operations
+[2025-12-24 07:50:42] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251224075040843.xlsx
+[2025-12-24 07:50:42] [INFO] Processed 29 alarms from C:\wd\Autok\exports\CurrentAlarms20251224075040843.xlsx
+[2025-12-24 07:50:42] [INFO] Processed 29 alarms from NodeB Cell
+[2025-12-24 07:50:42] [INFO] Found 29 alarms from NodeB Cell (1 new)
+[2025-12-24 07:50:43] [INFO] Total new alarms this cycle: 8
+[2025-12-24 07:50:43] [INFO] Waiting 30s for next check...
+[2025-12-24 07:51:13] [INFO] Starting portal check cycle...
+[2025-12-24 07:51:13] [INFO] Checking portal: CSL Fault
+[2025-12-24 07:51:13] [INFO] Exporting alarms from CSL Fault...
+[2025-12-24 07:51:13] [INFO] Refreshing portal to get latest alarms...
+[2025-12-24 07:51:18] [INFO] Waiting for alarm table to load...
+[2025-12-24 07:51:26] [INFO] DEBUG _find_clickable_element: Found message_input with footer div[contenteditable="true"]
+[2025-12-24 07:51:26] [INFO] DEBUG send_message: Clicking message input
+[2025-12-24 07:51:26] [INFO] DEBUG send_message: About to type message - length: 304 characters
+[2025-12-24 07:51:26] [INFO] DEBUG send_message: First 100 chars: Low Voltage	12-24-2025 07:25:26	LHR1187__S_MainParkFalconComplex
+Low Voltage	12-24-2025 06:27:03	LHR
+[2025-12-24 07:51:26] [INFO] DEBUG send_message: Re-focusing before typing
+[2025-12-24 07:51:28] [INFO] DEBUG send_message: Message typed successfully
+[2025-12-24 07:51:28] [INFO] DEBUG send_message: Clicking send button
+[2025-12-24 07:51:28] [INFO] DEBUG _find_clickable_element: Finding send_button
+[2025-12-24 07:51:39] [INFO] Table not found in main page, checking iframes...
+[2025-12-24 07:51:39] [INFO] Found 2 iframes
+[2025-12-24 07:51:39] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-24 07:51:39] [INFO] Export operations will use iframe context
+[2025-12-24 07:51:39] [INFO] Clicking export button for C1 OML Fault...
+[2025-12-24 07:51:43] [INFO] Selecting 'All' alarms option...
+[2025-12-24 07:51:47] [INFO] Waiting for export dialog...
+[2025-12-24 07:51:47] [INFO] Ensuring XLSX format is selected...
+[2025-12-24 07:51:54] [ERROR] DEBUG _find_clickable_element: Could not find send_button after 5s
+[2025-12-24 07:51:54] [INFO] DEBUG send_message: Send button not found, pressing Enter
+[2025-12-24 07:51:55] [INFO] WhatsApp status changed to: Connected
+[2025-12-24 07:51:55] [SUCCESS] WhatsApp is now connected!
+[2025-12-24 07:51:55] [SUCCESS] DEBUG send_message: SUCCESS - Message sent to MBU C1-LHR-08 Hotline
+[2025-12-24 07:51:55] [SUCCESS] ✓ Message sent successfully to MBU C1-LHR-08 Hotline
+[2025-12-24 07:51:57] [INFO] Attempting to send message to: MBU C1-LHR-04
+[2025-12-24 07:51:57] [INFO] DEBUG send_message: Entry point - group=MBU C1-LHR-04, msg_len=115
+[2025-12-24 07:51:57] [INFO] WhatsApp status changed to: Sending Message
+[2025-12-24 07:51:57] [INFO] DEBUG send_message: Switching to WhatsApp tab
+[2025-12-24 07:51:57] [INFO] DEBUG send_message: Finding group MBU C1-LHR-04
+[2025-12-24 07:52:03] [INFO] Clicking OK to start export...
+[2025-12-24 07:52:03] [INFO] Waiting for file download...
+[2025-12-24 07:52:04] [INFO] Clicked group: MBU C1-LHR-04
+[2025-12-24 07:52:04] [INFO] DEBUG send_message: Group opened, waiting for chat to load...
+[2025-12-24 07:52:04] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251224075203814.xlsx
+[2025-12-24 07:52:04] [DEBUG] Switched back to default content after export operations
+[2025-12-24 07:52:04] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251224075203814.xlsx
+[2025-12-24 07:52:04] [INFO] Processed 3 alarms from C:\wd\Autok\exports\CurrentAlarms20251224075203814.xlsx
+[2025-12-24 07:52:04] [INFO] Processed 3 alarms from CSL Fault
+[2025-12-24 07:52:04] [INFO] Found 3 alarms from CSL Fault (0 new)
+[2025-12-24 07:52:04] [INFO] Checking portal: All Alarms
+[2025-12-24 07:52:04] [INFO] Exporting alarms from All Alarms...
+[2025-12-24 07:52:05] [INFO] Refreshing portal to get latest alarms...
+[2025-12-24 07:52:06] [INFO] DEBUG send_message: Finding message input
+[2025-12-24 07:52:06] [INFO] DEBUG _find_clickable_element: Finding message_input
+[2025-12-24 07:52:10] [INFO] Waiting for alarm table to load...
+[2025-12-24 07:52:22] [INFO] DEBUG _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2025-12-24 07:52:22] [INFO] DEBUG send_message: Clicking message input
+[2025-12-24 07:52:22] [INFO] DEBUG send_message: About to type message - length: 115 characters
+[2025-12-24 07:52:22] [INFO] DEBUG send_message: First 100 chars: Low Voltage	12-23-2025 12:04:38	LHR3236__S_MahirSufiPark
+Low Voltage	12-23-2025 11:47:39	LHR6243__S_
+[2025-12-24 07:52:22] [INFO] DEBUG send_message: Re-focusing before typing
+[2025-12-24 07:52:22] [INFO] DEBUG send_message: Message typed successfully
+[2025-12-24 07:52:22] [INFO] DEBUG send_message: Clicking send button
+[2025-12-24 07:52:22] [INFO] DEBUG _find_clickable_element: Finding send_button
+[2025-12-24 07:52:31] [INFO] Table not found in main page, checking iframes...
+[2025-12-24 07:52:31] [INFO] Found 5 iframes
+[2025-12-24 07:52:31] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-24 07:52:31] [INFO] Export operations will use iframe context
+[2025-12-24 07:52:31] [INFO] Clicking export button for c1-c2 All Alarm...
+[2025-12-24 07:52:35] [INFO] Selecting 'All' alarms option...
+[2025-12-24 07:52:38] [INFO] Waiting for export dialog...
+[2025-12-24 07:52:38] [INFO] Ensuring XLSX format is selected...
+[2025-12-24 07:52:48] [ERROR] DEBUG _find_clickable_element: Could not find send_button after 5s
+[2025-12-24 07:52:48] [INFO] DEBUG send_message: Send button not found, pressing Enter
+[2025-12-24 07:52:49] [INFO] WhatsApp status changed to: Connected
+[2025-12-24 07:52:49] [SUCCESS] WhatsApp is now connected!
+[2025-12-24 07:52:49] [SUCCESS] DEBUG send_message: SUCCESS - Message sent to MBU C1-LHR-04
+[2025-12-24 07:52:49] [SUCCESS] ✓ Message sent successfully to MBU C1-LHR-04
+[2025-12-24 07:52:51] [INFO] Attempting to send message to: MBU C1-LHR-02
+[2025-12-24 07:52:51] [INFO] DEBUG send_message: Entry point - group=MBU C1-LHR-02, msg_len=197
+[2025-12-24 07:52:51] [INFO] WhatsApp status changed to: Sending Message
+[2025-12-24 07:52:51] [INFO] DEBUG send_message: Switching to WhatsApp tab
+[2025-12-24 07:52:51] [INFO] DEBUG send_message: Finding group MBU C1-LHR-02
+[2025-12-24 07:52:55] [INFO] Clicking OK to start export...
+[2025-12-24 07:52:55] [INFO] Waiting for file download...
+[2025-12-24 07:52:57] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251224075255338.xlsx
+[2025-12-24 07:52:57] [DEBUG] Switched back to default content after export operations
+[2025-12-24 07:52:57] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251224075255338.xlsx
+[2025-12-24 07:52:57] [INFO] Processed 210 alarms from C:\wd\Autok\exports\CurrentAlarms20251224075255338.xlsx
+[2025-12-24 07:52:57] [INFO] Processed 210 alarms from All Alarms
+[2025-12-24 07:52:57] [INFO] Found 210 alarms from All Alarms (9 new)
+[2025-12-24 07:52:59] [INFO] Clicked group: MBU C1-LHR-02
+[2025-12-24 07:52:59] [INFO] DEBUG send_message: Group opened, waiting for chat to load...
+[2025-12-24 07:53:01] [INFO] DEBUG send_message: Finding message input
+[2025-12-24 07:53:01] [INFO] DEBUG _find_clickable_element: Finding message_input
+[2025-12-24 07:53:02] [INFO] Checking portal: RF Unit
+[2025-12-24 07:53:02] [INFO] Exporting alarms from RF Unit...
+[2025-12-24 07:53:02] [INFO] Refreshing portal to get latest alarms...
+[2025-12-24 07:53:08] [INFO] Waiting for alarm table to load...
+[2025-12-24 07:53:16] [INFO] DEBUG _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2025-12-24 07:53:16] [INFO] DEBUG send_message: Clicking message input
+[2025-12-24 07:53:16] [INFO] DEBUG send_message: About to type message - length: 197 characters
+[2025-12-24 07:53:16] [INFO] DEBUG send_message: First 100 chars: Toggle alarm	Major	AC Main Failure	12-24-2025 07:26:52	LHR8018__S_Near_Akbar_chowk_College_Road_Mode
+[2025-12-24 07:53:16] [INFO] DEBUG send_message: Re-focusing before typing
+[2025-12-24 07:53:17] [INFO] DEBUG send_message: Message typed successfully
+[2025-12-24 07:53:17] [INFO] DEBUG send_message: Clicking send button
+[2025-12-24 07:53:17] [INFO] DEBUG _find_clickable_element: Finding send_button
+[2025-12-24 07:53:22] [INFO] DEBUG _find_clickable_element: Found send_button with button[aria-label="Send"]
+[2025-12-24 07:53:23] [INFO] WhatsApp status changed to: Connected
+[2025-12-24 07:53:23] [SUCCESS] WhatsApp is now connected!
+[2025-12-24 07:53:23] [SUCCESS] DEBUG send_message: SUCCESS - Message sent to MBU C1-LHR-02
+[2025-12-24 07:53:23] [SUCCESS] ✓ Message sent successfully to MBU C1-LHR-02
+[2025-12-24 07:53:25] [INFO] Attempting to send message to: Jazz Enfrashare MPL C1
+[2025-12-24 07:53:25] [INFO] DEBUG send_message: Entry point - group=Jazz Enfrashare MPL C1, msg_len=314
+[2025-12-24 07:53:25] [INFO] WhatsApp status changed to: Sending Message
+[2025-12-24 07:53:25] [INFO] DEBUG send_message: Switching to WhatsApp tab
+[2025-12-24 07:53:25] [INFO] DEBUG send_message: Finding group Jazz Enfrashare MPL C1
+[2025-12-24 07:53:28] [INFO] Table not found in main page, checking iframes...
+[2025-12-24 07:53:28] [INFO] Found 3 iframes
+[2025-12-24 07:53:28] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-24 07:53:28] [INFO] Export operations will use iframe context
+[2025-12-24 07:53:28] [INFO] Clicking export button for RF-Unit AR...
+[2025-12-24 07:53:32] [INFO] Clicked group: Jazz Enfrashare MPL C1
+[2025-12-24 07:53:32] [INFO] DEBUG send_message: Group opened, waiting for chat to load...
+[2025-12-24 07:53:32] [INFO] Selecting 'All' alarms option...
+[2025-12-24 07:53:34] [INFO] DEBUG send_message: Finding message input
+[2025-12-24 07:53:34] [INFO] DEBUG _find_clickable_element: Finding message_input
+[2025-12-24 07:53:36] [INFO] Waiting for export dialog...
+[2025-12-24 07:53:36] [INFO] Ensuring XLSX format is selected...
+[2025-12-24 07:53:50] [INFO] DEBUG _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2025-12-24 07:53:50] [INFO] DEBUG send_message: Clicking message input
+[2025-12-24 07:53:50] [INFO] DEBUG send_message: About to type message - length: 314 characters
+[2025-12-24 07:53:50] [INFO] DEBUG send_message: First 100 chars: C1-LHR-05	Platinum	Genset running      LHR5466__S_JalalColony      12-23-2025 22:55:58      Zain Ahm
+[2025-12-24 07:53:50] [INFO] DEBUG send_message: Re-focusing before typing
+[2025-12-24 07:53:51] [INFO] DEBUG send_message: Message typed successfully
+[2025-12-24 07:53:51] [INFO] DEBUG send_message: Clicking send button
+[2025-12-24 07:53:51] [INFO] DEBUG _find_clickable_element: Finding send_button
+[2025-12-24 07:53:52] [INFO] Clicking OK to start export...
+[2025-12-24 07:53:52] [INFO] Waiting for file download...
+[2025-12-24 07:53:53] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251224075352890.xlsx
+[2025-12-24 07:53:53] [DEBUG] Switched back to default content after export operations
+[2025-12-24 07:53:53] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251224075352890.xlsx
+[2025-12-24 07:53:53] [INFO] Processed 35 alarms from C:\wd\Autok\exports\CurrentAlarms20251224075352890.xlsx
+[2025-12-24 07:53:53] [INFO] Processed 35 alarms from RF Unit
+[2025-12-24 07:53:53] [INFO] Found 35 alarms from RF Unit (0 new)
+[2025-12-24 07:53:54] [INFO] Checking portal: NodeB Cell
+[2025-12-24 07:53:54] [INFO] Exporting alarms from NodeB Cell...
+[2025-12-24 07:53:55] [INFO] Refreshing portal to get latest alarms...
+[2025-12-24 07:53:56] [INFO] DEBUG _find_clickable_element: Found send_button with button[aria-label="Send"]
+[2025-12-24 07:53:57] [INFO] WhatsApp status changed to: Connected
+[2025-12-24 07:53:57] [SUCCESS] WhatsApp is now connected!
+[2025-12-24 07:53:57] [SUCCESS] DEBUG send_message: SUCCESS - Message sent to Jazz Enfrashare MPL C1
+[2025-12-24 07:53:57] [SUCCESS] ✓ Message sent successfully to Jazz Enfrashare MPL C1
+[2025-12-24 07:53:59] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2025-12-24 07:53:59] [INFO] DEBUG send_message: Entry point - group=Jazz~edotco C1 & C4, msg_len=239
+[2025-12-24 07:53:59] [INFO] WhatsApp status changed to: Sending Message
+[2025-12-24 07:53:59] [INFO] DEBUG send_message: Switching to WhatsApp tab
+[2025-12-24 07:53:59] [INFO] DEBUG send_message: Finding group Jazz~edotco C1 & C4
+[2025-12-24 07:54:00] [INFO] Waiting for alarm table to load...
+[2025-12-24 07:54:06] [INFO] Clicked group: Jazz~edotco C1 & C4
+[2025-12-24 07:54:06] [INFO] DEBUG send_message: Group opened, waiting for chat to load...
+[2025-12-24 07:54:08] [INFO] DEBUG send_message: Finding message input
+[2025-12-24 07:54:08] [INFO] DEBUG _find_clickable_element: Finding message_input
+[2025-12-24 07:54:20] [INFO] Table not found in main page, checking iframes...
+[2025-12-24 07:54:20] [INFO] Found 4 iframes
+[2025-12-24 07:54:20] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-24 07:54:20] [INFO] Export operations will use iframe context
+[2025-12-24 07:54:20] [INFO] Clicking export button for C1 NodeB UMTS Cell Unavailable...
+[2025-12-24 07:54:21] [ERROR] DEBUG _find_clickable_element: Error finding message_input: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: chrome=143.0.7499.169)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6559e88e5
+	0x7ff6559e8940
+	0x7ff6557c165d
+	0x7ff6557ad202
+	0x7ff6557d27af
+	0x7ff655849a29
+	0x7ff65586a5c2
+	0x7ff65580ac29
+	0x7ff65580ba93
+	0x7ff655d00640
+	0x7ff655cfaf80
+	0x7ff655d196e6
+	0x7ff655a05de4
+	0x7ff655a0ed8c
+	0x7ff6559f2004
+	0x7ff6559f21b5
+	0x7ff6559d7ee2
+	0x7ff91055e8d7
+	0x7ff910b6c53c
+
+[2025-12-24 07:54:21] [ERROR] DEBUG _find_clickable_element: Error finding message_input: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6559e88e5
+	0x7ff6559e8940
+	0x7ff6557c1465
+	0x7ff655809d83
+	0x7ff655841ee2
+	0x7ff65583c500
+	0x7ff65583b6f0
+	0x7ff65578b325
+	0x7ff655d00640
+	0x7ff655cfaf80
+	0x7ff655d196e6
+	0x7ff655a05de4
+	0x7ff655a0ed8c
+	0x7ff655789cb8
+	0x7ff655e5f008
+	0x7ff91055e8d7
+	0x7ff910b6c53c
+
+[2025-12-24 07:54:21] [ERROR] DEBUG _find_clickable_element: Error finding message_input: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6559e88e5
+	0x7ff6559e8940
+	0x7ff6557c1465
+	0x7ff655809d83
+	0x7ff655841ee2
+	0x7ff65583c500
+	0x7ff65583b6f0
+	0x7ff65578b325
+	0x7ff655d00640
+	0x7ff655cfaf80
+	0x7ff655d196e6
+	0x7ff655a05de4
+	0x7ff655a0ed8c
+	0x7ff655789cb8
+	0x7ff655e5f008
+	0x7ff91055e8d7
+	0x7ff910b6c53c
+
+[2025-12-24 07:54:21] [ERROR] DEBUG _find_clickable_element: Error finding message_input: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6559e88e5
+	0x7ff6559e8940
+	0x7ff6557c1465
+	0x7ff655809d83
+	0x7ff655841ee2
+	0x7ff65583c500
+	0x7ff65583b6f0
+	0x7ff65578b325
+	0x7ff655d00640
+	0x7ff655cfaf80
+	0x7ff655d196e6
+	0x7ff655a05de4
+	0x7ff655a0ed8c
+	0x7ff655789cb8
+	0x7ff655e5f008
+	0x7ff91055e8d7
+	0x7ff910b6c53c
+
+[2025-12-24 07:54:21] [ERROR] DEBUG _find_clickable_element: Error finding message_input: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6559e88e5
+	0x7ff6559e8940
+	0x7ff6557c1465
+	0x7ff655809d83
+	0x7ff655841ee2
+	0x7ff65583c500
+	0x7ff65583b6f0
+	0x7ff65578b325
+	0x7ff655d00640
+	0x7ff655cfaf80
+	0x7ff655d196e6
+	0x7ff655a05de4
+	0x7ff655a0ed8c
+	0x7ff655789cb8
+	0x7ff655e5f008
+	0x7ff91055e8d7
+	0x7ff910b6c53c
+
+[2025-12-24 07:54:21] [ERROR] DEBUG _find_clickable_element: Error finding message_input: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6559e88e5
+	0x7ff6559e8940
+	0x7ff6557c1465
+	0x7ff655809d83
+	0x7ff655841ee2
+	0x7ff65583c500
+	0x7ff65583b6f0
+	0x7ff65578b325
+	0x7ff655d00640
+	0x7ff655cfaf80
+	0x7ff655d196e6
+	0x7ff655a05de4
+	0x7ff655a0ed8c
+	0x7ff655789cb8
+	0x7ff655e5f008
+	0x7ff91055e8d7
+	0x7ff910b6c53c
+
+[2025-12-24 07:54:21] [ERROR] DEBUG _find_clickable_element: Error finding message_input: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6559e88e5
+	0x7ff6559e8940
+	0x7ff6557c1465
+	0x7ff655809d83
+	0x7ff655841ee2
+	0x7ff65583c500
+	0x7ff65583b6f0
+	0x7ff65578b325
+	0x7ff655d00640
+	0x7ff655cfaf80
+	0x7ff655d196e6
+	0x7ff655a05de4
+	0x7ff655a0ed8c
+	0x7ff655789cb8
+	0x7ff655e5f008
+	0x7ff91055e8d7
+	0x7ff910b6c53c
+
+[2025-12-24 07:54:21] [ERROR] DEBUG _find_clickable_element: Error finding message_input: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6559e88e5
+	0x7ff6559e8940
+	0x7ff6557c1465
+	0x7ff655809d83
+	0x7ff655841ee2
+	0x7ff65583c500
+	0x7ff65583b6f0
+	0x7ff65578b325
+	0x7ff655d00640
+	0x7ff655cfaf80
+	0x7ff655d196e6
+	0x7ff655a05de4
+	0x7ff655a0ed8c
+	0x7ff655789cb8
+	0x7ff655e5f008
+	0x7ff91055e8d7
+	0x7ff910b6c53c
+
+[2025-12-24 07:54:21] [ERROR] DEBUG _find_clickable_element: Could not find message_input after 15s
+[2025-12-24 07:54:21] [ERROR] DEBUG send_message: Could not find message input - TIMEOUT
+[2025-12-24 07:54:21] [ERROR] DEBUG send_message: This means WhatsApp chat UI didn't load or selectors are wrong
+[2025-12-24 07:54:21] [WARNING] Retrying message to Jazz~edotco C1 & C4 (attempt 1/3)
+[2025-12-24 07:54:24] [INFO] Selecting 'All' alarms option...
+[2025-12-24 07:54:24] [ERROR] Export dropdown did not appear
+[2025-12-24 07:54:24] [DEBUG] Could not check dropdown items: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6559e88e5
+	0x7ff6559e8940
+	0x7ff6557c1465
+	0x7ff655809d83
+	0x7ff655841ee2
+	0x7ff65583c500
+	0x7ff65583b6f0
+	0x7ff65578b325
+	0x7ff655d00640
+	0x7ff655cfaf80
+	0x7ff655d196e6
+	0x7ff655a05de4
+	0x7ff655a0ed8c
+	0x7ff655789cb8
+	0x7ff655e5f008
+	0x7ff91055e8d7
+	0x7ff910b6c53c
+
+[2025-12-24 07:54:24] [ERROR] Export failed for NodeB Cell
+[2025-12-24 07:54:24] [INFO] Total new alarms this cycle: 9
+[2025-12-24 07:54:24] [INFO] Waiting 30s for next check...
+[2025-12-24 07:54:26] [INFO] Attempting to send message to: C1-LHR-03
+[2025-12-24 07:54:26] [INFO] DEBUG send_message: Entry point - group=C1-LHR-03, msg_len=77
+[2025-12-24 07:54:26] [INFO] WhatsApp status changed to: Sending Message
+[2025-12-24 07:54:26] [INFO] DEBUG send_message: Switching to WhatsApp tab
+[2025-12-24 07:54:26] [INFO] DEBUG send_message: Finding group C1-LHR-03
+[2025-12-24 07:54:26] [ERROR] Could not find chat list
+[2025-12-24 07:54:26] [ERROR] DEBUG send_message: Group not found: C1-LHR-03
+[2025-12-24 07:54:26] [WARNING] Retrying message to C1-LHR-03 (attempt 1/3)
+[2025-12-24 07:54:31] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2025-12-24 07:54:31] [INFO] DEBUG send_message: Entry point - group=Jazz~edotco C1 & C4, msg_len=209
+[2025-12-24 07:54:31] [INFO] WhatsApp status changed to: Sending Message
+[2025-12-24 07:54:31] [INFO] DEBUG send_message: Switching to WhatsApp tab
+[2025-12-24 07:54:31] [INFO] DEBUG send_message: Finding group Jazz~edotco C1 & C4
+[2025-12-24 07:54:31] [ERROR] Could not find chat list
+[2025-12-24 07:54:31] [ERROR] DEBUG send_message: Group not found: Jazz~edotco C1 & C4
+[2025-12-24 07:54:31] [WARNING] Retrying message to Jazz~edotco C1 & C4 (attempt 1/3)

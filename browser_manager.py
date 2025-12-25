@@ -1,7 +1,8 @@
 """
 Browser Manager
-Manages both Portal and WhatsApp Web in the same browser instance
-Optimized for Huawei MAE Portal login
+Manages both Portal and WhatsApp Web in separate browser instances
+Optimized for Huawei MAE Portal login with session recovery
+Includes automatic session recovery for browser crashes
 """
 
 import os
@@ -21,7 +22,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import (
-    TimeoutException, 
+    TimeoutException,
     WebDriverException,
     ElementNotInteractableException,
     StaleElementReferenceException
@@ -73,7 +74,9 @@ class BrowserManager:
     }
     
     def __init__(self):
-        self.driver: Optional[webdriver.Chrome] = None
+        self.portal_driver: Optional[webdriver.Chrome] = None  # For portal monitoring
+        self.whatsapp_driver: Optional[webdriver.Chrome] = None  # Dedicated WhatsApp browser
+        self.driver: Optional[webdriver.Chrome] = None  # Backwards compatibility - points to portal_driver
         self.status = BrowserStatus()
         self.lock = threading.Lock()
         self._status_callbacks: List[Callable] = []
@@ -90,22 +93,41 @@ class BrowserManager:
             except:
                 pass
     
-    def _create_driver(self) -> webdriver.Chrome:
-        """Create Chrome WebDriver"""
+    def _create_driver(self, profile_name: str = "portal") -> webdriver.Chrome:
+        """Create Chrome WebDriver with specified profile"""
         options = Options()
         
-        CHROME_PROFILE_DIR.mkdir(parents=True, exist_ok=True)
+        # Use different profile directories for portal and WhatsApp
+        if profile_name == "whatsapp":
+            profile_dir = CHROME_PROFILE_DIR.parent / "chrome_whatsapp"
+        else:
+            # Use a dedicated directory for portal too, to avoid conflicts/corruption
+            profile_dir = CHROME_PROFILE_DIR.parent / "chrome_portal"
+        
+        profile_dir.mkdir(parents=True, exist_ok=True)
         EXPORTS_DIR.mkdir(parents=True, exist_ok=True)
         
-        options.add_argument(f"--user-data-dir={CHROME_PROFILE_DIR}")
+        options.add_argument(f"--user-data-dir={profile_dir}")
+        # Basic stable options
         options.add_argument('--ignore-certificate-errors')
         options.add_argument('--ignore-ssl-errors')
         options.add_argument('--allow-insecure-localhost')
         options.add_argument('--allow-running-insecure-content')
         options.add_argument('--start-maximized')
         options.add_argument('--disable-gpu')
-        options.add_argument('--no-sandbox')
-        options.add_argument('--disable-dev-shm-usage')
+        # options.add_argument('--no-sandbox')  # Potentially unstable on Windows
+        options.add_argument('--disable-dev-shm-usage')  # Reduce memory pressure
+        options.add_argument('--remote-allow-origins=*')  # Fix for Chrome 111+ connection issues
+        
+        # EXPERIMENTAL: Optimization flags - APPLY ONLY TO WHATSAPP
+        # These flags prevent background freezing but can cause Portal to crash
+        if profile_name == "whatsapp":
+            options.add_argument('--disable-features=CalculateNativeWinOcclusion')
+            options.add_argument('--disable-background-timer-throttling')
+            options.add_argument('--disable-backgrounding-occluded-windows')
+            options.add_argument('--disable-renderer-backgrounding')
+            options.add_argument('--disable-ipc-flooding-protection')
+        
         options.add_argument('--disable-blink-features=AutomationControlled')
         options.add_experimental_option("excludeSwitches", ["enable-automation"])
         options.add_experimental_option('useAutomationExtension', False)
@@ -170,65 +192,68 @@ class BrowserManager:
         raise Exception(f"Could not start Chrome browser.\n\nErrors:\n{error_msg}")
     
     def start(self) -> bool:
-        """Start the browser and open all required tabs"""
+        """Start both portal and WhatsApp browsers"""
         try:
             with self.lock:
-                logger.info("Starting browser...")
+                logger.info("Starting browsers...")
                 
-                self.driver = self._create_driver()
+                # Step 1: Create Portal Browser
+                logger.info("Creating portal browser...")
+                self.portal_driver = self._create_driver(profile_name="portal")
+                self.driver = self.portal_driver  # Backwards compatibility
                 self.status.is_open = True
                 
-                # Step 1: Open WhatsApp Web
-                logger.info("Opening WhatsApp Web...")
-                self.driver.get(self.WHATSAPP_URL)
-                time.sleep(4)
+                # Small delay to reduce resource spike
+                time.sleep(2)
                 
-                self.status.tab_handles[TabType.WHATSAPP] = self.driver.current_window_handle
+                # Step 2: Create WhatsApp Browser (separate profile - saves login!)
+                logger.info("Creating WhatsApp browser...")
+                self.whatsapp_driver = self._create_driver(profile_name="whatsapp")
+                
+                # Step 3: Open WhatsApp Web in its dedicated browser
+                logger.info("Opening WhatsApp Web...")
+                self.whatsapp_driver.get(self.WHATSAPP_URL)
+                time.sleep(4)
                 
                 # Check WhatsApp status
                 self._check_whatsapp_status()
                 
-                # Step 2: Open Main Topology and login
+                # Step 4: Open Main Topology in portal browser and login
                 logger.info("Opening Main Topology for login...")
-                
-                self.driver.execute_script("window.open('');")
-                time.sleep(0.5)
-                self.driver.switch_to.window(self.driver.window_handles[-1])
-                
-                self.driver.get(self.PORTAL_URLS[TabType.MAIN_TOPOLOGY])
-                self.status.tab_handles[TabType.MAIN_TOPOLOGY] = self.driver.current_window_handle
+                self.portal_driver.get(self.PORTAL_URLS[TabType.MAIN_TOPOLOGY])
+                self.status.tab_handles[TabType.MAIN_TOPOLOGY] = self.portal_driver.current_window_handle
                 
                 logger.info("Waiting for login page to load...")
                 time.sleep(5)
                 
-                # Step 3: Login
+                # Step 5: Login to portal
                 login_success = self._login_to_huawei_portal()
-                
+
                 if login_success:
                     logger.info("Waiting for portal to load after login...")
-                    time.sleep(8)
-                    self._open_other_portal_tabs()
+                    time.sleep(3)  # Reduced delay
+
+                    # Don't open all tabs at once - open them on demand
+                    logger.info("Portal ready - tabs will be opened on demand")
                 else:
                     logger.warning("Portal login may have failed, opening other tabs anyway...")
-                    time.sleep(3)
+                    time.sleep(1)
                     self._open_other_portal_tabs()
                 
-                self.switch_to_tab(TabType.MAIN_TOPOLOGY)
-                
                 self._notify_status()
-                logger.success("Browser started successfully")
+                logger.success("Both browsers started successfully")
                 return True
                 
         except Exception as e:
-            logger.error(f"Failed to start browser: {e}")
+            logger.error(f"Failed to start browsers: {e}")
             self.status.is_open = False
             raise e
     
     def _check_whatsapp_status(self):
         """Check if WhatsApp is logged in"""
         try:
-            if TabType.WHATSAPP in self.status.tab_handles:
-                self.driver.switch_to.window(self.status.tab_handles[TabType.WHATSAPP])
+            # Use whatsapp_driver instead of switching tabs
+            driver = self.whatsapp_driver if self.whatsapp_driver else self.driver
             
             time.sleep(2)
             
@@ -253,7 +278,7 @@ class BrowserManager:
             
             for selector in logged_in_selectors:
                 try:
-                    element = self.driver.find_element(By.CSS_SELECTOR, selector)
+                    element = driver.find_element(By.CSS_SELECTOR, selector)
                     if element and element.is_displayed():
                         logger.info(f"WhatsApp logged in - found: {selector}")
                         self.status.whatsapp_ready = True
@@ -263,7 +288,7 @@ class BrowserManager:
             
             # Check page source for indicators
             try:
-                page_source = self.driver.page_source.lower()
+                page_source = driver.page_source.lower()
                 
                 if 'pane-side' in page_source or 'chat-list' in page_source:
                     logger.info("WhatsApp logged in - found in page source")
@@ -286,7 +311,7 @@ class BrowserManager:
             
             for selector in qr_selectors:
                 try:
-                    qr = self.driver.find_element(By.CSS_SELECTOR, selector)
+                    qr = driver.find_element(By.CSS_SELECTOR, selector)
                     if qr and qr.is_displayed():
                         logger.warning("WhatsApp requires QR code scan")
                         self.status.whatsapp_ready = False
@@ -296,7 +321,7 @@ class BrowserManager:
             
             # Check URL
             try:
-                current_url = self.driver.current_url
+                current_url = driver.current_url
                 if 'web.whatsapp.com' in current_url:
                     # No QR found, assume logged in
                     logger.info("WhatsApp appears to be logged in")
@@ -428,42 +453,51 @@ class BrowserManager:
             logger.error(f"Portal login error: {e}")
             return False
     
-    def _open_other_portal_tabs(self):
-        """Open other portal tabs after login"""
-        other_tabs = [
-            TabType.CSL_FAULT,
-            TabType.RF_UNIT,
-            TabType.NODEB_CELL,
-            TabType.ALL_ALARMS,
-        ]
-        
-        for tab_type in other_tabs:
-            try:
-                self.driver.execute_script("window.open('');")
-                time.sleep(0.5)
-                self.driver.switch_to.window(self.driver.window_handles[-1])
-                
-                url = self.PORTAL_URLS.get(tab_type)
-                if url:
-                    logger.info(f"Opening {tab_type.value}...")
-                    self.driver.get(url)
-                    self.status.tab_handles[tab_type] = self.driver.current_window_handle
-                    time.sleep(2)
-            except Exception as e:
-                logger.error(f"Error opening tab {tab_type.value}: {e}")
+
+        logger.info("Finished opening portal tabs")
     
     def switch_to_tab(self, tab_type: TabType) -> bool:
-        """Switch to a specific tab"""
+        """Switch to a specific tab, opening it if necessary"""
         try:
             handle = self.status.tab_handles.get(tab_type)
             if handle:
                 self.driver.switch_to.window(handle)
                 self.status.active_tab = tab_type
                 return True
-            logger.warning(f"Tab handle not found for {tab_type.value}")
-            return False
+
+            # Tab not found - try to open it on demand
+            logger.info(f"Tab {tab_type.value} not found, opening on demand...")
+            return self._open_tab_on_demand(tab_type)
+
         except Exception as e:
             logger.error(f"Error switching to tab {tab_type.value}: {e}")
+            return False
+
+    def _open_tab_on_demand(self, tab_type: TabType) -> bool:
+        """Open a tab when first accessed"""
+        try:
+            url = self.PORTAL_URLS.get(tab_type)
+            if not url:
+                logger.error(f"No URL found for tab type {tab_type.value}")
+                return False
+
+            # Open new tab
+            self.driver.execute_script("window.open()")
+            time.sleep(0.5)
+
+            # Switch to new tab
+            self.driver.switch_to.window(self.driver.window_handles[-1])
+
+            # Navigate to URL
+            self.driver.get(url)
+            self.status.tab_handles[tab_type] = self.driver.current_window_handle
+
+            time.sleep(1)
+            logger.success(f"Successfully opened {tab_type.value} on demand")
+            return True
+
+        except Exception as e:
+            logger.error(f"Error opening tab {tab_type.value} on demand: {e}")
             return False
     
     def refresh_tab(self, tab_type: TabType) -> bool:
@@ -558,20 +592,70 @@ class BrowserManager:
         return True
     
     def close(self):
-        """Close the browser"""
+        """Close both browsers"""
         try:
-            if self.driver:
-                self.driver.quit()
-                self.driver = None
+            if self.portal_driver:
+                self.portal_driver.quit()
+                self.portal_driver = None
+            if self.whatsapp_driver:
+                self.whatsapp_driver.quit()
+                self.whatsapp_driver = None
+            self.driver = None
             self.status = BrowserStatus()
-            logger.info("Browser closed")
+            logger.info("Both browsers closed")
         except Exception as e:
-            logger.error(f"Error closing browser: {e}")
+            logger.error(f"Error closing browsers: {e}")
     
+    def is_session_alive(self) -> bool:
+        """Check if browser session is still alive"""
+        try:
+            if not self.driver:
+                return False
+
+            # Try to get current URL - this will fail if session is dead
+            self.driver.current_url
+            return True
+        except Exception:
+            return False
+
+    def recover_session(self) -> bool:
+        """Try to recover from a dead browser session"""
+        try:
+            logger.warning("Browser session lost, attempting recovery...")
+
+            # Close dead driver
+            try:
+                if self.driver:
+                    self.driver.quit()
+            except:
+                pass
+
+            # Recreate portal driver
+            self.portal_driver = self._create_driver(profile_name="portal")
+            self.driver = self.portal_driver
+            self.status.is_open = True
+
+            # Reopen Main Topology
+            self.portal_driver.get(self.PORTAL_URLS[TabType.MAIN_TOPOLOGY])
+            self.status.tab_handles[TabType.MAIN_TOPOLOGY] = self.portal_driver.current_window_handle
+
+            logger.success("Browser session recovered")
+            return True
+
+        except Exception as e:
+            logger.error(f"Session recovery failed: {e}")
+            return False
+
+    def ensure_session_alive(self) -> bool:
+        """Ensure browser session is alive, recover if needed"""
+        if not self.is_session_alive():
+            return self.recover_session()
+        return True
+
     def get_driver(self) -> Optional[webdriver.Chrome]:
         """Get the WebDriver instance"""
         return self.driver
-    
+
     def get_status(self) -> BrowserStatus:
         """Get current browser status"""
         return self.status

@@ -108,6 +108,9 @@ class PortalMonitor:
         
         while self.running:
             try:
+                # No pause needed with dual browsers!
+                # if whatsapp_handler.sending_active: ...
+                
                 all_new_alarms = []
                 
                 logger.info(f"Starting portal check cycle...")
@@ -202,7 +205,7 @@ class PortalMonitor:
                         if alarm.mbu:
                             self.stats.alarms_by_mbu[alarm.mbu] += 1
                         
-                        logger.info(f"New alarm: {alarm.alarm_type} - {alarm.site_code} - {alarm.mbu}")
+                        # logger.info(f"New alarm: {alarm.alarm_type} - {alarm.site_code} - {alarm.mbu}")
             
             # Return BOTH all current alarms (for GUI display) and true new alarms (for notification)
             return processed_alarms, new_alarms

@@ -1,0 +1,7 @@
+{
+  "projectId": "e2b4b5fb-26f5-41b5-a903-422514309964",
+  "createdAt": 1766622949677,
+  "startupCommands": [
+    "python main.py"
+  ]
+}
