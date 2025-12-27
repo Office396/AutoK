@@ -1,17 +1,10 @@
-2025/12/27-22:26:53.257 f14 Reusing MANIFEST C:\wd\Autok\chrome_portal\Default\Session Storage/MANIFEST-000001
-2025/12/27-22:26:53.258 f14 Recovering log #30
-2025/12/27-22:26:53.259 f14 Level-0 table #33: started
-2025/12/27-22:26:53.267 f14 Level-0 table #33: 13302 bytes OK
-2025/12/27-22:26:53.271 f14 Delete type=0 #30
-2025/12/27-22:26:53.272 f14 Compacting 4@0 + 1@1 files
-2025/12/27-22:26:53.280 f14 Generated table #35@0: 28 keys, 744 bytes
-2025/12/27-22:26:53.280 f14 Compacted 4@0 + 1@1 files => 744 bytes
-2025/12/27-22:26:53.281 f14 compacted to: files[ 0 1 1 0 0 0 0 ]
-2025/12/27-22:26:53.282 f14 Delete type=2 #25
-2025/12/27-22:26:53.282 f14 Delete type=2 #27
-2025/12/27-22:26:53.282 f14 Delete type=2 #29
-2025/12/27-22:26:53.282 f14 Delete type=2 #31
-2025/12/27-22:26:53.282 f14 Delete type=2 #33
-2025/12/27-22:35:05.653 f14 Level-0 table #37: started
-2025/12/27-22:35:05.657 f14 Level-0 table #37: 15160 bytes OK
-2025/12/27-22:35:05.660 f14 Delete type=0 #34
+2025/12/27-23:17:44.916 1690 Creating DB C:\wd\Autok\chrome_portal\Default\Session Storage since it was missing.
+2025/12/27-23:17:44.940 1690 Reusing MANIFEST C:\wd\Autok\chrome_portal\Default\Session Storage/MANIFEST-000001
+2025/12/27-23:24:57.480 1690 Level-0 table #5: started
+2025/12/27-23:24:57.485 1690 Level-0 table #5: 16550 bytes OK
+2025/12/27-23:24:57.488 1690 Delete type=0 #3
+2025/12/27-23:36:57.509 1690 Level-0 table #7: started
+2025/12/27-23:36:57.513 1690 Level-0 table #7: 14546 bytes OK
+2025/12/27-23:36:57.516 1690 Delete type=0 #4
+2025/12/27-23:48:21.061 860 Level-0 table #9: started
+2025/12/27-23:48:21.066 860 Level-0 table #9: 14612 bytes OK

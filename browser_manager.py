@@ -93,20 +93,43 @@ class BrowserManager:
             except:
                 pass
     
+    def _cleanup_profile_locks(self, profile_dir: Path):
+        """Clean up Chrome lock files to prevent profile corruption errors"""
+        try:
+            lock_files = [
+                "SingletonLock",
+                "SingletonSocket",
+                "Parent.lock"
+            ]
+            for lock_file in lock_files:
+                lock_path = profile_dir / lock_file
+                if lock_path.exists():
+                    try:
+                        lock_path.unlink()
+                        logger.info(f"Removed stale lock file: {lock_file}")
+                    except Exception as e:
+                        logger.warning(f"Could not remove lock file {lock_file}: {e}")
+        except Exception as e:
+            logger.error(f"Error during lock file cleanup: {e}")
+
     def _create_driver(self, profile_name: str = "portal") -> webdriver.Chrome:
         """Create Chrome WebDriver with specified profile"""
         options = Options()
         
-        # Use root-level chrome directories to maintain session persistence
-        profile_dir = BASE_DIR / f"chrome_{profile_name}"
+        # Use standard profiles directory
+        profile_dir = PROFILES_DIR / profile_name
         
-        # Ensure path is absolute and uses correct separators for Windows
+        # Ensure path is absolute and use posix format for Chrome flags to avoid escape char issues
         profile_dir = profile_dir.resolve()
         profile_dir.mkdir(parents=True, exist_ok=True)
+        
+        # CLEANUP LOCKS BEFORE STARTING
+        self._cleanup_profile_locks(profile_dir)
+        
         EXPORTS_DIR.mkdir(parents=True, exist_ok=True)
         
         logger.info(f"Using browser profile at: {profile_dir}")
-        options.add_argument(f"--user-data-dir={str(profile_dir)}")
+        options.add_argument(f"--user-data-dir={profile_dir.as_posix()}")
         # Basic stable options
         options.add_argument('--ignore-certificate-errors')
         options.add_argument('--ignore-ssl-errors')
@@ -128,8 +151,16 @@ class BrowserManager:
             options.add_argument('--disable-features=IsolateOrigins,site-per-process')
             options.add_argument('--disable-site-isolation-trials')
             options.add_argument('--disable-blink-features=AutomationControlled')
+            
+            # CRITICAL: Prevent Chrome from throttling background tabs (WhatsApp)
+            options.add_argument('--disable-background-timer-throttling')
+            options.add_argument('--disable-backgrounding-occluded-windows')
+            options.add_argument('--disable-renderer-backgrounding')
+            options.add_argument('--disable-ipc-flooding-protection')
+            options.add_argument('--no-sandbox') # Extra stability
+            
             # User agent to mimic a real browser more closely
-            options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36')
+            options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36')
         
         # Optimization flags - REMOVED for WhatsApp to prevent loading issues
         # These flags can cause WhatsApp Web to not load QR code properly
@@ -203,9 +234,27 @@ class BrowserManager:
         error_msg = "\n".join(errors)
         raise Exception(f"Could not start Chrome browser.\n\nErrors:\n{error_msg}")
     
+    def _kill_chrome_processes(self):
+        """Kill any existing Chrome processes to free up profiles"""
+        try:
+            import os
+            if os.name == 'nt':
+                # Windows
+                os.system('taskkill /F /IM chrome.exe /T >nul 2>&1')
+                os.system('taskkill /F /IM chromedriver.exe /T >nul 2>&1')
+            else:
+                # Linux/Mac
+                os.system('pkill -f chrome >/dev/null 2>&1')
+        except:
+            pass
+
     def start(self) -> bool:
         """Start both portal and WhatsApp browsers"""
         try:
+            # We no longer kill all chrome processes automatically to avoid interrupting other sessions
+            # self._kill_chrome_processes()
+            # time.sleep(1)
+            
             with self.lock:
                 logger.info("Starting browsers...")
                 

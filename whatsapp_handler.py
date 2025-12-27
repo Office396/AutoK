@@ -410,6 +410,10 @@ class WhatsAppHandler:
                 logger.error(f"Sender loop error: {e}")
                 time.sleep(2)
     
+    def _keep_alive(self):
+        """No-op keep-alive"""
+        pass
+
     def send_message(self, group_name: str, message: str, retry_count: int = 3) -> MessageResult:
         driver = self.get_driver()
         if not driver:

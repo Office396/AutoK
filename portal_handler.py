@@ -233,10 +233,14 @@ class PortalHandler:
             return False
 
         selectors = self.SELECTORS.get(selector_key, [])
+        
+        # If multiple selectors are provided, divide the timeout among them
+        # to avoid extremely long waits when element is not present
+        per_selector_timeout = max(2, timeout // len(selectors)) if selectors else timeout
 
         for by, value in selectors:
             try:
-                WebDriverWait(driver, timeout).until(
+                WebDriverWait(driver, per_selector_timeout).until(
                     EC.visibility_of_element_located((by, value))
                 )
                 return True
@@ -530,7 +534,7 @@ class PortalHandler:
                 is_right_tab = False
                 if portal_type == PortalType.MAIN_TOPOLOGY and ('MainTopoTitle' in current_url or 'home' in current_url.lower()):
                     is_right_tab = True
-                elif portal_type == PortalType.CSL_FAULT and ('fmAlarmView' in current_url and 'switch' in current_url):
+                elif portal_type == PortalType.CSL_FAULT and ('fmAlarmView' in current_url and 'switch' in current_url and 'templateId' not in current_url):
                     is_right_tab = True
                 elif portal_type == PortalType.RF_UNIT and ('templateId835' in current_url or 'templateId=835' in current_url):
                     is_right_tab = True
@@ -606,7 +610,12 @@ class PortalHandler:
 
             expected_part = expected_urls.get(portal_type)
             if expected_part and expected_part not in current_url:
-                logger.warning(f"May not be on correct page. Expected '{expected_part}' in URL: {current_url}")
+                logger.warning(f"Mismatch: Expected '{expected_part}' in URL, but got {current_url}")
+                logger.info(f"Re-navigating to {portal_type.value} to ensure correct page...")
+                if not self.navigate_to_portal(portal_type):
+                    logger.error(f"Failed to re-navigate to {portal_type.value}")
+                    return None
+                time.sleep(5)
 
             # Wait for the alarm table to be loaded (may be in iframe)
             logger.info("Waiting for alarm table to load...")
@@ -731,23 +740,32 @@ class PortalHandler:
             logger.info("Selecting 'All' alarms option...")
 
             # Check if dropdown appears in current context (which might be an iframe)
-            if not self._wait_for_element('export_all_option', timeout=5):
-                if in_iframe_context:
-                    logger.info("Export dropdown not found in iframe, switching to default content...")
-                    driver.switch_to.default_content()
-                    
-                    # Try finding the dropdown in default content
-                    if self._wait_for_element('export_all_option', timeout=10):
-                        logger.info("Export dropdown found in default content")
-                    else:
-                        logger.error("Export dropdown did not appear in either context")
-                        return None
+            # Try once in current context, then quickly try default content
+            found_dropdown = False
+            if self._wait_for_element('export_all_option', timeout=3):
+                found_dropdown = True
+                logger.info("Export dropdown found in current context")
+            elif in_iframe_context:
+                logger.info("Export dropdown not found in iframe, quickly checking default content...")
+                driver.switch_to.default_content()
+                if self._wait_for_element('export_all_option', timeout=5):
+                    found_dropdown = True
+                    in_iframe_context = False # We are now in default content
+                    logger.info("Export dropdown found in default content")
                 else:
-                    logger.error("Export dropdown did not appear")
-                    return None
+                    # Switch back to iframe if still not found, to try again? 
+                    # Actually, usually if it's not in either, it's just not there.
+                    driver.switch_to.frame(driver.find_elements(By.TAG_NAME, "iframe")[0]) # Fallback
+            
+            if not found_dropdown:
+                logger.error(f"Export dropdown did not appear for {portal_type.value}")
+                screenshot = self.take_screenshot(f"dropdown_not_found_{portal_type.value}")
+                if screenshot:
+                    logger.info(f"Screenshot saved: {screenshot}")
+                return None
 
-            # Try multiple clicks on "All" option
-            if not self._click_element('export_all_option', timeout=10):
+            # Try to click "All" option
+            if not self._click_element('export_all_option', timeout=5):
                 logger.error("Could not select 'All' option")
                 return None
 

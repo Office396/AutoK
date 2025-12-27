@@ -1,3 +1,5 @@
-2025/12/27-20:52:36.911 399c Reusing MANIFEST C:\wd\Autok\chrome_whatsapp\Default\Site Characteristics Database/MANIFEST-000001
-2025/12/27-20:52:36.913 399c Recovering log #3
-2025/12/27-20:52:36.913 399c Reusing old log C:\wd\Autok\chrome_whatsapp\Default\Site Characteristics Database/000003.log 
+2025/12/27-23:17:50.067 93c Log #3: 4 ops saved to Table #4 OK
+2025/12/27-23:17:50.068 93c Archiving C:\wd\Autok\chrome_whatsapp\Default\Site Characteristics Database/000003.log: OK
+2025/12/27-23:17:50.068 93c Table #4: 4 entries OK
+2025/12/27-23:17:50.069 93c Archiving C:\wd\Autok\chrome_whatsapp\Default\Site Characteristics Database/MANIFEST-000001: OK
+2025/12/27-23:17:50.074 93c **** Repaired leveldb C:\wd\Autok\chrome_whatsapp\Default\Site Characteristics Database; recovered 1 files; 248 bytes. Some data may have been lost. ****

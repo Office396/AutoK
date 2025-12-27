@@ -1,77 +1,3 @@
-0:10:47 TextSelectionChanged
-0:10:50 TextSelectionChanged
-0:10:51 TextSelectionChanged
-0:10:51 TextSelectionChanged
-0:10:55 TextSelectionChanged
-0:10:55 TextSelectionChanged
-0:10:56 TextSelectionChanged
-0:15:40 Widget Closed: TooltipAura
-0:16:36 Widget Closed: TooltipAura
-0:19:42 TextSelectionChanged
-0:19:47 Widget Closed: TooltipAura
-0:22:50 Widget Closed: TooltipAura
-0:24:18 Widget Closed: TooltipAura
-0:24:34 Widget Closed: TooltipAura
-0:24:36 Widget Closed: TooltipAura
-0:25:13 Widget Closed: TooltipAura
-0:25:20 Widget Closed: TooltipAura
-0:26:02 Widget Closed: TooltipAura
-0:26:08 Widget Closed: TooltipAura
-0:27:12 Widget Closed: TooltipAura
-0:29:20 Widget Closed: TooltipAura
-0:31:48 Widget Closed: TooltipAura
-0:31:50 TextSelectionChanged
-0:31:50 TextSelectionChanged
-0:31:50 TextSelectionChanged
-0:31:50 TextSelectionChanged
-0:31:50 TextSelectionChanged
-0:31:50 TextSelectionChanged
-0:31:50 TextSelectionChanged
-0:31:50 TextSelectionChanged
-0:31:52 TextSelectionChanged
-0:31:52 TextSelectionChanged
-0:31:52 TextSelectionChanged
-0:31:52 TextSelectionChanged
-0:31:52 TextSelectionChanged
-0:31:52 TextSelectionChanged
-0:31:52 TextSelectionChanged
-0:31:52 TextSelectionChanged
-0:31:52 TextSelectionChanged
-0:31:52 TextSelectionChanged
-0:31:52 TextSelectionChanged
-0:31:53 TextSelectionChanged
-0:31:54 TextSelectionChanged
-0:31:56 Widget Closed: TooltipAura
-0:31:57 Widget Closed: TooltipAura
-0:32:03 Widget Closed: TooltipAura
-0:36:46 TextSelectionChanged
-0:36:46 TextSelectionChanged
-0:36:47 TextSelectionChanged
-0:36:50 TextSelectionChanged
-0:36:50 TextSelectionChanged
-0:36:51 TextSelectionChanged
-0:36:55 TextSelectionChanged
-0:36:55 TextSelectionChanged
-0:36:55 TextSelectionChanged
-0:36:59 TextSelectionChanged
-0:36:59 TextSelectionChanged
-0:37:00 TextSelectionChanged
-1:06:46 TextSelectionChanged
-1:06:47 TextSelectionChanged
-1:06:47 TextSelectionChanged
-1:06:51 TextSelectionChanged
-1:06:51 TextSelectionChanged
-1:06:51 TextSelectionChanged
-1:06:55 TextSelectionChanged
-1:06:55 TextSelectionChanged
-1:06:56 TextSelectionChanged
-1:06:59 TextSelectionChanged
-1:07:00 TextSelectionChanged
-1:07:00 TextSelectionChanged
-1:33:44 Browser1 Close Tab1 at 0
-0:00:00 Startup
-0:00:00 Tab1 StartNav1 #ntp #auto_toplevel
-0:00:00 Browser1 Insert active Tab1 at 0
 0:00:00 TouchMode.EnteredNonTouchMode
 0:00:00 Tab1 FinishNav1
 0:00:00 Tab1 StartNav2 #renderer-script #auto_subframe
@@ -87,3 +13,19 @@
 0:00:04 Tab1 StartNav5 #renderer-script #link
 0:00:04 Tab1 FinishNav5
 0:13:31 Browser1 Close Tab1 at 0
+0:00:00 Startup
+0:00:00 Tab1 StartNav1 #ntp #auto_toplevel
+0:00:00 Browser1 Insert active Tab1 at 0
+0:00:00 TouchMode.EnteredNonTouchMode
+0:00:00 Tab1 FinishNav1
+0:00:00 Tab1 StartNav2 #renderer-script #auto_subframe
+0:00:00 Tab1 FinishNav2
+0:00:00 Tab1 PageLoad
+0:00:00 Tab1 PageLoad #ntp
+0:00:00 Tab1 StartNav3 #renderer-script #auto_subframe
+0:00:00 Tab1 StartNav4 #typed
+0:00:00 Tab1 FinishNav3
+0:00:00 Tab1 PageLoad
+0:00:00 Tab1 FinishNav4
+0:00:01 Tab1 PageLoad
+0:30:32 Browser1 Close Tab1 at 0

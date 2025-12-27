@@ -1,3 +1,7 @@
-2025/12/27-20:52:29.719 268c Reusing MANIFEST C:\wd\Autok\chrome_portal\Default\Site Characteristics Database/MANIFEST-000001
-2025/12/27-20:52:29.720 268c Recovering log #10
-2025/12/27-20:52:29.720 268c Reusing old log C:\wd\Autok\chrome_portal\Default\Site Characteristics Database/000010.log 
+2025/12/27-23:17:44.803 b88 Log #10: 3 ops saved to Table #11 OK
+2025/12/27-23:17:44.806 b88 Archiving C:\wd\Autok\chrome_portal\Default\Site Characteristics Database/000010.log: OK
+2025/12/27-23:17:44.807 b88 Table #4: 5 entries OK
+2025/12/27-23:17:44.807 b88 Table #7: 5 entries OK
+2025/12/27-23:17:44.807 b88 Table #11: 3 entries OK
+2025/12/27-23:17:44.811 b88 Archiving C:\wd\Autok\chrome_portal\Default\Site Characteristics Database/MANIFEST-000001: OK
+2025/12/27-23:17:44.818 b88 **** Repaired leveldb C:\wd\Autok\chrome_portal\Default\Site Characteristics Database; recovered 3 files; 686 bytes. Some data may have been lost. ****
