@@ -28,7 +28,6 @@ class DashboardView(ctk.CTkFrame):
         self.on_pause: Optional[Callable] = None
         self.on_force_check: Optional[Callable] = None
         self.on_force_send: Optional[Callable] = None
-        self.on_reset_wa: Optional[Callable] = None
         
         self._create_layout()
     
@@ -89,19 +88,6 @@ class DashboardView(ctk.CTkFrame):
             "Disconnected"
         )
         self.whatsapp_status.pack(side="left")
-        
-        # Reset WhatsApp button (small icon button)
-        self.reset_wa_btn = ctk.CTkButton(
-            indicators_frame,
-            text="🔄 Reset WA",
-            font=ctk.CTkFont(size=11),
-            fg_color=Colors.BG_LIGHT,
-            hover_color=Colors.BG_MEDIUM,
-            width=80,
-            height=25,
-            command=self._on_reset_wa_click
-        )
-        self.reset_wa_btn.pack(side="left", padx=(10, 0))
         
         # Right side - Control buttons
         controls_frame = ctk.CTkFrame(header, fg_color="transparent")
@@ -315,10 +301,6 @@ class DashboardView(ctk.CTkFrame):
     def _on_force_send_click(self):
         if self.on_force_send:
             self.on_force_send()
-    
-    def _on_reset_wa_click(self):
-        if self.on_reset_wa:
-            self.on_reset_wa()
     
     def _clear_alarms(self):
         self.alarm_table.clear()

@@ -172,7 +172,6 @@ class MainWindow(ctk.CTk):
         dashboard.on_pause = self._on_pause
         dashboard.on_force_check = self._on_force_check
         dashboard.on_force_send = self._on_force_send
-        dashboard.on_reset_wa = self._on_reset_wa
         self.views["dashboard"] = dashboard
         
         # Settings
@@ -319,29 +318,6 @@ class MainWindow(ctk.CTk):
         """Handle force send button"""
         automation_controller.force_send_all()
         self._show_toast("Sending all pending alarms...", "info")
-    
-    def _on_reset_wa(self):
-        """Handle Reset WhatsApp button"""
-        if CTkMessagebox(
-            title="Reset WhatsApp?",
-            message="This will close the WhatsApp browser, delete your current session, and restart it. You will need to scan the QR code again.\n\nContinue?",
-            icon="question",
-            option_1="No",
-            option_2="Yes"
-        ).get() == "Yes":
-            
-            self._show_toast("Resetting WhatsApp session...", "info")
-            
-            def _reset():
-                success = automation_controller.reset_whatsapp()
-                if success:
-                    self.after(0, lambda: self._show_toast("WhatsApp reset successful. Please scan QR code.", "success"))
-                else:
-                    self.after(0, lambda: self._show_toast("Failed to reset WhatsApp", "error"))
-            
-            thread = threading.Thread(target=_reset)
-            thread.daemon = True
-            thread.start()
     
     def _on_settings_saved(self):
         """Handle settings saved"""

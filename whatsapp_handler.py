@@ -49,13 +49,18 @@ class MessageResult:
     timestamp: datetime = field(default_factory=datetime.now)
 
 
-@dataclass
+@dataclass(order=True)
 class QueuedMessage:
-    group_name: str
-    message: str
-    alarm_type: str
-    priority: int = 1
-    timestamp: datetime = field(default_factory=datetime.now)
+    sort_index: int = field(init=False, repr=False)
+    group_name: str = field(compare=False)
+    message: str = field(compare=False)
+    alarm_type: str = field(compare=False)
+    priority: int = field(default=1, compare=False)
+    timestamp: datetime = field(default_factory=datetime.now, compare=False)
+    sequence: int = field(default=0, compare=False)
+    
+    def __post_init__(self):
+        self.sort_index = self.priority * 1000000000 + self.sequence
 
 
 class WhatsAppMessageFormatter:
@@ -68,8 +73,13 @@ class WhatsAppMessageFormatter:
         
         lines = []
         for alarm in alarms:
-            line = f"{alarm.alarm_type}\t{alarm.timestamp_str}\t{alarm.site_name}"
-            lines.append(line)
+            atype = getattr(alarm, 'alarm_type', '') or alarm_type
+            ts = getattr(alarm, 'timestamp_str', '') or ''
+            site = getattr(alarm, 'site_name', '') or getattr(alarm, 'site_code', '') or ''
+            
+            if atype and site:
+                line = f"{atype}\t{ts}\t{site}"
+                lines.append(line)
         
         return '\n'.join(lines)
     
@@ -80,9 +90,14 @@ class WhatsAppMessageFormatter:
         
         lines = []
         for alarm in alarms:
-            severity = getattr(alarm, 'severity', 'Major')
-            line = f"Toggle alarm\t{severity}\t{alarm.alarm_type}\t{alarm.timestamp_str}\t{alarm.site_name}"
-            lines.append(line)
+            severity = getattr(alarm, 'severity', 'Major') or 'Major'
+            atype = getattr(alarm, 'alarm_type', '') or ''
+            ts = getattr(alarm, 'timestamp_str', '') or ''
+            site = getattr(alarm, 'site_name', '') or getattr(alarm, 'site_code', '') or ''
+            
+            if atype and site:
+                line = f"Toggle alarm\t{severity}\t{atype}\t{ts}\t{site}"
+                lines.append(line)
         
         return '\n'.join(lines)
     
@@ -96,9 +111,13 @@ class WhatsAppMessageFormatter:
             mbu = getattr(alarm, 'mbu', '') or ""
             ring_id = getattr(alarm, 'ftts_ring_id', '') or "#N/A"
             b2s_id = getattr(alarm, 'b2s_id', '') or ""
+            atype = getattr(alarm, 'alarm_type', '') or ''
+            site = getattr(alarm, 'site_name', '') or getattr(alarm, 'site_code', '') or ''
+            ts = getattr(alarm, 'timestamp_str', '') or ''
             
-            line = f"{mbu}\t{ring_id}\t{alarm.alarm_type}\t{alarm.site_name}\t{alarm.timestamp_str}\t{b2s_id}"
-            lines.append(line)
+            if atype and site:
+                line = f"{mbu}\t{ring_id}\t{atype}\t{site}\t{ts}\t{b2s_id}"
+                lines.append(line)
         
         return '\n'.join(lines)
     
@@ -230,6 +249,7 @@ class WhatsAppHandler:
         
         self._messages_sent = 0
         self._last_message_time: Optional[datetime] = None
+        self._message_sequence = 0
         
         self.chat_cache = CachedChatList()
         self._driver: Optional[webdriver.Chrome] = None
@@ -339,14 +359,19 @@ class WhatsAppHandler:
             logger.warning(f"Attempted to queue empty message for {group_name}")
             return
         
+        with self.lock:
+            self._message_sequence += 1
+            seq = self._message_sequence
+        
         queued = QueuedMessage(
             group_name=group_name,
             message=message,
             alarm_type=alarm_type,
-            priority=priority
+            priority=priority,
+            sequence=seq
         )
         
-        self.message_queue.put((priority, datetime.now().timestamp(), queued))
+        self.message_queue.put(queued)
         logger.info(f"Queued message for {group_name}: {alarm_type} (priority {priority})")
     
     def start_sender(self):
@@ -368,7 +393,7 @@ class WhatsAppHandler:
         while self.sending_active:
             try:
                 try:
-                    _, _, queued = self.message_queue.get(timeout=1)
+                    queued = self.message_queue.get(timeout=1)
                 except queue.Empty:
                     continue
                 
@@ -674,6 +699,7 @@ class OrderedAlarmSender:
         "AC Main Failure",
         "Battery High Temp",
         "Genset Running",
+        "DG Running",
         "Genset Operation",
         "Low Voltage",
         "System on Battery",
@@ -695,7 +721,6 @@ class OrderedAlarmSender:
         
         batches = []
         
-        # Define all groups in order
         all_groups = []
         for mbu in cls.MBU_ORDER:
             all_groups.append(('MBU', mbu))
@@ -703,23 +728,29 @@ class OrderedAlarmSender:
             all_groups.append(('B2S', b2s))
         for omo in cls.OMO_ORDER:
             all_groups.append(('OMO', omo))
+        
+        known_types = set(cls.ALARM_TYPE_ORDER)
+        all_alarm_types = set()
+        for a in alarms:
+            if hasattr(a, 'alarm_type') and a.alarm_type:
+                all_alarm_types.add(a.alarm_type)
+        
+        extended_order = list(cls.ALARM_TYPE_ORDER)
+        for atype in sorted(all_alarm_types):
+            if atype not in known_types:
+                extended_order.append(atype)
             
-        # Outer Loop: Groups
         for group_type, group_id in all_groups:
-            # Inner Loop: Alarm Types (Priority Order)
-            for alarm_type in cls.ALARM_TYPE_ORDER:
+            for alarm_type in extended_order:
                 is_toggle = alarm_type == "Toggle"
                 
-                # Filter alarms for this group and type
                 group_alarms = []
                 for a in alarms:
-                    # Match Type
                     if is_toggle:
                         if not getattr(a, 'is_toggle', False): continue
                     else:
                         if a.alarm_type != alarm_type or getattr(a, 'is_toggle', False): continue
                         
-                    # Match Group
                     if group_type == 'MBU':
                         if getattr(a, 'mbu', '') == group_id: group_alarms.append(a)
                     elif group_type == 'B2S':
@@ -730,7 +761,6 @@ class OrderedAlarmSender:
                 if not group_alarms:
                     continue
                 
-                # Get actual WhatsApp group name
                 whatsapp_group = ""
                 if group_type == 'MBU':
                     whatsapp_group = settings.get_whatsapp_group_name(group_id)
