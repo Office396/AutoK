@@ -97,14 +97,15 @@ class BrowserManager:
         """Create Chrome WebDriver with specified profile"""
         options = Options()
         
-        # Use different profile directories for portal and WhatsApp
-        profile_dir = PROFILES_DIR / profile_name
+        # Use root-level chrome directories to maintain session persistence
+        profile_dir = BASE_DIR / f"chrome_{profile_name}"
         
         # Ensure path is absolute and uses correct separators for Windows
         profile_dir = profile_dir.resolve()
         profile_dir.mkdir(parents=True, exist_ok=True)
         EXPORTS_DIR.mkdir(parents=True, exist_ok=True)
         
+        logger.info(f"Using browser profile at: {profile_dir}")
         options.add_argument(f"--user-data-dir={str(profile_dir)}")
         # Basic stable options
         options.add_argument('--ignore-certificate-errors')
@@ -637,7 +638,7 @@ class BrowserManager:
                     self.whatsapp_driver = None
                 
                 # Path to WhatsApp profile
-                profile_dir = PROFILES_DIR / "whatsapp"
+                profile_dir = BASE_DIR / "chrome_whatsapp"
                 
                 if profile_dir.exists():
                     import shutil

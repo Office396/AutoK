@@ -87,7 +87,20 @@ class DashboardView(ctk.CTkFrame):
             "WhatsApp",
             "Disconnected"
         )
-        self.whatsapp_status.pack(side="left")
+        self.whatsapp_status.pack(side="left", padx=(0, 10))
+        
+        # Reset WhatsApp button
+        self.reset_wa_btn = ctk.CTkButton(
+            indicators_frame,
+            text="🔄 Reset WA",
+            font=ctk.CTkFont(size=11),
+            fg_color=Colors.BG_LIGHT,
+            hover_color=Colors.BG_MEDIUM,
+            width=80,
+            height=25,
+            command=self._on_reset_wa_click
+        )
+        self.reset_wa_btn.pack(side="left")
         
         # Right side - Control buttons
         controls_frame = ctk.CTkFrame(header, fg_color="transparent")
@@ -301,6 +314,25 @@ class DashboardView(ctk.CTkFrame):
     def _on_force_send_click(self):
         if self.on_force_send:
             self.on_force_send()
+    
+    def _on_reset_wa_click(self):
+        """Handle Reset WhatsApp button click"""
+        from automation_controller import automation_controller
+        from CTkMessagebox import CTkMessagebox
+        
+        msg = CTkMessagebox(
+            title="Reset WhatsApp?",
+            message="This will close the WhatsApp browser and clear the current session. You will need to scan the QR code again.\n\nContinue?",
+            icon="question",
+            option_1="No",
+            option_2="Yes"
+        )
+        
+        if msg.get() == "Yes":
+            self.log("Resetting WhatsApp session...", "WARNING")
+            thread = threading.Thread(target=automation_controller.reset_whatsapp)
+            thread.daemon = True
+            thread.start()
     
     def _clear_alarms(self):
         self.alarm_table.clear()
