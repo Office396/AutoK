@@ -120,7 +120,7 @@ class PortalHandler:
             (By.XPATH, '//button[contains(.//span, "Export")]'),
             (By.XPATH, '//button[contains(text(), "Export")]'),
         ],
-        
+
         # Export dropdown options
         'export_all_option': [
             (By.ID, 'allExport'),
@@ -172,7 +172,7 @@ class PortalHandler:
         self.monitor_thread: Optional[threading.Thread] = None
         self.alarm_callback: Optional[Callable] = None
         self.status_callback: Optional[Callable] = None
-        
+
         # Download directory for exports
         self.download_dir = str(EXPORTS_DIR)
     
@@ -181,15 +181,15 @@ class PortalHandler:
     def _get_driver(self):
         """Get the driver from browser_manager"""
         return browser_manager.get_driver()
-    
+
     def _find_element(self, selector_key: str, timeout: int = 10) -> Optional[any]:
         """Find element using multiple selector strategies"""
         driver = self._get_driver()
         if not driver:
             return None
-        
+
         selectors = self.SELECTORS.get(selector_key, [])
-        
+
         for by, value in selectors:
             try:
                 element = WebDriverWait(driver, timeout).until(
@@ -200,7 +200,7 @@ class PortalHandler:
                 continue
             except Exception:
                 continue
-        
+
         return None
     
     def _find_elements(self, selector_key: str, timeout: int = 10) -> List:
@@ -208,9 +208,9 @@ class PortalHandler:
         driver = self._get_driver()
         if not driver:
             return []
-        
+
         selectors = self.SELECTORS.get(selector_key, [])
-        
+
         for by, value in selectors:
             try:
                 WebDriverWait(driver, timeout).until(
@@ -223,7 +223,7 @@ class PortalHandler:
                 continue
             except Exception:
                 continue
-        
+
         return []
     
     def _wait_for_element(self, selector_key: str, timeout: int = 10) -> bool:
@@ -246,7 +246,7 @@ class PortalHandler:
                 continue
 
         return False
-    
+
     def _click_element(self, selector_key: str, timeout: int = 10) -> bool:
         """Click an element with multiple fallback methods"""
         driver = self._get_driver()
@@ -383,29 +383,29 @@ class PortalHandler:
             welcome = self._find_element('welcome_text', timeout=3)
             if welcome:
                 return True
-            
+
             # Check URL for indication of logged-in state
             current_url = driver.current_url
             if 'Access_MainTopoTitle' in current_url or 'fmAlarmView' in current_url:
                 return True
-            
+
             # Check for login form (if present, not logged in)
             login_btn = self._find_element('login_button', timeout=2)
             if login_btn:
                 return False
-            
+
             return True  # Assume logged in if no login button found
-            
+
         except Exception:
             return False
     
     def navigate_to_portal(self, portal_type: PortalType) -> bool:
         """
         Navigate to a specific portal/alarm view
-        
+
         Args:
             portal_type: The portal type to navigate to
-            
+
         Returns:
             True if navigation successful
         """
@@ -422,28 +422,28 @@ class PortalHandler:
                 PortalType.NODEB_CELL: self.portal_urls.nodeb_cell,
                 PortalType.ALL_ALARMS: self.portal_urls.all_alarms,
             }
-            
+
             url = url_map.get(portal_type)
             if not url:
                 logger.error(f"Unknown portal type: {portal_type}")
                 return False
-            
+
             logger.info(f"Navigating to {portal_type.value}...")
             driver.get(url)
             time.sleep(3)
-            
+
             # Wait for page to load
             self._wait_for_page_load()
-            
+
             self.status.current_portal = portal_type
             self.status.last_refresh = datetime.now()
             logger.info(f"Navigated to {portal_type.value}")
-            
+
             if self.status_callback:
                 self.status_callback(self.status)
-            
+
             return True
-            
+
         except Exception as e:
             logger.error(f"Navigation error: {e}")
             return False
@@ -454,8 +454,8 @@ class PortalHandler:
             driver = self._get_driver()
             if driver:
                 WebDriverWait(driver, timeout).until(
-                lambda d: d.execute_script("return document.readyState") == "complete"
-            )
+                    lambda d: d.execute_script("return document.readyState") == "complete"
+                )
         except TimeoutException:
             logger.warning("Page load timeout")
         except Exception as e:
@@ -464,7 +464,7 @@ class PortalHandler:
     def open_all_portals_in_tabs(self) -> bool:
         """
         Open all required portals in separate tabs
-        
+
         Returns:
             True if all tabs opened successfully
         """
@@ -477,29 +477,29 @@ class PortalHandler:
             # First, open main topology (first tab)
             self.navigate_to_portal(PortalType.MAIN_TOPOLOGY)
             time.sleep(2)
-            
+
             portals = [
                 PortalType.CSL_FAULT,
                 PortalType.RF_UNIT,
                 PortalType.NODEB_CELL,
                 PortalType.ALL_ALARMS,
             ]
-            
+
             for portal in portals:
                 # Open new tab
                 driver.execute_script("window.open('');")
                 time.sleep(0.5)
-                
+
                 # Switch to new tab
                 driver.switch_to.window(driver.window_handles[-1])
-                
+
                 # Navigate to portal
                 self.navigate_to_portal(portal)
                 time.sleep(1)
-            
+
             logger.info("All portal tabs opened successfully")
             return True
-            
+
         except Exception as e:
             logger.error(f"Error opening portal tabs: {e}")
             return False
@@ -513,7 +513,7 @@ class PortalHandler:
                 return False
 
             handles = driver.window_handles
-            
+
             for handle in handles:
                 driver.switch_to.window(handle)
 
@@ -524,7 +524,7 @@ class PortalHandler:
                     pass
 
                 current_url = driver.current_url
-                
+
                 # Check if this is the right tab
                 if portal_type == PortalType.MAIN_TOPOLOGY and 'MainTopoTitle' in current_url:
                     return True
@@ -536,10 +536,10 @@ class PortalHandler:
                     return True
                 elif portal_type == PortalType.ALL_ALARMS and 'templateId592' in current_url:
                     return True
-            
+
             logger.warning(f"Could not find tab for {portal_type.value}")
             return False
-            
+
         except Exception as e:
             logger.error(f"Error switching tab: {e}")
             return False
@@ -570,10 +570,10 @@ class PortalHandler:
     def export_alarms(self, portal_type: PortalType) -> Optional[str]:
         """
         Export alarms from a portal to Excel file
-        
+
         Args:
             portal_type: The portal to export from
-            
+
         Returns:
             Path to downloaded file or None if failed
         """
@@ -601,7 +601,7 @@ class PortalHandler:
             expected_part = expected_urls.get(portal_type)
             if expected_part and expected_part not in current_url:
                 logger.warning(f"May not be on correct page. Expected '{expected_part}' in URL: {current_url}")
-            
+
             # Refresh to get latest data
             logger.info("Refreshing portal to get latest alarms...")
             self.refresh_current_portal()
@@ -684,13 +684,13 @@ class PortalHandler:
                 return None
 
             logger.info(f"Export operations will use {'iframe' if in_iframe_context else 'main page'} context")
-            
+
             # Get list of files before export
             existing_files = set(os.listdir(self.download_dir))
-            
+
             # Step 1: Click the export button (dropdown trigger)
             logger.info(f"Clicking export button for {portal_type.value}...")
-            
+
             # Wait for the page to be fully loaded and export button to be available
             time.sleep(2)
 
@@ -718,14 +718,14 @@ class PortalHandler:
                     logger.debug(f"Could not list buttons: {e}")
 
                 return None
-            
+
             # Click the export button
             if not self._click_element('export_button', timeout=5):
                 logger.error("Could not click export button")
                 return None
 
             time.sleep(2)
-            
+
             # Step 2: Select "All" from the dropdown menu
             logger.info("Selecting 'All' alarms option...")
 
@@ -755,7 +755,7 @@ class PortalHandler:
                 return None
 
             time.sleep(3)
-            
+
             # Step 3: Handle the export dialog popup
             logger.info("Waiting for export dialog...")
 
@@ -763,7 +763,7 @@ class PortalHandler:
             if not self._wait_for_element('export_popup', timeout=20):
                 logger.warning("Export popup did not appear, checking if download started...")
                 # Sometimes the download might start automatically
-            downloaded_file = self._wait_for_download(existing_files, timeout=30)
+                downloaded_file = self._wait_for_download(existing_files, timeout=30)
                 if downloaded_file:
                     logger.success(f"Export completed (auto-download): {downloaded_file}")
                     return downloaded_file
@@ -790,14 +790,14 @@ class PortalHandler:
             # Step 6: Wait for download to complete
             logger.info("Waiting for file download...")
             downloaded_file = self._wait_for_download(existing_files, timeout=60)
-            
+
             if downloaded_file:
                 logger.success(f"Export completed: {downloaded_file}")
                 return downloaded_file
             else:
                 logger.error("Export download timeout")
                 return None
-                
+
         except Exception as e:
             logger.error(f"Export error: {e}")
             import traceback
@@ -885,7 +885,7 @@ class PortalHandler:
             return ""
         except:
             return ""
-    
+
     def get_current_url(self) -> str:
         """Get current URL"""
         try:
@@ -977,7 +977,7 @@ class PortalHandler:
 
             if not filename:
                 filename = f"screenshot_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png"
-            
+
             filepath = os.path.join(str(EXPORTS_DIR), filename)
             driver.save_screenshot(filepath)
             return filepath

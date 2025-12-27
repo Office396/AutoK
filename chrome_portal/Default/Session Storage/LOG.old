@@ -1,25 +1,9 @@
-2025/12/25-07:28:31.512 1338 Reusing MANIFEST C:\wd\Autok\chrome_portal\Default\Session Storage/MANIFEST-000001
-2025/12/25-07:28:31.516 1338 Recovering log #11
-2025/12/25-07:28:31.517 1338 Level-0 table #14: started
-2025/12/25-07:28:31.532 1338 Level-0 table #14: 15693 bytes OK
-2025/12/25-07:28:31.533 1338 Recovering log #13
-2025/12/25-07:28:31.535 1338 Reusing old log C:\wd\Autok\chrome_portal\Default\Session Storage/000013.log 
-2025/12/25-07:28:31.538 1338 Delete type=0 #11
-2025/12/25-07:33:44.053 1650 Level-0 table #16: started
-2025/12/25-07:33:44.058 1650 Level-0 table #16: 18313 bytes OK
-2025/12/25-07:33:44.060 1650 Delete type=0 #13
-2025/12/25-07:33:44.061 1650 Compacting 4@0 + 1@1 files
-2025/12/25-07:33:44.065 1650 Generated table #17@0: 85 keys, 7542 bytes
-2025/12/25-07:33:44.065 1650 Compacted 4@0 + 1@1 files => 7542 bytes
-2025/12/25-07:33:44.067 1650 compacted to: files[ 0 1 1 0 0 0 0 ]
-2025/12/25-07:33:44.067 1650 Delete type=2 #7
-2025/12/25-07:33:44.068 1650 Delete type=2 #10
-2025/12/25-07:33:44.068 1650 Delete type=2 #12
-2025/12/25-07:33:44.068 1650 Delete type=2 #14
-2025/12/25-07:33:44.068 1650 Delete type=2 #16
-2025/12/25-07:41:44.053 1338 Level-0 table #19: started
-2025/12/25-07:41:44.057 1338 Level-0 table #19: 15675 bytes OK
-2025/12/25-07:41:44.059 1338 Delete type=0 #15
-2025/12/25-07:47:44.053 1338 Level-0 table #21: started
-2025/12/25-07:47:44.060 1338 Level-0 table #21: 12866 bytes OK
-2025/12/25-07:47:44.062 1338 Delete type=0 #18
+2025/12/25-04:24:49.658 1fa8 Reusing MANIFEST C:\wd\Autok\chrome_portal\Default\Session Storage/MANIFEST-000001
+2025/12/25-04:24:49.667 1fa8 Recovering log #7
+2025/12/25-04:24:49.675 1fa8 Reusing old log C:\wd\Autok\chrome_portal\Default\Session Storage/000007.log 
+2025/12/25-04:27:02.337 237c Level-0 table #11: started
+2025/12/25-04:27:02.342 237c Level-0 table #11: 15709 bytes OK
+2025/12/25-04:27:02.344 237c Delete type=0 #7
+2025/12/25-04:30:02.346 1fa8 Level-0 table #13: started
+2025/12/25-04:30:02.350 1fa8 Level-0 table #13: 13075 bytes OK
+2025/12/25-04:30:02.352 1fa8 Delete type=0 #10

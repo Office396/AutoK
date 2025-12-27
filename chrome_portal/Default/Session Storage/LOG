@@ -1,23 +1,18 @@
-2025/12/25-07:50:34.292 1760 Reusing MANIFEST C:\wd\Autok\chrome_portal\Default\Session Storage/MANIFEST-000001
-2025/12/25-07:50:34.298 1760 Recovering log #20
-2025/12/25-07:50:34.306 1760 Reusing old log C:\wd\Autok\chrome_portal\Default\Session Storage/000020.log 
-2025/12/25-07:54:46.659 1fb8 Level-0 table #24: started
-2025/12/25-07:54:46.662 1fb8 Level-0 table #24: 17801 bytes OK
-2025/12/25-07:54:46.664 1fb8 Delete type=0 #20
-2025/12/25-07:59:46.655 1760 Level-0 table #26: started
-2025/12/25-07:59:46.658 1760 Level-0 table #26: 13057 bytes OK
-2025/12/25-07:59:46.660 1760 Delete type=0 #23
-2025/12/25-07:59:46.660 1760 Compacting 4@0 + 1@1 files
-2025/12/25-07:59:46.664 1760 Generated table #27@0: 113 keys, 6350 bytes
-2025/12/25-07:59:46.664 1760 Compacted 4@0 + 1@1 files => 6350 bytes
-2025/12/25-07:59:46.666 1760 compacted to: files[ 0 1 1 0 0 0 0 ]
-2025/12/25-07:59:46.667 1760 Delete type=2 #17
-2025/12/25-07:59:46.667 1760 Delete type=2 #19
-2025/12/25-07:59:46.667 1760 Delete type=2 #21
-2025/12/25-07:59:46.667 1760 Delete type=2 #24
-2025/12/25-07:59:46.667 1760 Delete type=2 #26
-2025/12/25-08:06:46.652 1760 Level-0 table #29: started
-2025/12/25-08:06:46.657 1760 Level-0 table #29: 13821 bytes OK
-2025/12/25-08:06:46.658 1760 Delete type=0 #25
-2025/12/25-08:11:32.192 1964 Level-0 table #31: started
-2025/12/25-08:11:32.197 1964 Level-0 table #31: 12578 bytes OK
+2025/12/25-05:01:37.676 e44 Reusing MANIFEST C:\wd\Autok\chrome_portal\Default\Session Storage/MANIFEST-000001
+2025/12/25-05:01:37.685 e44 Recovering log #12
+2025/12/25-05:01:37.689 e44 Reusing old log C:\wd\Autok\chrome_portal\Default\Session Storage/000012.log 
+2025/12/25-05:03:50.075 2c20 Level-0 table #16: started
+2025/12/25-05:03:50.081 2c20 Level-0 table #16: 15776 bytes OK
+2025/12/25-05:03:50.083 2c20 Delete type=0 #12
+2025/12/25-05:06:50.077 e44 Level-0 table #18: started
+2025/12/25-05:06:50.088 e44 Level-0 table #18: 15110 bytes OK
+2025/12/25-05:06:50.092 e44 Delete type=0 #15
+2025/12/25-05:06:50.093 e44 Compacting 4@0 + 1@1 files
+2025/12/25-05:06:50.100 e44 Generated table #19@0: 113 keys, 8253 bytes
+2025/12/25-05:06:50.100 e44 Compacted 4@0 + 1@1 files => 8253 bytes
+2025/12/25-05:06:50.102 e44 compacted to: files[ 0 1 1 0 0 0 0 ]
+2025/12/25-05:06:50.103 e44 Delete type=2 #8
+2025/12/25-05:06:50.103 e44 Delete type=2 #11
+2025/12/25-05:06:50.103 e44 Delete type=2 #13
+2025/12/25-05:06:50.103 e44 Delete type=2 #16
+2025/12/25-05:06:50.103 e44 Delete type=2 #18

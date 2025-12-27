@@ -13,7 +13,7 @@ import queue
 
 from config import settings, AlarmTypes
 from alarm_processor import ProcessedAlarm, AlarmBatch, alarm_processor
-from whatsapp_handler import WhatsAppHandler, WhatsAppMessageFormatter
+from whatsapp_handler import WhatsAppHandler, WhatsAppMessageFormatter, OrderedAlarmSender
 from logger_module import logger
 
 
@@ -187,8 +187,8 @@ class AlarmScheduler:
                         if not message.strip():
                             logger.error(f"DEBUG: EMPTY MESSAGE generated for {alarm_type}!")
                         else:
-                        self.send_callback(batch.group_name, message, alarm_type)
-                        logger.alarm_batch_sent(alarm_type, len(batch.alarms), batch.group_name)
+                            self.send_callback(batch.group_name, message, alarm_type)
+                            logger.alarm_batch_sent(alarm_type, len(batch.alarms), batch.group_name)
                     
                     # Send toggle alarms (if not skipped for this MBU)
                     if batch.toggle_alarms and not alarm_processor.should_skip_toggle_for_mbu(mbu):
@@ -221,13 +221,18 @@ class AlarmScheduler:
             logger.error(f"Error sending batch alarms: {e}")
     
     def force_send_all(self):
-        """Force send all pending alarms immediately"""
+        """Force send all pending alarms immediately using ordered sending"""
         with self.lock:
+            all_alarms = []
             for alarm_type, alarms in list(self.pending_alarms.items()):
                 if alarms:
-                    self._send_batch_alarms(alarm_type, alarms)
+                    all_alarms.extend(alarms)
                     self.pending_alarms[alarm_type] = []
                     self.last_send_time[alarm_type] = datetime.now()
+            
+            if all_alarms:
+                logger.info(f"Force sending {len(all_alarms)} alarms in ordered manner...")
+                OrderedAlarmSender.send_all_ordered(all_alarms)
     
     def force_send_type(self, alarm_type: str):
         """Force send alarms of a specific type"""
