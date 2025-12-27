@@ -1,0 +1,25 @@
+[1012:7772:1227/174830.804:INFO:components\enterprise\browser\controller\chrome_browser_cloud_management_controller.cc:206] No machine level policy manager exists.
+[9644:8252:1227/174830.884:VERBOSE1:components\viz\service\main\viz_main_impl.cc:86] VizNullHypothesis is disabled (not a warning)
+[9644:8252:1227/174830.884:ERROR:gpu\ipc\service\gpu_channel_manager.cc:911] ContextResult::kFatalFailure: Failed to create shared context for virtualization.
+[12168:10600:1227/174830.905:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
+[14552:6960:1227/174830.906:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
+[9644:8252:1227/174830.939:ERROR:gpu\ipc\service\gpu_channel_manager.cc:911] ContextResult::kFatalFailure: Failed to create shared context for virtualization.
+[9644:8252:1227/174830.939:ERROR:gpu\ipc\service\gpu_channel_manager.cc:911] ContextResult::kFatalFailure: Failed to create shared context for virtualization.
+[15120:10216:1227/174831.090:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
+[14112:12296:1227/174831.235:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
+[11228:12332:1227/174831.243:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
+[11576:3352:1227/174831.596:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
+[1012:7772:1227/174831.596:INFO:CONSOLE:113] "Event handler of 'x-storagemutated-1' event must be added on the initial evaluation of worker script.", source: https://static.whatsapp.net/rsrc.php/v4/yw/r/wpTuuOEPLrn.js (113)
+[1012:7772:1227/174832.040:INFO:CONSOLE:77] "ErrorUtils caught an error:
+
+multiple-uim-roots
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. [object Object]", source: https://static.whatsapp.net/rsrc.php/v4/yP/r/UnXae5I7-4r.js (77)
+[1012:5872:1227/174838.615:ERROR:google_apis\gcm\engine\registration_request.cc:292] Registration response error message: DEPRECATED_ENDPOINT
+[1012:7772:1227/174839.183:INFO:CONSOLE:113] "Event handler of 'x-storagemutated-1' event must be added on the initial evaluation of worker script.", source: https://static.whatsapp.net/rsrc.php/v4/yw/r/wpTuuOEPLrn.js (113)
+[1012:5872:1227/174907.398:ERROR:google_apis\gcm\engine\registration_request.cc:292] Registration response error message: DEPRECATED_ENDPOINT
+[8340:4680:1227/174947.207:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
+[1012:5872:1227/174950.407:ERROR:google_apis\gcm\engine\registration_request.cc:292] Registration response error message: DEPRECATED_ENDPOINT
+[1012:5872:1227/175117.424:ERROR:google_apis\gcm\engine\registration_request.cc:292] Registration response error message: DEPRECATED_ENDPOINT
+[9644:15860:1227/175412.403:ERROR:ui\latency\latency_info.cc:106] CompositorFrameSinkSupport::MaybeSubmitCompositorFrame, LatencyInfo vector size 163 is too big.
+[1012:5872:1227/175426.645:ERROR:google_apis\gcm\engine\registration_request.cc:292] Registration response error message: DEPRECATED_ENDPOINT
