@@ -419,6 +419,87 @@ class AlarmProcessor:
         
         return datetime.now()
     
+    def get_ordered_batches(self, alarms: List[ProcessedAlarm]) -> List[Tuple[str, str, List[ProcessedAlarm], bool]]:
+        """
+        Get batches of alarms ordered specifically as requested by the user.
+        
+        Order: 
+        1. Categories: CSL -> RF -> AC -> Battery Temp -> Genset -> Low Volt -> System on Battery -> Toggle -> Cell Unavailable
+        2. Group Priority within each category: MBUs (1-8) -> B2S (ATL, Edotco, Enfra, Tawal) -> OMO (Ufone, Telenore, CMpak)
+        
+        Returns:
+            List of (group_name, alarm_type, alarms, is_toggle)
+        """
+        # Define Category Order
+        category_order = [
+            "CSL Fault",
+            "RF Unit Maintenance Link Failure",
+            "AC Main Failure",
+            "Battery High Temp",
+            "Genset Running",
+            "Genset Operation",
+            "Low Voltage",
+            "System on Battery",
+            "Toggle",  # Special handling for toggle
+            "Cell Unavailable"
+        ]
+        
+        # Define Group Order (Priority)
+        mbu_list = [f"C1-LHR-0{i}" for i in range(1, 9)]
+        b2s_list = ["ATL", "Edotco", "Enfrashare", "Tawal"]
+        omo_list = ["Ufone", "Telenor", "CMpak", "Zong", "CMPAK", "CM-PAK"]
+        
+        # Helper to get priority score for a group
+        def get_group_priority(alarm: ProcessedAlarm) -> int:
+            if alarm.mbu in mbu_list:
+                return mbu_list.index(alarm.mbu)
+            if alarm.is_b2s and alarm.b2s_company in b2s_list:
+                return 10 + b2s_list.index(alarm.b2s_company)
+            if alarm.is_omo and alarm.omo_company in omo_list:
+                return 20 + omo_list.index(alarm.omo_company)
+            return 99
+
+        batches = []
+        
+        for cat_name in category_order:
+            # Filter alarms for this category
+            if cat_name == "Toggle":
+                cat_alarms = [a for a in alarms if a.is_toggle]
+            else:
+                cat_alarms = [a for a in alarms if a.alarm_type == cat_name and not a.is_toggle]
+            
+            if not cat_alarms:
+                continue
+                
+            # Group these alarms by their target WhatsApp group
+            group_map = defaultdict(list)
+            for a in cat_alarms:
+                group_name = None
+                if a.mbu:
+                    group_name = settings.get_whatsapp_group_name(a.mbu)
+                elif a.is_b2s:
+                    group_name = settings.get_b2s_group_name(a.b2s_company)
+                elif a.is_omo:
+                    group_name = settings.get_omo_group_name(a.omo_company)
+                
+                if group_name:
+                    group_map[group_name].append(a)
+            
+            # Sort the found groups by their priority
+            sorted_groups = sorted(group_map.keys(), key=lambda g: min([get_group_priority(a) for a in group_map[g]]))
+            
+            for group_name in sorted_groups:
+                batch_alarms = group_map[group_name]
+                # Check toggle setting if this is a toggle batch
+                if cat_name == "Toggle":
+                    mbu = batch_alarms[0].mbu
+                    if self.should_skip_toggle_for_mbu(mbu):
+                        continue
+                
+                batches.append((group_name, cat_name, batch_alarms, cat_name == "Toggle"))
+                
+        return batches
+
     def group_alarms_by_mbu(self, alarms: List[ProcessedAlarm]) -> Dict[str, Dict[str, AlarmBatch]]:
         """
         Group alarms by MBU and alarm type
