@@ -524,17 +524,23 @@ class PortalHandler:
                     pass
 
                 current_url = driver.current_url
+                logger.debug(f"Checking tab with URL: {current_url}")
 
-                # Check if this is the right tab
-                if portal_type == PortalType.MAIN_TOPOLOGY and 'MainTopoTitle' in current_url:
-                    return True
-                elif portal_type == PortalType.CSL_FAULT and 'fmAlarmView?switch' in current_url and 'templateId' not in current_url:
-                    return True
-                elif portal_type == PortalType.RF_UNIT and 'templateId835' in current_url:
-                    return True
-                elif portal_type == PortalType.NODEB_CELL and 'templateId803' in current_url:
-                    return True
-                elif portal_type == PortalType.ALL_ALARMS and 'templateId592' in current_url:
+                # Check if this is the right tab - more flexible matching
+                is_right_tab = False
+                if portal_type == PortalType.MAIN_TOPOLOGY and ('MainTopoTitle' in current_url or 'home' in current_url.lower()):
+                    is_right_tab = True
+                elif portal_type == PortalType.CSL_FAULT and ('fmAlarmView' in current_url and 'switch' in current_url):
+                    is_right_tab = True
+                elif portal_type == PortalType.RF_UNIT and ('templateId835' in current_url or 'templateId=835' in current_url):
+                    is_right_tab = True
+                elif portal_type == PortalType.NODEB_CELL and ('templateId803' in current_url or 'templateId=803' in current_url):
+                    is_right_tab = True
+                elif portal_type == PortalType.ALL_ALARMS and ('templateId592' in current_url or 'templateId=592' in current_url):
+                    is_right_tab = True
+                
+                if is_right_tab:
+                    logger.info(f"Found existing tab for {portal_type.value}")
                     return True
 
             logger.warning(f"Could not find tab for {portal_type.value}")
@@ -601,11 +607,6 @@ class PortalHandler:
             expected_part = expected_urls.get(portal_type)
             if expected_part and expected_part not in current_url:
                 logger.warning(f"May not be on correct page. Expected '{expected_part}' in URL: {current_url}")
-
-            # Refresh to get latest data
-            logger.info("Refreshing portal to get latest alarms...")
-            self.refresh_current_portal()
-            time.sleep(3)
 
             # Wait for the alarm table to be loaded (may be in iframe)
             logger.info("Waiting for alarm table to load...")
@@ -729,25 +730,21 @@ class PortalHandler:
             # Step 2: Select "All" from the dropdown menu
             logger.info("Selecting 'All' alarms option...")
 
-            # Wait for the dropdown to appear and be visible
-            if not self._wait_for_element('export_all_option', timeout=15):
-                logger.error("Export dropdown did not appear")
-
-                # Debug: Check what's in the dropdown
-                try:
-                    dropdown_items = driver.find_elements(By.CSS_SELECTOR, '.eui-menu-item, .eui-menu li')
-                    logger.info(f"Found {len(dropdown_items)} dropdown items:")
-                    for i, item in enumerate(dropdown_items[:5]):  # Show first 5
-                        try:
-                            text = item.text.strip()
-                            item_id = item.get_attribute('id')
-                            logger.info(f"  Item {i}: '{text}' (id: {item_id})")
-                        except:
-                            pass
-                except Exception as e:
-                    logger.debug(f"Could not check dropdown items: {e}")
-
-                return None
+            # Check if dropdown appears in current context (which might be an iframe)
+            if not self._wait_for_element('export_all_option', timeout=5):
+                if in_iframe_context:
+                    logger.info("Export dropdown not found in iframe, switching to default content...")
+                    driver.switch_to.default_content()
+                    
+                    # Try finding the dropdown in default content
+                    if self._wait_for_element('export_all_option', timeout=10):
+                        logger.info("Export dropdown found in default content")
+                    else:
+                        logger.error("Export dropdown did not appear in either context")
+                        return None
+                else:
+                    logger.error("Export dropdown did not appear")
+                    return None
 
             # Try multiple clicks on "All" option
             if not self._click_element('export_all_option', timeout=10):
@@ -760,7 +757,26 @@ class PortalHandler:
             logger.info("Waiting for export dialog...")
 
             # Wait for the export popup to appear
-            if not self._wait_for_element('export_popup', timeout=20):
+            if not self._wait_for_element('export_popup', timeout=10):
+                # Try switching context if not found
+                logger.info("Export popup not found in current context, trying fallback...")
+                
+                # If we were in an iframe, try default content
+                # If we were in default content, try iframes? (Less likely but possible)
+                if in_iframe_context:
+                    driver.switch_to.default_content()
+                    if self._wait_for_element('export_popup', timeout=10):
+                        logger.info("Export popup found in default content")
+                        in_iframe_context = False # Now we are in default content
+                    else:
+                        logger.warning("Export popup did not appear in default content either")
+                else:
+                    # Try checking iframes for the popup?
+                    # This is rare but some UI frameworks put popups in dedicated iframes
+                    pass
+
+            # Final check for popup
+            if not self._wait_for_element('export_popup', timeout=5):
                 logger.warning("Export popup did not appear, checking if download started...")
                 # Sometimes the download might start automatically
                 downloaded_file = self._wait_for_download(existing_files, timeout=30)
@@ -939,9 +955,8 @@ class PortalHandler:
                             logger.warning(f"Could not switch to {portal.value} tab, trying navigation")
                             self.navigate_to_portal(portal)
                         
-                        # Refresh
-                        self.refresh_current_portal()
-                        time.sleep(2)
+                        # No refresh needed - portals show real-time data
+                        time.sleep(1)
                         
                         # Get alarm data
                         alarms = self.get_alarm_data_from_table()
@@ -1019,8 +1034,8 @@ class PortalDataFetcher:
                            PortalType.NODEB_CELL, PortalType.ALL_ALARMS]:
             try:
                 self.portal.switch_to_tab(portal_type)
-                self.portal.refresh_current_portal()
-                time.sleep(2)
+                # No refresh needed - portals show real-time data
+                time.sleep(1)
                 
                 alarms = self.portal.get_alarm_data_from_table()
                 results[portal_type] = alarms
@@ -1037,8 +1052,8 @@ class PortalDataFetcher:
         """Fetch alarms from a specific portal"""
         try:
             self.portal.switch_to_tab(portal_type)
-            self.portal.refresh_current_portal()
-            time.sleep(2)
+            # No refresh needed - portals show real-time data
+            time.sleep(1)
             
             alarms = self.portal.get_alarm_data_from_table()
             self.cached_data[portal_type] = alarms

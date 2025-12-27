@@ -1,10 +1,414 @@
-[2025-12-27 20:47:13] [INFO] ==================================================
-[2025-12-27 20:47:13] [INFO] Starting Telecom Alarm Automation
-[2025-12-27 20:47:13] [INFO] ==================================================
-[2025-12-27 20:47:13] [INFO] Loading master data...
-[2025-12-27 20:47:13] [SUCCESS] Loaded 1695 sites
-[2025-12-27 20:47:13] [INFO] Starting browser...
-[2025-12-27 20:47:13] [INFO] Starting browsers...
-[2025-12-27 20:47:13] [INFO] Creating portal browser...
-[2025-12-27 20:47:13] [ERROR] Failed to start browsers: name 'BASE_DIR' is not defined
-[2025-12-27 20:47:13] [ERROR] Failed to start automation: name 'BASE_DIR' is not defined
+[2025-12-27 22:28:12] [INFO] Clicking OK to start export...
+[2025-12-27 22:28:12] [INFO] Waiting for file download...
+[2025-12-27 22:28:13] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251227222812831.xlsx
+[2025-12-27 22:28:13] [DEBUG] Switched back to default content after export operations
+[2025-12-27 22:28:13] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251227222812831.xlsx
+[2025-12-27 22:28:13] [INFO] Processed 3 alarms from C:\wd\Autok\exports\CurrentAlarms20251227222812831.xlsx
+[2025-12-27 22:28:13] [INFO] Processed 3 alarms from CSL Fault
+[2025-12-27 22:28:13] [INFO] Found 3 alarms from CSL Fault (3 new)
+[2025-12-27 22:28:13] [INFO] Checking portal: All Alarms
+[2025-12-27 22:28:13] [INFO] Exporting alarms from All Alarms...
+[2025-12-27 22:28:13] [WARNING] Could not find tab for c1-c2 All Alarm
+[2025-12-27 22:28:13] [INFO] Switching to portal c1-c2 All Alarm...
+[2025-12-27 22:28:13] [INFO] Navigating to c1-c2 All Alarm...
+[2025-12-27 22:28:16] [INFO] Navigated to c1-c2 All Alarm
+[2025-12-27 22:28:19] [INFO] Waiting for alarm table to load...
+[2025-12-27 22:28:40] [INFO] Table not found in main page, checking iframes...
+[2025-12-27 22:28:40] [INFO] Found 3 iframes
+[2025-12-27 22:28:40] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-27 22:28:40] [INFO] Export operations will use iframe context
+[2025-12-27 22:28:40] [INFO] Clicking export button for c1-c2 All Alarm...
+[2025-12-27 22:28:44] [INFO] Selecting 'All' alarms option...
+[2025-12-27 22:28:47] [INFO] Waiting for export dialog...
+[2025-12-27 22:28:47] [INFO] Ensuring XLSX format is selected...
+[2025-12-27 22:29:03] [INFO] Clicking OK to start export...
+[2025-12-27 22:29:03] [INFO] Waiting for file download...
+[2025-12-27 22:29:05] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251227222904191.xlsx
+[2025-12-27 22:29:05] [DEBUG] Switched back to default content after export operations
+[2025-12-27 22:29:05] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251227222904191.xlsx
+[2025-12-27 22:29:06] [INFO] Processed 160 alarms from C:\wd\Autok\exports\CurrentAlarms20251227222904191.xlsx
+[2025-12-27 22:29:06] [INFO] Processed 160 alarms from All Alarms
+[2025-12-27 22:29:06] [INFO] Found 160 alarms from All Alarms (160 new)
+[2025-12-27 22:29:09] [INFO] Checking portal: RF Unit
+[2025-12-27 22:29:09] [INFO] Exporting alarms from RF Unit...
+[2025-12-27 22:29:09] [WARNING] Could not find tab for RF-Unit AR
+[2025-12-27 22:29:09] [INFO] Switching to portal RF-Unit AR...
+[2025-12-27 22:29:09] [INFO] Navigating to RF-Unit AR...
+[2025-12-27 22:29:12] [INFO] Navigated to RF-Unit AR
+[2025-12-27 22:29:15] [INFO] Waiting for alarm table to load...
+[2025-12-27 22:29:35] [INFO] Table not found in main page, checking iframes...
+[2025-12-27 22:29:35] [INFO] Found 4 iframes
+[2025-12-27 22:29:35] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-27 22:29:35] [INFO] Export operations will use iframe context
+[2025-12-27 22:29:35] [INFO] Clicking export button for RF-Unit AR...
+[2025-12-27 22:29:39] [INFO] Selecting 'All' alarms option...
+[2025-12-27 22:29:42] [INFO] Waiting for export dialog...
+[2025-12-27 22:29:42] [INFO] Ensuring XLSX format is selected...
+[2025-12-27 22:29:59] [INFO] Clicking OK to start export...
+[2025-12-27 22:29:59] [INFO] Waiting for file download...
+[2025-12-27 22:30:00] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251227222959637.xlsx
+[2025-12-27 22:30:00] [DEBUG] Switched back to default content after export operations
+[2025-12-27 22:30:00] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251227222959637.xlsx
+[2025-12-27 22:30:00] [INFO] Processed 9 alarms from C:\wd\Autok\exports\CurrentAlarms20251227222959637.xlsx
+[2025-12-27 22:30:00] [INFO] Processed 9 alarms from RF Unit
+[2025-12-27 22:30:00] [INFO] Found 9 alarms from RF Unit (3 new)
+[2025-12-27 22:30:00] [INFO] Checking portal: NodeB Cell
+[2025-12-27 22:30:00] [INFO] Exporting alarms from NodeB Cell...
+[2025-12-27 22:30:00] [WARNING] Could not find tab for C1 NodeB UMTS Cell Unavailable
+[2025-12-27 22:30:00] [INFO] Switching to portal C1 NodeB UMTS Cell Unavailable...
+[2025-12-27 22:30:00] [INFO] Navigating to C1 NodeB UMTS Cell Unavailable...
+[2025-12-27 22:30:03] [INFO] Navigated to C1 NodeB UMTS Cell Unavailable
+[2025-12-27 22:30:06] [INFO] Waiting for alarm table to load...
+[2025-12-27 22:30:27] [INFO] Table not found in main page, checking iframes...
+[2025-12-27 22:30:27] [INFO] Found 5 iframes
+[2025-12-27 22:30:27] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-27 22:30:27] [INFO] Export operations will use iframe context
+[2025-12-27 22:30:27] [INFO] Clicking export button for C1 NodeB UMTS Cell Unavailable...
+[2025-12-27 22:30:31] [INFO] Selecting 'All' alarms option...
+[2025-12-27 22:30:34] [INFO] Waiting for export dialog...
+[2025-12-27 22:30:34] [INFO] Ensuring XLSX format is selected...
+[2025-12-27 22:30:50] [INFO] Clicking OK to start export...
+[2025-12-27 22:30:50] [INFO] Waiting for file download...
+[2025-12-27 22:30:52] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251227223051097.xlsx
+[2025-12-27 22:30:52] [DEBUG] Switched back to default content after export operations
+[2025-12-27 22:30:52] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251227223051097.xlsx
+[2025-12-27 22:30:52] [INFO] Processed 6 alarms from C:\wd\Autok\exports\CurrentAlarms20251227223051097.xlsx
+[2025-12-27 22:30:52] [INFO] Processed 6 alarms from NodeB Cell
+[2025-12-27 22:30:52] [INFO] Found 6 alarms from NodeB Cell (6 new)
+[2025-12-27 22:30:53] [INFO] Total new alarms this cycle: 172
+[2025-12-27 22:30:53] [INFO] Waiting 30s for next check...
+[2025-12-27 22:31:23] [INFO] Starting portal check cycle...
+[2025-12-27 22:31:23] [INFO] Checking portal: CSL Fault
+[2025-12-27 22:31:23] [INFO] Exporting alarms from CSL Fault...
+[2025-12-27 22:31:23] [WARNING] Could not find tab for C1 OML Fault
+[2025-12-27 22:31:23] [INFO] Switching to portal C1 OML Fault...
+[2025-12-27 22:31:23] [INFO] Navigating to C1 OML Fault...
+[2025-12-27 22:31:26] [INFO] Navigated to C1 OML Fault
+[2025-12-27 22:31:29] [INFO] Waiting for alarm table to load...
+[2025-12-27 22:31:49] [INFO] Table not found in main page, checking iframes...
+[2025-12-27 22:31:49] [INFO] Found 5 iframes
+[2025-12-27 22:31:49] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-27 22:31:49] [INFO] Export operations will use iframe context
+[2025-12-27 22:31:49] [INFO] Clicking export button for C1 OML Fault...
+[2025-12-27 22:31:51] [DEBUG] Standard click failed for export_button: Message: element not interactable
+  (Session info: chrome=143.0.7499.170)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a9cb88e5
+	0x7ff6a9cb8940
+	0x7ff6a9a91465
+	0x7ff6a9aeaf66
+	0x7ff6a9adce7f
+	0x7ff6a9b11fda
+	0x7ff6a9adc746
+	0x7ff6a9b3ac97
+	0x7ff6a9adac29
+	0x7ff6a9adba93
+	0x7ff6a9fd0640
+	0x7ff6a9fcaf80
+	0x7ff6a9fe96e6
+	0x7ff6a9cd5de4
+	0x7ff6a9cded8c
+	0x7ff6a9cc2004
+	0x7ff6a9cc21b5
+	0x7ff6a9ca7ee2
+	0x7ffa81ede8d7
+	0x7ffa82d0c53c
+
+[2025-12-27 22:31:53] [INFO] Selecting 'All' alarms option...
+[2025-12-27 22:32:54] [ERROR] Export dropdown did not appear
+[2025-12-27 22:32:54] [INFO] Found 0 dropdown items:
+[2025-12-27 22:32:54] [DEBUG] Switched back to default content after export operations
+[2025-12-27 22:32:54] [ERROR] Export failed for CSL Fault
+[2025-12-27 22:32:54] [INFO] Checking portal: All Alarms
+[2025-12-27 22:32:54] [INFO] Exporting alarms from All Alarms...
+[2025-12-27 22:32:54] [WARNING] Could not find tab for c1-c2 All Alarm
+[2025-12-27 22:32:54] [INFO] Switching to portal c1-c2 All Alarm...
+[2025-12-27 22:32:54] [INFO] Navigating to c1-c2 All Alarm...
+[2025-12-27 22:32:57] [INFO] Navigated to c1-c2 All Alarm
+[2025-12-27 22:33:00] [INFO] Waiting for alarm table to load...
+[2025-12-27 22:33:21] [INFO] Table not found in main page, checking iframes...
+[2025-12-27 22:33:21] [INFO] Found 5 iframes
+[2025-12-27 22:33:21] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-27 22:33:21] [INFO] Export operations will use iframe context
+[2025-12-27 22:33:21] [INFO] Clicking export button for c1-c2 All Alarm...
+[2025-12-27 22:33:23] [DEBUG] Standard click failed for export_button: Message: element not interactable
+  (Session info: chrome=143.0.7499.170)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a9cb88e5
+	0x7ff6a9cb8940
+	0x7ff6a9a91465
+	0x7ff6a9aeaf66
+	0x7ff6a9adce7f
+	0x7ff6a9b11fda
+	0x7ff6a9adc746
+	0x7ff6a9b3ac97
+	0x7ff6a9adac29
+	0x7ff6a9adba93
+	0x7ff6a9fd0640
+	0x7ff6a9fcaf80
+	0x7ff6a9fe96e6
+	0x7ff6a9cd5de4
+	0x7ff6a9cded8c
+	0x7ff6a9cc2004
+	0x7ff6a9cc21b5
+	0x7ff6a9ca7ee2
+	0x7ffa81ede8d7
+	0x7ffa82d0c53c
+
+[2025-12-27 22:33:25] [INFO] Selecting 'All' alarms option...
+[2025-12-27 22:34:26] [ERROR] Export dropdown did not appear
+[2025-12-27 22:34:26] [INFO] Found 0 dropdown items:
+[2025-12-27 22:34:26] [DEBUG] Switched back to default content after export operations
+[2025-12-27 22:34:26] [ERROR] Export failed for All Alarms
+[2025-12-27 22:34:26] [INFO] Checking portal: RF Unit
+[2025-12-27 22:34:26] [INFO] Exporting alarms from RF Unit...
+[2025-12-27 22:34:26] [WARNING] Could not find tab for RF-Unit AR
+[2025-12-27 22:34:26] [INFO] Switching to portal RF-Unit AR...
+[2025-12-27 22:34:26] [INFO] Navigating to RF-Unit AR...
+[2025-12-27 22:34:29] [INFO] Navigated to RF-Unit AR
+[2025-12-27 22:34:32] [INFO] Waiting for alarm table to load...
+[2025-12-27 22:34:53] [INFO] Table not found in main page, checking iframes...
+[2025-12-27 22:34:53] [INFO] Found 5 iframes
+[2025-12-27 22:34:53] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-27 22:34:53] [INFO] Export operations will use iframe context
+[2025-12-27 22:34:53] [INFO] Clicking export button for RF-Unit AR...
+[2025-12-27 22:34:55] [DEBUG] Standard click failed for export_button: Message: element not interactable
+  (Session info: chrome=143.0.7499.170)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a9cb88e5
+	0x7ff6a9cb8940
+	0x7ff6a9a91465
+	0x7ff6a9aeaf66
+	0x7ff6a9adce7f
+	0x7ff6a9b11fda
+	0x7ff6a9adc746
+	0x7ff6a9b3ac97
+	0x7ff6a9adac29
+	0x7ff6a9adba93
+	0x7ff6a9fd0640
+	0x7ff6a9fcaf80
+	0x7ff6a9fe96e6
+	0x7ff6a9cd5de4
+	0x7ff6a9cded8c
+	0x7ff6a9cc2004
+	0x7ff6a9cc21b5
+	0x7ff6a9ca7ee2
+	0x7ffa81ede8d7
+	0x7ffa82d0c53c
+
+[2025-12-27 22:34:57] [INFO] Selecting 'All' alarms option...
+[2025-12-27 22:35:58] [ERROR] Export dropdown did not appear
+[2025-12-27 22:35:58] [INFO] Found 0 dropdown items:
+[2025-12-27 22:35:58] [DEBUG] Switched back to default content after export operations
+[2025-12-27 22:35:58] [ERROR] Export failed for RF Unit
+[2025-12-27 22:35:58] [INFO] Checking portal: NodeB Cell
+[2025-12-27 22:35:58] [INFO] Exporting alarms from NodeB Cell...
+[2025-12-27 22:35:58] [WARNING] Could not find tab for C1 NodeB UMTS Cell Unavailable
+[2025-12-27 22:35:58] [INFO] Switching to portal C1 NodeB UMTS Cell Unavailable...
+[2025-12-27 22:35:58] [INFO] Navigating to C1 NodeB UMTS Cell Unavailable...
+[2025-12-27 22:36:01] [INFO] Navigated to C1 NodeB UMTS Cell Unavailable
+[2025-12-27 22:36:04] [INFO] Waiting for alarm table to load...
+[2025-12-27 22:36:24] [INFO] Table not found in main page, checking iframes...
+[2025-12-27 22:36:24] [INFO] Found 5 iframes
+[2025-12-27 22:36:24] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-27 22:36:24] [INFO] Export operations will use iframe context
+[2025-12-27 22:36:24] [INFO] Clicking export button for C1 NodeB UMTS Cell Unavailable...
+[2025-12-27 22:36:28] [INFO] Selecting 'All' alarms option...
+[2025-12-27 22:36:32] [INFO] Waiting for export dialog...
+[2025-12-27 22:36:32] [INFO] Ensuring XLSX format is selected...
+[2025-12-27 22:36:48] [INFO] Clicking OK to start export...
+[2025-12-27 22:36:48] [INFO] Waiting for file download...
+[2025-12-27 22:36:50] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251227223648828.xlsx
+[2025-12-27 22:36:50] [DEBUG] Switched back to default content after export operations
+[2025-12-27 22:36:50] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251227223648828.xlsx
+[2025-12-27 22:36:50] [INFO] Processed 6 alarms from C:\wd\Autok\exports\CurrentAlarms20251227223648828.xlsx
+[2025-12-27 22:36:50] [INFO] Processed 6 alarms from NodeB Cell
+[2025-12-27 22:36:50] [INFO] Found 6 alarms from NodeB Cell (1 new)
+[2025-12-27 22:36:50] [INFO] Total new alarms this cycle: 1
+[2025-12-27 22:36:50] [INFO] Waiting 30s for next check...
+[2025-12-27 22:37:20] [INFO] Starting portal check cycle...
+[2025-12-27 22:37:20] [INFO] Checking portal: CSL Fault
+[2025-12-27 22:37:20] [INFO] Exporting alarms from CSL Fault...
+[2025-12-27 22:37:20] [WARNING] Could not find tab for C1 OML Fault
+[2025-12-27 22:37:20] [INFO] Switching to portal C1 OML Fault...
+[2025-12-27 22:37:20] [INFO] Navigating to C1 OML Fault...
+[2025-12-27 22:37:24] [INFO] Navigated to C1 OML Fault
+[2025-12-27 22:37:27] [INFO] Waiting for alarm table to load...
+[2025-12-27 22:37:47] [INFO] Table not found in main page, checking iframes...
+[2025-12-27 22:37:47] [INFO] Found 5 iframes
+[2025-12-27 22:37:47] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-27 22:37:47] [INFO] Export operations will use iframe context
+[2025-12-27 22:37:47] [INFO] Clicking export button for C1 OML Fault...
+[2025-12-27 22:37:49] [DEBUG] Standard click failed for export_button: Message: element not interactable
+  (Session info: chrome=143.0.7499.170)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a9cb88e5
+	0x7ff6a9cb8940
+	0x7ff6a9a91465
+	0x7ff6a9aeaf66
+	0x7ff6a9adce7f
+	0x7ff6a9b11fda
+	0x7ff6a9adc746
+	0x7ff6a9b3ac97
+	0x7ff6a9adac29
+	0x7ff6a9adba93
+	0x7ff6a9fd0640
+	0x7ff6a9fcaf80
+	0x7ff6a9fe96e6
+	0x7ff6a9cd5de4
+	0x7ff6a9cded8c
+	0x7ff6a9cc2004
+	0x7ff6a9cc21b5
+	0x7ff6a9ca7ee2
+	0x7ffa81ede8d7
+	0x7ffa82d0c53c
+
+[2025-12-27 22:37:51] [INFO] Selecting 'All' alarms option...
+[2025-12-27 22:38:52] [ERROR] Export dropdown did not appear
+[2025-12-27 22:38:52] [INFO] Found 0 dropdown items:
+[2025-12-27 22:38:52] [DEBUG] Switched back to default content after export operations
+[2025-12-27 22:38:52] [ERROR] Export failed for CSL Fault
+[2025-12-27 22:38:52] [INFO] Checking portal: All Alarms
+[2025-12-27 22:38:52] [INFO] Exporting alarms from All Alarms...
+[2025-12-27 22:38:52] [WARNING] Could not find tab for c1-c2 All Alarm
+[2025-12-27 22:38:52] [INFO] Switching to portal c1-c2 All Alarm...
+[2025-12-27 22:38:52] [INFO] Navigating to c1-c2 All Alarm...
+[2025-12-27 22:38:55] [INFO] Navigated to c1-c2 All Alarm
+[2025-12-27 22:38:58] [INFO] Waiting for alarm table to load...
+[2025-12-27 22:39:18] [INFO] Table not found in main page, checking iframes...
+[2025-12-27 22:39:18] [INFO] Found 5 iframes
+[2025-12-27 22:39:18] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-27 22:39:18] [INFO] Export operations will use iframe context
+[2025-12-27 22:39:18] [INFO] Clicking export button for c1-c2 All Alarm...
+[2025-12-27 22:39:20] [DEBUG] Standard click failed for export_button: Message: element not interactable
+  (Session info: chrome=143.0.7499.170)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a9cb88e5
+	0x7ff6a9cb8940
+	0x7ff6a9a91465
+	0x7ff6a9aeaf66
+	0x7ff6a9adce7f
+	0x7ff6a9b11fda
+	0x7ff6a9adc746
+	0x7ff6a9b3ac97
+	0x7ff6a9adac29
+	0x7ff6a9adba93
+	0x7ff6a9fd0640
+	0x7ff6a9fcaf80
+	0x7ff6a9fe96e6
+	0x7ff6a9cd5de4
+	0x7ff6a9cded8c
+	0x7ff6a9cc2004
+	0x7ff6a9cc21b5
+	0x7ff6a9ca7ee2
+	0x7ffa81ede8d7
+	0x7ffa82d0c53c
+
+[2025-12-27 22:39:22] [INFO] Selecting 'All' alarms option...
+[2025-12-27 22:40:24] [ERROR] Export dropdown did not appear
+[2025-12-27 22:40:24] [INFO] Found 0 dropdown items:
+[2025-12-27 22:40:24] [DEBUG] Switched back to default content after export operations
+[2025-12-27 22:40:24] [ERROR] Export failed for All Alarms
+[2025-12-27 22:40:24] [INFO] Checking portal: RF Unit
+[2025-12-27 22:40:24] [INFO] Exporting alarms from RF Unit...
+[2025-12-27 22:40:24] [WARNING] Could not find tab for RF-Unit AR
+[2025-12-27 22:40:24] [INFO] Switching to portal RF-Unit AR...
+[2025-12-27 22:40:24] [INFO] Navigating to RF-Unit AR...
+[2025-12-27 22:40:27] [INFO] Navigated to RF-Unit AR
+[2025-12-27 22:40:30] [INFO] Waiting for alarm table to load...
+[2025-12-27 22:40:31] [INFO] Table not found in main page, checking iframes...
+[2025-12-27 22:40:31] [DEBUG] Error checking iframes: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a9cb88e5
+	0x7ff6a9cb8940
+	0x7ff6a9a91465
+	0x7ff6a9ad9d83
+	0x7ff6a9b11ee2
+	0x7ff6a9b0c500
+	0x7ff6a9b0b6f0
+	0x7ff6a9a5b325
+	0x7ff6a9fd0640
+	0x7ff6a9fcaf80
+	0x7ff6a9fe96e6
+	0x7ff6a9cd5de4
+	0x7ff6a9cded8c
+	0x7ff6a9a59cb8
+	0x7ff6aa12f008
+	0x7ffa81ede8d7
+	0x7ffa82d0c53c
+
+[2025-12-27 22:40:31] [ERROR] Alarm table not found - page may not be fully loaded
+[2025-12-27 22:40:31] [ERROR] Screenshot error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a9cb88e5
+	0x7ff6a9cb8940
+	0x7ff6a9a91465
+	0x7ff6a9ad9d83
+	0x7ff6a9b11ee2
+	0x7ff6a9b0c500
+	0x7ff6a9b0b6f0
+	0x7ff6a9a5b325
+	0x7ff6a9fd0640
+	0x7ff6a9fcaf80
+	0x7ff6a9fe96e6
+	0x7ff6a9cd5de4
+	0x7ff6a9cded8c
+	0x7ff6a9a59cb8
+	0x7ff6aa12f008
+	0x7ffa81ede8d7
+	0x7ffa82d0c53c
+
+[2025-12-27 22:40:31] [ERROR] Export failed for RF Unit
+[2025-12-27 22:40:31] [INFO] Checking portal: NodeB Cell
+[2025-12-27 22:40:31] [INFO] Exporting alarms from NodeB Cell...
+[2025-12-27 22:40:31] [ERROR] Error switching tab: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a9cb88e5
+	0x7ff6a9cb8940
+	0x7ff6a9a91465
+	0x7ff6a9ad9d83
+	0x7ff6a9b11ee2
+	0x7ff6a9b0c500
+	0x7ff6a9b0b6f0
+	0x7ff6a9a5b325
+	0x7ff6a9fd0640
+	0x7ff6a9fcaf80
+	0x7ff6a9fe96e6
+	0x7ff6a9cd5de4
+	0x7ff6a9cded8c
+	0x7ff6a9a59cb8
+	0x7ff6aa12f008
+	0x7ffa81ede8d7
+	0x7ffa82d0c53c
+
+[2025-12-27 22:40:31] [INFO] Switching to portal C1 NodeB UMTS Cell Unavailable...
+[2025-12-27 22:40:31] [INFO] Navigating to C1 NodeB UMTS Cell Unavailable...
+[2025-12-27 22:40:31] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a9cb88e5
+	0x7ff6a9cb8940
+	0x7ff6a9a91465
+	0x7ff6a9ad9d83
+	0x7ff6a9b11ee2
+	0x7ff6a9b0c500
+	0x7ff6a9b0b6f0
+	0x7ff6a9a5b325
+	0x7ff6a9fd0640
+	0x7ff6a9fcaf80
+	0x7ff6a9fe96e6
+	0x7ff6a9cd5de4
+	0x7ff6a9cded8c
+	0x7ff6a9a59cb8
+	0x7ff6aa12f008
+	0x7ffa81ede8d7
+	0x7ffa82d0c53c
+

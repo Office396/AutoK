@@ -1,2 +1,60 @@
-2025/12/27-16:54:45.756 2930 Creating DB C:\wd\Autok\chrome_portal\Default\Session Storage since it was missing.
-2025/12/27-16:54:45.771 2930 Reusing MANIFEST C:\wd\Autok\chrome_portal\Default\Session Storage/MANIFEST-000001
+2025/12/27-20:52:29.842 3868 Reusing MANIFEST C:\wd\Autok\chrome_portal\Default\Session Storage/MANIFEST-000001
+2025/12/27-20:52:29.844 3868 Recovering log #3
+2025/12/27-20:52:29.849 3868 Reusing old log C:\wd\Autok\chrome_portal\Default\Session Storage/000003.log 
+2025/12/27-20:56:46.190 2d18 Level-0 table #5: started
+2025/12/27-20:56:46.196 2d18 Level-0 table #5: 17931 bytes OK
+2025/12/27-20:56:46.199 2d18 Delete type=0 #3
+2025/12/27-21:01:46.187 2d18 Level-0 table #7: started
+2025/12/27-21:01:46.192 2d18 Level-0 table #7: 12476 bytes OK
+2025/12/27-21:01:46.195 2d18 Delete type=0 #4
+2025/12/27-21:08:46.191 2d18 Level-0 table #9: started
+2025/12/27-21:08:46.195 2d18 Level-0 table #9: 13900 bytes OK
+2025/12/27-21:08:46.198 2d18 Delete type=0 #6
+2025/12/27-21:13:46.189 2d18 Level-0 table #11: started
+2025/12/27-21:13:46.193 2d18 Level-0 table #11: 12595 bytes OK
+2025/12/27-21:13:46.197 2d18 Delete type=0 #8
+2025/12/27-21:21:46.194 2d18 Level-0 table #13: started
+2025/12/27-21:21:46.201 2d18 Level-0 table #13: 15910 bytes OK
+2025/12/27-21:21:46.203 2d18 Delete type=0 #10
+2025/12/27-21:28:46.181 2d18 Level-0 table #15: started
+2025/12/27-21:28:46.186 2d18 Level-0 table #15: 13919 bytes OK
+2025/12/27-21:28:46.189 2d18 Delete type=0 #12
+2025/12/27-21:28:46.190 2d18 Compacting 4@0 + 1@1 files
+2025/12/27-21:28:46.195 2d18 Generated table #16@0: 5 keys, 4902 bytes
+2025/12/27-21:28:46.195 2d18 Compacted 4@0 + 1@1 files => 4902 bytes
+2025/12/27-21:28:46.196 2d18 compacted to: files[ 0 1 1 0 0 0 0 ]
+2025/12/27-21:28:46.197 2d18 Delete type=2 #7
+2025/12/27-21:28:46.197 2d18 Delete type=2 #9
+2025/12/27-21:28:46.197 2d18 Delete type=2 #11
+2025/12/27-21:28:46.197 2d18 Delete type=2 #13
+2025/12/27-21:28:46.198 2d18 Delete type=2 #15
+2025/12/27-21:35:46.194 2d18 Level-0 table #18: started
+2025/12/27-21:35:46.199 2d18 Level-0 table #18: 14935 bytes OK
+2025/12/27-21:35:46.200 2d18 Delete type=0 #14
+2025/12/27-21:42:46.190 2d18 Level-0 table #20: started
+2025/12/27-21:42:46.196 2d18 Level-0 table #20: 14725 bytes OK
+2025/12/27-21:42:46.198 2d18 Delete type=0 #17
+2025/12/27-21:49:46.193 2d18 Level-0 table #22: started
+2025/12/27-21:49:46.197 2d18 Level-0 table #22: 13618 bytes OK
+2025/12/27-21:49:46.198 2d18 Delete type=0 #19
+2025/12/27-21:57:46.217 2d18 Level-0 table #24: started
+2025/12/27-21:57:46.221 2d18 Level-0 table #24: 14953 bytes OK
+2025/12/27-21:57:46.223 2d18 Delete type=0 #21
+2025/12/27-21:57:46.223 2d18 Compacting 4@0 + 1@1 files
+2025/12/27-21:57:46.227 2d18 Generated table #25@0: 5 keys, 4848 bytes
+2025/12/27-21:57:46.227 2d18 Compacted 4@0 + 1@1 files => 4848 bytes
+2025/12/27-21:57:46.227 2d18 compacted to: files[ 0 1 1 0 0 0 0 ]
+2025/12/27-21:57:46.228 2d18 Delete type=2 #16
+2025/12/27-21:57:46.228 2d18 Delete type=2 #18
+2025/12/27-21:57:46.228 2d18 Delete type=2 #20
+2025/12/27-21:57:46.228 2d18 Delete type=2 #22
+2025/12/27-21:57:46.228 2d18 Delete type=2 #24
+2025/12/27-22:05:46.288 2d18 Level-0 table #27: started
+2025/12/27-22:05:46.292 2d18 Level-0 table #27: 15669 bytes OK
+2025/12/27-22:05:46.294 2d18 Delete type=0 #23
+2025/12/27-22:13:46.341 2d18 Level-0 table #29: started
+2025/12/27-22:13:46.345 2d18 Level-0 table #29: 13890 bytes OK
+2025/12/27-22:13:46.347 2d18 Delete type=0 #26
+2025/12/27-22:20:46.401 2d18 Level-0 table #31: started
+2025/12/27-22:20:46.408 2d18 Level-0 table #31: 13665 bytes OK
+2025/12/27-22:20:46.410 2d18 Delete type=0 #28
