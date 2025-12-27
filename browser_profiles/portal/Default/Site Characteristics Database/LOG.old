@@ -1,2 +1,5 @@
-2025/12/27-17:02:32.357 35f4 Creating DB C:\wd\Autok\browser_profiles\portal\Default\Site Characteristics Database since it was missing.
-2025/12/27-17:02:32.366 35f4 Reusing MANIFEST C:\wd\Autok\browser_profiles\portal\Default\Site Characteristics Database/MANIFEST-000001
+2025/12/27-19:13:55.492 3dbc Log #3: 1 ops saved to Table #4 OK
+2025/12/27-19:13:55.492 3dbc Archiving C:\wd\Autok\browser_profiles\portal\Default\Site Characteristics Database/000003.log: OK
+2025/12/27-19:13:55.493 3dbc Table #4: 1 entries OK
+2025/12/27-19:13:55.493 3dbc Archiving C:\wd\Autok\browser_profiles\portal\Default\Site Characteristics Database/MANIFEST-000001: OK
+2025/12/27-19:13:55.499 3dbc **** Repaired leveldb C:\wd\Autok\browser_profiles\portal\Default\Site Characteristics Database; recovered 1 files; 130 bytes. Some data may have been lost. ****

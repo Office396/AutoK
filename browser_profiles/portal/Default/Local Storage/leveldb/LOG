@@ -1,5 +1,5 @@
-2025/12/27-17:48:25.662 117c Reusing MANIFEST C:\wd\Autok\browser_profiles\portal\Default\Local Storage\leveldb/MANIFEST-000001
-2025/12/27-17:48:25.667 117c Recovering log #3
-2025/12/27-17:48:25.669 117c Level-0 table #3: started
-2025/12/27-17:48:25.675 117c Level-0 table #3: 240155 bytes OK
-2025/12/27-17:48:25.682 117c Delete type=0 #3
+2025/12/27-19:13:55.587 2c8c Creating DB C:\wd\Autok\browser_profiles\portal\Default\Local Storage\leveldb since it was missing.
+2025/12/27-19:13:55.621 2c8c Reusing MANIFEST C:\wd\Autok\browser_profiles\portal\Default\Local Storage\leveldb/MANIFEST-000001
+2025/12/27-19:14:55.641 2614 Level-0 table #5: started
+2025/12/27-19:14:55.648 2614 Level-0 table #5: 240247 bytes OK
+2025/12/27-19:14:55.650 2614 Delete type=0 #3

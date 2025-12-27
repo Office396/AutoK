@@ -1,2 +1,3 @@
-2025/12/27-17:02:32.349 22c Creating DB C:\wd\Autok\browser_profiles\portal\Default\Sync Data\LevelDB since it was missing.
-2025/12/27-17:02:32.360 22c Reusing MANIFEST C:\wd\Autok\browser_profiles\portal\Default\Sync Data\LevelDB/MANIFEST-000001
+2025/12/27-17:48:25.611 2704 Reusing MANIFEST C:\wd\Autok\browser_profiles\portal\Default\Sync Data\LevelDB/MANIFEST-000001
+2025/12/27-17:48:25.611 2704 Recovering log #3
+2025/12/27-17:48:25.611 2704 Reusing old log C:\wd\Autok\browser_profiles\portal\Default\Sync Data\LevelDB/000003.log 

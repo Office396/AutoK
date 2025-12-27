@@ -408,6 +408,15 @@ class AutomationController:
         """Check if automation is running"""
         return self.state == AutomationState.RUNNING
     
+    def reset_whatsapp(self) -> bool:
+        """Reset WhatsApp session by deleting profile and restarting browser"""
+        logger.warning("User requested WhatsApp session reset")
+        success = browser_manager.reset_whatsapp_session()
+        if success:
+            # Re-check status
+            self._on_whatsapp_status(whatsapp_handler.check_connection())
+        return success
+
     def reload_master_data(self) -> bool:
         """Reload master data from Excel"""
         logger.info("Reloading master data...")

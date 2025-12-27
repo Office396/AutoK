@@ -125,6 +125,10 @@ class BrowserManager:
             options.add_argument('--disable-web-security')
             options.add_argument('--disable-features=VizDisplayCompositor')
             options.add_argument('--disable-features=IsolateOrigins,site-per-process')
+            options.add_argument('--disable-site-isolation-trials')
+            options.add_argument('--disable-blink-features=AutomationControlled')
+            # User agent to mimic a real browser more closely
+            options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36')
         
         # Optimization flags - REMOVED for WhatsApp to prevent loading issues
         # These flags can cause WhatsApp Web to not load QR code properly
@@ -618,6 +622,53 @@ class BrowserManager:
         self.status.whatsapp_ready = True
         return True
     
+    def reset_whatsapp_session(self) -> bool:
+        """Close WhatsApp browser and delete its profile to reset session"""
+        try:
+            with self.lock:
+                logger.warning("RESETTING WHATSAPP SESSION...")
+                
+                # Close driver if it exists
+                if self.whatsapp_driver:
+                    try:
+                        self.whatsapp_driver.quit()
+                    except:
+                        pass
+                    self.whatsapp_driver = None
+                
+                # Path to WhatsApp profile
+                profile_dir = PROFILES_DIR / "whatsapp"
+                
+                if profile_dir.exists():
+                    import shutil
+                    import time
+                    
+                    # Try to delete multiple times in case of file locks
+                    for i in range(5):
+                        try:
+                            shutil.rmtree(str(profile_dir))
+                            logger.success(f"Deleted WhatsApp profile directory: {profile_dir}")
+                            break
+                        except Exception as e:
+                            logger.warning(f"Attempt {i+1} to delete profile failed: {e}")
+                            time.sleep(1)
+                
+                # Reset status
+                self.status.whatsapp_ready = False
+                self._notify_status()
+                
+                # Restart WhatsApp browser
+                logger.info("Restarting WhatsApp browser with clean session...")
+                self.whatsapp_driver = self._create_driver(profile_name="whatsapp")
+                self.whatsapp_driver.get(self.WHATSAPP_URL)
+                
+                logger.success("WhatsApp session reset completed")
+                return True
+                
+        except Exception as e:
+            logger.error(f"Failed to reset WhatsApp session: {e}")
+            return False
+
     def close(self):
         """Close both browsers"""
         try:
