@@ -34,7 +34,7 @@ try:
 except ImportError:
     WEBDRIVER_MANAGER_AVAILABLE = False
 
-from config import settings, PROFILES_DIR, EXPORTS_DIR
+from config import settings, PROFILES_DIR, EXPORTS_DIR, BASE_DIR
 from logger_module import logger
 
 
