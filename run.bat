@@ -27,7 +27,14 @@ if not exist "venv\Scripts\activate.bat" (
 
 :: Activate the virtual environment
 echo Activating virtual environment...
-call venv\Scripts\activate.bat
+if exist "venv\Scripts\activate.bat" (
+    call venv\Scripts\activate.bat
+) else (
+    echo Virtual environment not found!
+    echo Please run install.bat first.
+    pause
+    exit /b 1
+)
 
 :: Verify we are using the venv Python
 echo Using Python: 
@@ -39,18 +46,31 @@ echo Checking dependencies...
 python -c "import customtkinter; import selenium; import pandas; import openpyxl" >nul 2>&1
 if errorlevel 1 (
     echo.
-    echo Dependencies missing! Installing...
+    echo Dependencies missing or venv corrupted! 
+    echo Attempting to install requirements into virtual environment...
     echo.
-    pip install -r requirements.txt
+    python -m pip install --upgrade pip
+    python -m pip install -r requirements.txt
+    
+    :: Re-check after installation
+    python -c "import customtkinter; import selenium; import pandas; import openpyxl" >nul 2>&1
     if errorlevel 1 (
-        echo Failed to install requirements!
+        echo.
+        echo ==================================================
+        echo ERROR: Could not install dependencies in venv!
+        echo This often happens if the 'venv' folder is corrupted
+        echo or has permission issues.
+        echo.
+        echo SOLUTION: 
+        echo 1. Close this window
+        echo 2. Delete the 'venv' folder
+        echo 3. Run 'install.bat' again
+        echo ==================================================
         pause
         exit /b 1
     )
     echo. > .requirements_installed
-    echo.
     echo Dependencies installed successfully!
-    echo.
 )
 
 :: Run the application

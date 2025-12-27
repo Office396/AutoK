@@ -44,11 +44,15 @@ def check_requirements():
     
     if missing:
         print("=" * 50)
-        print("Missing required packages:")
+        print("ERROR: Missing required packages in current environment.")
+        print(f"Current Python: {sys.executable}")
         for pkg in missing:
             print(f"  - {pkg}")
-        print("\nPlease install them using:")
-        print("  pip install -r requirements.txt")
+        print("\nPossible solutions:")
+        print("1. If using run.bat, ensure it finished installing dependencies.")
+        print("2. Try running: python -m pip install -r requirements.txt")
+        print("3. If the virtual environment is corrupted, delete 'venv' folder")
+        print("   and run 'install.bat' again.")
         print("=" * 50)
         return False
     
