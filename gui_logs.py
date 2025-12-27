@@ -21,6 +21,37 @@ class LogsView(ctk.CTkFrame):
         
         self._create_layout()
         self._load_logs()
+        
+        # Register for real-time updates
+        logger.add_callback(self._on_new_log)
+    
+    def _on_new_log(self, entry: str, level: str):
+        """Handle new log entry from logger"""
+        def _update():
+            # Check if it matches current filter
+            current_level = self.level_var.get()
+            if current_level != "All Levels" and level != current_level:
+                return
+            
+            # Check if it's today
+            current_date_filter = self.date_var.get()
+            if current_date_filter != "Today" and current_date_filter != "All":
+                return
+            
+            self.log_text.configure(state="normal")
+            self._add_log_entry(entry)
+            self.log_text.configure(state="disabled")
+            self.log_text.see("end")
+            
+            # Update count
+            try:
+                count_text = self.stats_label.cget("text")
+                count = int(count_text.split()[0])
+                self.stats_label.configure(text=f"{count + 1} log entries")
+            except:
+                pass
+                
+        self.after(0, _update)
     
     def _create_layout(self):
         """Create the layout"""

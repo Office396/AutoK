@@ -7,6 +7,7 @@ Optimized for speed with cached chat list and efficient group finding
 import time
 import threading
 import queue
+import pyperclip
 from datetime import datetime
 from typing import Optional, Callable, List, Dict, Tuple, Set
 from dataclasses import dataclass, field
@@ -225,12 +226,26 @@ class WhatsAppHandler:
         
         self._status_callbacks: List[Callable] = []
         self._message_sent_callbacks: List[Callable] = []
+        self._popup_callback: Optional[Callable] = None
         
         self._messages_sent = 0
         self._last_message_time: Optional[datetime] = None
         
         self.chat_cache = CachedChatList()
         self._driver: Optional[webdriver.Chrome] = None
+    
+    def set_popup_callback(self, callback: Callable):
+        """Set callback for showing error popups"""
+        self._popup_callback = callback
+
+    def _show_error_popup(self, title: str, message: str):
+        """Trigger error popup via callback and WAIT for user to click OK"""
+        if self._popup_callback:
+            wait_event = threading.Event()
+            self._popup_callback(title, message, wait_event)
+            logger.info(f"Waiting for user to acknowledge error: {title}")
+            wait_event.wait() # Block the sender thread until OK is clicked
+            logger.info("Error acknowledged, continuing...")
     
     def set_driver(self, driver: webdriver.Chrome):
         self._driver = driver
@@ -376,72 +391,73 @@ class WhatsAppHandler:
             return MessageResult(success=False, group_name=group_name, error="No WhatsApp driver")
         
         logger.info(f"Attempting to send message to: {group_name}")
-        logger.info(f"DEBUG send_message: Entry point - group={group_name}, msg_len={len(message)}")
-        
         self._notify_status(WhatsAppStatus.SENDING)
         
         for attempt in range(retry_count):
             try:
-                logger.info(f"DEBUG send_message: Finding group {group_name}")
+                # 1. Find and open group
                 if not self._find_and_open_group(driver, group_name):
+                    logger.warning(f"Group '{group_name}' not found (Attempt {attempt + 1})")
                     if attempt < retry_count - 1:
-                        logger.warning(f"Retrying message to {group_name} (attempt {attempt + 1}/{retry_count})")
-                        time.sleep(2)
+                        time.sleep(1)
                         continue
+                    
+                    # ALERT on group not found
+                    self._show_error_popup(
+                        "Group Not Found", 
+                        f"Could not find group '{group_name}' in WhatsApp chat list.\nPlease ensure the group exists and is visible."
+                    )
                     return MessageResult(success=False, group_name=group_name, error="Group not found")
-                
-                logger.info(f"DEBUG send_message: Group opened, waiting for chat to load...")
-                time.sleep(2)
-                
-                logger.info(f"DEBUG send_message: Finding message input")
-                input_box = self._find_clickable_element(driver, "message_input")
-                if not input_box:
-                    logger.error("DEBUG send_message: Message input not found")
-                    if attempt < retry_count - 1:
-                        time.sleep(2)
-                        continue
-                    return MessageResult(success=False, group_name=group_name, error="Message input not found")
-                
-                logger.info(f"DEBUG send_message: Clicking message input")
-                input_box.click()
-                time.sleep(0.3)
-                
-                logger.info(f"DEBUG send_message: About to type message - length: {len(message)} characters")
-                logger.info(f"DEBUG send_message: First 100 chars: {message[:100]}")
-                
-                logger.info(f"DEBUG send_message: Ready to type message")
-                for line in message.split('\n'):
-                    input_box.send_keys(line)
-                    input_box.send_keys(Keys.SHIFT + Keys.ENTER)
-                
-                logger.info(f"DEBUG send_message: Message typed successfully")
-                
-                logger.info(f"DEBUG send_message: Clicking send button")
-                send_btn = self._find_clickable_element(driver, "send_button")
-                if send_btn:
-                    send_btn.click()
-                else:
-                    logger.info(f"DEBUG send_message: Send button not found, pressing Enter")
-                    input_box.send_keys(Keys.ENTER)
                 
                 time.sleep(1)
                 
-                self._notify_status(WhatsAppStatus.CONNECTED)
-                logger.success(f"DEBUG send_message: SUCCESS - Message sent to {group_name}")
-                logger.success(f"✓ Message sent successfully to {group_name}")
+                # 2. Find input box
+                input_box = self._find_clickable_element(driver, "message_input")
+                if not input_box:
+                    if attempt < retry_count - 1:
+                        time.sleep(1)
+                        continue
+                    
+                    # ALERT on input not found
+                    self._show_error_popup(
+                        "Interface Error", 
+                        f"Could not find message input box in group '{group_name}'.\nWhatsApp Web might be lagging or layout has changed."
+                    )
+                    return MessageResult(success=False, group_name=group_name, error="Input box not found")
                 
+                # 3. INSTANT PASTE logic
+                input_box.click()
+                time.sleep(0.2)
+                
+                # Copy to clipboard and paste
+                pyperclip.copy(message)
+                input_box.send_keys(Keys.CONTROL + 'v')
+                time.sleep(0.5) # Wait for paste to register
+                
+                # 4. Send
+                input_box.send_keys(Keys.ENTER)
+                time.sleep(0.5)
+                
+                self._notify_status(WhatsAppStatus.CONNECTED)
+                logger.success(f"Message sent successfully to {group_name}")
                 return MessageResult(success=True, group_name=group_name, message=message)
                 
             except Exception as e:
-                logger.error(f"Error sending message to {group_name}: {e}")
+                logger.error(f"Error sending to {group_name}: {e}")
                 if attempt < retry_count - 1:
-                    time.sleep(2)
+                    time.sleep(1)
                     continue
                 
+                # ALERT on crash/error
+                self._show_error_popup(
+                    "Sending Failed", 
+                    f"An error occurred while sending to '{group_name}':\n{str(e)}"
+                )
                 self._notify_status(WhatsAppStatus.ERROR)
                 return MessageResult(success=False, group_name=group_name, error=str(e))
         
         return MessageResult(success=False, group_name=group_name, error="Max retries exceeded")
+
     
     def _find_and_open_group(self, driver: webdriver.Chrome, group_name: str) -> bool:
         logger.info(f"DEBUG find_and_open_group_direct: Refreshing chat list before search")
@@ -647,9 +663,9 @@ def send_alarms_to_whatsapp(group_name: str, message: str, alarm_type: str):
 
 class OrderedAlarmSender:
     """
-    Sends alarms in the user-specified order:
-    1. Alarm Types: CSL -> RF Unit -> AC Main -> Battery High Temp -> Genset -> Low Voltage -> System on Battery -> Toggle -> Cell Unavailable
-    2. Groups within each: MBU (1-8) -> B2S (ATL, Edotco, Enfra, Tawal) -> OMO (Ufone, Telenor, CMpak/Zong)
+    Sends alarms in the strict user-specified order:
+    Outer loop: Groups (MBU 1-8 -> B2S -> OMO)
+    Inner loop: Alarm Types (CSL -> RF Unit -> AC Main -> Battery Temp -> Genset -> Low Voltage -> System on Battery -> Toggle -> Cell Unavailable)
     """
     
     ALARM_TYPE_ORDER = [
@@ -679,39 +695,54 @@ class OrderedAlarmSender:
         
         batches = []
         
-        for alarm_type in cls.ALARM_TYPE_ORDER:
-            is_toggle = alarm_type == "Toggle"
+        # Define all groups in order
+        all_groups = []
+        for mbu in cls.MBU_ORDER:
+            all_groups.append(('MBU', mbu))
+        for b2s in cls.B2S_ORDER:
+            all_groups.append(('B2S', b2s))
+        for omo in cls.OMO_ORDER:
+            all_groups.append(('OMO', omo))
             
-            if is_toggle:
-                type_alarms = [a for a in alarms if getattr(a, 'is_toggle', False)]
-            else:
-                type_alarms = [a for a in alarms if a.alarm_type == alarm_type and not getattr(a, 'is_toggle', False)]
-            
-            if not type_alarms:
-                continue
-            
-            for mbu in cls.MBU_ORDER:
-                mbu_alarms = [a for a in type_alarms if getattr(a, 'mbu', '') == mbu]
-                if mbu_alarms:
-                    group_name = settings.get_whatsapp_group_name(mbu)
-                    if group_name:
-                        if is_toggle and alarm_processor.should_skip_toggle_for_mbu(mbu):
-                            continue
-                        batches.append((group_name, alarm_type, mbu_alarms, is_toggle))
-            
-            for company in cls.B2S_ORDER:
-                b2s_alarms = [a for a in type_alarms if getattr(a, 'b2s_company', '') == company]
-                if b2s_alarms:
-                    group_name = settings.get_b2s_group_name(company)
-                    if group_name:
-                        batches.append((group_name, alarm_type, b2s_alarms, is_toggle))
-            
-            for company in cls.OMO_ORDER:
-                omo_alarms = [a for a in type_alarms if getattr(a, 'omo_company', '') == company]
-                if omo_alarms:
-                    group_name = settings.get_omo_group_name(company)
-                    if group_name:
-                        batches.append((group_name, alarm_type, omo_alarms, is_toggle))
+        # Outer Loop: Groups
+        for group_type, group_id in all_groups:
+            # Inner Loop: Alarm Types (Priority Order)
+            for alarm_type in cls.ALARM_TYPE_ORDER:
+                is_toggle = alarm_type == "Toggle"
+                
+                # Filter alarms for this group and type
+                group_alarms = []
+                for a in alarms:
+                    # Match Type
+                    if is_toggle:
+                        if not getattr(a, 'is_toggle', False): continue
+                    else:
+                        if a.alarm_type != alarm_type or getattr(a, 'is_toggle', False): continue
+                        
+                    # Match Group
+                    if group_type == 'MBU':
+                        if getattr(a, 'mbu', '') == group_id: group_alarms.append(a)
+                    elif group_type == 'B2S':
+                        if getattr(a, 'b2s_company', '') == group_id: group_alarms.append(a)
+                    elif group_type == 'OMO':
+                        if getattr(a, 'omo_company', '') == group_id: group_alarms.append(a)
+
+                if not group_alarms:
+                    continue
+                
+                # Get actual WhatsApp group name
+                whatsapp_group = ""
+                if group_type == 'MBU':
+                    whatsapp_group = settings.get_whatsapp_group_name(group_id)
+                    if is_toggle and alarm_processor.should_skip_toggle_for_mbu(group_id):
+                        continue
+                elif group_type == 'B2S':
+                    whatsapp_group = settings.get_b2s_group_name(group_id)
+                elif group_type == 'OMO':
+                    whatsapp_group = settings.get_omo_group_name(group_id)
+                
+                if whatsapp_group:
+                    batches.append((whatsapp_group, alarm_type, group_alarms, is_toggle))
         
         return batches
     
@@ -719,17 +750,22 @@ class OrderedAlarmSender:
     def send_all_ordered(cls, alarms: List):
         batches = cls.get_ordered_batches(alarms)
         
-        for group_name, alarm_type, batch_alarms, is_toggle in batches:
+        # Use a high priority (lower number) for CSL Faults to ensure they are at the front of the queue
+        # but since we are queuing them in order here, the timestamp/priority in queue will handle it.
+        
+        for i, (group_name, alarm_type, batch_alarms, is_toggle) in enumerate(batches):
             if is_toggle:
                 message = message_formatter.format_toggle_alarms(batch_alarms)
-            elif any(a.is_b2s for a in batch_alarms if hasattr(a, 'is_b2s')):
+            elif any(getattr(a, 'is_b2s', False) for a in batch_alarms):
                 message = message_formatter.format_b2s_alarms(batch_alarms)
-            elif any(a.is_omo for a in batch_alarms if hasattr(a, 'is_omo')):
+            elif any(getattr(a, 'is_omo', False) for a in batch_alarms):
                 message = message_formatter.format_omo_alarms(batch_alarms)
             else:
                 message = message_formatter.format_mbu_alarms(batch_alarms, alarm_type)
             
             if message.strip():
+                # Priority: 1 for CSL, 2 for others. 
+                # Within same priority, the order of queueing determines order of sending.
                 priority = 1 if "csl" in alarm_type.lower() else 2
                 whatsapp_handler.queue_message(group_name, message, alarm_type, priority)
                 logger.info(f"Ordered batch queued: {alarm_type} | Count: {len(batch_alarms)} | Group: {group_name}")

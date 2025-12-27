@@ -92,6 +92,10 @@ class AutomationController:
         # Browser status
         browser_manager.add_status_callback(self._on_browser_status)
     
+    def set_popup_callback(self, callback: Callable):
+        """Set callback for showing error popups (usually from GUI)"""
+        whatsapp_handler.set_popup_callback(callback)
+    
     def add_state_callback(self, callback: Callable):
         """Add callback for state changes"""
         self.state_callbacks.append(callback)
@@ -378,9 +382,18 @@ class AutomationController:
             self._on_new_alarms(alarms)
     
     def force_send_all(self):
-        """Force send all pending alarms"""
+        """Force send all pending alarms (Runs in background thread)"""
         logger.info("Forcing send of all pending alarms...")
-        alarm_scheduler.force_send_all()
+        
+        def _force_send():
+            try:
+                alarm_scheduler.force_send_all()
+                logger.success("Force send cycle completed and queued to WhatsApp")
+            except Exception as e:
+                logger.error(f"Error in force_send_all: {e}")
+                
+        thread = threading.Thread(target=_force_send, daemon=True)
+        thread.start()
     
     def get_state(self) -> AutomationState:
         """Get current automation state"""

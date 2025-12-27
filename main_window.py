@@ -9,6 +9,7 @@ import threading
 from datetime import datetime
 
 from gui_components import Colors, TabButton, ToastNotification
+from CTkMessagebox import CTkMessagebox
 from gui_dashboard import DashboardView
 from gui_settings import SettingsView
 from gui_sites import SitesView
@@ -210,6 +211,23 @@ class MainWindow(ctk.CTk):
         automation_controller.add_state_callback(self._on_state_change)
         automation_controller.add_stats_callback(self._on_stats_update)
         automation_controller.add_alarm_callback(self._on_new_alarms)
+        
+        # Register for error popups
+        automation_controller.set_popup_callback(self._show_error_popup)
+    
+    def _show_error_popup(self, title: str, message: str, wait_event: threading.Event):
+        """Show an interactive error popup that blocks the sender until OK is clicked"""
+        def _show():
+            CTkMessagebox(
+                title=title,
+                message=message,
+                icon="warning",
+                option_1="OK",
+                font=ctk.CTkFont(size=13)
+            )
+            wait_event.set() # Resume the sender thread
+            
+        self.after(0, _show)
     
     def _start_update_loop(self):
         """Start the UI update loop"""

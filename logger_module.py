@@ -17,6 +17,11 @@ class AlarmLogger:
     def __init__(self):
         self.log_lock = threading.Lock()
         self._ensure_log_dir()
+        self.callbacks = []
+    
+    def add_callback(self, callback):
+        """Add a callback for new log entries"""
+        self.callbacks.append(callback)
     
     def _ensure_log_dir(self):
         """Ensure logs directory exists"""
@@ -42,6 +47,13 @@ class AlarmLogger:
 
             # Also print to console
             print(log_entry)
+
+            # Notify callbacks
+            for callback in self.callbacks:
+                try:
+                    callback(log_entry, level)
+                except:
+                    pass
 
     def info(self, message: str):
         """Log info message"""
