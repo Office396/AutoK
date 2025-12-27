@@ -15,12 +15,12 @@ BASE_DIR = Path(__file__).parent.absolute()
 DATA_DIR = BASE_DIR / "data"
 LOGS_DIR = BASE_DIR / "logs"
 EXPORTS_DIR = BASE_DIR / "exports"
-CHROME_PROFILE_DIR = BASE_DIR / "chrome_profile"
+PROFILES_DIR = BASE_DIR / "browser_profiles"
 SETTINGS_FILE = BASE_DIR / "settings.json"
 
 # Create directories if not exist
-for dir_path in [DATA_DIR, LOGS_DIR, EXPORTS_DIR, CHROME_PROFILE_DIR]:
-    dir_path.mkdir(exist_ok=True)
+for dir_path in [DATA_DIR, LOGS_DIR, EXPORTS_DIR, PROFILES_DIR]:
+    dir_path.mkdir(parents=True, exist_ok=True)
 
 
 @dataclass

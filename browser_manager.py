@@ -34,7 +34,7 @@ try:
 except ImportError:
     WEBDRIVER_MANAGER_AVAILABLE = False
 
-from config import settings, CHROME_PROFILE_DIR, EXPORTS_DIR
+from config import settings, PROFILES_DIR, EXPORTS_DIR
 from logger_module import logger
 
 
@@ -98,16 +98,14 @@ class BrowserManager:
         options = Options()
         
         # Use different profile directories for portal and WhatsApp
-        if profile_name == "whatsapp":
-            profile_dir = CHROME_PROFILE_DIR.parent / "chrome_whatsapp"
-        else:
-            # Use a dedicated directory for portal too, to avoid conflicts/corruption
-            profile_dir = CHROME_PROFILE_DIR.parent / "chrome_portal"
+        profile_dir = PROFILES_DIR / profile_name
         
+        # Ensure path is absolute and uses correct separators for Windows
+        profile_dir = profile_dir.resolve()
         profile_dir.mkdir(parents=True, exist_ok=True)
         EXPORTS_DIR.mkdir(parents=True, exist_ok=True)
         
-        options.add_argument(f"--user-data-dir={profile_dir}")
+        options.add_argument(f"--user-data-dir={str(profile_dir)}")
         # Basic stable options
         options.add_argument('--ignore-certificate-errors')
         options.add_argument('--ignore-ssl-errors')
@@ -115,14 +113,18 @@ class BrowserManager:
         options.add_argument('--allow-running-insecure-content')
         options.add_argument('--start-maximized')
         options.add_argument('--disable-gpu')
-        # options.add_argument('--no-sandbox')  # Potentially unstable on Windows
+        options.add_argument('--disable-software-rasterizer')
         options.add_argument('--disable-dev-shm-usage')  # Reduce memory pressure
         options.add_argument('--remote-allow-origins=*')  # Fix for Chrome 111+ connection issues
+        options.add_argument('--no-first-run')
+        options.add_argument('--no-service-autorun')
+        options.add_argument('--password-store=basic')
 
         # WhatsApp specific settings
         if profile_name == "whatsapp":
             options.add_argument('--disable-web-security')
             options.add_argument('--disable-features=VizDisplayCompositor')
+            options.add_argument('--disable-features=IsolateOrigins,site-per-process')
         
         # Optimization flags - REMOVED for WhatsApp to prevent loading issues
         # These flags can cause WhatsApp Web to not load QR code properly
@@ -473,6 +475,16 @@ class BrowserManager:
     def switch_to_tab(self, tab_type: TabType) -> bool:
         """Switch to a specific tab, opening it if necessary"""
         try:
+            # WhatsApp is handled by a separate driver instance
+            if tab_type == TabType.WHATSAPP:
+                if self.whatsapp_driver:
+                    try:
+                        self.whatsapp_driver.execute_script("window.focus();")
+                        return True
+                    except:
+                        return True
+                return False
+
             handle = self.status.tab_handles.get(tab_type)
             if handle:
                 self.driver.switch_to.window(handle)
@@ -566,8 +578,9 @@ class BrowserManager:
         check_interval = 5
         
         while time.time() - start_time < timeout:
-            self.switch_to_tab(TabType.WHATSAPP)
-            time.sleep(1)
+            # WhatsApp is in a separate driver instance
+            driver = self.whatsapp_driver if self.whatsapp_driver else self.driver
+            
             self._check_whatsapp_status()
             
             if self.status.whatsapp_ready:
@@ -580,13 +593,13 @@ class BrowserManager:
             if elapsed % 30 == 0 and elapsed > 0:
                 logger.info(f"Still checking... {remaining} seconds remaining")
             
-            # After 30 seconds, if we're on WhatsApp URL, assume ready
+            # After 30 seconds, if we're on WhatsApp URL, assume ready if no QR
             if elapsed >= 30:
                 try:
-                    if 'web.whatsapp.com' in self.driver.current_url:
+                    if 'web.whatsapp.com' in driver.current_url:
                         # Check if there's NO QR code visible
                         try:
-                            qr = self.driver.find_element(By.CSS_SELECTOR, '[data-testid="qrcode"]')
+                            qr = driver.find_element(By.CSS_SELECTOR, '[data-testid="qrcode"]')
                             if not qr.is_displayed():
                                 logger.info("No QR code visible - assuming WhatsApp is ready")
                                 self.status.whatsapp_ready = True

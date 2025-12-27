@@ -35,7 +35,7 @@ from selenium.common.exceptions import (
 )
 from webdriver_manager.chrome import ChromeDriverManager
 
-from config import settings, PortalConfig, CHROME_PROFILE_DIR, EXPORTS_DIR
+from config import settings, PortalConfig, PROFILES_DIR, EXPORTS_DIR
 from logger_module import logger
 from browser_manager import browser_manager
 
