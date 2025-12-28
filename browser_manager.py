@@ -134,12 +134,9 @@ class BrowserManager:
             chrome_options.add_experimental_option("prefs", prefs)
         
         try:
-            if WEBDRIVER_MANAGER_AVAILABLE:
-                service = Service(ChromeDriverManager().install())
-            else:
-                # Fallback to system chromedriver
-                service = Service()
-                
+            # Let Selenium Manager handle driver download and path
+            # This is built-in to Selenium 4.6+ and is more reliable than webdriver-manager
+            service = Service()
             driver = webdriver.Chrome(service=service, options=chrome_options)
             
             # Remove automation flag from navigator

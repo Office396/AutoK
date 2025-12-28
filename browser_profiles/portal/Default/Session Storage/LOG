@@ -1,8 +1,2 @@
-2025/12/28-17:19:17.954 1e08 Creating DB C:\wd\Autok\browser_profiles\portal\Default\Session Storage since it was missing.
-2025/12/28-17:19:17.975 1e08 Reusing MANIFEST C:\wd\Autok\browser_profiles\portal\Default\Session Storage/MANIFEST-000001
-2025/12/28-17:25:30.377 1e08 Level-0 table #5: started
-2025/12/28-17:25:30.381 1e08 Level-0 table #5: 16312 bytes OK
-2025/12/28-17:25:30.385 1e08 Delete type=0 #3
-2025/12/28-17:32:30.382 1e08 Level-0 table #7: started
-2025/12/28-17:32:30.387 1e08 Level-0 table #7: 14282 bytes OK
-2025/12/28-17:32:30.389 1e08 Delete type=0 #4
+2025/12/28-17:40:01.448 3648 Creating DB C:\wd\Autok\browser_profiles\portal\Default\Session Storage since it was missing.
+2025/12/28-17:40:01.481 3648 Reusing MANIFEST C:\wd\Autok\browser_profiles\portal\Default\Session Storage/MANIFEST-000001

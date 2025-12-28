@@ -1,3 +1,2 @@
-2025/12/28-17:23:30.991 3224 Reusing MANIFEST C:\wd\Autok\browser_profiles\whatsapp\Default\Local Storage\leveldb/MANIFEST-000001
-2025/12/28-17:23:30.996 3224 Recovering log #3
-2025/12/28-17:23:30.998 3224 Reusing old log C:\wd\Autok\browser_profiles\whatsapp\Default\Local Storage\leveldb/000003.log 
+2025/12/28-17:40:02.796 259c Creating DB C:\wd\Autok\browser_profiles\whatsapp\Default\Local Storage\leveldb since it was missing.
+2025/12/28-17:40:02.840 259c Reusing MANIFEST C:\wd\Autok\browser_profiles\whatsapp\Default\Local Storage\leveldb/MANIFEST-000001
