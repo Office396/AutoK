@@ -66,21 +66,27 @@ class PortalHandler:
     
     # Element selectors (may need adjustment based on actual portal)
     SELECTORS = {
-        # Login page
+        # Login page - Huawei MAE Portal specific selectors
         'username_input': [
             (By.ID, 'username'),
+            (By.CSS_SELECTOR, '#username'),
             (By.NAME, 'username'),
             (By.CSS_SELECTOR, 'input[type="text"]'),
             (By.CSS_SELECTOR, 'input[placeholder*="user"]'),
             (By.XPATH, '//input[@type="text"]'),
         ],
         'password_input': [
+            (By.ID, 'value'),  # Huawei portal uses #value for password
+            (By.CSS_SELECTOR, '#value'),
             (By.ID, 'password'),
             (By.NAME, 'password'),
             (By.CSS_SELECTOR, 'input[type="password"]'),
             (By.XPATH, '//input[@type="password"]'),
         ],
         'login_button': [
+            (By.ID, 'submitDataverify'),  # Huawei portal login button
+            (By.ID, 'btn_outerverify'),
+            (By.CSS_SELECTOR, '.loginBtn'),
             (By.ID, 'loginBtn'),
             (By.CSS_SELECTOR, 'button[type="submit"]'),
             (By.XPATH, '//button[contains(text(), "Login")]'),
@@ -110,23 +116,32 @@ class PortalHandler:
         
         # Export button - based on the HTML structure provided
         'export_button': [
-            (By.ID, 'exportBtn'),
-            (By.CSS_SELECTOR, '#exportBtn'),
-            (By.CSS_SELECTOR, 'button[id="exportBtn"]'),
-            (By.XPATH, '//button[@id="exportBtn"]'),
+            # Try button inside exportBtn div first (most common)
+            (By.XPATH, '//div[@id="exportBtn"]//button[contains(.//span, "Export")]'),
             (By.XPATH, '//div[@id="exportBtn"]/button'),
             (By.XPATH, '//div[@id="exportBtn"]//button'),
-            (By.XPATH, '//span[contains(text(), "Export")]/parent::button'),
+            # Try by ID (the div container)
+            (By.ID, 'exportBtn'),
+            (By.CSS_SELECTOR, '#exportBtn'),
+            # Try finding button with Export text
+            (By.XPATH, '//button[contains(.//span[@class="eui-btn-content"], "Export")]'),
+            (By.XPATH, '//span[contains(text(), "Export")]/ancestor::button'),
             (By.XPATH, '//button[contains(.//span, "Export")]'),
             (By.XPATH, '//button[contains(text(), "Export")]'),
         ],
 
-        # Export dropdown options
+        # Export dropdown options - appears in popup menu after clicking export button
         'export_all_option': [
+            # Try by ID first
             (By.ID, 'allExport'),
             (By.CSS_SELECTOR, '#allExport'),
+            # Try in popup menu
+            (By.XPATH, '//div[contains(@class, "eui_popupMenu_popup")]//*[contains(text(), "All")]'),
+            (By.XPATH, '//div[contains(@class, "eui-aligned-popup")]//*[contains(text(), "All")]'),
             (By.XPATH, '//li[@id="allExport"]'),
             (By.XPATH, '//*[contains(@id, "allExport")]'),
+            # Generic fallback - any clickable element with "All" text in popup
+            (By.XPATH, '//div[contains(@class, "popup")]//*[contains(text(), "All") and not(ancestor::*[contains(@class, "hidden")])]'),
         ],
         'export_selected_option': [
             (By.ID, 'selectedExport'),
@@ -141,10 +156,14 @@ class PortalHandler:
             (By.ID, 'dialog_panel'),
         ],
         'export_xlsx_option': [
-            (By.ID, 'eui_radio_group_10091_radio_0'),
-            (By.CSS_SELECTOR, '#eui_radio_group_10091_radio_0'),
-            (By.XPATH, '//*[@id="eui_radio_group_10091_radio_0"]'),
+            # Try by label text first (most reliable)
             (By.XPATH, '//label[contains(text(), "XLSX")]'),
+            (By.XPATH, '//div[contains(@class, "eui_radio")]//label[contains(text(), "XLSX")]'),
+            # Try by radio button that's checked (XLSX is usually default)
+            (By.XPATH, '//div[contains(@class, "eui_radio")]//span[contains(@class, "checked")]/ancestor::div[contains(@class, "eui_radio")]//label[contains(text(), "XLSX")]'),
+            # Try by ID pattern (may vary)
+            (By.XPATH, '//*[contains(@id, "eui_radio_group") and contains(@id, "_radio_0")]'),
+            (By.CSS_SELECTOR, '[id*="eui_radio_group"][id*="_radio_0"]'),
         ],
         'export_csv_option': [
             (By.ID, 'eui_radio_group_10091_radio_1'),
@@ -309,14 +328,20 @@ class PortalHandler:
                 self.status.error_message = "No credentials provided"
                 return False
             
-            # Navigate to login page
-            logger.info("Navigating to portal...")
             driver = self._get_driver()
             if not driver:
                 logger.error("No driver available")
                 return False
-            driver.get(self.portal_urls.base_url)
-            time.sleep(3)
+            
+            # Check if already on login page (redirected)
+            current_url = driver.current_url
+            if not self._is_login_page():
+                # Not on login page - navigate to base URL
+                logger.info("Navigating to portal...")
+                driver.get(self.portal_urls.base_url)
+                
+            else:
+                logger.info("Already on login page - proceeding with login")
             
             # Check if already logged in
             if self._check_logged_in():
@@ -345,16 +370,50 @@ class PortalHandler:
             password_input.clear()
             password_input.send_keys(password)
             
-            # Click login button
+            # Click login button - try multiple methods for Huawei portal
             time.sleep(1)
-            if not self._click_element('login_button', timeout=5):
-                # Try pressing Enter instead
-                password_input.send_keys(Keys.RETURN)
+            login_success = False
+            try:
+                # Try finding and clicking login button
+                login_btn = self._find_element('login_button', timeout=5)
+                if login_btn:
+                    login_btn.click()
+                    login_success = True
+                    logger.info("Login button clicked")
+            except Exception as e:
+                logger.debug(f"Could not click login button: {e}")
             
-            # Wait for login to complete
-            time.sleep(5)
+            if not login_success:
+                # Try pressing Enter on password field
+                try:
+                    password_input.send_keys(Keys.RETURN)
+                    logger.info("Pressed Enter on password field")
+                except Exception as e:
+                    logger.warning(f"Could not press Enter: {e}")
+            
+            # Wait for login to complete - Huawei portal may take longer
+            time.sleep(3)
+            
+            # Check for error messages
+            try:
+                error_elem = driver.find_element(By.CSS_SELECTOR, '#errorMessage')
+                error_text = error_elem.text.strip()
+                if error_text:
+                    logger.error(f"Login error: {error_text}")
+                    self.status.error_message = error_text
+                    return False
+            except:
+                pass  # No error message found
+            
+            # Wait a bit more for redirect
             
             # Verify login success
+            current_url = driver.current_url
+            if 'unisso/login.action' in current_url:
+                logger.error("Still on login page - login failed")
+                self.status.error_message = "Login failed - still on login page"
+                return False
+            
             if self._check_logged_in():
                 logger.success("Login successful")
                 self.status.is_logged_in = True
@@ -367,6 +426,13 @@ class PortalHandler:
                 
                 return True
             else:
+                # Check URL - if we're not on login page, assume success
+                if 'login' not in current_url.lower() and ('Access' in current_url or 'fmAlarmView' in current_url):
+                    logger.success("Login appears successful (URL check)")
+                    self.status.is_logged_in = True
+                    self.status.error_message = None
+                    return True
+                
                 logger.error("Login failed - could not verify login")
                 self.status.error_message = "Login verification failed"
                 return False
@@ -376,11 +442,38 @@ class PortalHandler:
             self.status.error_message = str(e)
             return False
     
+    def _is_login_page(self) -> bool:
+        """Check if currently on login page"""
+        try:
+            driver = self._get_driver()
+            if not driver:
+                return False
+
+            # Check URL for login page
+            current_url = driver.current_url
+            if 'unisso/login.action' in current_url or '/login' in current_url.lower():
+                return True
+
+            # Check for login form elements
+            username_input = self._find_element('username_input', timeout=2)
+            password_input = self._find_element('password_input', timeout=2)
+            if username_input and password_input:
+                return True
+
+            return False
+
+        except Exception:
+            return False
+
     def _check_logged_in(self) -> bool:
         """Check if currently logged in"""
         try:
             driver = self._get_driver()
             if not driver:
+                return False
+
+            # First check if we're on login page
+            if self._is_login_page():
                 return False
 
             # Check for welcome text or main page elements
@@ -393,12 +486,12 @@ class PortalHandler:
             if 'Access_MainTopoTitle' in current_url or 'fmAlarmView' in current_url:
                 return True
 
-            # Check for login form (if present, not logged in)
-            login_btn = self._find_element('login_button', timeout=2)
-            if login_btn:
+            # If we have a username/password field visible, we're not logged in
+            username_input = self._find_element('username_input', timeout=2)
+            if username_input:
                 return False
 
-            return True  # Assume logged in if no login button found
+            return True  # Assume logged in if no login elements found
 
         except Exception:
             return False
@@ -434,10 +527,35 @@ class PortalHandler:
 
             logger.info(f"Navigating to {portal_type.value}...")
             driver.get(url)
-            time.sleep(3)
+            time.sleep(1)
 
             # Wait for page to load
             self._wait_for_page_load()
+
+            # Check if redirected to login page
+            current_url = driver.current_url
+            if 'unisso/login.action' in current_url or self._is_login_page():
+                logger.warning(f"Redirected to login page - session expired. Re-logging in...")
+                self.status.is_logged_in = False
+                
+                # Re-login
+                if not self.login():
+                    logger.error("Failed to re-login - cannot navigate to portal")
+                    return False
+                
+                # Wait a bit after login
+                
+                # Navigate again after successful login
+                logger.info(f"Re-navigating to {portal_type.value} after login...")
+                driver.get(url)
+                time.sleep(1)
+                self._wait_for_page_load()
+                
+                # Verify we're not on login page again
+                current_url = driver.current_url
+                if 'unisso/login.action' in current_url:
+                    logger.error("Still on login page after re-login - navigation failed")
+                    return False
 
             self.status.current_portal = portal_type
             self.status.last_refresh = datetime.now()
@@ -480,7 +598,7 @@ class PortalHandler:
 
             # First, open main topology (first tab)
             self.navigate_to_portal(PortalType.MAIN_TOPOLOGY)
-            time.sleep(2)
+            time.sleep(1)
 
             portals = [
                 PortalType.CSL_FAULT,
@@ -499,7 +617,7 @@ class PortalHandler:
 
                 # Navigate to portal
                 self.navigate_to_portal(portal)
-                time.sleep(1)
+
 
             logger.info("All portal tabs opened successfully")
             return True
@@ -569,7 +687,7 @@ class PortalHandler:
                 pass
 
             driver.refresh()
-            time.sleep(2)
+            time.sleep(1)
             self._wait_for_page_load()
             self.status.last_refresh = datetime.now()
             return True
@@ -597,7 +715,14 @@ class PortalHandler:
             if not self.switch_to_tab(portal_type):
                 logger.info(f"Switching to portal {portal_type.value}...")
                 self.navigate_to_portal(portal_type)
-                time.sleep(3)
+                time.sleep(1)
+
+            # Ensure we're in default content before looking for table
+            # (Important when switching between tabs)
+            try:
+                driver.switch_to.default_content()
+            except:
+                pass
 
             # Ensure we're on the correct portal page
             current_url = self.get_current_url()
@@ -615,7 +740,12 @@ class PortalHandler:
                 if not self.navigate_to_portal(portal_type):
                     logger.error(f"Failed to re-navigate to {portal_type.value}")
                     return None
-                time.sleep(5)
+                time.sleep(1)
+                # Reset to default content after navigation
+                try:
+                    driver.switch_to.default_content()
+                except:
+                    pass
 
             # Wait for the alarm table to be loaded (may be in iframe)
             logger.info("Waiting for alarm table to load...")
@@ -702,7 +832,13 @@ class PortalHandler:
             logger.info(f"Clicking export button for {portal_type.value}...")
 
             # Wait for the page to be fully loaded and export button to be available
-            time.sleep(2)
+            time.sleep(1)
+
+            # Switch to default content (export button is in main page, not iframe)
+            try:
+                driver.switch_to.default_content()
+            except:
+                pass
 
             # Debug: Check if export button exists
             export_btn = self._find_element('export_button', timeout=20)
@@ -729,15 +865,21 @@ class PortalHandler:
 
                 return None
 
-            # Click the export button
+            # Click the export button using the helper method
             if not self._click_element('export_button', timeout=5):
                 logger.error("Could not click export button")
                 return None
 
-            time.sleep(2)
+            time.sleep(1)
 
             # Step 2: Select "All" from the dropdown menu
             logger.info("Selecting 'All' alarms option...")
+
+            # Ensure we're in default content
+            try:
+                driver.switch_to.default_content()
+            except:
+                pass
 
             # Check if dropdown appears in current context (which might be an iframe)
             # Try once in current context, then quickly try default content
@@ -769,7 +911,7 @@ class PortalHandler:
                 logger.error("Could not select 'All' option")
                 return None
 
-            time.sleep(3)
+            time.sleep(1)
 
             # Step 3: Handle the export dialog popup
             logger.info("Waiting for export dialog...")
@@ -780,7 +922,6 @@ class PortalHandler:
                 logger.info("Export popup not found in current context, trying fallback...")
                 
                 # If we were in an iframe, try default content
-                # If we were in default content, try iframes? (Less likely but possible)
                 if in_iframe_context:
                     driver.switch_to.default_content()
                     if self._wait_for_element('export_popup', timeout=10):
@@ -788,28 +929,12 @@ class PortalHandler:
                         in_iframe_context = False # Now we are in default content
                     else:
                         logger.warning("Export popup did not appear in default content either")
-                else:
-                    # Try checking iframes for the popup?
-                    # This is rare but some UI frameworks put popups in dedicated iframes
-                    pass
-
-            # Final check for popup
-            if not self._wait_for_element('export_popup', timeout=5):
-                logger.warning("Export popup did not appear, checking if download started...")
-                # Sometimes the download might start automatically
-                downloaded_file = self._wait_for_download(existing_files, timeout=30)
-                if downloaded_file:
-                    logger.success(f"Export completed (auto-download): {downloaded_file}")
-                    return downloaded_file
-                else:
-                    logger.error("Export popup did not appear and no download detected")
-                    return None
 
             # Step 4: Ensure XLSX is selected (should be default, but select it anyway)
             logger.info("Ensuring XLSX format is selected...")
             try:
                 # Try to click XLSX option
-                self._click_element('export_xlsx_option', timeout=5)
+                self._click_element('export_xlsx_option', timeout=2)
                 time.sleep(1)
             except:
                 logger.info("XLSX appears to already be selected")
@@ -990,7 +1115,7 @@ class PortalHandler:
                     
             except Exception as e:
                 logger.error(f"Monitoring error: {e}")
-                time.sleep(5)
+                time.sleep(2)
     
     def set_status_callback(self, callback: Callable):
         """Set callback for status updates"""
@@ -1010,6 +1135,8 @@ class PortalHandler:
 
             if not filename:
                 filename = f"screenshot_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png"
+            elif not filename.endswith('.png'):
+                filename = f"{filename}.png"
 
             filepath = os.path.join(str(EXPORTS_DIR), filename)
             driver.save_screenshot(filepath)

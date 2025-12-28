@@ -1,2 +1,3 @@
-2025/12/28-17:47:26.777 2f10 Creating DB C:\wd\Autok\browser_profiles\whatsapp\Default\shared_proto_db since it was missing.
-2025/12/28-17:47:26.788 2f10 Reusing MANIFEST C:\wd\Autok\browser_profiles\whatsapp\Default\shared_proto_db/MANIFEST-000001
+2025/12/28-19:47:01.566 16f8 Reusing MANIFEST C:\wd\Autok\browser_profiles\whatsapp\Default\shared_proto_db/MANIFEST-000001
+2025/12/28-19:47:01.566 16f8 Recovering log #3
+2025/12/28-19:47:01.567 16f8 Reusing old log C:\wd\Autok\browser_profiles\whatsapp\Default\shared_proto_db/000003.log 

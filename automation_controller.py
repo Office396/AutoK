@@ -12,6 +12,7 @@ from enum import Enum
 
 from browser_manager import browser_manager, BrowserStatus
 from portal_monitor import portal_monitor, MonitorStats
+from portal_handler import portal_handler
 from alarm_scheduler import alarm_scheduler
 from alarm_processor import alarm_processor, ProcessedAlarm
 from whatsapp_handler import whatsapp_handler, WhatsAppStatus, send_alarms_to_whatsapp
@@ -255,6 +256,9 @@ class AutomationController:
             logger.info("Starting browser...")
             if not browser_manager.start():
                 raise Exception("Failed to start browser")
+            
+            # Portal login will happen automatically when portal monitor tries to access portals
+            # No need to wait here - let it happen naturally during first portal access
             
             # Wait for WhatsApp
             logger.info("Checking WhatsApp connection...")

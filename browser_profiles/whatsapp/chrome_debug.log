@@ -1,19 +1,18 @@
-[10196:8916:1228/174726.610:INFO:components\enterprise\browser\controller\chrome_browser_cloud_management_controller.cc:206] No machine level policy manager exists.
-[10196:8916:1228/174726.635:WARNING:chrome\browser\extensions\extension_service.cc:429] --disable-extensions-except is not allowed in Google Chrome, ignoring.
-[10196:8916:1228/174726.638:WARNING:chrome\browser\chrome_browser_main_win.cc:787] Command line too long for RegisterApplicationRestart:  --allow-insecure-localhost --allow-pre-commit-input --allow-running-insecure-content --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-blink-features=AutomationControlled --disable-client-side-phishing-detection --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-extensions-except --disable-features=IgnoreDuplicateNavs,Prewarm,VizDisplayCompositor,TranslateUI --disable-gpu --disable-hang-monitor --disable-ipc-flooding-protection --disable-notifications --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-site-isolation-trials --disable-sync --disable-web-security --enable-logging --ignore-certificate-errors --ignore-ssl-errors --log-level=0 --no-first-run --no-sandbox --no-service-autorun --password-store=basic --remote-allow-origins=* --remote-debugging-port=0 --start-maximized --test-type=webdriver --use-mock-keychain --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" --user-data-dir=C:/wd/Autok/browser_profiles/whatsapp --restore-last-session --restart
-[1552:4520:1228/174726.712:VERBOSE1:components\viz\service\main\viz_main_impl.cc:86] VizNullHypothesis is disabled (not a warning)
-[8656:13804:1228/174726.813:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
-[6528:7696:1228/174727.017:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
-[2952:2420:1228/174727.169:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
-[6008:7092:1228/174727.451:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
-[10196:8916:1228/174728.188:INFO:CONSOLE:77] "ErrorUtils caught an error:
+[13816:13792:1228/194701.431:INFO:components\enterprise\browser\controller\chrome_browser_cloud_management_controller.cc:206] No machine level policy manager exists.
+[13816:13792:1228/194701.458:WARNING:chrome\browser\extensions\extension_service.cc:429] --disable-extensions-except is not allowed in Google Chrome, ignoring.
+[13816:13792:1228/194701.460:WARNING:chrome\browser\chrome_browser_main_win.cc:787] Command line too long for RegisterApplicationRestart:  --allow-insecure-localhost --allow-pre-commit-input --allow-running-insecure-content --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-blink-features=AutomationControlled --disable-client-side-phishing-detection --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-extensions-except --disable-features=IgnoreDuplicateNavs,Prewarm,VizDisplayCompositor,TranslateUI --disable-gpu --disable-hang-monitor --disable-ipc-flooding-protection --disable-notifications --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-site-isolation-trials --disable-sync --disable-web-security --enable-logging --ignore-certificate-errors --ignore-ssl-errors --log-level=0 --no-first-run --no-sandbox --no-service-autorun --password-store=basic --remote-allow-origins=* --remote-debugging-port=0 --start-maximized --test-type=webdriver --use-mock-keychain --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" --user-data-dir=C:/wd/Autok/browser_profiles/whatsapp --restore-last-session --restart
+[4688:12128:1228/194701.577:VERBOSE1:components\viz\service\main\viz_main_impl.cc:86] VizNullHypothesis is disabled (not a warning)
+[7980:12096:1228/194701.616:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
+[12780:11156:1228/194701.786:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
+[11900:5712:1228/194701.965:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
+[11736:6044:1228/194701.984:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
+[13816:13792:1228/194702.327:INFO:CONSOLE:113] "Event handler of 'x-storagemutated-1' event must be added on the initial evaluation of worker script.", source: https://static.whatsapp.net/rsrc.php/v4/yw/r/wpTuuOEPLrn.js (113)
+[13816:13792:1228/194702.615:INFO:CONSOLE:77] "ErrorUtils caught an error:
 
 multiple-uim-roots
 
 Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. [object Object]", source: https://static.whatsapp.net/rsrc.php/v4/yP/r/UnXae5I7-4r.js (77)
-[10196:8916:1228/174729.446:INFO:CONSOLE:113] "Event handler of 'x-storagemutated-1' event must be added on the initial evaluation of worker script.", source: https://static.whatsapp.net/rsrc.php/v4/yw/r/wpTuuOEPLrn.js (113)
-[10196:5852:1228/174736.427:ERROR:google_apis\gcm\engine\registration_request.cc:292] Registration response error message: PHONE_REGISTRATION_ERROR
-[10196:5852:1228/174736.721:ERROR:google_apis\gcm\engine\mcs_client.cc:700]   Error code: 401  Error message: Authentication Failed: wrong_secret
-[10196:5852:1228/174736.722:ERROR:google_apis\gcm\engine\mcs_client.cc:702] Failed to log in to GCM, resetting connection.
-[6012:9220:1228/174744.066:WARNING:net\extras\sqlite\sqlite_persistent_store_backend_base.cc:176] Failed to post task from FlushAndNotifyInBackground@net\extras\sqlite\sqlite_persistent_store_backend_base.cc:226 to client_task_runner_.
-[6012:9220:1228/174744.066:WARNING:net\extras\sqlite\sqlite_persistent_store_backend_base.cc:176] Failed to post task from FlushAndNotifyInBackground@net\extras\sqlite\sqlite_persistent_store_backend_base.cc:226 to client_task_runner_.
+[13816:10096:1228/194706.316:ERROR:google_apis\gcm\engine\registration_request.cc:292] Registration response error message: DEPRECATED_ENDPOINT
+[13816:10096:1228/194730.764:ERROR:google_apis\gcm\engine\registration_request.cc:292] Registration response error message: DEPRECATED_ENDPOINT
+[13816:10096:1228/194822.023:ERROR:google_apis\gcm\engine\registration_request.cc:292] Registration response error message: DEPRECATED_ENDPOINT
+[13816:10096:1228/195000.900:ERROR:google_apis\gcm\engine\registration_request.cc:292] Registration response error message: QUOTA_EXCEEDED
