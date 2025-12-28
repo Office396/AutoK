@@ -1,7 +1,2 @@
-2025/12/28-17:40:02.759 3714 Reusing MANIFEST C:\wd\Autok\browser_profiles\whatsapp\Default\Site Characteristics Database/MANIFEST-000001
-2025/12/28-17:40:02.760 3310 Compacting 2@0 + 0@1 files
-2025/12/28-17:40:02.763 3310 Generated table #18@0: 1 keys, 162 bytes
-2025/12/28-17:40:02.763 3310 Compacted 2@0 + 0@1 files => 162 bytes
-2025/12/28-17:40:02.765 3310 compacted to: files[ 2 1 0 0 0 0 0 ]
-2025/12/28-17:40:02.766 3310 Delete type=2 #14
-2025/12/28-17:40:02.766 3310 Delete type=2 #15
+2025/12/28-17:47:26.638 1878 Creating DB C:\wd\Autok\browser_profiles\whatsapp\Default\Site Characteristics Database since it was missing.
+2025/12/28-17:47:26.670 1878 Reusing MANIFEST C:\wd\Autok\browser_profiles\whatsapp\Default\Site Characteristics Database/MANIFEST-000001

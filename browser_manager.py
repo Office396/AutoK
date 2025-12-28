@@ -70,7 +70,10 @@ class BrowserManager:
         self.status = BrowserStatus()
         self.lock = threading.Lock()
         self._status_callbacks: List[Callable] = []
-        
+
+        # WhatsApp session persistence - NEVER automatically clear WhatsApp profile
+        self._preserve_whatsapp_session = True
+
         # Ensure profiles directory exists
         PROFILES_DIR.mkdir(parents=True, exist_ok=True)
     
@@ -113,15 +116,31 @@ class BrowserManager:
         chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
         chrome_options.add_experimental_option("useAutomationExtension", False)
         
-        # Additional options for WhatsApp persistence
+        # WhatsApp-specific options for reliable QR code loading and session persistence
         if profile_name == "whatsapp":
+            # Essential for WhatsApp Web to work properly
+            chrome_options.add_argument("--disable-web-security")
+            chrome_options.add_argument("--disable-features=VizDisplayCompositor")
             chrome_options.add_argument("--disable-background-timer-throttling")
             chrome_options.add_argument("--disable-backgrounding-occluded-windows")
             chrome_options.add_argument("--disable-renderer-backgrounding")
             chrome_options.add_argument("--disable-ipc-flooding-protection")
             chrome_options.add_argument("--disable-site-isolation-trials")
-            chrome_options.add_argument("--disable-web-security")
-            chrome_options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
+
+            # User agent to avoid detection issues
+            chrome_options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36")
+
+            # Allow insecure content for WhatsApp Web
+            chrome_options.add_argument("--allow-running-insecure-content")
+            chrome_options.add_argument("--disable-features=TranslateUI")
+            chrome_options.add_argument("--disable-ipc-flooding-protection")
+
+            # Ensure smooth rendering
+            chrome_options.add_argument("--disable-extensions-except")
+            chrome_options.add_argument("--disable-extensions")
+
+            # Fix for Chrome 111+ DevTools connection issues
+            chrome_options.add_argument("--remote-allow-origins=*")
         
         # Set download directory for portal
         if profile_name == "portal":
@@ -166,6 +185,8 @@ class BrowserManager:
     def start_browsers(self):
         """Start both browsers if not already open"""
         with self.lock:
+            # Always preserve WhatsApp session
+            self._preserve_whatsapp_session = True
             if not self.portal_driver:
                 try:
                     logger.info("Starting Portal browser...")
@@ -176,11 +197,43 @@ class BrowserManager:
             
             if not self.whatsapp_driver:
                 try:
-                    logger.info("Starting WhatsApp browser...")
+                    logger.info("Starting WhatsApp browser (session preserved)...")
+                    profile_path = PROFILES_DIR / "whatsapp"
+                    if profile_path.exists():
+                        logger.info(f"WhatsApp profile found at: {profile_path} - session will be preserved")
+                    else:
+                        logger.info("No existing WhatsApp profile found - will create new one")
+
                     self.whatsapp_driver = self._create_driver("whatsapp")
+
+                    # Navigate to WhatsApp Web
+                    logger.info("Navigating to WhatsApp Web...")
                     self.whatsapp_driver.get(self.WHATSAPP_URL)
+
+                    # Wait for page to load
+                    time.sleep(3)
+
+                    # Focus the window
+                    try:
+                        self.whatsapp_driver.execute_script("window.focus();")
+                        logger.info("WhatsApp window focused")
+                    except Exception as e:
+                        logger.warning(f"Could not focus WhatsApp window: {e}")
+
+                    # Check if page loaded successfully
+                    try:
+                        current_url = self.whatsapp_driver.current_url
+                        if 'web.whatsapp.com' in current_url:
+                            logger.success("WhatsApp Web loaded successfully")
+                        else:
+                            logger.warning(f"WhatsApp Web loaded but URL is: {current_url}")
+                    except Exception as e:
+                        logger.warning(f"Could not verify WhatsApp Web URL: {e}")
+
                 except Exception as e:
                     logger.error(f"Failed to start WhatsApp browser: {e}")
+                    import traceback
+                    traceback.print_exc()
             
             self.status.is_open = True
             self._notify_status()
@@ -333,6 +386,15 @@ class BrowserManager:
 
     def get_status(self) -> BrowserStatus:
         return self.status
+
+    def preserve_whatsapp_session(self, preserve: bool = True):
+        """Set WhatsApp session preservation mode"""
+        self._preserve_whatsapp_session = preserve
+        logger.info(f"WhatsApp session preservation set to: {preserve}")
+
+    def is_whatsapp_session_preserved(self) -> bool:
+        """Check if WhatsApp session should be preserved"""
+        return self._preserve_whatsapp_session
 
     def switch_to_tab(self, tab_type: TabType) -> bool:
         """Switch to a tab in portal driver or focus whatsapp window"""
