@@ -1,9 +1,8 @@
-2025/12/27-20:33:33.901 b78 Log #3: 1 ops saved to Table #7 OK
-2025/12/27-20:33:33.903 b78 Archiving C:\wd\Autok\browser_profiles\portal\Default\Site Characteristics Database/000003.log: OK
-2025/12/27-20:33:33.906 b78 Log #6: 1 ops saved to Table #8 OK
-2025/12/27-20:33:33.906 b78 Archiving C:\wd\Autok\browser_profiles\portal\Default\Site Characteristics Database/000006.log: OK
-2025/12/27-20:33:33.907 b78 Table #4: 1 entries OK
-2025/12/27-20:33:33.907 b78 Table #7: 1 entries OK
-2025/12/27-20:33:33.907 b78 Table #8: 1 entries OK
-2025/12/27-20:33:33.911 b78 Archiving C:\wd\Autok\browser_profiles\portal\Default\Site Characteristics Database/MANIFEST-000001: OK
-2025/12/27-20:33:33.917 b78 **** Repaired leveldb C:\wd\Autok\browser_profiles\portal\Default\Site Characteristics Database; recovered 3 files; 422 bytes. Some data may have been lost. ****
+2025/12/28-17:19:17.828 e5c Log #10: 1 ops saved to Table #11 OK
+2025/12/28-17:19:17.837 e5c Archiving C:\wd\Autok\browser_profiles\portal\Default\Site Characteristics Database/000010.log: OK
+2025/12/28-17:19:17.837 e5c Table #4: 1 entries OK
+2025/12/28-17:19:17.838 e5c Table #7: 1 entries OK
+2025/12/28-17:19:17.838 e5c Table #8: 1 entries OK
+2025/12/28-17:19:17.839 e5c Table #11: 1 entries OK
+2025/12/28-17:19:17.843 e5c Archiving C:\wd\Autok\browser_profiles\portal\Default\Site Characteristics Database/MANIFEST-000001: OK
+2025/12/28-17:19:17.851 e5c **** Repaired leveldb C:\wd\Autok\browser_profiles\portal\Default\Site Characteristics Database; recovered 4 files; 584 bytes. Some data may have been lost. ****

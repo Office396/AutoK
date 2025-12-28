@@ -1,9 +1,3 @@
-2025/12/27-20:33:39.368 818 Log #3: 1 ops saved to Table #7 OK
-2025/12/27-20:33:39.370 818 Archiving C:\wd\Autok\browser_profiles\whatsapp\Default\Site Characteristics Database/000003.log: OK
-2025/12/27-20:33:39.372 818 Log #6: 1 ops saved to Table #8 OK
-2025/12/27-20:33:39.373 818 Archiving C:\wd\Autok\browser_profiles\whatsapp\Default\Site Characteristics Database/000006.log: OK
-2025/12/27-20:33:39.373 818 Table #4: 1 entries OK
-2025/12/27-20:33:39.373 818 Table #7: 1 entries OK
-2025/12/27-20:33:39.373 818 Table #8: 1 entries OK
-2025/12/27-20:33:39.375 818 Archiving C:\wd\Autok\browser_profiles\whatsapp\Default\Site Characteristics Database/MANIFEST-000001: OK
-2025/12/27-20:33:39.381 818 **** Repaired leveldb C:\wd\Autok\browser_profiles\whatsapp\Default\Site Characteristics Database; recovered 3 files; 422 bytes. Some data may have been lost. ****
+2025/12/28-17:21:54.064 900 Reusing MANIFEST C:\wd\Autok\browser_profiles\whatsapp\Default\Site Characteristics Database/MANIFEST-000001
+2025/12/28-17:21:54.065 900 Recovering log #13
+2025/12/28-17:21:54.065 900 Reusing old log C:\wd\Autok\browser_profiles\whatsapp\Default\Site Characteristics Database/000013.log 

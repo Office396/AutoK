@@ -307,46 +307,68 @@ class WhatsAppHandler:
             return WhatsAppStatus.DISCONNECTED
         
         try:
+            # First ensure we're on the right page
+            current_url = driver.current_url
+            if 'web.whatsapp.com' not in current_url:
+                self._notify_status(WhatsAppStatus.DISCONNECTED)
+                return WhatsAppStatus.DISCONNECTED
+            
+            # Wait a moment for page to stabilize
+            time.sleep(1)
+            
+            # 1. Check for logged in indicators FIRST (most reliable)
             logged_in_selectors = [
                 '#pane-side',
                 '[data-testid="chat-list"]',
                 'div[aria-label="Chat list"]',
+                'div[aria-label="Chats"]',
+                '[data-testid="menu-bar-menu"]',
             ]
             
             for selector in logged_in_selectors:
                 try:
                     element = driver.find_element(By.CSS_SELECTOR, selector)
                     if element and element.is_displayed():
+                        logger.info(f"WhatsApp connected - found: {selector}")
                         self._notify_status(WhatsAppStatus.CONNECTED)
                         return WhatsAppStatus.CONNECTED
                 except:
                     continue
-            
+
+            # 2. Check for QR code (if no login indicator found)
             qr_selectors = [
                 '[data-testid="qrcode"]',
                 'canvas[aria-label*="Scan"]',
+                'canvas[aria-label*="QR"]',
+                'div[data-ref]',  # QR code container
             ]
             
             for selector in qr_selectors:
                 try:
                     qr = driver.find_element(By.CSS_SELECTOR, selector)
                     if qr and qr.is_displayed():
+                        logger.info(f"WhatsApp QR code visible - found: {selector}")
                         self._notify_status(WhatsAppStatus.QR_REQUIRED)
                         return WhatsAppStatus.QR_REQUIRED
                 except:
                     continue
             
-            if 'web.whatsapp.com' in driver.current_url:
-                self._notify_status(WhatsAppStatus.CONNECTED)
-                return WhatsAppStatus.CONNECTED
-            
-            self._notify_status(WhatsAppStatus.DISCONNECTED)
-            return WhatsAppStatus.DISCONNECTED
-            
+            # 3. Check page content for loading/connecting state
+            try:
+                page_source = driver.page_source.lower()
+                if "loading" in page_source or "connecting" in page_source:
+                    self._notify_status(WhatsAppStatus.CONNECTING)
+                    return WhatsAppStatus.CONNECTING
+            except:
+                pass
+
+            # 4. If nothing found, keep current status or assume connecting
+            logger.warning("WhatsApp status unclear - page may be loading")
+            return self.status
+              
         except Exception as e:
             logger.error(f"Error checking WhatsApp connection: {e}")
-            self._notify_status(WhatsAppStatus.ERROR)
-            return WhatsAppStatus.ERROR
+            return self.status
     
     def refresh_chat_cache(self) -> bool:
         driver = self.get_driver()

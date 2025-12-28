@@ -1,1 +1,673 @@
 [2025-12-28 17:15:44] [INFO] Application starting...
+[2025-12-28 17:15:48] [INFO] Main window created, starting event loop
+[2025-12-28 17:19:10] [INFO] ==================================================
+[2025-12-28 17:19:10] [INFO] Starting Telecom Alarm Automation
+[2025-12-28 17:19:10] [INFO] ==================================================
+[2025-12-28 17:19:10] [INFO] Loading master data...
+[2025-12-28 17:19:11] [SUCCESS] Loaded 1695 sites
+[2025-12-28 17:19:11] [INFO] Starting browser...
+[2025-12-28 17:19:11] [INFO] Starting browsers...
+[2025-12-28 17:19:11] [INFO] Creating portal browser...
+[2025-12-28 17:19:11] [INFO] Using browser profile at: C:\wd\Autok\browser_profiles\portal
+[2025-12-28 17:19:11] [INFO] Found Chrome at: C:\Program Files\Google\Chrome\Application\chrome.exe
+[2025-12-28 17:19:11] [INFO] Trying WebDriver Manager...
+[2025-12-28 17:19:16] [WARNING] WebDriver Manager failed: [WinError 193] %1 is not a valid Win32 application
+[2025-12-28 17:19:16] [INFO] Trying default Chrome...
+[2025-12-28 17:19:18] [SUCCESS] Browser started with default Chrome
+[2025-12-28 17:19:20] [INFO] Creating WhatsApp browser...
+[2025-12-28 17:19:20] [INFO] Using browser profile at: C:\wd\Autok\browser_profiles\whatsapp
+[2025-12-28 17:19:20] [INFO] Found Chrome at: C:\Program Files\Google\Chrome\Application\chrome.exe
+[2025-12-28 17:19:20] [INFO] Trying WebDriver Manager...
+[2025-12-28 17:19:22] [WARNING] WebDriver Manager failed: [WinError 193] %1 is not a valid Win32 application
+[2025-12-28 17:19:22] [INFO] Trying default Chrome...
+[2025-12-28 17:19:23] [SUCCESS] Browser started with default Chrome
+[2025-12-28 17:19:23] [INFO] Opening WhatsApp Web...
+[2025-12-28 17:19:26] [INFO] WhatsApp window focused
+[2025-12-28 17:19:30] [WARNING] WhatsApp requires QR code scan
+[2025-12-28 17:19:30] [INFO] Opening Main Topology for login...
+[2025-12-28 17:19:30] [INFO] Waiting for login page to load...
+[2025-12-28 17:19:35] [INFO] Logging in to Huawei MAE Portal...
+[2025-12-28 17:19:35] [INFO] Username: HUWMSTEM
+[2025-12-28 17:19:35] [INFO] Login page loaded successfully
+[2025-12-28 17:19:35] [INFO] Entering username...
+[2025-12-28 17:19:37] [INFO] Username entered successfully
+[2025-12-28 17:19:37] [INFO] Entering password...
+[2025-12-28 17:19:38] [INFO] Password entered successfully
+[2025-12-28 17:19:38] [INFO] Clicking login button...
+[2025-12-28 17:19:39] [INFO] Login button clicked
+[2025-12-28 17:19:39] [INFO] Waiting for login to complete...
+[2025-12-28 17:19:44] [SUCCESS] PORTAL LOGIN SUCCESSFUL!
+[2025-12-28 17:19:44] [INFO] Waiting for portal to load after login...
+[2025-12-28 17:19:47] [INFO] Portal ready - tabs will be opened on demand
+[2025-12-28 17:19:47] [SUCCESS] Both browsers started successfully
+[2025-12-28 17:19:47] [INFO] Checking WhatsApp connection...
+[2025-12-28 17:19:49] [WARNING] WhatsApp requires QR code scan
+[2025-12-28 17:19:49] [INFO] Waiting for WhatsApp QR scan...
+[2025-12-28 17:19:49] [INFO] ==================================================
+[2025-12-28 17:19:49] [INFO] CHECKING WHATSAPP STATUS
+[2025-12-28 17:19:49] [INFO] ==================================================
+[2025-12-28 17:19:54] [WARNING] WhatsApp requires QR code scan
+[2025-12-28 17:19:54] [INFO] Waiting for WhatsApp...
+[2025-12-28 17:19:54] [INFO] If you can see your chats, please wait...
+[2025-12-28 17:19:56] [WARNING] WhatsApp requires QR code scan
+[2025-12-28 17:20:04] [WARNING] WhatsApp requires QR code scan
+[2025-12-28 17:20:11] [WARNING] WhatsApp requires QR code scan
+[2025-12-28 17:20:18] [WARNING] WhatsApp requires QR code scan
+[2025-12-28 17:20:25] [WARNING] WhatsApp requires QR code scan
+[2025-12-28 17:20:25] [INFO] Still checking... 90 seconds remaining
+[2025-12-28 17:20:25] [INFO] No QR code found - WhatsApp is ready
+[2025-12-28 17:20:25] [INFO] Initializing WhatsApp handler status...
+[2025-12-28 17:20:25] [INFO] WhatsApp status changed to: Connected
+[2025-12-28 17:20:25] [SUCCESS] WhatsApp is now connected!
+[2025-12-28 17:20:25] [INFO] WhatsApp handler status: Connected
+[2025-12-28 17:20:25] [INFO] Starting WhatsApp message sender...
+[2025-12-28 17:20:25] [INFO] WhatsApp message sender started
+[2025-12-28 17:20:25] [INFO] Starting alarm scheduler...
+[2025-12-28 17:20:25] [INFO] Alarm scheduler started
+[2025-12-28 17:20:25] [INFO] Starting portal monitor...
+[2025-12-28 17:20:25] [INFO] Starting portal check cycle...
+[2025-12-28 17:20:25] [INFO] Checking portal: CSL Fault
+[2025-12-28 17:20:25] [INFO] Exporting alarms from CSL Fault...
+[2025-12-28 17:20:25] [INFO] Portal monitor started (interval: 30s)
+[2025-12-28 17:20:25] [DEBUG] Checking tab with URL: https://10.226.101.71:31943/ossfacewebsite/index.html#Access/Access_MainTopoTitle?switch
+[2025-12-28 17:20:25] [WARNING] Could not find tab for C1 OML Fault
+[2025-12-28 17:20:25] [SUCCESS] Automation started successfully!
+[2025-12-28 17:20:25] [INFO] Switching to portal C1 OML Fault...
+[2025-12-28 17:20:25] [INFO] Navigating to C1 OML Fault...
+[2025-12-28 17:20:28] [INFO] Navigated to C1 OML Fault
+[2025-12-28 17:20:31] [INFO] Waiting for alarm table to load...
+[2025-12-28 17:20:51] [INFO] Table not found in main page, checking iframes...
+[2025-12-28 17:20:51] [INFO] Found 2 iframes
+[2025-12-28 17:20:51] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-28 17:20:51] [INFO] Export operations will use iframe context
+[2025-12-28 17:20:51] [INFO] Clicking export button for C1 OML Fault...
+[2025-12-28 17:20:56] [INFO] Selecting 'All' alarms option...
+[2025-12-28 17:20:56] [INFO] Export dropdown found in current context
+[2025-12-28 17:20:59] [INFO] Waiting for export dialog...
+[2025-12-28 17:20:59] [INFO] Ensuring XLSX format is selected...
+[2025-12-28 17:21:15] [INFO] Clicking OK to start export...
+[2025-12-28 17:21:15] [INFO] Waiting for file download...
+[2025-12-28 17:21:16] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251228172115999.xlsx
+[2025-12-28 17:21:16] [DEBUG] Switched back to default content after export operations
+[2025-12-28 17:21:16] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251228172115999.xlsx
+[2025-12-28 17:21:16] [INFO] Processed 2 alarms from C:\wd\Autok\exports\CurrentAlarms20251228172115999.xlsx
+[2025-12-28 17:21:16] [INFO] Processed 2 alarms from CSL Fault
+[2025-12-28 17:21:16] [INFO] Found 2 alarms from CSL Fault (2 new)
+[2025-12-28 17:21:16] [INFO] Checking portal: All Alarms
+[2025-12-28 17:21:16] [INFO] Exporting alarms from All Alarms...
+[2025-12-28 17:21:16] [DEBUG] Checking tab with URL: https://10.226.101.71:31943/ossfacewebsite/index.html#Access/fmAlarmView?switch
+[2025-12-28 17:21:16] [WARNING] Could not find tab for c1-c2 All Alarm
+[2025-12-28 17:21:16] [INFO] Switching to portal c1-c2 All Alarm...
+[2025-12-28 17:21:17] [INFO] Navigating to c1-c2 All Alarm...
+[2025-12-28 17:21:20] [INFO] Navigated to c1-c2 All Alarm
+[2025-12-28 17:21:23] [INFO] Waiting for alarm table to load...
+[2025-12-28 17:21:43] [INFO] Table not found in main page, checking iframes...
+[2025-12-28 17:21:43] [INFO] Found 3 iframes
+[2025-12-28 17:21:43] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-28 17:21:43] [INFO] Export operations will use iframe context
+[2025-12-28 17:21:43] [INFO] Clicking export button for c1-c2 All Alarm...
+[2025-12-28 17:21:44] [WARNING] User requested WhatsApp session reset
+[2025-12-28 17:21:44] [WARNING] RESETTING WHATSAPP SESSION...
+[2025-12-28 17:21:47] [INFO] Selecting 'All' alarms option...
+[2025-12-28 17:21:47] [INFO] Export dropdown found in current context
+[2025-12-28 17:21:50] [INFO] Waiting for export dialog...
+[2025-12-28 17:21:50] [INFO] Ensuring XLSX format is selected...
+[2025-12-28 17:21:51] [SUCCESS] Deleted WhatsApp profile directory: C:\wd\Autok\chrome_whatsapp
+[2025-12-28 17:21:51] [INFO] Restarting WhatsApp browser with clean session...
+[2025-12-28 17:21:51] [INFO] Using browser profile at: C:\wd\Autok\browser_profiles\whatsapp
+[2025-12-28 17:21:51] [INFO] Found Chrome at: C:\Program Files\Google\Chrome\Application\chrome.exe
+[2025-12-28 17:21:51] [INFO] Trying WebDriver Manager...
+[2025-12-28 17:21:53] [WARNING] WebDriver Manager failed: [WinError 193] %1 is not a valid Win32 application
+[2025-12-28 17:21:53] [INFO] Trying default Chrome...
+[2025-12-28 17:21:54] [SUCCESS] Browser started with default Chrome
+[2025-12-28 17:21:55] [SUCCESS] WhatsApp session reset completed
+[2025-12-28 17:21:55] [INFO] WhatsApp status changed to: Connected
+[2025-12-28 17:21:55] [SUCCESS] WhatsApp is now connected!
+[2025-12-28 17:21:55] [INFO] WhatsApp status changed to: Connected
+[2025-12-28 17:21:55] [SUCCESS] WhatsApp is now connected!
+[2025-12-28 17:22:07] [INFO] Clicking OK to start export...
+[2025-12-28 17:22:07] [INFO] Waiting for file download...
+[2025-12-28 17:22:09] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251228172207383.xlsx
+[2025-12-28 17:22:09] [DEBUG] Switched back to default content after export operations
+[2025-12-28 17:22:09] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251228172207383.xlsx
+[2025-12-28 17:22:09] [INFO] Processed 166 alarms from C:\wd\Autok\exports\CurrentAlarms20251228172207383.xlsx
+[2025-12-28 17:22:09] [INFO] Processed 166 alarms from All Alarms
+[2025-12-28 17:22:09] [INFO] Found 166 alarms from All Alarms (166 new)
+[2025-12-28 17:22:13] [INFO] Checking portal: RF Unit
+[2025-12-28 17:22:13] [INFO] Exporting alarms from RF Unit...
+[2025-12-28 17:22:13] [DEBUG] Checking tab with URL: https://10.226.101.71:31943/ossfacewebsite/index.html#Access/fmAlarmView@@fmAlarmApp_alarmView_templateId592%26tabTitle%3Dc1-c2%20All%20Alarm?switch=undefined&maeUrl=%2Feviewwebsite%2Findex.html%23path%3D%2FfmAlarmApp%2FfmAlarmView%26templateId%3D592%26fmPage%3Dtrue%26_t%3D1765394587633&maeTitle=Current%20Alarms%20-%20%5Bc1-c2%20All%20Alarm%5D&loadType=iframe
+[2025-12-28 17:22:13] [WARNING] Could not find tab for RF-Unit AR
+[2025-12-28 17:22:13] [INFO] Switching to portal RF-Unit AR...
+[2025-12-28 17:22:13] [INFO] Navigating to RF-Unit AR...
+[2025-12-28 17:22:16] [INFO] Navigated to RF-Unit AR
+[2025-12-28 17:22:19] [INFO] Waiting for alarm table to load...
+[2025-12-28 17:22:39] [INFO] Table not found in main page, checking iframes...
+[2025-12-28 17:22:39] [INFO] Found 4 iframes
+[2025-12-28 17:22:39] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-28 17:22:39] [INFO] Export operations will use iframe context
+[2025-12-28 17:22:39] [INFO] Clicking export button for RF-Unit AR...
+[2025-12-28 17:22:44] [INFO] Selecting 'All' alarms option...
+[2025-12-28 17:22:44] [INFO] Export dropdown found in current context
+[2025-12-28 17:22:47] [INFO] Waiting for export dialog...
+[2025-12-28 17:22:47] [INFO] Ensuring XLSX format is selected...
+[2025-12-28 17:23:03] [INFO] Clicking OK to start export...
+[2025-12-28 17:23:03] [INFO] Waiting for file download...
+[2025-12-28 17:23:04] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251228172303996.xlsx
+[2025-12-28 17:23:04] [DEBUG] Switched back to default content after export operations
+[2025-12-28 17:23:04] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251228172303996.xlsx
+[2025-12-28 17:23:04] [INFO] Processed 45 alarms from C:\wd\Autok\exports\CurrentAlarms20251228172303996.xlsx
+[2025-12-28 17:23:04] [INFO] Processed 45 alarms from RF Unit
+[2025-12-28 17:23:04] [INFO] Found 45 alarms from RF Unit (11 new)
+[2025-12-28 17:23:05] [INFO] Checking portal: NodeB Cell
+[2025-12-28 17:23:05] [INFO] Exporting alarms from NodeB Cell...
+[2025-12-28 17:23:05] [DEBUG] Checking tab with URL: https://10.226.101.71:31943/ossfacewebsite/index.html#Access/fmAlarmView@@fmAlarmApp_alarmView_templateId835%26tabTitle%3DRF-Unit%20AR?switch=undefined&maeUrl=%2Feviewwebsite%2Findex.html%23path%3D%2FfmAlarmApp%2FfmAlarmView%26templateId%3D835%26fmPage%3Dtrue%26_t%3D1765394552105&maeTitle=Current%20Alarms%20-%20%5BRF-Unit%20AR%5D&loadType=iframe
+[2025-12-28 17:23:05] [WARNING] Could not find tab for C1 NodeB UMTS Cell Unavailable
+[2025-12-28 17:23:05] [INFO] Switching to portal C1 NodeB UMTS Cell Unavailable...
+[2025-12-28 17:23:05] [INFO] Navigating to C1 NodeB UMTS Cell Unavailable...
+[2025-12-28 17:23:08] [INFO] Navigated to C1 NodeB UMTS Cell Unavailable
+[2025-12-28 17:23:11] [INFO] Waiting for alarm table to load...
+[2025-12-28 17:23:21] [WARNING] User requested WhatsApp session reset
+[2025-12-28 17:23:21] [WARNING] RESETTING WHATSAPP SESSION...
+[2025-12-28 17:23:28] [INFO] Restarting WhatsApp browser with clean session...
+[2025-12-28 17:23:28] [INFO] Using browser profile at: C:\wd\Autok\browser_profiles\whatsapp
+[2025-12-28 17:23:28] [INFO] Found Chrome at: C:\Program Files\Google\Chrome\Application\chrome.exe
+[2025-12-28 17:23:28] [INFO] Trying WebDriver Manager...
+[2025-12-28 17:23:29] [WARNING] WebDriver Manager failed: [WinError 193] %1 is not a valid Win32 application
+[2025-12-28 17:23:29] [INFO] Trying default Chrome...
+[2025-12-28 17:23:31] [SUCCESS] Browser started with default Chrome
+[2025-12-28 17:23:31] [SUCCESS] WhatsApp session reset completed
+[2025-12-28 17:23:31] [INFO] WhatsApp status changed to: Connected
+[2025-12-28 17:23:31] [SUCCESS] WhatsApp is now connected!
+[2025-12-28 17:23:31] [INFO] WhatsApp status changed to: Connected
+[2025-12-28 17:23:31] [SUCCESS] WhatsApp is now connected!
+[2025-12-28 17:23:32] [INFO] Table not found in main page, checking iframes...
+[2025-12-28 17:23:32] [INFO] Found 5 iframes
+[2025-12-28 17:23:32] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-28 17:23:32] [INFO] Export operations will use iframe context
+[2025-12-28 17:23:32] [INFO] Clicking export button for C1 NodeB UMTS Cell Unavailable...
+[2025-12-28 17:23:36] [INFO] Selecting 'All' alarms option...
+[2025-12-28 17:23:36] [INFO] Export dropdown found in current context
+[2025-12-28 17:23:39] [INFO] Waiting for export dialog...
+[2025-12-28 17:23:39] [INFO] Ensuring XLSX format is selected...
+[2025-12-28 17:23:56] [INFO] Clicking OK to start export...
+[2025-12-28 17:23:56] [INFO] Waiting for file download...
+[2025-12-28 17:23:58] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251228172356368.xlsx
+[2025-12-28 17:23:58] [DEBUG] Switched back to default content after export operations
+[2025-12-28 17:23:58] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251228172356368.xlsx
+[2025-12-28 17:23:58] [INFO] Processed 43 alarms from C:\wd\Autok\exports\CurrentAlarms20251228172356368.xlsx
+[2025-12-28 17:23:58] [INFO] Processed 43 alarms from NodeB Cell
+[2025-12-28 17:23:58] [INFO] Found 43 alarms from NodeB Cell (43 new)
+[2025-12-28 17:23:59] [INFO] Total new alarms this cycle: 222
+[2025-12-28 17:23:59] [INFO] Waiting 30s for next check...
+[2025-12-28 17:24:29] [INFO] Starting portal check cycle...
+[2025-12-28 17:24:29] [INFO] Checking portal: CSL Fault
+[2025-12-28 17:24:29] [INFO] Exporting alarms from CSL Fault...
+[2025-12-28 17:24:29] [DEBUG] Checking tab with URL: https://10.226.101.71:31943/ossfacewebsite/index.html#Access/fmAlarmView@@fmAlarmApp_alarmView_templateId803%26tabTitle%3DC1%20NodeB%20UMTS%20Cell%20Unavailable%20.?switch=undefined&maeUrl=%2Feviewwebsite%2Findex.html%23path%3D%2FfmAlarmApp%2FfmAlarmView%26templateId%3D803%26fmPage%3Dtrue%26_t%3D1765394556232&maeTitle=Current%20Alarms%20-%20%5BC1%20NodeB%20UMTS%20Cell%20Unavailable%20.%5D&loadType=iframe
+[2025-12-28 17:24:29] [WARNING] Could not find tab for C1 OML Fault
+[2025-12-28 17:24:29] [INFO] Switching to portal C1 OML Fault...
+[2025-12-28 17:24:29] [INFO] Navigating to C1 OML Fault...
+[2025-12-28 17:24:32] [INFO] Navigated to C1 OML Fault
+[2025-12-28 17:24:36] [INFO] Waiting for alarm table to load...
+[2025-12-28 17:24:56] [INFO] Table not found in main page, checking iframes...
+[2025-12-28 17:24:56] [INFO] Found 5 iframes
+[2025-12-28 17:24:56] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-28 17:24:56] [INFO] Export operations will use iframe context
+[2025-12-28 17:24:56] [INFO] Clicking export button for C1 OML Fault...
+[2025-12-28 17:24:58] [DEBUG] Standard click failed for export_button: Message: element not interactable
+  (Session info: chrome=143.0.7499.170)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6784f88e5
+	0x7ff6784f8940
+	0x7ff6782d1465
+	0x7ff67832af66
+	0x7ff67831ce7f
+	0x7ff678351fda
+	0x7ff67831c746
+	0x7ff67837ac97
+	0x7ff67831ac29
+	0x7ff67831ba93
+	0x7ff678810640
+	0x7ff67880af80
+	0x7ff6788296e6
+	0x7ff678515de4
+	0x7ff67851ed8c
+	0x7ff678502004
+	0x7ff6785021b5
+	0x7ff6784e7ee2
+	0x7ffe1362e8d7
+	0x7ffe14eac53c
+
+[2025-12-28 17:25:00] [INFO] Selecting 'All' alarms option...
+[2025-12-28 17:25:08] [INFO] Export dropdown not found in iframe, quickly checking default content...
+[2025-12-28 17:25:16] [ERROR] Export dropdown did not appear for C1 OML Fault
+[2025-12-28 17:25:16] [INFO] Screenshot saved: C:\wd\Autok\exports\dropdown_not_found_C1 OML Fault
+[2025-12-28 17:25:16] [DEBUG] Switched back to default content after export operations
+[2025-12-28 17:25:16] [ERROR] Export failed for CSL Fault
+[2025-12-28 17:25:16] [INFO] Checking portal: All Alarms
+[2025-12-28 17:25:16] [INFO] Exporting alarms from All Alarms...
+[2025-12-28 17:25:16] [DEBUG] Checking tab with URL: https://10.226.101.71:31943/ossfacewebsite/index.html#Access/fmAlarmView?switch
+[2025-12-28 17:25:16] [WARNING] Could not find tab for c1-c2 All Alarm
+[2025-12-28 17:25:16] [INFO] Switching to portal c1-c2 All Alarm...
+[2025-12-28 17:25:16] [INFO] Navigating to c1-c2 All Alarm...
+[2025-12-28 17:25:19] [INFO] Navigated to c1-c2 All Alarm
+[2025-12-28 17:25:22] [INFO] Waiting for alarm table to load...
+[2025-12-28 17:25:43] [INFO] Table not found in main page, checking iframes...
+[2025-12-28 17:25:43] [INFO] Found 5 iframes
+[2025-12-28 17:25:43] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-28 17:25:43] [INFO] Export operations will use iframe context
+[2025-12-28 17:25:43] [INFO] Clicking export button for c1-c2 All Alarm...
+[2025-12-28 17:25:45] [DEBUG] Standard click failed for export_button: Message: element not interactable
+  (Session info: chrome=143.0.7499.170)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6784f88e5
+	0x7ff6784f8940
+	0x7ff6782d1465
+	0x7ff67832af66
+	0x7ff67831ce7f
+	0x7ff678351fda
+	0x7ff67831c746
+	0x7ff67837ac97
+	0x7ff67831ac29
+	0x7ff67831ba93
+	0x7ff678810640
+	0x7ff67880af80
+	0x7ff6788296e6
+	0x7ff678515de4
+	0x7ff67851ed8c
+	0x7ff678502004
+	0x7ff6785021b5
+	0x7ff6784e7ee2
+	0x7ffe1362e8d7
+	0x7ffe14eac53c
+
+[2025-12-28 17:25:47] [INFO] Selecting 'All' alarms option...
+[2025-12-28 17:25:55] [INFO] Export dropdown not found in iframe, quickly checking default content...
+[2025-12-28 17:26:03] [ERROR] Export dropdown did not appear for c1-c2 All Alarm
+[2025-12-28 17:26:03] [INFO] Screenshot saved: C:\wd\Autok\exports\dropdown_not_found_c1-c2 All Alarm
+[2025-12-28 17:26:03] [DEBUG] Switched back to default content after export operations
+[2025-12-28 17:26:03] [ERROR] Export failed for All Alarms
+[2025-12-28 17:26:03] [INFO] Checking portal: RF Unit
+[2025-12-28 17:26:03] [INFO] Exporting alarms from RF Unit...
+[2025-12-28 17:26:03] [DEBUG] Checking tab with URL: https://10.226.101.71:31943/ossfacewebsite/index.html#Access/fmAlarmView@@fmAlarmApp_alarmView_templateId592%26tabTitle%3Dc1-c2%20All%20Alarm?switch=undefined&maeUrl=%2Feviewwebsite%2Findex.html%23path%3D%2FfmAlarmApp%2FfmAlarmView%26templateId%3D592%26fmPage%3Dtrue%26_t%3D1765394587633&maeTitle=Current%20Alarms%20-%20%5Bc1-c2%20All%20Alarm%5D&loadType=iframe
+[2025-12-28 17:26:03] [WARNING] Could not find tab for RF-Unit AR
+[2025-12-28 17:26:03] [INFO] Switching to portal RF-Unit AR...
+[2025-12-28 17:26:03] [INFO] Navigating to RF-Unit AR...
+[2025-12-28 17:26:06] [INFO] Navigated to RF-Unit AR
+[2025-12-28 17:26:09] [INFO] Waiting for alarm table to load...
+[2025-12-28 17:26:30] [INFO] Table not found in main page, checking iframes...
+[2025-12-28 17:26:30] [INFO] Found 5 iframes
+[2025-12-28 17:26:30] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-28 17:26:30] [INFO] Export operations will use iframe context
+[2025-12-28 17:26:30] [INFO] Clicking export button for RF-Unit AR...
+[2025-12-28 17:26:32] [DEBUG] Standard click failed for export_button: Message: element not interactable
+  (Session info: chrome=143.0.7499.170)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6784f88e5
+	0x7ff6784f8940
+	0x7ff6782d1465
+	0x7ff67832af66
+	0x7ff67831ce7f
+	0x7ff678351fda
+	0x7ff67831c746
+	0x7ff67837ac97
+	0x7ff67831ac29
+	0x7ff67831ba93
+	0x7ff678810640
+	0x7ff67880af80
+	0x7ff6788296e6
+	0x7ff678515de4
+	0x7ff67851ed8c
+	0x7ff678502004
+	0x7ff6785021b5
+	0x7ff6784e7ee2
+	0x7ffe1362e8d7
+	0x7ffe14eac53c
+
+[2025-12-28 17:26:34] [INFO] Selecting 'All' alarms option...
+[2025-12-28 17:26:42] [INFO] Export dropdown not found in iframe, quickly checking default content...
+[2025-12-28 17:26:50] [ERROR] Export dropdown did not appear for RF-Unit AR
+[2025-12-28 17:26:50] [INFO] Screenshot saved: C:\wd\Autok\exports\dropdown_not_found_RF-Unit AR
+[2025-12-28 17:26:50] [DEBUG] Switched back to default content after export operations
+[2025-12-28 17:26:50] [ERROR] Export failed for RF Unit
+[2025-12-28 17:26:50] [INFO] Checking portal: NodeB Cell
+[2025-12-28 17:26:50] [INFO] Exporting alarms from NodeB Cell...
+[2025-12-28 17:26:50] [DEBUG] Checking tab with URL: https://10.226.101.71:31943/ossfacewebsite/index.html#Access/fmAlarmView@@fmAlarmApp_alarmView_templateId835%26tabTitle%3DRF-Unit%20AR?switch=undefined&maeUrl=%2Feviewwebsite%2Findex.html%23path%3D%2FfmAlarmApp%2FfmAlarmView%26templateId%3D835%26fmPage%3Dtrue%26_t%3D1765394552105&maeTitle=Current%20Alarms%20-%20%5BRF-Unit%20AR%5D&loadType=iframe
+[2025-12-28 17:26:50] [WARNING] Could not find tab for C1 NodeB UMTS Cell Unavailable
+[2025-12-28 17:26:50] [INFO] Switching to portal C1 NodeB UMTS Cell Unavailable...
+[2025-12-28 17:26:50] [INFO] Navigating to C1 NodeB UMTS Cell Unavailable...
+[2025-12-28 17:26:53] [INFO] Navigated to C1 NodeB UMTS Cell Unavailable
+[2025-12-28 17:26:56] [INFO] Waiting for alarm table to load...
+[2025-12-28 17:27:17] [INFO] Table not found in main page, checking iframes...
+[2025-12-28 17:27:17] [INFO] Found 5 iframes
+[2025-12-28 17:27:17] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-28 17:27:17] [INFO] Export operations will use iframe context
+[2025-12-28 17:27:17] [INFO] Clicking export button for C1 NodeB UMTS Cell Unavailable...
+[2025-12-28 17:27:21] [INFO] Selecting 'All' alarms option...
+[2025-12-28 17:27:21] [INFO] Export dropdown found in current context
+[2025-12-28 17:27:24] [INFO] Waiting for export dialog...
+[2025-12-28 17:27:24] [INFO] Ensuring XLSX format is selected...
+[2025-12-28 17:27:41] [INFO] Clicking OK to start export...
+[2025-12-28 17:27:41] [INFO] Waiting for file download...
+[2025-12-28 17:27:43] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251228172741600.xlsx
+[2025-12-28 17:27:43] [DEBUG] Switched back to default content after export operations
+[2025-12-28 17:27:43] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251228172741600.xlsx
+[2025-12-28 17:27:43] [INFO] Processed 41 alarms from C:\wd\Autok\exports\CurrentAlarms20251228172741600.xlsx
+[2025-12-28 17:27:43] [INFO] Processed 41 alarms from NodeB Cell
+[2025-12-28 17:27:43] [INFO] Found 41 alarms from NodeB Cell (12 new)
+[2025-12-28 17:27:45] [INFO] Total new alarms this cycle: 12
+[2025-12-28 17:27:46] [INFO] Waiting 30s for next check...
+[2025-12-28 17:28:16] [INFO] Starting portal check cycle...
+[2025-12-28 17:28:16] [INFO] Checking portal: CSL Fault
+[2025-12-28 17:28:16] [INFO] Exporting alarms from CSL Fault...
+[2025-12-28 17:28:16] [DEBUG] Checking tab with URL: https://10.226.101.71:31943/ossfacewebsite/index.html#Access/fmAlarmView@@fmAlarmApp_alarmView_templateId803%26tabTitle%3DC1%20NodeB%20UMTS%20Cell%20Unavailable%20.?switch=undefined&maeUrl=%2Feviewwebsite%2Findex.html%23path%3D%2FfmAlarmApp%2FfmAlarmView%26templateId%3D803%26fmPage%3Dtrue%26_t%3D1765394556232&maeTitle=Current%20Alarms%20-%20%5BC1%20NodeB%20UMTS%20Cell%20Unavailable%20.%5D&loadType=iframe
+[2025-12-28 17:28:16] [WARNING] Could not find tab for C1 OML Fault
+[2025-12-28 17:28:16] [INFO] Switching to portal C1 OML Fault...
+[2025-12-28 17:28:16] [INFO] Navigating to C1 OML Fault...
+[2025-12-28 17:28:19] [INFO] Navigated to C1 OML Fault
+[2025-12-28 17:28:22] [INFO] Waiting for alarm table to load...
+[2025-12-28 17:28:42] [INFO] Table not found in main page, checking iframes...
+[2025-12-28 17:28:42] [INFO] Found 5 iframes
+[2025-12-28 17:28:42] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-28 17:28:42] [INFO] Export operations will use iframe context
+[2025-12-28 17:28:42] [INFO] Clicking export button for C1 OML Fault...
+[2025-12-28 17:28:44] [DEBUG] Standard click failed for export_button: Message: element not interactable
+  (Session info: chrome=143.0.7499.170)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6784f88e5
+	0x7ff6784f8940
+	0x7ff6782d1465
+	0x7ff67832af66
+	0x7ff67831ce7f
+	0x7ff678351fda
+	0x7ff67831c746
+	0x7ff67837ac97
+	0x7ff67831ac29
+	0x7ff67831ba93
+	0x7ff678810640
+	0x7ff67880af80
+	0x7ff6788296e6
+	0x7ff678515de4
+	0x7ff67851ed8c
+	0x7ff678502004
+	0x7ff6785021b5
+	0x7ff6784e7ee2
+	0x7ffe1362e8d7
+	0x7ffe14eac53c
+
+[2025-12-28 17:28:46] [INFO] Selecting 'All' alarms option...
+[2025-12-28 17:28:54] [INFO] Export dropdown not found in iframe, quickly checking default content...
+[2025-12-28 17:29:02] [ERROR] Export dropdown did not appear for C1 OML Fault
+[2025-12-28 17:29:03] [INFO] Screenshot saved: C:\wd\Autok\exports\dropdown_not_found_C1 OML Fault
+[2025-12-28 17:29:03] [DEBUG] Switched back to default content after export operations
+[2025-12-28 17:29:03] [ERROR] Export failed for CSL Fault
+[2025-12-28 17:29:03] [INFO] Checking portal: All Alarms
+[2025-12-28 17:29:03] [INFO] Exporting alarms from All Alarms...
+[2025-12-28 17:29:03] [DEBUG] Checking tab with URL: https://10.226.101.71:31943/ossfacewebsite/index.html#Access/fmAlarmView?switch
+[2025-12-28 17:29:03] [WARNING] Could not find tab for c1-c2 All Alarm
+[2025-12-28 17:29:03] [INFO] Switching to portal c1-c2 All Alarm...
+[2025-12-28 17:29:03] [INFO] Navigating to c1-c2 All Alarm...
+[2025-12-28 17:29:06] [INFO] Navigated to c1-c2 All Alarm
+[2025-12-28 17:29:09] [INFO] Waiting for alarm table to load...
+[2025-12-28 17:29:29] [INFO] Table not found in main page, checking iframes...
+[2025-12-28 17:29:29] [INFO] Found 5 iframes
+[2025-12-28 17:29:29] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-28 17:29:29] [INFO] Export operations will use iframe context
+[2025-12-28 17:29:29] [INFO] Clicking export button for c1-c2 All Alarm...
+[2025-12-28 17:29:31] [DEBUG] Standard click failed for export_button: Message: element not interactable
+  (Session info: chrome=143.0.7499.170)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6784f88e5
+	0x7ff6784f8940
+	0x7ff6782d1465
+	0x7ff67832af66
+	0x7ff67831ce7f
+	0x7ff678351fda
+	0x7ff67831c746
+	0x7ff67837ac97
+	0x7ff67831ac29
+	0x7ff67831ba93
+	0x7ff678810640
+	0x7ff67880af80
+	0x7ff6788296e6
+	0x7ff678515de4
+	0x7ff67851ed8c
+	0x7ff678502004
+	0x7ff6785021b5
+	0x7ff6784e7ee2
+	0x7ffe1362e8d7
+	0x7ffe14eac53c
+
+[2025-12-28 17:29:33] [INFO] Selecting 'All' alarms option...
+[2025-12-28 17:29:41] [INFO] Export dropdown not found in iframe, quickly checking default content...
+[2025-12-28 17:29:50] [ERROR] Export dropdown did not appear for c1-c2 All Alarm
+[2025-12-28 17:29:50] [INFO] Screenshot saved: C:\wd\Autok\exports\dropdown_not_found_c1-c2 All Alarm
+[2025-12-28 17:29:50] [DEBUG] Switched back to default content after export operations
+[2025-12-28 17:29:50] [ERROR] Export failed for All Alarms
+[2025-12-28 17:29:50] [INFO] Checking portal: RF Unit
+[2025-12-28 17:29:50] [INFO] Exporting alarms from RF Unit...
+[2025-12-28 17:29:50] [DEBUG] Checking tab with URL: https://10.226.101.71:31943/ossfacewebsite/index.html#Access/fmAlarmView@@fmAlarmApp_alarmView_templateId592%26tabTitle%3Dc1-c2%20All%20Alarm?switch=undefined&maeUrl=%2Feviewwebsite%2Findex.html%23path%3D%2FfmAlarmApp%2FfmAlarmView%26templateId%3D592%26fmPage%3Dtrue%26_t%3D1765394587633&maeTitle=Current%20Alarms%20-%20%5Bc1-c2%20All%20Alarm%5D&loadType=iframe
+[2025-12-28 17:29:50] [WARNING] Could not find tab for RF-Unit AR
+[2025-12-28 17:29:50] [INFO] Switching to portal RF-Unit AR...
+[2025-12-28 17:29:50] [INFO] Navigating to RF-Unit AR...
+[2025-12-28 17:29:53] [INFO] Navigated to RF-Unit AR
+[2025-12-28 17:29:56] [INFO] Waiting for alarm table to load...
+[2025-12-28 17:30:16] [INFO] Table not found in main page, checking iframes...
+[2025-12-28 17:30:16] [INFO] Found 5 iframes
+[2025-12-28 17:30:16] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-28 17:30:16] [INFO] Export operations will use iframe context
+[2025-12-28 17:30:16] [INFO] Clicking export button for RF-Unit AR...
+[2025-12-28 17:30:18] [DEBUG] Standard click failed for export_button: Message: element not interactable
+  (Session info: chrome=143.0.7499.170)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6784f88e5
+	0x7ff6784f8940
+	0x7ff6782d1465
+	0x7ff67832af66
+	0x7ff67831ce7f
+	0x7ff678351fda
+	0x7ff67831c746
+	0x7ff67837ac97
+	0x7ff67831ac29
+	0x7ff67831ba93
+	0x7ff678810640
+	0x7ff67880af80
+	0x7ff6788296e6
+	0x7ff678515de4
+	0x7ff67851ed8c
+	0x7ff678502004
+	0x7ff6785021b5
+	0x7ff6784e7ee2
+	0x7ffe1362e8d7
+	0x7ffe14eac53c
+
+[2025-12-28 17:30:20] [INFO] Selecting 'All' alarms option...
+[2025-12-28 17:30:28] [INFO] Export dropdown not found in iframe, quickly checking default content...
+[2025-12-28 17:30:36] [ERROR] Export dropdown did not appear for RF-Unit AR
+[2025-12-28 17:30:36] [INFO] Screenshot saved: C:\wd\Autok\exports\dropdown_not_found_RF-Unit AR
+[2025-12-28 17:30:36] [DEBUG] Switched back to default content after export operations
+[2025-12-28 17:30:36] [ERROR] Export failed for RF Unit
+[2025-12-28 17:30:36] [INFO] Checking portal: NodeB Cell
+[2025-12-28 17:30:36] [INFO] Exporting alarms from NodeB Cell...
+[2025-12-28 17:30:36] [DEBUG] Checking tab with URL: https://10.226.101.71:31943/ossfacewebsite/index.html#Access/fmAlarmView@@fmAlarmApp_alarmView_templateId835%26tabTitle%3DRF-Unit%20AR?switch=undefined&maeUrl=%2Feviewwebsite%2Findex.html%23path%3D%2FfmAlarmApp%2FfmAlarmView%26templateId%3D835%26fmPage%3Dtrue%26_t%3D1765394552105&maeTitle=Current%20Alarms%20-%20%5BRF-Unit%20AR%5D&loadType=iframe
+[2025-12-28 17:30:36] [WARNING] Could not find tab for C1 NodeB UMTS Cell Unavailable
+[2025-12-28 17:30:36] [INFO] Switching to portal C1 NodeB UMTS Cell Unavailable...
+[2025-12-28 17:30:36] [INFO] Navigating to C1 NodeB UMTS Cell Unavailable...
+[2025-12-28 17:30:40] [INFO] Navigated to C1 NodeB UMTS Cell Unavailable
+[2025-12-28 17:30:43] [INFO] Waiting for alarm table to load...
+[2025-12-28 17:31:03] [INFO] Table not found in main page, checking iframes...
+[2025-12-28 17:31:03] [INFO] Found 5 iframes
+[2025-12-28 17:31:03] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-28 17:31:03] [INFO] Export operations will use iframe context
+[2025-12-28 17:31:03] [INFO] Clicking export button for C1 NodeB UMTS Cell Unavailable...
+[2025-12-28 17:31:07] [INFO] Selecting 'All' alarms option...
+[2025-12-28 17:31:07] [INFO] Export dropdown found in current context
+[2025-12-28 17:31:10] [INFO] Waiting for export dialog...
+[2025-12-28 17:31:10] [INFO] Ensuring XLSX format is selected...
+[2025-12-28 17:31:27] [INFO] Clicking OK to start export...
+[2025-12-28 17:31:27] [INFO] Waiting for file download...
+[2025-12-28 17:31:29] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251228173127558.xlsx
+[2025-12-28 17:31:29] [DEBUG] Switched back to default content after export operations
+[2025-12-28 17:31:29] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20251228173127558.xlsx
+[2025-12-28 17:31:29] [INFO] Processed 43 alarms from C:\wd\Autok\exports\CurrentAlarms20251228173127558.xlsx
+[2025-12-28 17:31:29] [INFO] Processed 43 alarms from NodeB Cell
+[2025-12-28 17:31:29] [INFO] Found 43 alarms from NodeB Cell (2 new)
+[2025-12-28 17:31:30] [INFO] Total new alarms this cycle: 2
+[2025-12-28 17:31:30] [INFO] Waiting 30s for next check...
+[2025-12-28 17:32:00] [INFO] Starting portal check cycle...
+[2025-12-28 17:32:00] [INFO] Checking portal: CSL Fault
+[2025-12-28 17:32:00] [INFO] Exporting alarms from CSL Fault...
+[2025-12-28 17:32:00] [DEBUG] Checking tab with URL: https://10.226.101.71:31943/ossfacewebsite/index.html#Access/fmAlarmView@@fmAlarmApp_alarmView_templateId803%26tabTitle%3DC1%20NodeB%20UMTS%20Cell%20Unavailable%20.?switch=undefined&maeUrl=%2Feviewwebsite%2Findex.html%23path%3D%2FfmAlarmApp%2FfmAlarmView%26templateId%3D803%26fmPage%3Dtrue%26_t%3D1765394556232&maeTitle=Current%20Alarms%20-%20%5BC1%20NodeB%20UMTS%20Cell%20Unavailable%20.%5D&loadType=iframe
+[2025-12-28 17:32:00] [WARNING] Could not find tab for C1 OML Fault
+[2025-12-28 17:32:00] [INFO] Switching to portal C1 OML Fault...
+[2025-12-28 17:32:00] [INFO] Navigating to C1 OML Fault...
+[2025-12-28 17:32:03] [INFO] Navigated to C1 OML Fault
+[2025-12-28 17:32:06] [INFO] Waiting for alarm table to load...
+[2025-12-28 17:32:27] [INFO] Table not found in main page, checking iframes...
+[2025-12-28 17:32:27] [INFO] Found 5 iframes
+[2025-12-28 17:32:27] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-28 17:32:27] [INFO] Export operations will use iframe context
+[2025-12-28 17:32:27] [INFO] Clicking export button for C1 OML Fault...
+[2025-12-28 17:32:29] [DEBUG] Standard click failed for export_button: Message: element not interactable
+  (Session info: chrome=143.0.7499.170)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6784f88e5
+	0x7ff6784f8940
+	0x7ff6782d1465
+	0x7ff67832af66
+	0x7ff67831ce7f
+	0x7ff678351fda
+	0x7ff67831c746
+	0x7ff67837ac97
+	0x7ff67831ac29
+	0x7ff67831ba93
+	0x7ff678810640
+	0x7ff67880af80
+	0x7ff6788296e6
+	0x7ff678515de4
+	0x7ff67851ed8c
+	0x7ff678502004
+	0x7ff6785021b5
+	0x7ff6784e7ee2
+	0x7ffe1362e8d7
+	0x7ffe14eac53c
+
+[2025-12-28 17:32:31] [INFO] Selecting 'All' alarms option...
+[2025-12-28 17:32:39] [INFO] Export dropdown not found in iframe, quickly checking default content...
+[2025-12-28 17:32:47] [ERROR] Export dropdown did not appear for C1 OML Fault
+[2025-12-28 17:32:47] [INFO] Screenshot saved: C:\wd\Autok\exports\dropdown_not_found_C1 OML Fault
+[2025-12-28 17:32:47] [DEBUG] Switched back to default content after export operations
+[2025-12-28 17:32:47] [ERROR] Export failed for CSL Fault
+[2025-12-28 17:32:47] [INFO] Checking portal: All Alarms
+[2025-12-28 17:32:47] [INFO] Exporting alarms from All Alarms...
+[2025-12-28 17:32:47] [DEBUG] Checking tab with URL: https://10.226.101.71:31943/ossfacewebsite/index.html#Access/fmAlarmView?switch
+[2025-12-28 17:32:47] [WARNING] Could not find tab for c1-c2 All Alarm
+[2025-12-28 17:32:47] [INFO] Switching to portal c1-c2 All Alarm...
+[2025-12-28 17:32:47] [INFO] Navigating to c1-c2 All Alarm...
+[2025-12-28 17:32:50] [INFO] Navigated to c1-c2 All Alarm
+[2025-12-28 17:32:53] [INFO] Waiting for alarm table to load...
+[2025-12-28 17:33:14] [INFO] Table not found in main page, checking iframes...
+[2025-12-28 17:33:14] [INFO] Found 5 iframes
+[2025-12-28 17:33:14] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-28 17:33:14] [INFO] Export operations will use iframe context
+[2025-12-28 17:33:14] [INFO] Clicking export button for c1-c2 All Alarm...
+[2025-12-28 17:33:16] [DEBUG] Standard click failed for export_button: Message: element not interactable
+  (Session info: chrome=143.0.7499.170)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6784f88e5
+	0x7ff6784f8940
+	0x7ff6782d1465
+	0x7ff67832af66
+	0x7ff67831ce7f
+	0x7ff678351fda
+	0x7ff67831c746
+	0x7ff67837ac97
+	0x7ff67831ac29
+	0x7ff67831ba93
+	0x7ff678810640
+	0x7ff67880af80
+	0x7ff6788296e6
+	0x7ff678515de4
+	0x7ff67851ed8c
+	0x7ff678502004
+	0x7ff6785021b5
+	0x7ff6784e7ee2
+	0x7ffe1362e8d7
+	0x7ffe14eac53c
+
+[2025-12-28 17:33:18] [INFO] Selecting 'All' alarms option...
+[2025-12-28 17:33:27] [INFO] Export dropdown not found in iframe, quickly checking default content...
+[2025-12-28 17:33:35] [ERROR] Export dropdown did not appear for c1-c2 All Alarm
+[2025-12-28 17:33:35] [INFO] Screenshot saved: C:\wd\Autok\exports\dropdown_not_found_c1-c2 All Alarm
+[2025-12-28 17:33:35] [DEBUG] Switched back to default content after export operations
+[2025-12-28 17:33:35] [ERROR] Export failed for All Alarms
+[2025-12-28 17:33:35] [INFO] Checking portal: RF Unit
+[2025-12-28 17:33:35] [INFO] Exporting alarms from RF Unit...
+[2025-12-28 17:33:35] [DEBUG] Checking tab with URL: https://10.226.101.71:31943/ossfacewebsite/index.html#Access/fmAlarmView@@fmAlarmApp_alarmView_templateId592%26tabTitle%3Dc1-c2%20All%20Alarm?switch=undefined&maeUrl=%2Feviewwebsite%2Findex.html%23path%3D%2FfmAlarmApp%2FfmAlarmView%26templateId%3D592%26fmPage%3Dtrue%26_t%3D1765394587633&maeTitle=Current%20Alarms%20-%20%5Bc1-c2%20All%20Alarm%5D&loadType=iframe
+[2025-12-28 17:33:35] [WARNING] Could not find tab for RF-Unit AR
+[2025-12-28 17:33:35] [INFO] Switching to portal RF-Unit AR...
+[2025-12-28 17:33:35] [INFO] Navigating to RF-Unit AR...
+[2025-12-28 17:33:38] [INFO] Navigated to RF-Unit AR
+[2025-12-28 17:33:41] [INFO] Waiting for alarm table to load...
+[2025-12-28 17:34:01] [INFO] Table not found in main page, checking iframes...
+[2025-12-28 17:34:01] [INFO] Found 5 iframes
+[2025-12-28 17:34:01] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-28 17:34:01] [INFO] Export operations will use iframe context
+[2025-12-28 17:34:02] [INFO] Clicking export button for RF-Unit AR...
+[2025-12-28 17:34:04] [DEBUG] Standard click failed for export_button: Message: element not interactable
+  (Session info: chrome=143.0.7499.170)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6784f88e5
+	0x7ff6784f8940
+	0x7ff6782d1465
+	0x7ff67832af66
+	0x7ff67831ce7f
+	0x7ff678351fda
+	0x7ff67831c746
+	0x7ff67837ac97
+	0x7ff67831ac29
+	0x7ff67831ba93
+	0x7ff678810640
+	0x7ff67880af80
+	0x7ff6788296e6
+	0x7ff678515de4
+	0x7ff67851ed8c
+	0x7ff678502004
+	0x7ff6785021b5
+	0x7ff6784e7ee2
+	0x7ffe1362e8d7
+	0x7ffe14eac53c
+
+[2025-12-28 17:34:06] [INFO] Selecting 'All' alarms option...
+[2025-12-28 17:34:14] [INFO] Export dropdown not found in iframe, quickly checking default content...
+[2025-12-28 17:34:22] [ERROR] Export dropdown did not appear for RF-Unit AR
+[2025-12-28 17:34:22] [INFO] Screenshot saved: C:\wd\Autok\exports\dropdown_not_found_RF-Unit AR
+[2025-12-28 17:34:22] [DEBUG] Switched back to default content after export operations
+[2025-12-28 17:34:22] [ERROR] Export failed for RF Unit
+[2025-12-28 17:34:22] [INFO] Checking portal: NodeB Cell
+[2025-12-28 17:34:22] [INFO] Exporting alarms from NodeB Cell...
+[2025-12-28 17:34:22] [DEBUG] Checking tab with URL: https://10.226.101.71:31943/ossfacewebsite/index.html#Access/fmAlarmView@@fmAlarmApp_alarmView_templateId835%26tabTitle%3DRF-Unit%20AR?switch=undefined&maeUrl=%2Feviewwebsite%2Findex.html%23path%3D%2FfmAlarmApp%2FfmAlarmView%26templateId%3D835%26fmPage%3Dtrue%26_t%3D1765394552105&maeTitle=Current%20Alarms%20-%20%5BRF-Unit%20AR%5D&loadType=iframe
+[2025-12-28 17:34:22] [WARNING] Could not find tab for C1 NodeB UMTS Cell Unavailable
+[2025-12-28 17:34:22] [INFO] Switching to portal C1 NodeB UMTS Cell Unavailable...
+[2025-12-28 17:34:22] [INFO] Navigating to C1 NodeB UMTS Cell Unavailable...
+[2025-12-28 17:34:25] [INFO] Navigated to C1 NodeB UMTS Cell Unavailable
+[2025-12-28 17:34:28] [INFO] Waiting for alarm table to load...
+[2025-12-28 17:34:48] [INFO] Table not found in main page, checking iframes...
+[2025-12-28 17:34:48] [INFO] Found 5 iframes
+[2025-12-28 17:34:48] [INFO] Alarm table found in iframe 0 with selector: .eui_table_tb
+[2025-12-28 17:34:48] [INFO] Export operations will use iframe context
+[2025-12-28 17:34:48] [INFO] Clicking export button for C1 NodeB UMTS Cell Unavailable...
+[2025-12-28 17:34:52] [INFO] Selecting 'All' alarms option...
+[2025-12-28 17:34:53] [INFO] Export dropdown found in current context
+[2025-12-28 17:34:56] [INFO] Waiting for export dialog...
+[2025-12-28 17:34:56] [INFO] Ensuring XLSX format is selected...
+[2025-12-28 17:36:59] [INFO] Application starting...
+[2025-12-28 17:37:03] [INFO] Main window created, starting event loop

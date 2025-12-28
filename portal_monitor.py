@@ -194,20 +194,18 @@ class PortalMonitor:
             
             self.stats.total_alarms_found += len(processed_alarms)
             
-            # Filter for new alarms only (for scheduler)
+            # Filter for new alarms only (for scheduler) - but still return ALL for display
             new_alarms = []
             for alarm in processed_alarms:
-                    if self._is_new_alarm(alarm):
-                        new_alarms.append(alarm)
-                        self._mark_alarm_seen(alarm)
-                        
-                        self.stats.alarms_by_type[alarm.alarm_type] += 1
-                        if alarm.mbu:
-                            self.stats.alarms_by_mbu[alarm.mbu] += 1
-                        
-                        # logger.info(f"New alarm: {alarm.alarm_type} - {alarm.site_code} - {alarm.mbu}")
+                if self._is_new_alarm(alarm):
+                    new_alarms.append(alarm)
+                    self._mark_alarm_seen(alarm)
+                    
+                    self.stats.alarms_by_type[alarm.alarm_type] += 1
+                    if alarm.mbu:
+                        self.stats.alarms_by_mbu[alarm.mbu] += 1
             
-            # Return BOTH all current alarms (for GUI display) and true new alarms (for notification)
+            # Return BOTH all current alarms (for GUI display) and true new alarms (for scheduler)
             return processed_alarms, new_alarms
             
         except Exception as e:
@@ -215,6 +213,13 @@ class PortalMonitor:
             import traceback
             traceback.print_exc()
             return [], []
+    
+    def clear_seen_alarms(self):
+        """Clear the seen alarms cache - useful for testing or fresh start"""
+        with self.lock:
+            count = len(self.seen_alarms)
+            self.seen_alarms.clear()
+            logger.info(f"Cleared {count} seen alarms from cache")
     
     # Removed _extract_all_alarms method - now using export functionality
     

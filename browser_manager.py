@@ -2,31 +2,24 @@
 Browser Manager
 Manages both Portal and WhatsApp Web in separate browser instances
 Optimized for Huawei MAE Portal login with session recovery
-Includes automatic session recovery for browser crashes
 """
 
 import os
 import time
 import threading
+import shutil
 from typing import Optional, Callable, List, Dict
 from enum import Enum
 from dataclasses import dataclass, field
-from datetime import datetime
 from pathlib import Path
 
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import (
-    TimeoutException, 
-    WebDriverException,
-    ElementNotInteractableException,
-    StaleElementReferenceException
-)
+from selenium.common.exceptions import WebDriverException
 
 try:
     from webdriver_manager.chrome import ChromeDriverManager
@@ -37,7 +30,6 @@ except ImportError:
 from config import settings, PROFILES_DIR, EXPORTS_DIR, BASE_DIR
 from logger_module import logger
 
-
 class TabType(Enum):
     """Types of browser tabs"""
     WHATSAPP = "WhatsApp Web"
@@ -46,7 +38,6 @@ class TabType(Enum):
     RF_UNIT = "RF Unit"
     NODEB_CELL = "NodeB Cell"
     ALL_ALARMS = "All Alarms"
-
 
 @dataclass
 class BrowserStatus:
@@ -57,10 +48,9 @@ class BrowserStatus:
     active_tab: Optional[TabType] = None
     tab_handles: Dict[TabType, str] = field(default_factory=dict)
 
-
 class BrowserManager:
     """
-    Manages a single browser instance with multiple tabs
+    Manages browser instances for Portal and WhatsApp
     """
     
     WHATSAPP_URL = "https://web.whatsapp.com"
@@ -74,305 +64,227 @@ class BrowserManager:
     }
     
     def __init__(self):
-        self.portal_driver: Optional[webdriver.Chrome] = None  # For portal monitoring
-        self.whatsapp_driver: Optional[webdriver.Chrome] = None  # Dedicated WhatsApp browser
-        self.driver: Optional[webdriver.Chrome] = None  # Backwards compatibility - points to portal_driver
+        self.portal_driver: Optional[webdriver.Chrome] = None
+        self.whatsapp_driver: Optional[webdriver.Chrome] = None
+        self.driver: Optional[webdriver.Chrome] = None  # Alias for portal_driver
         self.status = BrowserStatus()
         self.lock = threading.Lock()
         self._status_callbacks: List[Callable] = []
+        
+        # Ensure profiles directory exists
+        PROFILES_DIR.mkdir(parents=True, exist_ok=True)
     
     def add_status_callback(self, callback: Callable):
-        """Add a callback for status updates"""
         self._status_callbacks.append(callback)
     
     def _notify_status(self):
-        """Notify all callbacks of status change"""
         for callback in self._status_callbacks:
             try:
                 callback(self.status)
             except:
                 pass
-    
-    def _cleanup_profile_locks(self, profile_dir: Path):
-        """Clean up Chrome lock files to prevent profile corruption errors"""
-        try:
-            lock_files = [
-                "SingletonLock",
-                "SingletonSocket",
-                "Parent.lock"
-            ]
-            for lock_file in lock_files:
-                lock_path = profile_dir / lock_file
-                if lock_path.exists():
-                    try:
-                        lock_path.unlink()
-                        logger.info(f"Removed stale lock file: {lock_file}")
-                    except Exception as e:
-                        logger.warning(f"Could not remove lock file {lock_file}: {e}")
-        except Exception as e:
-            logger.error(f"Error during lock file cleanup: {e}")
 
-    def _create_driver(self, profile_name: str = "portal") -> webdriver.Chrome:
-        """Create Chrome WebDriver with specified profile"""
-        options = Options()
+    def _create_driver(self, profile_name: str) -> webdriver.Chrome:
+        """Create a Chrome driver with a specific profile"""
+        profile_path = PROFILES_DIR / profile_name
+        profile_path.mkdir(parents=True, exist_ok=True)
         
-        # Use standard profiles directory
-        profile_dir = PROFILES_DIR / profile_name
+        # Clean up stale locks
+        self._cleanup_profile_locks(profile_path)
         
-        # Ensure path is absolute and use posix format for Chrome flags to avoid escape char issues
-        profile_dir = profile_dir.resolve()
-        profile_dir.mkdir(parents=True, exist_ok=True)
+        chrome_options = Options()
+        # Use forward slashes for Chrome compatibility and absolute path
+        profile_path_str = str(profile_path.absolute()).replace("\\", "/")
+        chrome_options.add_argument(f"--user-data-dir={profile_path_str}")
+        chrome_options.add_argument("--start-maximized")
+        chrome_options.add_argument("--disable-notifications")
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+        chrome_options.add_argument("--disable-gpu")
         
-        # CLEANUP LOCKS BEFORE STARTING
-        self._cleanup_profile_locks(profile_dir)
+        # SSL and certificate handling
+        chrome_options.add_argument("--ignore-certificate-errors")
+        chrome_options.add_argument("--ignore-ssl-errors")
+        chrome_options.add_argument("--allow-running-insecure-content")
+        chrome_options.add_argument("--allow-insecure-localhost")
         
-        EXPORTS_DIR.mkdir(parents=True, exist_ok=True)
+        # Security/Automation bypasses
+        chrome_options.add_argument("--disable-blink-features=AutomationControlled")
+        chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+        chrome_options.add_experimental_option("useAutomationExtension", False)
         
-        logger.info(f"Using browser profile at: {profile_dir}")
-        options.add_argument(f"--user-data-dir={profile_dir.as_posix()}")
-        # Basic stable options
-        options.add_argument('--ignore-certificate-errors')
-        options.add_argument('--ignore-ssl-errors')
-        options.add_argument('--allow-insecure-localhost')
-        options.add_argument('--allow-running-insecure-content')
-        options.add_argument('--start-maximized')
-        options.add_argument('--disable-gpu')
-        options.add_argument('--disable-software-rasterizer')
-        options.add_argument('--disable-dev-shm-usage')  # Reduce memory pressure
-        options.add_argument('--remote-allow-origins=*')  # Fix for Chrome 111+ connection issues
-        options.add_argument('--no-first-run')
-        options.add_argument('--no-service-autorun')
-        options.add_argument('--password-store=basic')
-
-        # WhatsApp specific settings
+        # Additional options for WhatsApp persistence
         if profile_name == "whatsapp":
-            options.add_argument('--disable-web-security')
-            options.add_argument('--disable-features=VizDisplayCompositor')
-            options.add_argument('--disable-features=IsolateOrigins,site-per-process')
-            options.add_argument('--disable-site-isolation-trials')
-            options.add_argument('--disable-blink-features=AutomationControlled')
-            
-            # CRITICAL: Prevent Chrome from throttling background tabs (WhatsApp)
-            options.add_argument('--disable-background-timer-throttling')
-            options.add_argument('--disable-backgrounding-occluded-windows')
-            options.add_argument('--disable-renderer-backgrounding')
-            options.add_argument('--disable-ipc-flooding-protection')
-            options.add_argument('--no-sandbox') # Extra stability
-            
-            # User agent to mimic a real browser more closely
-            options.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36')
+            chrome_options.add_argument("--disable-background-timer-throttling")
+            chrome_options.add_argument("--disable-backgrounding-occluded-windows")
+            chrome_options.add_argument("--disable-renderer-backgrounding")
+            chrome_options.add_argument("--disable-ipc-flooding-protection")
+            chrome_options.add_argument("--disable-site-isolation-trials")
+            chrome_options.add_argument("--disable-web-security")
+            chrome_options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
         
-        # Optimization flags - REMOVED for WhatsApp to prevent loading issues
-        # These flags can cause WhatsApp Web to not load QR code properly
-        # if profile_name == "whatsapp":
-        #     options.add_argument('--disable-features=CalculateNativeWinOcclusion')
-        #     options.add_argument('--disable-background-timer-throttling')
-        #     options.add_argument('--disable-backgrounding-occluded-windows')
-        #     options.add_argument('--disable-renderer-backgrounding')
-        #     options.add_argument('--disable-ipc-flooding-protection')
-        
-        options.add_argument('--disable-blink-features=AutomationControlled')
-        options.add_experimental_option("excludeSwitches", ["enable-automation"])
-        options.add_experimental_option('useAutomationExtension', False)
-        
-        prefs = {
-            "download.default_directory": str(EXPORTS_DIR),
-            "download.prompt_for_download": False,
-            "download.directory_upgrade": True,
-            "safebrowsing.enabled": True
-        }
-        options.add_experimental_option("prefs", prefs)
-        
-        chrome_paths = [
-            r"C:\Program Files\Google\Chrome\Application\chrome.exe",
-            r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
-            os.path.expandvars(r"%LOCALAPPDATA%\Google\Chrome\Application\chrome.exe"),
-        ]
-        
-        for path in chrome_paths:
-            if os.path.exists(path):
-                options.binary_location = path
-                logger.info(f"Found Chrome at: {path}")
-                break
-        
-        errors = []
-        
-        if WEBDRIVER_MANAGER_AVAILABLE:
-            try:
-                logger.info("Trying WebDriver Manager...")
-                service = Service(ChromeDriverManager().install())
-                driver = webdriver.Chrome(service=service, options=options)
-                logger.success("Browser started with WebDriver Manager")
-                return driver
-            except Exception as e:
-                errors.append(f"WebDriver Manager: {e}")
-                logger.warning(f"WebDriver Manager failed: {e}")
+        # Set download directory for portal
+        if profile_name == "portal":
+            prefs = {
+                "download.default_directory": str(EXPORTS_DIR.absolute()),
+                "download.prompt_for_download": False,
+                "download.directory_upgrade": True,
+                "safebrowsing.enabled": True
+            }
+            chrome_options.add_experimental_option("prefs", prefs)
         
         try:
-            logger.info("Trying default Chrome...")
-            driver = webdriver.Chrome(options=options)
-            logger.success("Browser started with default Chrome")
+            if WEBDRIVER_MANAGER_AVAILABLE:
+                service = Service(ChromeDriverManager().install())
+            else:
+                # Fallback to system chromedriver
+                service = Service()
+                
+            driver = webdriver.Chrome(service=service, options=chrome_options)
+            
+            # Remove automation flag from navigator
+            driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
+                "source": "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
+            })
+            
             return driver
         except Exception as e:
-            errors.append(f"Default Chrome: {e}")
-            logger.warning(f"Default Chrome failed: {e}")
-        
-        try:
-            current_dir = Path(__file__).parent
-            chromedriver_path = current_dir / "chromedriver.exe"
-            
-            if chromedriver_path.exists():
-                logger.info(f"Trying local ChromeDriver: {chromedriver_path}")
-                service = Service(str(chromedriver_path))
-                driver = webdriver.Chrome(service=service, options=options)
-                logger.success("Browser started with local ChromeDriver")
-                return driver
-        except Exception as e:
-            errors.append(f"Local ChromeDriver: {e}")
-            logger.warning(f"Local ChromeDriver failed: {e}")
-        
-        error_msg = "\n".join(errors)
-        raise Exception(f"Could not start Chrome browser.\n\nErrors:\n{error_msg}")
-    
-    def _kill_chrome_processes(self):
-        """Kill any existing Chrome processes to free up profiles"""
-        try:
-            import os
-            if os.name == 'nt':
-                # Windows
-                os.system('taskkill /F /IM chrome.exe /T >nul 2>&1')
-                os.system('taskkill /F /IM chromedriver.exe /T >nul 2>&1')
-            else:
-                # Linux/Mac
-                os.system('pkill -f chrome >/dev/null 2>&1')
-        except:
-            pass
+            logger.error(f"Failed to create driver for {profile_name}: {e}")
+            raise
 
-    def start(self) -> bool:
-        """Start both portal and WhatsApp browsers"""
-        try:
-            # We no longer kill all chrome processes automatically to avoid interrupting other sessions
-            # self._kill_chrome_processes()
-            # time.sleep(1)
-            
-            with self.lock:
-                logger.info("Starting browsers...")
-                
-                # Step 1: Create Portal Browser
-                logger.info("Creating portal browser...")
-                self.portal_driver = self._create_driver(profile_name="portal")
-                self.driver = self.portal_driver  # Backwards compatibility
-                self.status.is_open = True
-                
-                # Small delay to reduce resource spike
-                time.sleep(2)
-                
-                # Step 2: Create WhatsApp Browser (separate profile - saves login!)
-                logger.info("Creating WhatsApp browser...")
-                self.whatsapp_driver = self._create_driver(profile_name="whatsapp")
-                
-                # Step 3: Open WhatsApp Web in its dedicated browser
-                logger.info("Opening WhatsApp Web...")
-                self.whatsapp_driver.get(self.WHATSAPP_URL)
-                time.sleep(2)
-
-                # Ensure WhatsApp window gets focus
+    def _cleanup_profile_locks(self, profile_dir: Path):
+        """Clean up Chrome lock files"""
+        lock_files = ["SingletonLock", "SingletonSocket", "Parent.lock", "lock"]
+        for lock_file in lock_files:
+            lock_path = profile_dir / lock_file
+            if lock_path.exists():
                 try:
-                    self.whatsapp_driver.execute_script("window.focus();")
-                    logger.info("WhatsApp window focused")
+                    if lock_file == "SingletonLock" and os.name == 'nt':
+                        # On Windows, we can't easily unlink SingletonLock if it's held
+                        continue
+                    lock_path.unlink()
+                except:
+                    pass
+
+    def start_browsers(self):
+        """Start both browsers if not already open"""
+        with self.lock:
+            if not self.portal_driver:
+                try:
+                    logger.info("Starting Portal browser...")
+                    self.portal_driver = self._create_driver("portal")
+                    self.driver = self.portal_driver
                 except Exception as e:
-                    logger.warning(f"Could not focus WhatsApp window: {e}")
-
-                time.sleep(2)
-                
-                # Check WhatsApp status
-                self._check_whatsapp_status()
-                
-                # Step 4: Open Main Topology in portal browser and login
-                logger.info("Opening Main Topology for login...")
-                self.portal_driver.get(self.PORTAL_URLS[TabType.MAIN_TOPOLOGY])
-                self.status.tab_handles[TabType.MAIN_TOPOLOGY] = self.portal_driver.current_window_handle
-                
-                logger.info("Waiting for login page to load...")
-                time.sleep(5)
-                
-                # Step 5: Login to portal
-                login_success = self._login_to_huawei_portal()
-                
-                if login_success:
-                    logger.info("Waiting for portal to load after login...")
-                    time.sleep(3)  # Reduced delay
-
-                    # Don't open all tabs at once - open them on demand
-                    logger.info("Portal ready - tabs will be opened on demand")
-                else:
-                    logger.warning("Portal login may have failed, opening other tabs anyway...")
-                    time.sleep(1)
-                    # Don't open other tabs at startup - open on demand
-                
-                self._notify_status()
-                logger.success("Both browsers started successfully")
-                return True
-                
-        except Exception as e:
-            logger.error(f"Failed to start browsers: {e}")
-            self.status.is_open = False
-            raise e
-    
-    def _check_whatsapp_status(self):
-        """Check if WhatsApp is logged in"""
-        try:
-            # Use whatsapp_driver instead of switching tabs
-            driver = self.whatsapp_driver if self.whatsapp_driver else self.driver
+                    logger.error(f"Failed to start Portal browser: {e}")
             
+            if not self.whatsapp_driver:
+                try:
+                    logger.info("Starting WhatsApp browser...")
+                    self.whatsapp_driver = self._create_driver("whatsapp")
+                    self.whatsapp_driver.get(self.WHATSAPP_URL)
+                except Exception as e:
+                    logger.error(f"Failed to start WhatsApp browser: {e}")
+            
+            self.status.is_open = True
+            self._notify_status()
+
+    def reset_whatsapp_session(self) -> bool:
+        """Completely reset WhatsApp session by deleting profile"""
+        try:
+            logger.warning("RESETTING WHATSAPP SESSION...")
+            
+            # Close driver first (outside lock to avoid deadlock)
+            driver_to_close = None
+            with self.lock:
+                driver_to_close = self.whatsapp_driver
+                self.whatsapp_driver = None
+                self.status.whatsapp_ready = False
+            
+            if driver_to_close:
+                try:
+                    driver_to_close.quit()
+                    logger.info("WhatsApp browser closed")
+                except Exception as e:
+                    logger.warning(f"Error closing WhatsApp browser: {e}")
+            
+            # Wait for browser processes to fully exit
+            time.sleep(3)
+            
+            # Now delete the profile
+            profile_dir = PROFILES_DIR / "whatsapp"
+            if profile_dir.exists():
+                for i in range(10):
+                    try:
+                        shutil.rmtree(str(profile_dir))
+                        logger.success(f"Deleted WhatsApp profile: {profile_dir}")
+                        break
+                    except PermissionError as e:
+                        logger.warning(f"Delete attempt {i+1} failed (permission): {e}")
+                        time.sleep(2)
+                    except Exception as e:
+                        logger.warning(f"Delete attempt {i+1} failed: {e}")
+                        time.sleep(1)
+            
+            self._notify_status()
+            
+            # Wait a bit before recreating
             time.sleep(2)
             
-            # Check for logged in indicators
+            # Restart with fresh profile
+            logger.info("Restarting WhatsApp with fresh profile...")
+            with self.lock:
+                self.whatsapp_driver = self._create_driver("whatsapp")
+                self.whatsapp_driver.get(self.WHATSAPP_URL)
+            
+            logger.success("WhatsApp browser restarted - please scan QR code")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Reset WhatsApp failed: {e}")
+            import traceback
+            traceback.print_exc()
+            return False
+
+    def close(self):
+        """Close all browsers"""
+        with self.lock:
+            if self.portal_driver:
+                try: self.portal_driver.quit()
+                except: pass
+                self.portal_driver = None
+            if self.whatsapp_driver:
+                try: self.whatsapp_driver.quit()
+                except: pass
+                self.whatsapp_driver = None
+            self.driver = None
+            self.status = BrowserStatus()
+            self._notify_status()
+            logger.info("Browsers closed")
+
+    def is_whatsapp_ready(self) -> bool:
+        """Check if WhatsApp is connected and ready to send messages"""
+        if not self.whatsapp_driver:
+            return False
+        
+        try:
+            # Check for logged in indicators (chat list, search bar, etc.)
             logged_in_selectors = [
                 '#pane-side',
                 '[data-testid="chat-list"]',
-                '[data-testid="chatlist"]',
-                '[data-testid="default-user"]',
-                '[data-testid="menu-bar-menu"]',
                 'div[aria-label="Chat list"]',
-                'div[aria-label="Chats"]',
-                '[data-testid="cell-frame-container"]',
-                'header[data-testid="chatlist-header"]',
-                '#main',
-                'div[id="main"]',
-                'div[id="pane-side"]',
-                '[data-testid="conversation-panel-wrapper"]',
-                'span[data-testid="menu"]',
-                'div[data-testid="chat-list-search"]',
+                '[data-testid="menu-bar-menu"]',
             ]
             
             for selector in logged_in_selectors:
                 try:
-                    element = driver.find_element(By.CSS_SELECTOR, selector)
+                    element = self.whatsapp_driver.find_element(By.CSS_SELECTOR, selector)
                     if element and element.is_displayed():
-                        logger.info(f"WhatsApp logged in - found: {selector}")
                         self.status.whatsapp_ready = True
-                        return
+                        return True
                 except:
                     continue
             
-            # Check page source for indicators
-            try:
-                page_source = driver.page_source.lower()
-                
-                if 'pane-side' in page_source or 'chat-list' in page_source:
-                    logger.info("WhatsApp logged in - found in page source")
-                    self.status.whatsapp_ready = True
-                    return
-                
-                if 'scan' in page_source and 'qr' in page_source:
-                    logger.warning("WhatsApp requires QR code scan")
-                    self.status.whatsapp_ready = False
-                    return
-            except:
-                pass
-            
-            # Check for QR code
+            # Check if QR code is shown (not ready)
             qr_selectors = [
                 '[data-testid="qrcode"]',
                 'canvas[aria-label*="Scan"]',
@@ -381,413 +293,71 @@ class BrowserManager:
             
             for selector in qr_selectors:
                 try:
-                    qr = driver.find_element(By.CSS_SELECTOR, selector)
+                    qr = self.whatsapp_driver.find_element(By.CSS_SELECTOR, selector)
                     if qr and qr.is_displayed():
-                        logger.warning("WhatsApp requires QR code scan")
                         self.status.whatsapp_ready = False
-                        return
+                        return False
                 except:
                     continue
             
-            # Check URL
-            try:
-                current_url = driver.current_url
-                if 'web.whatsapp.com' in current_url:
-                    # No QR found, assume logged in
-                    logger.info("WhatsApp appears to be logged in")
-                    self.status.whatsapp_ready = True
-                    return
-            except:
-                pass
-            
-            self.status.whatsapp_ready = False
-                    
-        except Exception as e:
-            logger.error(f"Error checking WhatsApp status: {e}")
-            self.status.whatsapp_ready = False
-    
-    def _login_to_huawei_portal(self) -> bool:
-        """Login to Huawei MAE Portal"""
-        try:
-            username = settings.credentials.username
-            password = settings.credentials.password
-            
-            if not username or not password:
-                logger.warning("NO PORTAL CREDENTIALS CONFIGURED!")
-                logger.warning("Please go to Settings tab and enter username/password")
-                return False
-            
-            logger.info(f"Logging in to Huawei MAE Portal...")
-            logger.info(f"Username: {username}")
-            
-            try:
-                WebDriverWait(self.driver, 15).until(
-                    EC.presence_of_element_located((By.CSS_SELECTOR, '#username'))
-                )
-                logger.info("Login page loaded successfully")
-            except TimeoutException:
-                if 'Access_MainTopoTitle' in self.driver.current_url:
-                    logger.info("Already logged in")
-                    self.status.portal_logged_in = True
-                    return True
-                else:
-                    logger.error("Login page did not load")
-                    return False
-            
-            # Enter username
-            try:
-                logger.info("Entering username...")
-                username_field = self.driver.find_element(By.CSS_SELECTOR, '#username')
-                username_field.click()
-                time.sleep(0.3)
-                username_field.clear()
-                time.sleep(0.2)
-                for char in username:
-                    username_field.send_keys(char)
-                    time.sleep(0.05)
-                time.sleep(0.3)
-                logger.info("Username entered successfully")
-            except Exception as e:
-                logger.error(f"Failed to enter username: {e}")
-                return False
-            
-            # Enter password
-            try:
-                logger.info("Entering password...")
-                password_field = self.driver.find_element(By.CSS_SELECTOR, '#value')
-                password_field.click()
-                time.sleep(0.3)
-                password_field.clear()
-                time.sleep(0.2)
-                for char in password:
-                    password_field.send_keys(char)
-                    time.sleep(0.05)
-                time.sleep(0.3)
-                logger.info("Password entered successfully")
-            except Exception as e:
-                logger.error(f"Failed to enter password: {e}")
-                return False
-            
-            # Click login button
-            try:
-                logger.info("Clicking login button...")
-                try:
-                    login_btn = self.driver.find_element(By.CSS_SELECTOR, '#submitDataverify')
-                    login_btn.click()
-                except:
-                    try:
-                        login_btn = self.driver.find_element(By.CSS_SELECTOR, '#btn_outerverify')
-                        login_btn.click()
-                    except:
-                        try:
-                            login_btn = self.driver.find_element(By.CSS_SELECTOR, '.loginBtn')
-                            login_btn.click()
-                        except:
-                            password_field = self.driver.find_element(By.CSS_SELECTOR, '#value')
-                            password_field.send_keys(Keys.RETURN)
-                
-                logger.info("Login button clicked")
-            except Exception as e:
-                logger.error(f"Failed to click login: {e}")
-            
-            logger.info("Waiting for login to complete...")
-            time.sleep(5)
-            
-            # Check for errors
-            try:
-                error_elem = self.driver.find_element(By.CSS_SELECTOR, '#errorMessage')
-                error_text = error_elem.text.strip()
-                if error_text:
-                    logger.error(f"Login error: {error_text}")
-                    return False
-            except:
-                pass
-            
-            # Check success
-            current_url = self.driver.current_url
-            if 'access_maintopoTitle' in current_url.lower() or '#username' not in self.driver.page_source:
-                self.status.portal_logged_in = True
-                logger.success("PORTAL LOGIN SUCCESSFUL!")
-                return True
-            else:
-                try:
-                    self.driver.find_element(By.CSS_SELECTOR, '#username')
-                    logger.error("Still on login page - login failed")
-                    return False
-                except:
-                    self.status.portal_logged_in = True
-                    logger.success("Login appears successful")
-                    return True
-                
-        except Exception as e:
-            logger.error(f"Portal login error: {e}")
             return False
-    
-
-        logger.info("Finished opening portal tabs")
-    
-    def switch_to_tab(self, tab_type: TabType) -> bool:
-        """Switch to a specific tab, opening it if necessary"""
-        try:
-            # WhatsApp is handled by a separate driver instance
-            if tab_type == TabType.WHATSAPP:
-                if self.whatsapp_driver:
-                    try:
-                        self.whatsapp_driver.execute_script("window.focus();")
-                        return True
-                    except:
-                        return True
-                return False
-
-            handle = self.status.tab_handles.get(tab_type)
-            if handle:
-                self.driver.switch_to.window(handle)
-                self.status.active_tab = tab_type
-                return True
-
-            # Tab not found - try to open it on demand
-            logger.info(f"Tab {tab_type.value} not found, opening on demand...")
-            return self._open_tab_on_demand(tab_type)
-
+            
         except Exception as e:
-            logger.error(f"Error switching to tab {tab_type.value}: {e}")
+            logger.error(f"Error checking WhatsApp ready: {e}")
             return False
 
-    def _open_tab_on_demand(self, tab_type: TabType) -> bool:
-        """Open a tab when first accessed"""
-        try:
-            url = self.PORTAL_URLS.get(tab_type)
-            if not url:
-                logger.error(f"No URL found for tab type {tab_type.value}")
-                return False
-
-            # Open new tab
-            self.driver.execute_script("window.open()")
-            time.sleep(0.5)
-
-            # Switch to new tab
-            self.driver.switch_to.window(self.driver.window_handles[-1])
-
-            # Navigate to URL
-            self.driver.get(url)
-            self.status.tab_handles[tab_type] = self.driver.current_window_handle
-
-            time.sleep(1)
-            logger.success(f"Successfully opened {tab_type.value} on demand")
-            return True
-
-        except Exception as e:
-            logger.error(f"Error opening tab {tab_type.value} on demand: {e}")
-            return False
-    
-    def refresh_tab(self, tab_type: TabType) -> bool:
-        """Refresh a specific tab"""
-        try:
-            if self.switch_to_tab(tab_type):
-                self.driver.refresh()
-                time.sleep(2)
-                return True
-            return False
-        except Exception as e:
-            logger.error(f"Error refreshing tab: {e}")
-            return False
-    
-    def get_current_tab(self) -> Optional[TabType]:
-        """Get the current active tab type"""
-        try:
-            current_handle = self.driver.current_window_handle
-            for tab_type, handle in self.status.tab_handles.items():
-                if handle == current_handle:
-                    return tab_type
-            return None
-        except:
-            return None
-    
-    def is_whatsapp_ready(self) -> bool:
-        """Check if WhatsApp is ready for sending"""
-        if not self.status.whatsapp_ready:
-            self._check_whatsapp_status()
-        return self.status.whatsapp_ready
-    
-    def wait_for_whatsapp_scan(self, timeout: int = 300) -> bool:
-        """Wait for WhatsApp to be ready"""
-        logger.info("=" * 50)
-        logger.info("CHECKING WHATSAPP STATUS")
-        logger.info("=" * 50)
+    def wait_for_whatsapp_scan(self, timeout: int = 120) -> bool:
+        """Wait for user to scan WhatsApp QR code"""
+        logger.info(f"Waiting up to {timeout}s for WhatsApp QR scan...")
+        start = time.time()
         
-        self.switch_to_tab(TabType.WHATSAPP)
-        time.sleep(3)
-        
-        # First check
-        self._check_whatsapp_status()
-        
-        if self.status.whatsapp_ready:
-            logger.success("WhatsApp is already ready!")
-            return True
-        
-        logger.info("Waiting for WhatsApp...")
-        logger.info("If you can see your chats, please wait...")
-        
-        start_time = time.time()
-        check_interval = 5
-        
-        while time.time() - start_time < timeout:
-            # WhatsApp is in a separate driver instance
-            driver = self.whatsapp_driver if self.whatsapp_driver else self.driver
-            
-            self._check_whatsapp_status()
-            
-            if self.status.whatsapp_ready:
-                logger.success("WHATSAPP IS NOW READY!")
-                return True
-            
-            elapsed = int(time.time() - start_time)
-            remaining = timeout - elapsed
-            
-            if elapsed % 30 == 0 and elapsed > 0:
-                logger.info(f"Still checking... {remaining} seconds remaining")
-            
-            # After 30 seconds, if we're on WhatsApp URL, assume ready if no QR
-            if elapsed >= 30:
-                try:
-                    if 'web.whatsapp.com' in driver.current_url:
-                        # Check if there's NO QR code visible
-                        try:
-                            qr = driver.find_element(By.CSS_SELECTOR, '[data-testid="qrcode"]')
-                            if not qr.is_displayed():
-                                logger.info("No QR code visible - assuming WhatsApp is ready")
-                                self.status.whatsapp_ready = True
-                                return True
-                        except:
-                            # No QR found, assume ready
-                            logger.info("No QR code found - WhatsApp is ready")
-                            self.status.whatsapp_ready = True
-                            return True
-                except:
-                    pass
-            
-            time.sleep(check_interval)
-        
-        logger.warning("WhatsApp check timeout - assuming ready")
-        self.status.whatsapp_ready = True
-        return True
-    
-    def reset_whatsapp_session(self) -> bool:
-        """Close WhatsApp browser and delete its profile to reset session"""
-        try:
-            with self.lock:
-                logger.warning("RESETTING WHATSAPP SESSION...")
-                
-                # Close driver if it exists
-                if self.whatsapp_driver:
-                    try:
-                        self.whatsapp_driver.quit()
-                    except:
-                        pass
-                    self.whatsapp_driver = None
-                
-                # Path to WhatsApp profile
-                profile_dir = BASE_DIR / "chrome_whatsapp"
-                
-                if profile_dir.exists():
-                    import shutil
-                    import time
-                    
-                    # Try to delete multiple times in case of file locks
-                    for i in range(5):
-                        try:
-                            shutil.rmtree(str(profile_dir))
-                            logger.success(f"Deleted WhatsApp profile directory: {profile_dir}")
-                            break
-                        except Exception as e:
-                            logger.warning(f"Attempt {i+1} to delete profile failed: {e}")
-                            time.sleep(1)
-                
-                # Reset status
-                self.status.whatsapp_ready = False
+        while time.time() - start < timeout:
+            if self.is_whatsapp_ready():
+                logger.success("WhatsApp is now connected!")
+                self.status.whatsapp_ready = True
                 self._notify_status()
-                
-                # Restart WhatsApp browser
-                logger.info("Restarting WhatsApp browser with clean session...")
-                self.whatsapp_driver = self._create_driver(profile_name="whatsapp")
-                self.whatsapp_driver.get(self.WHATSAPP_URL)
-                
-                logger.success("WhatsApp session reset completed")
                 return True
-                
+            time.sleep(2)
+        
+        logger.warning("WhatsApp QR scan timeout")
+        return False
+
+    def start(self) -> bool:
+        """Start both browsers and return success status"""
+        try:
+            self.start_browsers()
+            return self.portal_driver is not None
         except Exception as e:
-            logger.error(f"Failed to reset WhatsApp session: {e}")
+            logger.error(f"Failed to start browsers: {e}")
             return False
 
-    def close(self):
-        """Close both browsers"""
-        try:
-            if self.portal_driver:
-                self.portal_driver.quit()
-                self.portal_driver = None
-            if self.whatsapp_driver:
-                self.whatsapp_driver.quit()
-                self.whatsapp_driver = None
-            self.driver = None
-            self.status = BrowserStatus()
-            logger.info("Both browsers closed")
-        except Exception as e:
-            logger.error(f"Error closing browsers: {e}")
-    
-    def is_session_alive(self) -> bool:
-        """Check if browser session is still alive"""
-        try:
-            if not self.driver:
-                return False
-
-            # Try to get current URL - this will fail if session is dead
-            self.driver.current_url
-            return True
-        except Exception:
-            return False
-
-    def recover_session(self) -> bool:
-        """Try to recover from a dead browser session"""
-        try:
-            logger.warning("Browser session lost, attempting recovery...")
-
-            # Close dead driver
-            try:
-                if self.driver:
-                    self.driver.quit()
-            except:
-                pass
-
-            # Recreate portal driver
-            self.portal_driver = self._create_driver(profile_name="portal")
-            self.driver = self.portal_driver
-            self.status.is_open = True
-
-            # Reopen Main Topology
-            self.portal_driver.get(self.PORTAL_URLS[TabType.MAIN_TOPOLOGY])
-            self.status.tab_handles[TabType.MAIN_TOPOLOGY] = self.portal_driver.current_window_handle
-
-            logger.success("Browser session recovered")
-            return True
-
-        except Exception as e:
-            logger.error(f"Session recovery failed: {e}")
-            return False
-
-    def ensure_session_alive(self) -> bool:
-        """Ensure browser session is alive, recover if needed"""
-        if not self.is_session_alive():
-            return self.recover_session()
-        return True
-    
     def get_driver(self) -> Optional[webdriver.Chrome]:
-        """Get the WebDriver instance"""
-        return self.driver
-    
+        return self.portal_driver
+
     def get_status(self) -> BrowserStatus:
-        """Get current browser status"""
         return self.status
 
+    def switch_to_tab(self, tab_type: TabType) -> bool:
+        """Switch to a tab in portal driver or focus whatsapp window"""
+        if tab_type == TabType.WHATSAPP:
+            if self.whatsapp_driver:
+                try:
+                    self.whatsapp_driver.execute_script("window.focus();")
+                    return True
+                except: return False
+            return False
+        
+        if not self.portal_driver: return False
+        
+        handle = self.status.tab_handles.get(tab_type)
+        if handle:
+            try:
+                self.portal_driver.switch_to.window(handle)
+                self.status.active_tab = tab_type
+                return True
+            except: pass
+            
+        return False
 
 # Global instance
 browser_manager = BrowserManager()
