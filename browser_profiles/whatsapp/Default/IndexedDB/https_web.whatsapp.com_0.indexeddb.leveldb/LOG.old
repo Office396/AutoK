@@ -1,13 +1,15 @@
-2025/12/28-19:41:07.101 7a4 Reusing MANIFEST C:\wd\Autok\browser_profiles\whatsapp\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
-2025/12/28-19:41:07.102 7a4 Recovering log #98
-2025/12/28-19:41:07.109 7a4 Reusing old log C:\wd\Autok\browser_profiles\whatsapp\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000098.log 
-2025/12/28-19:41:07.471 32e4 Level-0 table #103: started
-2025/12/28-19:41:07.477 32e4 Level-0 table #103: 153921 bytes OK
-2025/12/28-19:41:07.479 32e4 Delete type=0 #98
-2025/12/28-19:41:07.479 32e4 Manual compaction at level-0 from '\x00+\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00,\x00\x00\x00' @ 0 : 0; will stop at (end)
-2025/12/28-19:41:07.525 7a4 Compacting 1@1 + 1@2 files
-2025/12/28-19:41:07.564 7a4 Generated table #104@1: 39784 keys, 1538811 bytes
-2025/12/28-19:41:07.564 7a4 Compacted 1@1 + 1@2 files => 1538811 bytes
-2025/12/28-19:41:07.565 7a4 compacted to: files[ 0 0 1 0 0 0 0 ]
-2025/12/28-19:41:07.565 7a4 Delete type=2 #100
-2025/12/28-19:41:07.565 7a4 Delete type=2 #103
+2025/12/29-22:40:56.978 1770 Reusing MANIFEST C:\wd\Autok\browser_profiles\whatsapp\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2025/12/29-22:40:56.978 1770 Recovering log #137
+2025/12/29-22:40:57.003 1770 Reusing old log C:\wd\Autok\browser_profiles\whatsapp\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000137.log 
+2025/12/29-22:40:57.546 1770 Level-0 table #143: started
+2025/12/29-22:40:57.581 1770 Level-0 table #143: 789954 bytes OK
+2025/12/29-22:40:57.582 1770 Delete type=0 #137
+2025/12/29-22:40:57.583 1770 Manual compaction at level-0 from '\x000\x00\x00\x00' @ 72057594037927935 : 1 .. '\x001\x00\x00\x00' @ 0 : 0; will stop at (end)
+2025/12/29-22:40:57.607 10e0 Compacting 1@1 + 2@2 files
+2025/12/29-22:40:57.675 10e0 Generated table #144@1: 46887 keys, 2310698 bytes
+2025/12/29-22:40:57.699 10e0 Generated table #145@1: 30107 keys, 870065 bytes
+2025/12/29-22:40:57.699 10e0 Compacted 1@1 + 2@2 files => 3180763 bytes
+2025/12/29-22:40:57.700 10e0 compacted to: files[ 0 0 2 0 0 0 0 ]
+2025/12/29-22:40:57.701 10e0 Delete type=2 #139
+2025/12/29-22:40:57.701 10e0 Delete type=2 #140
+2025/12/29-22:40:57.701 10e0 Delete type=2 #143

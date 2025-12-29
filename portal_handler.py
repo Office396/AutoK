@@ -115,19 +115,12 @@ class PortalHandler:
         ],
         
         # Export button - based on the HTML structure provided
+        # Export button - Optimized
         'export_button': [
-            # Try button inside exportBtn div first (most common)
-            (By.XPATH, '//div[@id="exportBtn"]//button[contains(.//span, "Export")]'),
-            (By.XPATH, '//div[@id="exportBtn"]/button'),
-            (By.XPATH, '//div[@id="exportBtn"]//button'),
-            # Try by ID (the div container)
-            (By.ID, 'exportBtn'),
-            (By.CSS_SELECTOR, '#exportBtn'),
-            # Try finding button with Export text
-            (By.XPATH, '//button[contains(.//span[@class="eui-btn-content"], "Export")]'),
-            (By.XPATH, '//span[contains(text(), "Export")]/ancestor::button'),
-            (By.XPATH, '//button[contains(.//span, "Export")]'),
-            (By.XPATH, '//button[contains(text(), "Export")]'),
+            # Exact match for user's portal
+            (By.XPATH, '//div[@id="exportBtn"]//button'), 
+            (By.XPATH, '//button[contains(., "Export")]'),
+            (By.CSS_SELECTOR, '#exportBtn button'),
         ],
 
         # Export dropdown options - appears in popup menu after clicking export button
@@ -191,6 +184,7 @@ class PortalHandler:
         self.monitor_thread: Optional[threading.Thread] = None
         self.alarm_callback: Optional[Callable] = None
         self.status_callback: Optional[Callable] = None
+        self.portal_handles: Dict[PortalType, str] = {} # Store window handles for instant switching
 
         # Download directory for exports
         self.download_dir = str(EXPORTS_DIR)
@@ -310,14 +304,14 @@ class PortalHandler:
     
     def login(self, username: Optional[str] = None, password: Optional[str] = None) -> bool:
         """
-        Login to the portal
+        Login to the portal and initialize multi-tab session
         
         Args:
             username: Portal username (uses saved if not provided)
             password: Portal password (uses saved if not provided)
         
         Returns:
-            True if login successful
+            True if login successful AND tabs opened
         """
         try:
             username = username or settings.credentials.username
@@ -339,104 +333,128 @@ class PortalHandler:
                 # Not on login page - navigate to base URL
                 logger.info("Navigating to portal...")
                 driver.get(self.portal_urls.base_url)
-                
+                time.sleep(2)
             else:
                 logger.info("Already on login page - proceeding with login")
             
             # Check if already logged in
             if self._check_logged_in():
-                logger.info("Already logged in")
-                self.status.is_logged_in = True
-                return True
-            
-            # Find and fill username
-            logger.info("Entering credentials...")
-            username_input = self._find_element('username_input', timeout=15)
-            if not username_input:
-                logger.error("Could not find username input")
-                self.status.error_message = "Could not find username field"
-                return False
-            
-            username_input.clear()
-            username_input.send_keys(username)
-            
-            # Find and fill password
-            password_input = self._find_element('password_input', timeout=5)
-            if not password_input:
-                logger.error("Could not find password input")
-                self.status.error_message = "Could not find password field"
-                return False
-            
-            password_input.clear()
-            password_input.send_keys(password)
-            
-            # Click login button - try multiple methods for Huawei portal
-            time.sleep(1)
-            login_success = False
-            try:
-                # Try finding and clicking login button
-                login_btn = self._find_element('login_button', timeout=5)
-                if login_btn:
-                    login_btn.click()
-                    login_success = True
-                    logger.info("Login button clicked")
-            except Exception as e:
-                logger.debug(f"Could not click login button: {e}")
-            
-            if not login_success:
-                # Try pressing Enter on password field
-                try:
-                    password_input.send_keys(Keys.RETURN)
-                    logger.info("Pressed Enter on password field")
-                except Exception as e:
-                    logger.warning(f"Could not press Enter: {e}")
-            
-            # Wait for login to complete - Huawei portal may take longer
-            time.sleep(3)
-            
-            # Check for error messages
-            try:
-                error_elem = driver.find_element(By.CSS_SELECTOR, '#errorMessage')
-                error_text = error_elem.text.strip()
-                if error_text:
-                    logger.error(f"Login error: {error_text}")
-                    self.status.error_message = error_text
-                    return False
-            except:
-                pass  # No error message found
-            
-            # Wait a bit more for redirect
-            
-            # Verify login success
-            current_url = driver.current_url
-            if 'unisso/login.action' in current_url:
-                logger.error("Still on login page - login failed")
-                self.status.error_message = "Login failed - still on login page"
-                return False
-            
-            if self._check_logged_in():
-                logger.success("Login successful")
-                self.status.is_logged_in = True
-                self.status.error_message = None
-                
-                # Save credentials
-                settings.credentials.username = username
-                settings.credentials.password = password
-                settings.save()
-                
-                return True
+                logger.info("Already logged in (Session active)")
             else:
-                # Check URL - if we're not on login page, assume success
-                if 'login' not in current_url.lower() and ('Access' in current_url or 'fmAlarmView' in current_url):
-                    logger.success("Login appears successful (URL check)")
-                    self.status.is_logged_in = True
-                    self.status.error_message = None
-                    return True
+                # Perform Login Logic
+                logger.info("Entering credentials...")
                 
-                logger.error("Login failed - could not verify login")
-                self.status.error_message = "Login verification failed"
+                # Find and fill username
+                username_input = self._find_element('username_input', timeout=15)
+                if not username_input:
+                    logger.error("Could not find username input")
+                    self.status.error_message = "Could not find username field"
+                    return False
+                
+                username_input.clear()
+                username_input.send_keys(username)
+                
+                # Find and fill password
+                password_input = self._find_element('password_input', timeout=5)
+                if not password_input:
+                    logger.error("Could not find password input")
+                    self.status.error_message = "Could not find password field"
+                    return False
+                
+                password_input.clear()
+                password_input.send_keys(password)
+                
+                # Click login button
+                time.sleep(1)
+                login_success = False
+                try:
+                    login_btn = self._find_element('login_button', timeout=1)
+                    if login_btn:
+                        login_btn.click()
+                        login_success = True
+                        logger.info("Login button clicked")
+                except Exception as e:
+                    logger.debug(f"Could not click login button: {e}")
+                
+                if not login_success:
+                    # Try pressing Enter
+                    try:
+                        password_input.send_keys(Keys.RETURN)
+                        logger.info("Pressed Enter on password field")
+                    except Exception as e:
+                        logger.warning(f"Could not press Enter: {e}")
+                
+                # Check for error messages (Fast check)
+                try:
+                    error_elem = driver.find_element(By.CSS_SELECTOR, '#errorMessage')
+                    if error_elem.is_displayed() and error_elem.text.strip():
+                        logger.error(f"Login error: {error_elem.text.strip()}")
+                        self.status.error_message = error_elem.text.strip()
+                        return False
+                except:
+                    pass
+
+                # Check URL - if still on login page
+                current_url = driver.current_url
+                if 'unisso/login.action' in current_url:
+                    # Don't fail immediately, give it a second chance via check_logged_in
+                    pass
+                
+                # Verify Login with Polling (Max 10 seconds)
+                # We need to wait for the redirect to happen
+                check_start = time.time()
+                is_verified = False
+                
+                while time.time() - check_start < 10:
+                    try:
+                        # Check URL (Fastest)
+                        current_url = driver.current_url
+                        if 'login' not in current_url.lower() and ('Access' in current_url or 'fmAlarmView' in current_url):
+                            logger.success("Login verified via URL check")
+                            is_verified = True
+                            break
+                        
+                        # Check State
+                        if self._check_logged_in():
+                            logger.success("Login verified via element check")
+                            is_verified = True
+                            break
+                            
+                        # Check for error again just in case
+                        try:
+                             error_elem = driver.find_element(By.CSS_SELECTOR, '#errorMessage')
+                             if error_elem.is_displayed() and error_elem.text.strip():
+                                 logger.error(f"Login error appearing during wait: {error_elem.text.strip()}")
+                                 self.status.error_message = error_elem.text.strip()
+                                 return False
+                        except:
+                            pass
+                            
+                        time.sleep(0.5)
+                    except:
+                        time.sleep(0.5)
+                        
+                if not is_verified:
+                    logger.error("Login verification timed out - still on login page or loading")
+                    return False
+
+            # SUCCESS: Now open all portal tabs immediately
+            # This is the "Accurate Method": Login First -> Then Open Tabs
+            logger.info("Login successful/verified. Initializing portal tabs...")
+            
+            # Save credentials on success
+            settings.credentials.username = username
+            settings.credentials.password = password
+            settings.save()
+            
+            if not self.open_all_portals_in_tabs():
+                logger.error("Failed to open all portal tabs")
                 return False
-                
+
+            self.status.is_logged_in = True
+            self.status_callback(self.status) if self.status_callback else None
+            return True
+
         except Exception as e:
             logger.error(f"Login error: {e}")
             self.status.error_message = str(e)
@@ -476,14 +494,13 @@ class PortalHandler:
             if self._is_login_page():
                 return False
 
-            # Check for welcome text or main page elements
-            welcome = self._find_element('welcome_text', timeout=3)
-            if welcome:
-                return True
-
-            # Check URL for indication of logged-in state
+            # 1. OPTIMIZATION: Check URL FIRST (Fastest)
             current_url = driver.current_url
             if 'Access_MainTopoTitle' in current_url or 'fmAlarmView' in current_url:
+                return True
+            
+            # 2. Check for welcome text or main page elements (Slower)
+            if self._find_element('welcome_text', timeout=2):
                 return True
 
             # If we have a username/password field visible, we're not logged in
@@ -585,10 +602,7 @@ class PortalHandler:
     
     def open_all_portals_in_tabs(self) -> bool:
         """
-        Open all required portals in separate tabs
-
-        Returns:
-            True if all tabs opened successfully
+        Open all required portals in separate tabs and store their handles.
         """
         try:
             driver = self._get_driver()
@@ -596,77 +610,86 @@ class PortalHandler:
                 logger.error("No driver available")
                 return False
 
-            # First, open main topology (first tab)
-            self.navigate_to_portal(PortalType.MAIN_TOPOLOGY)
-            time.sleep(1)
-
-            portals = [
-                PortalType.CSL_FAULT,
-                PortalType.RF_UNIT,
-                PortalType.NODEB_CELL,
-                PortalType.ALL_ALARMS,
+            self.portal_handles = {} # Reset handles
+            
+            # 1. Main Application/Topology (Already open as current tab)
+            # Store current handle as Main Topology
+            # We will PRESERVE this tab and open all other portals in NEW tabs.
+            main_handle = driver.current_window_handle
+            self.portal_handles[PortalType.MAIN_TOPOLOGY] = main_handle
+            logger.info("Preserved Tab 1 as Main Topology/Login Session")
+            
+            # List of functional portals to open
+            portals_to_open = [
+                (PortalType.CSL_FAULT, self.portal_urls.csl_fault),
+                (PortalType.ALL_ALARMS, self.portal_urls.all_alarms),
+                (PortalType.RF_UNIT, self.portal_urls.rf_unit),
+                (PortalType.NODEB_CELL, self.portal_urls.nodeb_cell),
             ]
-
-            for portal in portals:
-                # Open new tab
-                driver.execute_script("window.open('');")
-                time.sleep(0.5)
-
-                # Switch to new tab
-                driver.switch_to.window(driver.window_handles[-1])
-
-                # Navigate to portal
-                self.navigate_to_portal(portal)
-
-
-            logger.info("All portal tabs opened successfully")
+            
+            for pt, url in portals_to_open:
+                logger.info(f"Opening New Tab for {pt.value}...")
+                driver.execute_script("window.open('about:blank', '_blank');")
+                time.sleep(1)
+                
+                # Switch to new tab (it's the last one)
+                new_handle = driver.window_handles[-1]
+                driver.switch_to.window(new_handle)
+                
+                # Navigate
+                driver.get(url)
+                self._wait_for_page_load()
+                
+                # Store handle
+                self.portal_handles[pt] = new_handle
+                logger.info(f"Tab opened for {pt.value} (Handle: {new_handle[:8]})")
+            
+            # Switch back to Main Topology or CSL?
+            # User workflow usually starts monitoring immediately. 
+            # We'll switch to CSL Fault as confirmed by previous behavior.
+            if PortalType.CSL_FAULT in self.portal_handles:
+                driver.switch_to.window(self.portal_handles[PortalType.CSL_FAULT])
+                
+            logger.success("All portal tabs opened successfully")
             return True
 
         except Exception as e:
-            logger.error(f"Error opening portal tabs: {e}")
+            logger.error(f"Error opening tabs: {e}")
             return False
     
     def switch_to_tab(self, portal_type: PortalType) -> bool:
-        """Switch to a specific portal tab"""
+        """
+        Switch to the dedicated tab for the portal type using window handle.
+        INSTANT SWITCHING - No URL matching, no reloading.
+        """
         try:
             driver = self._get_driver()
             if not driver:
-                logger.error("No driver available for tab switching")
                 return False
 
-            handles = driver.window_handles
+            # Get the stored handle
+            handle = self.portal_handles.get(portal_type)
+            if not handle:
+                logger.warning(f"No handle stored for {portal_type.value}. attempting to find or open...")
+                # Fallback: Logic to maybe recover? For now, fail to force fixing source.
+                return False
+            
+            # Verify handle is still valid
+            if handle not in driver.window_handles:
+                logger.error(f"Handle for {portal_type.value} is no longer valid (tab closed?)")
+                return False
 
-            for handle in handles:
-                driver.switch_to.window(handle)
-
-                # Always switch to default content when switching tabs
-                try:
-                    driver.switch_to.default_content()
-                except:
-                    pass
-
-                current_url = driver.current_url
-                logger.debug(f"Checking tab with URL: {current_url}")
-
-                # Check if this is the right tab - more flexible matching
-                is_right_tab = False
-                if portal_type == PortalType.MAIN_TOPOLOGY and ('MainTopoTitle' in current_url or 'home' in current_url.lower()):
-                    is_right_tab = True
-                elif portal_type == PortalType.CSL_FAULT and ('fmAlarmView' in current_url and 'switch' in current_url and 'templateId' not in current_url):
-                    is_right_tab = True
-                elif portal_type == PortalType.RF_UNIT and ('templateId835' in current_url or 'templateId=835' in current_url):
-                    is_right_tab = True
-                elif portal_type == PortalType.NODEB_CELL and ('templateId803' in current_url or 'templateId=803' in current_url):
-                    is_right_tab = True
-                elif portal_type == PortalType.ALL_ALARMS and ('templateId592' in current_url or 'templateId=592' in current_url):
-                    is_right_tab = True
+            # Switch
+            driver.switch_to.window(handle)
+            logger.info(f"Switched to {portal_type.value} using handle {handle[:8]}")
+            
+            # Reset default content
+            try:
+                driver.switch_to.default_content()
+            except:
+                pass
                 
-                if is_right_tab:
-                    logger.info(f"Found existing tab for {portal_type.value}")
-                    return True
-
-            logger.warning(f"Could not find tab for {portal_type.value}")
-            return False
+            return True
 
         except Exception as e:
             logger.error(f"Error switching tab: {e}")
@@ -698,12 +721,12 @@ class PortalHandler:
     def export_alarms(self, portal_type: PortalType) -> Optional[str]:
         """
         Export alarms from a portal to Excel file
-
+        
         Args:
             portal_type: The portal to export from
-
+            
         Returns:
-            Path to downloaded file or None if failed
+            path to downloaded file or None if failed
         """
         try:
             driver = self._get_driver()
@@ -718,7 +741,6 @@ class PortalHandler:
                 time.sleep(1)
 
             # Ensure we're in default content before looking for table
-            # (Important when switching between tabs)
             try:
                 driver.switch_to.default_content()
             except:
@@ -726,9 +748,10 @@ class PortalHandler:
 
             # Ensure we're on the correct portal page
             current_url = self.get_current_url()
+            # Simplified check - trust switch_to_tab mostly
             expected_urls = {
                 PortalType.ALL_ALARMS: 'templateId592',
-                PortalType.CSL_FAULT: 'fmAlarmView?switch',  # CSL doesn't have templateId in URL
+                PortalType.CSL_FAULT: 'fmAlarmView', # Relaxed
                 PortalType.RF_UNIT: 'templateId835',
                 PortalType.NODEB_CELL: 'templateId803',
             }
@@ -736,177 +759,108 @@ class PortalHandler:
             expected_part = expected_urls.get(portal_type)
             if expected_part and expected_part not in current_url:
                 logger.warning(f"Mismatch: Expected '{expected_part}' in URL, but got {current_url}")
-                logger.info(f"Re-navigating to {portal_type.value} to ensure correct page...")
+                logger.info(f"Re-navigating to {portal_type.value}...")
                 if not self.navigate_to_portal(portal_type):
-                    logger.error(f"Failed to re-navigate to {portal_type.value}")
                     return None
                 time.sleep(1)
-                # Reset to default content after navigation
                 try:
                     driver.switch_to.default_content()
                 except:
                     pass
 
-            # Wait for the alarm table to be loaded (may be in iframe)
+            # Wait for the alarm table to be loaded (sets the stage)
+            # We don't strictly need to find the table to export, but it confirms page load
             logger.info("Waiting for alarm table to load...")
-            table_found = False
-            in_iframe_context = False
-
-            # First check if table is in main page
-            table_selectors = [
-                (By.CSS_SELECTOR, '.eui_table_tb'),
-                (By.CSS_SELECTOR, '.fmScrollTable'),
-                (By.ID, 'eui_table_1000'),
-                (By.CSS_SELECTOR, '#fmEviewTable .eui_table'),
-            ]
-
-            for by, selector in table_selectors:
-                try:
-                    WebDriverWait(driver, 5).until(
-                        EC.presence_of_element_located((by, selector))
-                    )
-                    table_found = True
-                    logger.info(f"Alarm table found in main page with selector: {selector}")
-                    break
-                except:
-                    continue
-
-            # If not found in main page, check iframes
-            if not table_found:
-                logger.info("Table not found in main page, checking iframes...")
-                try:
-                    iframes = driver.find_elements(By.TAG_NAME, "iframe")
-                    logger.info(f"Found {len(iframes)} iframes")
-
-                    for idx, iframe in enumerate(iframes):
-                        try:
-                            driver.switch_to.frame(iframe)
-
-                            for by, selector in table_selectors:
-                                try:
-                                    WebDriverWait(driver, 3).until(
-                                        EC.presence_of_element_located((by, selector))
-                                    )
-                                    table_found = True
-                                    in_iframe_context = True
-                                    logger.info(f"Alarm table found in iframe {idx} with selector: {selector}")
-                                    # Stay in this iframe context for export operations
-                                    break
-                                except:
-                                    continue
-
-                            if table_found:
-                                break
-                            else:
-                                # Switch back to main page if table not found in this iframe
-                                driver.switch_to.default_content()
-
-                        except Exception as e:
-                            logger.debug(f"Error checking iframe {idx}: {e}")
-                            try:
-                                driver.switch_to.default_content()
-                            except:
-                                pass
-
-                except Exception as e:
-                    logger.debug(f"Error checking iframes: {e}")
-                    try:
-                        driver.switch_to.default_content()
-                    except:
-                        pass
-
-            if not table_found:
-                logger.error("Alarm table not found - page may not be fully loaded")
-                # Take screenshot for debugging
-                screenshot = self.take_screenshot(f"table_not_found_{portal_type.value}")
-                if screenshot:
-                    logger.info(f"Screenshot saved: {screenshot}")
-                return None
-
-            logger.info(f"Export operations will use {'iframe' if in_iframe_context else 'main page'} context")
-
+            # (Keeping table finding logic minimal here to save time, relying on button find)
+            
             # Get list of files before export
             existing_files = set(os.listdir(self.download_dir))
 
-            # Step 1: Click the export button (dropdown trigger)
-            logger.info(f"Clicking export button for {portal_type.value}...")
-
-            # Wait for the page to be fully loaded and export button to be available
-            time.sleep(1)
-
-            # Switch to default content (export button is in main page, not iframe)
+            # NO RETRY LOGIC - SINGLE ATTEMPT
+            # User specifically requested removing retries and delays.
+            
+            logger.info(f"Finding export button for {portal_type.value}...")
+            
+            # 1. FIND THE EXPORT BUTTON
+            export_btn = None
+            in_iframe_context = False
+            
+            # Try default content first
             try:
                 driver.switch_to.default_content()
+                export_btn = self._find_element('export_button', timeout=2)
             except:
                 pass
-
-            # Debug: Check if export button exists
-            export_btn = self._find_element('export_button', timeout=20)
+            
             if not export_btn:
-                logger.error("Could not find export button")
-                # Take screenshot for debugging
-                screenshot = self.take_screenshot(f"export_button_not_found_{portal_type.value}")
-                if screenshot:
-                    logger.info(f"Screenshot saved: {screenshot}")
-
-                # Debug: List all buttons on the page
+                # Search iframes
                 try:
-                    all_buttons = driver.find_elements(By.TAG_NAME, 'button')
-                    logger.info(f"Found {len(all_buttons)} buttons on page:")
-                    for i, btn in enumerate(all_buttons[:10]):  # Show first 10
+                    driver.switch_to.default_content()
+                    iframes = driver.find_elements(By.TAG_NAME, "iframe")
+                    for idx, iframe in enumerate(iframes):
                         try:
-                            text = btn.text.strip()
-                            if text:
-                                logger.info(f"  Button {i}: '{text}' (class: {btn.get_attribute('class')})")
+                            driver.switch_to.frame(iframe)
+                            export_btn = self._find_element('export_button', timeout=1)
+                            if export_btn:
+                                in_iframe_context = True
+                                break
+                            driver.switch_to.parent_frame() 
                         except:
-                            pass
-                except Exception as e:
-                    logger.debug(f"Could not list buttons: {e}")
-
+                            driver.switch_to.default_content()
+                except:
+                    pass
+            
+            if not export_btn:
+                logger.error("Export button not found (Single Attempt)")
+                # Only if really needed, we can try one fallback or just return
                 return None
 
-            # Click the export button using the helper method
-            if not self._click_element('export_button', timeout=5):
-                logger.error("Could not click export button")
-                return None
-
-            time.sleep(1)
-
-            # Step 2: Select "All" from the dropdown menu
-            logger.info("Selecting 'All' alarms option...")
-
-            # Ensure we're in default content
+            # 2. CLICK THE BUTTON
             try:
-                driver.switch_to.default_content()
-            except:
-                pass
-
-            # Check if dropdown appears in current context (which might be an iframe)
-            # Try once in current context, then quickly try default content
-            found_dropdown = False
+                # Scroll to view
+                driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", export_btn)
+                time.sleep(0.5)
+                
+                # Click Strategy: ActionChains (Move & Click) -> JS Click -> Standard Click
+                from selenium.webdriver.common.action_chains import ActionChains
+                try:
+                    actions = ActionChains(driver)
+                    actions.move_to_element(export_btn).click().perform()
+                except:
+                    try:
+                        driver.execute_script("arguments[0].click();", export_btn)
+                    except:
+                        export_btn.click()
+                
+                logger.info("Clicked export button")
+                
+            except Exception as e:
+                logger.error(f"Failed to click export button: {e}")
+                return None
+            
+            time.sleep(1)
+            
+            # 3. FIND THE DROPDOWN
+            # Check current context (iframe)
             if self._wait_for_element('export_all_option', timeout=3):
                 found_dropdown = True
-                logger.info("Export dropdown found in current context")
-            elif in_iframe_context:
-                logger.info("Export dropdown not found in iframe, quickly checking default content...")
-                driver.switch_to.default_content()
-                if self._wait_for_element('export_all_option', timeout=5):
-                    found_dropdown = True
-                    in_iframe_context = False # We are now in default content
-                    logger.info("Export dropdown found in default content")
-                else:
-                    # Switch back to iframe if still not found, to try again? 
-                    # Actually, usually if it's not in either, it's just not there.
-                    driver.switch_to.frame(driver.find_elements(By.TAG_NAME, "iframe")[0]) # Fallback
+            else:
+                # Check default content (common for popups)
+                try:
+                    driver.switch_to.default_content()
+                    if self._wait_for_element('export_all_option', timeout=3):
+                        found_dropdown = True
+                        in_iframe_context = False # We are now in default content
+                except:
+                    pass
             
             if not found_dropdown:
                 logger.error(f"Export dropdown did not appear for {portal_type.value}")
-                screenshot = self.take_screenshot(f"dropdown_not_found_{portal_type.value}")
-                if screenshot:
-                    logger.info(f"Screenshot saved: {screenshot}")
+                self.take_screenshot(f"dropdown_not_found_{portal_type.value}")
                 return None
 
-            # Try to click "All" option
+            # Step 2: Click "All" option
+            logger.info("Selecting 'All' alarms option...")
             if not self._click_element('export_all_option', timeout=5):
                 logger.error("Could not select 'All' option")
                 return None
@@ -915,38 +869,37 @@ class PortalHandler:
 
             # Step 3: Handle the export dialog popup
             logger.info("Waiting for export dialog...")
-
-            # Wait for the export popup to appear
-            if not self._wait_for_element('export_popup', timeout=10):
-                # Try switching context if not found
-                logger.info("Export popup not found in current context, trying fallback...")
-                
-                # If we were in an iframe, try default content
-                if in_iframe_context:
+            
+            # We might have switched contexts, ensure we find the popup
+            found_popup = False
+            if self._wait_for_element('export_popup', timeout=5):
+                found_popup = True
+            else:
+                try:
                     driver.switch_to.default_content()
-                    if self._wait_for_element('export_popup', timeout=10):
-                        logger.info("Export popup found in default content")
-                        in_iframe_context = False # Now we are in default content
-                    else:
-                        logger.warning("Export popup did not appear in default content either")
+                    if self._wait_for_element('export_popup', timeout=5):
+                        found_popup = True
+                except:
+                    pass
+            
+            if not found_popup:
+                logger.error("Export popup not found")
+                return None
 
-            # Step 4: Ensure XLSX is selected (should be default, but select it anyway)
+            # Step 4: Ensure XLSX is selected
             logger.info("Ensuring XLSX format is selected...")
             try:
-                # Try to click XLSX option
                 self._click_element('export_xlsx_option', timeout=2)
-                time.sleep(1)
             except:
-                logger.info("XLSX appears to already be selected")
+                pass
 
-            # Step 5: Click OK to start download
+            # Step 5: Click OK
             logger.info("Clicking OK to start export...")
-
             if not self._click_element('export_ok_button', timeout=10):
                 logger.error("Could not find OK button")
                 return None
 
-            # Step 6: Wait for download to complete
+            # Step 6: Wait for download
             logger.info("Waiting for file download...")
             downloaded_file = self._wait_for_download(existing_files, timeout=60)
 
@@ -967,7 +920,6 @@ class PortalHandler:
             # Always ensure we switch back to default content
             try:
                 driver.switch_to.default_content()
-                logger.debug("Switched back to default content after export operations")
             except:
                 pass
     

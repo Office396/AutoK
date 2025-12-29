@@ -1,3 +1,6 @@
-2025/12/28-19:41:05.116 3498 Reusing MANIFEST C:\wd\Autok\browser_profiles\portal\Default\Session Storage/MANIFEST-000001
-2025/12/28-19:41:05.116 3498 Recovering log #13
-2025/12/28-19:41:05.120 3498 Reusing old log C:\wd\Autok\browser_profiles\portal\Default\Session Storage/000013.log 
+2025/12/29-22:40:54.964 2a6c Reusing MANIFEST C:\wd\Autok\browser_profiles\portal\Default\Session Storage/MANIFEST-000001
+2025/12/29-22:40:54.965 2a6c Recovering log #33
+2025/12/29-22:40:54.968 2a6c Reusing old log C:\wd\Autok\browser_profiles\portal\Default\Session Storage/000033.log 
+2025/12/29-22:41:14.276 2a6c Level-0 table #37: started
+2025/12/29-22:41:14.280 2a6c Level-0 table #37: 17716 bytes OK
+2025/12/29-22:41:14.282 2a6c Delete type=0 #33

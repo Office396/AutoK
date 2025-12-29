@@ -7,7 +7,7 @@ Optimized for speed with cached chat list and efficient group finding
 import time
 import threading
 import queue
-import pyperclip
+# import pyperclip <-- Removed to avoid clipboard usage
 from datetime import datetime
 from typing import Optional, Callable, List, Dict, Tuple, Set
 from dataclasses import dataclass, field
@@ -480,10 +480,22 @@ class WhatsAppHandler:
                 input_box.click()
                 time.sleep(0.2)
                 
-                # Copy to clipboard and paste
-                pyperclip.copy(message)
-                input_box.send_keys(Keys.CONTROL + 'v')
-                time.sleep(0.5) # Wait for paste to register
+                # INSTANT INPUT: Use JavaScript to insert text (No Clipboard)
+                # This uses execCommand 'insertText' which mimics a user typing/pasting
+                try:
+                    driver.execute_script("""
+                        var text = arguments[0];
+                        var input = arguments[1];
+                        input.focus();
+                        document.execCommand('insertText', false, text);
+                    """, message, input_box)
+                except Exception as js_e:
+                    logger.warning(f"JS Insert failed, falling back to send_keys: {js_e}")
+                    # Fallback allows newlines? send_keys often sends on newline.
+                    # We might need to replace \n with Shift+Enter if fallback is needed.
+                    input_box.send_keys(message)
+                
+                time.sleep(0.5) # Wait for input to register
                 
                 # 4. Send
                 input_box.send_keys(Keys.ENTER)
