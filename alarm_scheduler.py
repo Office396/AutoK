@@ -53,6 +53,10 @@ class AlarmScheduler:
     def add_alarm(self, alarm: ProcessedAlarm):
         """Add an alarm to the scheduler"""
         with self.lock:
+            # DEDUPLICATION: Avoid adding the same alarm instance twice to pending
+            if any(a.alarm_id == alarm.alarm_id for a in self.pending_alarms[alarm.alarm_type]):
+                return
+                
             alarm_type = alarm.alarm_type.lower()
             
             # Check if real-time alarm

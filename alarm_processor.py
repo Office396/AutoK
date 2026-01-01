@@ -338,9 +338,10 @@ class AlarmProcessor:
     ) -> ProcessedAlarm:
         """Create a ProcessedAlarm object"""
         
-        # Generate unique ID - include raw_data to allow duplicates
+        # Generate unique ID - ONLY include stable fields to avoid duplicates
         import hashlib
-        alarm_id = hashlib.md5(f"{alarm_type}_{site_code}_{timestamp_str}_{raw_data}".encode()).hexdigest()[:16]
+        # We exclude raw_data because it may contain dynamic fields like Duration or different columns across portals
+        alarm_id = hashlib.md5(f"{alarm_type}_{site_code}_{timestamp_str}".encode()).hexdigest()[:16]
         
         # Determine category
         category = self._categorize_alarm(alarm_type)
