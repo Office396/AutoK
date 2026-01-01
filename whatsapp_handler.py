@@ -81,11 +81,15 @@ class WhatsAppMessageFormatter:
         }
         
         try:
-            return template.format(**data)
+            # Replace escaped \t if present in template from GUI
+            fmt_template = template.replace("\\t", "\t")
+            formatted = fmt_template.format(**data)
+            # WhatsApp doesn't support tabs well, replace with spaces for alignment
+            return formatted.replace("\t", "    ")
         except KeyError as e:
             logger.warning(f"Unknown placeholder in template: {e}")
-            # Fallback to basic format
-            return f"{data['alarm_type']}\t{data['timestamp']}\t{data['site_name']}"
+            # Fallback to basic format without tabs
+            return f"{data['alarm_type']}    {data['timestamp']}    {data['site_name']}"
     
     @staticmethod
     def format_mbu_alarms(alarms: List, alarm_type: str) -> str:
@@ -883,10 +887,20 @@ class OrderedAlarmSender:
     
     @classmethod
     def send_all_ordered(cls, alarms: List):
-        batches = cls.get_ordered_batches(alarms)
+        if not alarms:
+            return
+            
+        # Deduplicate the overall list by alarm_id to prevent "double or triple" sites
+        unique_alarms = []
+        seen_ids = set()
+        for a in alarms:
+            # Check for alarm_id or fallback to a combination if not available
+            aid = getattr(a, 'alarm_id', f"{getattr(a, 'site_code', '')}_{getattr(a, 'alarm_type', '')}_{getattr(a, 'timestamp_str', '')}")
+            if aid not in seen_ids:
+                unique_alarms.append(a)
+                seen_ids.add(aid)
         
-        # Use a high priority (lower number) for CSL Faults to ensure they are at the front of the queue
-        # but since we are queuing them in order here, the timestamp/priority in queue will handle it.
+        batches = cls.get_ordered_batches(unique_alarms)
         
         for i, (group_name, alarm_type, batch_alarms, is_toggle) in enumerate(batches):
             if is_toggle:

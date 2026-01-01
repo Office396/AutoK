@@ -58,19 +58,17 @@ class MessageDispatcher:
             return
         
         with self.lock:
-            # Group alarms by MBU
-            mbu_groups = alarm_processor.group_alarms_by_mbu(alarms)
-            self._dispatch_mbu_alarms(mbu_groups)
-            
-            # Group alarms for B2S
-            b2s_groups = alarm_processor.group_alarms_for_b2s(alarms)
-            self._dispatch_b2s_alarms(b2s_groups)
-            
-            # Group alarms for OMO
-            omo_groups = alarm_processor.group_alarms_for_omo(alarms)
-            self._dispatch_omo_alarms(omo_groups)
+            # Use OrderedAlarmSender to maintain consistency across the app
+            from whatsapp_handler import OrderedAlarmSender
+            OrderedAlarmSender.send_all_ordered(alarms)
             
             self.stats.last_dispatch_time = datetime.now()
+            # Stats update is handled inside OrderedAlarmSender indirectly? 
+            # No, I should probably update stats here too for the GUI
+            for a in alarms:
+                group_type = "MBU" if a.mbu else ("B2S" if a.is_b2s else "OMO")
+                target = a.mbu or a.b2s_company or a.omo_company or "Unknown"
+                self._update_stats(target, a.alarm_type, group_type, 1)
     
     def _dispatch_mbu_alarms(self, mbu_groups: Dict[str, Dict[str, AlarmBatch]]):
         """Dispatch alarms to MBU groups"""
