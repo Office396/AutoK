@@ -157,7 +157,8 @@ class AlarmProcessor:
             alarms = []
             for idx in range(header_row_idx + 1, len(df)):
                 row = df.iloc[idx]
-                alarm = self._process_excel_row(row, final_map)
+                # Pass the loop index to distinguish between identical rows in the same file
+                alarm = self._process_excel_row(row, final_map, instance_index=idx)
                 if alarm:
                     alarms.append(alarm)
             
@@ -180,18 +181,19 @@ class AlarmProcessor:
         """
         alarms = []
         
-        for line in raw_lines:
+        for idx, line in enumerate(raw_lines):
             line = line.strip()
             if not line:
                 continue
             
-            alarm = self._process_raw_line(line)
+            # Use index to distinguish identical lines
+            alarm = self._process_raw_line(line, instance_index=idx)
             if alarm:
                 alarms.append(alarm)
         
         return alarms
     
-    def _process_excel_row(self, row, col_map: Dict[str, int]) -> Optional[ProcessedAlarm]:
+    def _process_excel_row(self, row, col_map: Dict[str, int], instance_index: int = 0) -> Optional[ProcessedAlarm]:
         """Process a single Excel row using column map"""
         try:
             values = [str(v).strip() for v in row.values]
@@ -258,6 +260,7 @@ class AlarmProcessor:
                 site_info=site_info,
                 is_toggle=is_toggle,
                 raw_data='\t'.join(values),
+                instance_index=instance_index,
                 cell_info=extracted.cell_info
             )
             
@@ -265,7 +268,7 @@ class AlarmProcessor:
             logger.error(f"Error processing row: {e}")
             return None
     
-    def _process_raw_line(self, line: str) -> Optional[ProcessedAlarm]:
+    def _process_raw_line(self, line: str, instance_index: int = 0) -> Optional[ProcessedAlarm]:
         """Process a single raw line"""
         try:
             # Split by tab
@@ -317,6 +320,7 @@ class AlarmProcessor:
                 site_info=site_info,
                 is_toggle=is_toggle,
                 raw_data=line,
+                instance_index=instance_index,
                 cell_info=extracted.cell_info
             )
             
@@ -334,14 +338,17 @@ class AlarmProcessor:
         site_info: SiteInfo,
         is_toggle: bool,
         raw_data: str,
+        instance_index: int = 0,
         cell_info: Optional[str] = None
     ) -> ProcessedAlarm:
         """Create a ProcessedAlarm object"""
         
-        # Generate unique ID - ONLY include stable fields to avoid duplicates
+        # Generate unique ID - include instance_index to allow duplicates in the same scan
         import hashlib
-        # We exclude raw_data because it may contain dynamic fields like Duration or different columns across portals
-        alarm_id = hashlib.md5(f"{alarm_type}_{site_code}_{timestamp_str}".encode()).hexdigest()[:16]
+        # We include instance_index so that two identical lines in the same portal view get different IDs
+        # This allows them both to be sent, but keeps them stable across refreshes (same row index)
+        id_source = f"{alarm_type}_{site_code}_{timestamp_str}_{instance_index}"
+        alarm_id = hashlib.md5(id_source.encode()).hexdigest()[:16]
         
         # Determine category
         category = self._categorize_alarm(alarm_type)

@@ -822,7 +822,7 @@ class OrderedAlarmSender:
     OMO_ORDER = ["Ufone", "Telenor", "CMpak", "Zong", "CMPAK", "CM-PAK"]
     
     @classmethod
-    def get_ordered_batches(cls, alarms: List) -> List[Tuple[str, str, List, bool]]:
+    def get_ordered_batches(cls, alarms: List) -> List[Tuple[str, str, List, bool, str]]:
         from alarm_processor import alarm_processor
         
         batches = []
@@ -881,7 +881,7 @@ class OrderedAlarmSender:
                     whatsapp_group = settings.get_omo_group_name(group_id)
                 
                 if whatsapp_group:
-                    batches.append((whatsapp_group, alarm_type, group_alarms, is_toggle))
+                    batches.append((whatsapp_group, alarm_type, group_alarms, is_toggle, group_type))
         
         return batches
     
@@ -890,26 +890,21 @@ class OrderedAlarmSender:
         if not alarms:
             return
             
-        # Deduplicate the overall list by alarm_id to prevent "double or triple" sites
-        unique_alarms = []
-        seen_ids = set()
-        for a in alarms:
-            # Check for alarm_id or fallback to a combination if not available
-            aid = getattr(a, 'alarm_id', f"{getattr(a, 'site_code', '')}_{getattr(a, 'alarm_type', '')}_{getattr(a, 'timestamp_str', '')}")
-            if aid not in seen_ids:
-                unique_alarms.append(a)
-                seen_ids.add(aid)
+        # We NO LONGER deduplicate here because the user wants multiple entries if they appear in terminal.
+        # The alarm_processor already handles stability across refreshes using row indices.
+        # If we get multiple alarms here, they are intended to be sent.
         
-        batches = cls.get_ordered_batches(unique_alarms)
+        batches = cls.get_ordered_batches(alarms)
         
-        for i, (group_name, alarm_type, batch_alarms, is_toggle) in enumerate(batches):
+        for i, (group_name, alarm_type, batch_alarms, is_toggle, group_type) in enumerate(batches):
             if is_toggle:
                 message = message_formatter.format_toggle_alarms(batch_alarms)
-            elif any(getattr(a, 'is_b2s', False) for a in batch_alarms):
+            elif group_type == 'B2S':
                 message = message_formatter.format_b2s_alarms(batch_alarms)
-            elif any(getattr(a, 'is_omo', False) for a in batch_alarms):
+            elif group_type == 'OMO':
                 message = message_formatter.format_omo_alarms(batch_alarms)
             else:
+                # Default to MBU format for MBU groups
                 message = message_formatter.format_mbu_alarms(batch_alarms, alarm_type)
             
             if message.strip():
