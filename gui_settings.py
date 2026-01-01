@@ -125,17 +125,21 @@ class SettingsView(ctk.CTkFrame):
         inner = ctk.CTkFrame(timing_frame, fg_color="transparent")
         inner.pack(fill="x", padx=20, pady=20)
         
-        # Note about CSL Fault
-        note = ctk.CTkLabel(
-            inner,
-            text="⚡ CSL Fault alarms are sent in real-time (immediately)",
-            font=ctk.CTkFont(size=11),
-            text_color=Colors.WARNING
-        )
-        note.pack(anchor="w", pady=(0, 15))
-        
-        # Timing sliders
+        # Timing sliders container
         self.timing_sliders = {}
+
+        # CSL Fault Slider (First in list)
+        csl_slider = TimingSlider(
+            inner,
+            label="CSL Fault (0 = Realtime)",
+            min_value=0,
+            max_value=120,
+            default_value=0
+        )
+        csl_slider.pack(fill="x", pady=5)
+        self.timing_sliders["csl_fault"] = csl_slider
+        
+        # Other Timing sliders
         
         timing_settings = [
             ("Low Voltage", "low_voltage", 30),
@@ -320,6 +324,29 @@ class SettingsView(ctk.CTkFrame):
             )
             cb.pack(side="left", padx=10, pady=5)
             self.skip_toggle_vars[mbu] = var
+
+        # WhatsApp Sending Method
+        method_frame = ctk.CTkFrame(inner, fg_color="transparent")
+        method_frame.pack(fill="x", pady=(15, 5))
+        
+        method_label = ctk.CTkLabel(
+            method_frame,
+            text="WhatsApp Sending Method:",
+            font=ctk.CTkFont(size=12),
+            text_color=Colors.TEXT_SECONDARY
+        )
+        method_label.pack(anchor="w", pady=(0, 5))
+        
+        self.sending_method_var = ctk.StringVar(value="JavaScript")
+        self.sending_method_seg = ctk.CTkSegmentedButton(
+            method_frame,
+            values=["JavaScript", "Clipboard"],
+            variable=self.sending_method_var,
+            font=ctk.CTkFont(size=12),
+            selected_color=Colors.PRIMARY,
+            selected_hover_color=Colors.PRIMARY_DARK
+        )
+        self.sending_method_seg.pack(fill="x")
     
     def _create_save_button(self):
         """Create save button at bottom"""
@@ -374,6 +401,7 @@ class SettingsView(ctk.CTkFrame):
         settings.credentials.password = self.password_entry.get()
         
         # Timing settings
+        settings.timing.csl_fault = self.timing_sliders["csl_fault"].get()
         settings.timing.low_voltage = self.timing_sliders["low_voltage"].get()
         settings.timing.ac_main_failure = self.timing_sliders["ac_main_failure"].get()
         settings.timing.system_on_battery = self.timing_sliders["system_on_battery"].get()
@@ -408,6 +436,9 @@ class SettingsView(ctk.CTkFrame):
             mbu for mbu, var in self.skip_toggle_vars.items() if var.get()
         ]
         
+        # WhatsApp Sending Method
+        settings.whatsapp_sending_method = self.sending_method_var.get()
+        
         # Save to file
         settings.save()
         
@@ -426,6 +457,7 @@ class SettingsView(ctk.CTkFrame):
         self.password_entry.set(settings.credentials.password)
         
         # Timing settings
+        self.timing_sliders["csl_fault"].set(settings.timing.csl_fault)
         self.timing_sliders["low_voltage"].set(settings.timing.low_voltage)
         self.timing_sliders["ac_main_failure"].set(settings.timing.ac_main_failure)
         self.timing_sliders["system_on_battery"].set(settings.timing.system_on_battery)
@@ -458,3 +490,6 @@ class SettingsView(ctk.CTkFrame):
         # Skip toggle MBUs
         for mbu, var in self.skip_toggle_vars.items():
             var.set(mbu in settings.skip_toggle_mbus)
+
+        # WhatsApp Sending Method
+        self.sending_method_var.set(settings.whatsapp_sending_method)

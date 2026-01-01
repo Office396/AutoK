@@ -69,6 +69,25 @@ class AlarmTimingSettings:
     mains_failure: int = 60
 
 
+@dataclass
+class MessageFormatSettings:
+    """Custom message format templates using placeholders"""
+    # Available placeholders: {alarm_type}, {timestamp}, {site_name}, {site_code}, 
+    # {severity}, {mbu}, {ring_id}, {b2s_id}
+    
+    # MBU format (for regular MBU group messages)
+    mbu_format: str = "{alarm_type}\t{timestamp}\t{site_name}"
+    
+    # Toggle alarm format
+    toggle_format: str = "Toggle alarm\t{severity}\t{alarm_type}\t{timestamp}\t{site_name}"
+    
+    # B2S format (includes ring_id and b2s_id)
+    b2s_format: str = "{mbu}\t{ring_id}\t{alarm_type}\t{site_name}\t{timestamp}\t{b2s_id}"
+    
+    # OMO format (same structure as B2S)
+    omo_format: str = "{mbu}\t{ring_id}\t{alarm_type}\t{site_name}\t{timestamp}\t{b2s_id}"
+
+
 @dataclass 
 class MBUGroupMapping:
     """MBU to WhatsApp Group Name Mapping"""
@@ -206,6 +225,7 @@ class Settings:
         self.portal = PortalConfig()
         self.credentials = Credentials()
         self.timing = AlarmTimingSettings()
+        self.message_formats = MessageFormatSettings()
         self.mbu_groups = MBUGroupMapping()
         self.b2s_groups = B2SGroupMapping()
         self.omo_groups = OMOGroupMapping()
@@ -216,6 +236,7 @@ class Settings:
         self.auto_start: bool = False
         self.separate_browser_window: bool = False
         self.skip_toggle_mbus: List[str] = ["C1-LHR-04", "C1-LHR-05"]
+        self.whatsapp_sending_method: str = "JavaScript"  # Options: "JavaScript", "Clipboard"
         
         # Load saved settings
         self.load()
@@ -266,7 +287,17 @@ class Settings:
                 self.check_interval_seconds = data.get('check_interval_seconds', 30)
                 self.auto_start = data.get('auto_start', False)
                 self.separate_browser_window = data.get('separate_browser_window', False)
+                self.separate_browser_window = data.get('separate_browser_window', False)
                 self.skip_toggle_mbus = data.get('skip_toggle_mbus', ["C1-LHR-04", "C1-LHR-05"])
+                self.whatsapp_sending_method = data.get('whatsapp_sending_method', "JavaScript")
+                
+                # Load message format settings
+                if 'message_formats' in data:
+                    fmt = data['message_formats']
+                    self.message_formats.mbu_format = fmt.get('mbu_format', self.message_formats.mbu_format)
+                    self.message_formats.toggle_format = fmt.get('toggle_format', self.message_formats.toggle_format)
+                    self.message_formats.b2s_format = fmt.get('b2s_format', self.message_formats.b2s_format)
+                    self.message_formats.omo_format = fmt.get('omo_format', self.message_formats.omo_format)
                 
             except json.JSONDecodeError as e:
                 logger.warning(f"Settings file corrupted, using defaults: {e}")
@@ -298,7 +329,10 @@ class Settings:
             'check_interval_seconds': self.check_interval_seconds,
             'auto_start': self.auto_start,
             'separate_browser_window': self.separate_browser_window,
-            'skip_toggle_mbus': self.skip_toggle_mbus
+            'separate_browser_window': self.separate_browser_window,
+            'skip_toggle_mbus': self.skip_toggle_mbus,
+            'whatsapp_sending_method': self.whatsapp_sending_method,
+            'message_formats': asdict(self.message_formats)
         }
         
         try:

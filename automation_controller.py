@@ -174,11 +174,16 @@ class AutomationController:
         """Handle new alarms from portal monitor"""
         self._notify_alarms(alarms, source)
         
-        # Dispatch to WhatsApp
-        for alarm in alarms:
-            if "csl" in alarm.alarm_type.lower():
-                # CSL Fault - dispatch immediately
-                message_dispatcher.dispatch_csl_fault_realtime(alarm)
+        # Schedule alarms for sending
+        # This handles both Realtime (CSL) and Batch alarms uniformly now
+        if alarms and alarm_scheduler.running:
+            alarm_scheduler.add_alarms(alarms)
+        elif alarms and not alarm_scheduler.running:
+             # Even if stopped, we might want to add to pending if manual check?
+             # But usually checking implies we want to schedule.
+             # If we are PAUSED, scheduler is stopped.
+             # So we should forcibly add them to pending in scheduler?
+             alarm_scheduler.add_alarms(alarms)
         
         self._notify_stats()
     

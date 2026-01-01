@@ -7,7 +7,7 @@ Optimized for speed with cached chat list and efficient group finding
 import time
 import threading
 import queue
-# import pyperclip <-- Removed to avoid clipboard usage
+import pyperclip
 from datetime import datetime
 from typing import Optional, Callable, List, Dict, Tuple, Set
 from dataclasses import dataclass, field
@@ -64,21 +64,39 @@ class QueuedMessage:
 
 
 class WhatsAppMessageFormatter:
-    """Formats alarm messages for WhatsApp"""
+    """Formats alarm messages for WhatsApp using customizable templates"""
+    
+    @staticmethod
+    def _format_alarm(alarm, template: str) -> str:
+        """Format a single alarm using a template"""
+        data = {
+            "alarm_type": getattr(alarm, 'alarm_type', '') or '',
+            "timestamp": getattr(alarm, 'timestamp_str', '') or '',
+            "site_name": getattr(alarm, 'site_name', '') or getattr(alarm, 'site_code', '') or '',
+            "site_code": getattr(alarm, 'site_code', '') or '',
+            "severity": getattr(alarm, 'severity', 'Major') or 'Major',
+            "mbu": getattr(alarm, 'mbu', '') or '',
+            "ring_id": getattr(alarm, 'ftts_ring_id', '') or '#N/A',
+            "b2s_id": getattr(alarm, 'b2s_id', '') or '',
+        }
+        
+        try:
+            return template.format(**data)
+        except KeyError as e:
+            logger.warning(f"Unknown placeholder in template: {e}")
+            # Fallback to basic format
+            return f"{data['alarm_type']}\t{data['timestamp']}\t{data['site_name']}"
     
     @staticmethod
     def format_mbu_alarms(alarms: List, alarm_type: str) -> str:
         if not alarms:
             return ""
         
+        template = settings.message_formats.mbu_format
         lines = []
         for alarm in alarms:
-            atype = getattr(alarm, 'alarm_type', '') or alarm_type
-            ts = getattr(alarm, 'timestamp_str', '') or ''
-            site = getattr(alarm, 'site_name', '') or getattr(alarm, 'site_code', '') or ''
-            
-            if atype and site:
-                line = f"{atype}\t{ts}\t{site}"
+            line = WhatsAppMessageFormatter._format_alarm(alarm, template)
+            if line.strip():
                 lines.append(line)
         
         return '\n'.join(lines)
@@ -88,15 +106,11 @@ class WhatsAppMessageFormatter:
         if not alarms:
             return ""
         
+        template = settings.message_formats.toggle_format
         lines = []
         for alarm in alarms:
-            severity = getattr(alarm, 'severity', 'Major') or 'Major'
-            atype = getattr(alarm, 'alarm_type', '') or ''
-            ts = getattr(alarm, 'timestamp_str', '') or ''
-            site = getattr(alarm, 'site_name', '') or getattr(alarm, 'site_code', '') or ''
-            
-            if atype and site:
-                line = f"Toggle alarm\t{severity}\t{atype}\t{ts}\t{site}"
+            line = WhatsAppMessageFormatter._format_alarm(alarm, template)
+            if line.strip():
                 lines.append(line)
         
         return '\n'.join(lines)
@@ -106,24 +120,28 @@ class WhatsAppMessageFormatter:
         if not alarms:
             return ""
         
+        template = settings.message_formats.b2s_format
         lines = []
         for alarm in alarms:
-            mbu = getattr(alarm, 'mbu', '') or ""
-            ring_id = getattr(alarm, 'ftts_ring_id', '') or "#N/A"
-            b2s_id = getattr(alarm, 'b2s_id', '') or ""
-            atype = getattr(alarm, 'alarm_type', '') or ''
-            site = getattr(alarm, 'site_name', '') or getattr(alarm, 'site_code', '') or ''
-            ts = getattr(alarm, 'timestamp_str', '') or ''
-            
-            if atype and site:
-                line = f"{mbu}\t{ring_id}\t{atype}\t{site}\t{ts}\t{b2s_id}"
+            line = WhatsAppMessageFormatter._format_alarm(alarm, template)
+            if line.strip():
                 lines.append(line)
         
         return '\n'.join(lines)
     
     @staticmethod
     def format_omo_alarms(alarms: List) -> str:
-        return WhatsAppMessageFormatter.format_b2s_alarms(alarms)
+        if not alarms:
+            return ""
+        
+        template = settings.message_formats.omo_format
+        lines = []
+        for alarm in alarms:
+            line = WhatsAppMessageFormatter._format_alarm(alarm, template)
+            if line.strip():
+                lines.append(line)
+        
+        return '\n'.join(lines)
     
     @staticmethod
     def format_csl_fault(alarms: List) -> str:
@@ -252,7 +270,9 @@ class WhatsAppHandler:
         self._message_sequence = 0
         
         self.chat_cache = CachedChatList()
+        self.chat_cache = CachedChatList()
         self._driver: Optional[webdriver.Chrome] = None
+        self._current_chat_name: Optional[str] = None  # Cache currently open chat
     
     def set_popup_callback(self, callback: Callable):
         """Set callback for showing error popups"""
@@ -446,19 +466,34 @@ class WhatsAppHandler:
         
         for attempt in range(retry_count):
             try:
-                # 1. Find and open group
-                if not self._find_and_open_group(driver, group_name):
-                    logger.warning(f"Group '{group_name}' not found (Attempt {attempt + 1})")
-                    if attempt < retry_count - 1:
-                        time.sleep(1)
-                        continue
+                # 1. OPTIMIZATION: Check if already in the correct group
+                already_open = False
+                if self._current_chat_name == group_name:
+                    if self._verify_chat_opened(driver, group_name):
+                        logger.info(f"Group '{group_name}' is already open, skipping search")
+                        already_open = True
+                    else:
+                        self._current_chat_name = None # Reset if verification fails
+                
+                if not already_open:
+                    if not self._find_and_open_group(driver, group_name):
+                        logger.warning(f"Group '{group_name}' not found (Attempt {attempt + 1})")
+                        if attempt < retry_count - 1:
+                            time.sleep(0.5)
+                            continue
+                        
+                        # ALERT on group not found
+                        self._show_error_popup(
+                            "Group Not Found", 
+                            f"Could not find group '{group_name}' in WhatsApp chat list.\nPlease ensure the group exists and is visible."
+                        )
+                        return MessageResult(success=False, group_name=group_name, error="Group not found")
                     
-                    # ALERT on group not found
-                    self._show_error_popup(
-                        "Group Not Found", 
-                        f"Could not find group '{group_name}' in WhatsApp chat list.\nPlease ensure the group exists and is visible."
-                    )
-                    return MessageResult(success=False, group_name=group_name, error="Group not found")
+                    # Update current chat cache
+                    self._current_chat_name = group_name
+                
+                # Reduced sleep from 1s to 0.5s
+                time.sleep(0.5)
                 
                 time.sleep(1)
                 
@@ -480,20 +515,48 @@ class WhatsAppHandler:
                 input_box.click()
                 time.sleep(0.2)
                 
-                # INSTANT INPUT: Use JavaScript to insert text (No Clipboard)
-                # This uses execCommand 'insertText' which mimics a user typing/pasting
-                try:
-                    driver.execute_script("""
-                        var text = arguments[0];
-                        var input = arguments[1];
-                        input.focus();
-                        document.execCommand('insertText', false, text);
-                    """, message, input_box)
-                except Exception as js_e:
-                    logger.warning(f"JS Insert failed, falling back to send_keys: {js_e}")
-                    # Fallback allows newlines? send_keys often sends on newline.
-                    # We might need to replace \n with Shift+Enter if fallback is needed.
-                    input_box.send_keys(message)
+                # determine sending method
+                method = settings.whatsapp_sending_method
+                
+                if method == "Clipboard":
+                    # 3a. CLIPBOARD METHOD
+                    try:
+                        pyperclip.copy(message)
+                        input_box.send_keys(Keys.CONTROL + 'v')
+                        time.sleep(0.5) # Wait for paste to register
+                    except Exception as clip_e:
+                        logger.error(f"Clipboard method failed, falling back to JavaScript: {clip_e}")
+                        method = "JavaScript"
+                
+                if method == "JavaScript":
+                    # 3b. JAVASCRIPT METHOD: Simulate Paste Event (No OS Clipboard)
+                    # This preserves newlines correctly unlike insertText
+                    try:
+                        driver.execute_script("""
+                            var text = arguments[0];
+                            var input = arguments[1];
+                            input.focus();
+                            
+                            // Create a fake paste event
+                            var dataTransfer = new DataTransfer();
+                            dataTransfer.setData('text/plain', text);
+                            
+                            var event = new ClipboardEvent('paste', {
+                                clipboardData: dataTransfer,
+                                bubbles: true,
+                                cancelable: true
+                            });
+                            
+                            input.dispatchEvent(event);
+                        """, message, input_box)
+                    except Exception as js_e:
+                        logger.warning(f"JS Paste failed, falling back to send_keys: {js_e}")
+                        # Fallback: Split by newline and use Shift+Enter
+                        parts = message.split('\n')
+                        for i, part in enumerate(parts):
+                            input_box.send_keys(part)
+                            if i < len(parts) - 1:
+                                input_box.send_keys(Keys.SHIFT + Keys.ENTER)
                 
                 time.sleep(0.5) # Wait for input to register
                 
@@ -523,17 +586,17 @@ class WhatsAppHandler:
 
     
     def _find_and_open_group(self, driver: webdriver.Chrome, group_name: str) -> bool:
-        logger.info(f"DEBUG find_and_open_group_direct: Refreshing chat list before search")
+        logger.debug(f" find_and_open_group_direct: Refreshing chat list before search")
         
         if self.chat_cache.needs_refresh():
             self.chat_cache.refresh(driver)
         
-        logger.info(f"DEBUG find_and_open_group_direct: Looking for group '{group_name}'")
+        logger.debug(f" find_and_open_group_direct: Looking for group '{group_name}'")
         
         cached_element = self.chat_cache.get_chat_element(group_name)
         if cached_element:
             try:
-                logger.info(f"DEBUG: Found group in cache, clicking...")
+                logger.debug(f": Found group in cache, clicking...")
                 ActionChains(driver).move_to_element(cached_element).click().perform()
                 time.sleep(1)
                 
@@ -554,7 +617,7 @@ class WhatsAppHandler:
             try:
                 chat_list = driver.find_element(By.CSS_SELECTOR, selector)
                 if chat_list:
-                    logger.info(f"DEBUG: Found chat list with selector: {selector}")
+                    logger.debug(f": Found chat list with selector: {selector}")
                     break
             except:
                 continue
@@ -578,7 +641,7 @@ class WhatsAppHandler:
             except:
                 continue
         
-        logger.info(f"DEBUG: Found {len(rows)} chat rows to search through")
+        logger.debug(f": Found {len(rows)} chat rows to search through")
         
         for row in rows:
             try:
@@ -601,38 +664,39 @@ class WhatsAppHandler:
                 if not chat_title:
                     continue
                 
-                logger.info(f"DEBUG: Found chat title: '{chat_title}'")
+                logger.debug(f": Found chat title: '{chat_title}'")
                 
                 if chat_title.strip() == group_name.strip():
-                    logger.info(f"DEBUG: Exact match found for '{group_name}'")
+                    logger.debug(f": Exact match found for '{group_name}'")
                     
-                    logger.info(f"DEBUG: Scrolling group '{group_name}' into view")
+                    logger.debug(f": Scrolling group '{group_name}' into view")
                     driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", row)
                     time.sleep(0.5)
                     
-                    logger.info(f"DEBUG: Clicking on group '{group_name}'")
+                    logger.debug(f": Clicking on group '{group_name}'")
                     try:
                         ActionChains(driver).move_to_element(row).click().perform()
-                        logger.info(f"DEBUG: ActionChains click successful on '{group_name}'")
+                        logger.debug(f": ActionChains click successful on '{group_name}'")
                     except:
                         row.click()
                     
-                    time.sleep(1)
                     
-                    logger.info(f"DEBUG: Waiting for chat '{group_name}' to load...")
+                    time.sleep(0.5) # Reduced from 1s
                     
-                    for attempt in range(5):
+                    logger.debug(f": Waiting for chat '{group_name}' to load...")
+                    
+                    # More aggressive verification with shorter sleep
+                    for attempt in range(10): # More attempts, shorter interval
                         if self._verify_chat_opened(driver, group_name):
                             logger.success(f"Successfully opened group: {group_name}")
                             return True
-                        logger.info(f"Chat verification attempt {attempt + 1} failed, waiting longer...")
-                        time.sleep(1)
+                        time.sleep(0.5)
                     
                     for chat in self.chat_cache.get_all_group_names()[:5]:
-                        logger.info(f"DEBUG: Found chat title: '{chat}'")
+                        logger.debug(f": Found chat title: '{chat}'")
                     
                     logger.warning(f"Opened wrong chat. Expected: '{group_name}', Got: different chat")
-                    logger.info(f"DEBUG: Trying one more click on the group...")
+                    logger.debug(f": Trying one more click on the group...")
                     logger.warning("Chat verification failed after 5 attempts")
                     break
                     
@@ -656,14 +720,14 @@ class WhatsAppHandler:
                     header = driver.find_element(By.CSS_SELECTOR, selector)
                     chat_name = header.get_attribute('title') or header.text
                     if chat_name:
-                        logger.info(f"DEBUG: Found chat title with selector '{selector}': '{chat_name}'")
-                        logger.info(f"DEBUG: Verifying chat - Expected: '{expected_group}', Got: '{chat_name}'")
+                        logger.debug(f": Found chat title with selector '{selector}': '{chat_name}'")
+                        logger.debug(f": Verifying chat - Expected: '{expected_group}', Got: '{chat_name}'")
                         
                         if chat_name.strip() == expected_group.strip():
-                            logger.info(f"DEBUG: Chat verification PASSED")
+                            logger.debug(f": Chat verification PASSED")
                             return True
                         else:
-                            logger.info(f"DEBUG: Chat verification FAILED")
+                            logger.debug(f": Chat verification FAILED")
                 except:
                     continue
             
@@ -674,7 +738,7 @@ class WhatsAppHandler:
             return False
     
     def _find_clickable_element(self, driver: webdriver.Chrome, element_type: str, timeout: int = 15) -> Optional[object]:
-        logger.info(f"DEBUG _find_clickable_element: Finding {element_type}")
+        logger.debug(f" _find_clickable_element: Finding {element_type}")
         
         selectors = {
             "message_input": [
@@ -698,7 +762,7 @@ class WhatsAppHandler:
                 try:
                     element = driver.find_element(By.CSS_SELECTOR, selector)
                     if element and element.is_displayed():
-                        logger.info(f"DEBUG _find_clickable_element: Found {element_type} with {selector}")
+                        logger.debug(f" _find_clickable_element: Found {element_type} with {selector}")
                         return element
                 except:
                     continue
@@ -767,15 +831,16 @@ class OrderedAlarmSender:
         for omo in cls.OMO_ORDER:
             all_groups.append(('OMO', omo))
         
-        known_types = set(cls.ALARM_TYPE_ORDER)
+        extended_order = list(cls.ALARM_TYPE_ORDER)
+        known_types_lower = {t.lower() for t in cls.ALARM_TYPE_ORDER}
+        
         all_alarm_types = set()
         for a in alarms:
             if hasattr(a, 'alarm_type') and a.alarm_type:
                 all_alarm_types.add(a.alarm_type)
         
-        extended_order = list(cls.ALARM_TYPE_ORDER)
         for atype in sorted(all_alarm_types):
-            if atype not in known_types:
+            if atype.lower() not in known_types_lower:
                 extended_order.append(atype)
             
         for group_type, group_id in all_groups:
@@ -787,7 +852,9 @@ class OrderedAlarmSender:
                     if is_toggle:
                         if not getattr(a, 'is_toggle', False): continue
                     else:
-                        if a.alarm_type != alarm_type or getattr(a, 'is_toggle', False): continue
+                        # Case-insensitive comparison for alarm types
+                        current_type = getattr(a, 'alarm_type', '')
+                        if current_type.lower() != alarm_type.lower() or getattr(a, 'is_toggle', False): continue
                         
                     if group_type == 'MBU':
                         if getattr(a, 'mbu', '') == group_id: group_alarms.append(a)

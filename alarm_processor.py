@@ -601,66 +601,72 @@ class AlarmProcessor:
         
         return result
     
+    def _format_alarm_line(self, alarm: ProcessedAlarm, template: str) -> str:
+        """Format a single alarm using a template"""
+        data = {
+            "alarm_type": alarm.alarm_type or '',
+            "timestamp": alarm.timestamp_str or '',
+            "site_name": alarm.site_name or alarm.site_code or '',
+            "site_code": alarm.site_code or '',
+            "severity": alarm.severity or 'Major',
+            "mbu": alarm.mbu or '',
+            "ring_id": alarm.ftts_ring_id or '#N/A',
+            "b2s_id": alarm.b2s_id or '',
+        }
+        
+        try:
+            return template.format(**data)
+        except KeyError:
+            # Fallback to basic format
+            return f"{data['alarm_type']}\t{data['timestamp']}\t{data['site_name']}"
+    
     def format_mbu_message(self, alarms: List[ProcessedAlarm]) -> str:
         """
         Format alarms for MBU WhatsApp group message
-        
-        Format: AlarmType    Timestamp    SiteName
+        Uses custom template from settings
         """
         if not alarms:
             return ""
         
-        lines = []
-        for alarm in alarms:
-            # Format: Low Voltage    12-11-2025 05:20:03    LTE_LHR1459__S_Eden_Value_Homes
-            line = f"{alarm.alarm_type}\t{alarm.timestamp_str}\t{alarm.site_name}"
-            lines.append(line)
-        
+        template = settings.message_formats.mbu_format
+        lines = [self._format_alarm_line(alarm, template) for alarm in alarms]
         return '\n'.join(lines)
     
     def format_toggle_message(self, alarms: List[ProcessedAlarm]) -> str:
         """
         Format toggle alarms for MBU WhatsApp group message
-        
-        Format: Toggle alarm    Major    AlarmType    Timestamp    SiteName
+        Uses custom template from settings
         """
         if not alarms:
             return ""
         
-        lines = []
-        for alarm in alarms:
-            line = f"Toggle alarm\t{alarm.severity}\t{alarm.alarm_type}\t{alarm.timestamp_str}\t{alarm.site_name}"
-            lines.append(line)
-        
+        template = settings.message_formats.toggle_format
+        lines = [self._format_alarm_line(alarm, template) for alarm in alarms]
         return '\n'.join(lines)
     
     def format_b2s_message(self, alarms: List[ProcessedAlarm]) -> str:
         """
         Format alarms for B2S WhatsApp group message
-        
-        Format: MBU    RingID    AlarmType    SiteName    Timestamp    B2S_ID
+        Uses custom template from settings
         """
         if not alarms:
             return ""
         
-        lines = []
-        for alarm in alarms:
-            mbu = alarm.mbu or ""
-            ring_id = alarm.ftts_ring_id or "#N/A"
-            b2s_id = alarm.b2s_id or ""
-            
-            line = f"{mbu}\t{ring_id}\t{alarm.alarm_type}\t{alarm.site_name}\t{alarm.timestamp_str}\t{b2s_id}"
-            lines.append(line)
-        
+        template = settings.message_formats.b2s_format
+        lines = [self._format_alarm_line(alarm, template) for alarm in alarms]
         return '\n'.join(lines)
     
     def format_omo_message(self, alarms: List[ProcessedAlarm]) -> str:
         """
         Format alarms for OMO WhatsApp group message
-        
-        Same format as B2S
+        Uses custom template from settings
         """
-        return self.format_b2s_message(alarms)
+        if not alarms:
+            return ""
+        
+        template = settings.message_formats.omo_format
+        lines = [self._format_alarm_line(alarm, template) for alarm in alarms]
+        return '\n'.join(lines)
     
     def should_skip_toggle_for_mbu(self, mbu: str) -> bool:
         """Check if toggle alarms should be skipped for this MBU"""

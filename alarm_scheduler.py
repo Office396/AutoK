@@ -42,7 +42,9 @@ class AlarmScheduler:
         self.alarm_queue = queue.Queue()
         
         # Real-time alarm types (sent immediately)
-        self.realtime_types = {AlarmTypes.CSL_FAULT.lower()}
+        # CSL Fault is now handled as a regular alarm with 0 min delay
+        # This allows it to be batched if needed and ensures consistent handling
+        self.realtime_types = set()
     
     def set_send_callback(self, callback: Callable):
         """Set the callback function for sending alarms"""
@@ -72,7 +74,7 @@ class AlarmScheduler:
     
     def _is_realtime(self, alarm_type: str) -> bool:
         """Check if alarm type should be sent in real-time"""
-        return alarm_type.lower() in self.realtime_types or "csl" in alarm_type.lower()
+        return alarm_type.lower() in self.realtime_types
     
     def start(self):
         """Start the scheduler"""
@@ -181,9 +183,9 @@ class AlarmScheduler:
                     
                     # Send regular alarms
                     if batch.alarms:
-                        logger.info(f"DEBUG: Processing {len(batch.alarms)} alarms for {alarm_type} in group {batch.group_name}")
+                        logger.debug(f": Processing {len(batch.alarms)} alarms for {alarm_type} in group {batch.group_name}")
                         message = WhatsAppMessageFormatter.format_mbu_alarms(batch.alarms, alarm_type)
-                        logger.info(f"DEBUG: Generated MBU message for {alarm_type}: length={len(message)}, preview='{message[:100]}'")
+                        logger.debug(f": Generated MBU message for {alarm_type}: length={len(message)}, preview='{message[:100]}'")
                         if not message.strip():
                             logger.error(f"DEBUG: EMPTY MESSAGE generated for {alarm_type}!")
                         else:
@@ -193,7 +195,7 @@ class AlarmScheduler:
                     # Send toggle alarms (if not skipped for this MBU)
                     if batch.toggle_alarms and not alarm_processor.should_skip_toggle_for_mbu(mbu):
                         toggle_message = WhatsAppMessageFormatter.format_toggle_alarms(batch.toggle_alarms)
-                        logger.info(f"DEBUG: Generated toggle message: length={len(toggle_message)}, preview='{toggle_message[:100]}'")
+                        logger.debug(f": Generated toggle message: length={len(toggle_message)}, preview='{toggle_message[:100]}'")
                         self.send_callback(batch.group_name, toggle_message, f"{alarm_type} (Toggle)")
                         logger.alarm_batch_sent(f"{alarm_type} (Toggle)", len(batch.toggle_alarms), batch.group_name)
             

@@ -12,6 +12,7 @@ from gui_components import Colors, TabButton, ToastNotification
 from CTkMessagebox import CTkMessagebox
 from gui_dashboard import DashboardView
 from gui_settings import SettingsView
+from gui_message_formats import MessageFormatsView
 from gui_sites import SitesView
 from gui_logs import LogsView
 from gui_about import AboutView
@@ -124,6 +125,7 @@ class MainWindow(ctk.CTk):
         
         nav_items = [
             ("dashboard", "📊", "Dashboard"),
+            ("formats", "📝", "Formats"),
             ("settings", "⚙️", "Settings"),
             ("sites", "📍", "Sites"),
             ("logs", "📜", "Logs"),
@@ -178,6 +180,11 @@ class MainWindow(ctk.CTk):
         settings_view = SettingsView(self.content_frame)
         settings_view.on_save = self._on_settings_saved
         self.views["settings"] = settings_view
+        
+        # Message Formats
+        formats_view = MessageFormatsView(self.content_frame)
+        formats_view.on_save = self._on_settings_saved
+        self.views["formats"] = formats_view
         
         # Sites
         sites_view = SitesView(self.content_frame)

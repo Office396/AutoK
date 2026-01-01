@@ -4,7 +4,7 @@
         "password": "Dripper#400"
     },
     "timing": {
-        "csl_fault": 0,
+        "csl_fault": 30,
         "rf_unit_failure": 30,
         "cell_unavailable": 30,
         "low_voltage": 30,
@@ -40,11 +40,18 @@
         "TELENOR": "TP JAZZ Shared Sites C1"
     },
     "master_file_path": "C:\\wd\\Autok\\data\\Master_Data.xlsx",
-    "check_interval_seconds": 30,
+    "check_interval_seconds": 10,
     "auto_start": false,
     "separate_browser_window": false,
     "skip_toggle_mbus": [
         "C1-LHR-04",
         "C1-LHR-05"
-    ]
+    ],
+    "whatsapp_sending_method": "JavaScript",
+    "message_formats": {
+        "mbu_format": "{alarm_type}\t{timestamp}\t{site_name}",
+        "toggle_format": "Toggle alarm\t{severity}\t{alarm_type}\t{timestamp}\t{site_name}",
+        "b2s_format": "{mbu}\t{ring_id}\t{alarm_type}\t{site_name}\t{timestamp}\t{b2s_id}",
+        "omo_format": "{mbu}\t{ring_id}\t{alarm_type}\t{site_name}\t{timestamp}\t{b2s_id}"
+    }
 }

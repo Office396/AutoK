@@ -1,59 +1,49 @@
-2025/12/29-22:54:25.410 ed8 Reusing MANIFEST C:\wd\Autok\browser_profiles\whatsapp\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
-2025/12/29-22:54:25.410 ed8 Recovering log #142
-2025/12/29-22:54:25.418 ed8 Reusing old log C:\wd\Autok\browser_profiles\whatsapp\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000142.log 
-2025/12/29-22:54:26.674 ed8 Level-0 table #148: started
-2025/12/29-22:54:26.680 ed8 Level-0 table #148: 255765 bytes OK
-2025/12/29-22:54:26.682 ed8 Delete type=0 #142
-2025/12/29-22:54:26.682 ed8 Manual compaction at level-0 from '\x001\x00\x00\x00' @ 72057594037927935 : 1 .. '\x002\x00\x00\x00' @ 0 : 0; will stop at (end)
-2025/12/29-22:54:26.714 17d8 Compacting 1@1 + 2@2 files
-2025/12/29-22:54:26.792 17d8 Generated table #149@1: 47245 keys, 2311543 bytes
-2025/12/29-22:54:26.816 17d8 Generated table #150@1: 30810 keys, 900860 bytes
-2025/12/29-22:54:26.816 17d8 Compacted 1@1 + 2@2 files => 3212403 bytes
-2025/12/29-22:54:26.817 17d8 compacted to: files[ 0 0 2 0 0 0 0 ]
-2025/12/29-22:54:26.818 17d8 Delete type=2 #144
-2025/12/29-22:54:26.818 17d8 Delete type=2 #145
-2025/12/29-22:54:26.818 17d8 Delete type=2 #148
-2025/12/29-23:03:32.598 36a0 Level-0 table #152: started
-2025/12/29-23:03:32.618 36a0 Level-0 table #152: 1329269 bytes OK
-2025/12/29-23:03:32.621 36a0 Delete type=0 #147
-2025/12/29-23:03:32.729 17d8 Compacting 1@1 + 2@2 files
-2025/12/29-23:03:32.782 17d8 Generated table #153@1: 48524 keys, 2323219 bytes
-2025/12/29-23:03:32.810 17d8 Generated table #154@1: 35415 keys, 1125587 bytes
-2025/12/29-23:03:32.810 17d8 Compacted 1@1 + 2@2 files => 3448806 bytes
-2025/12/29-23:03:32.811 17d8 compacted to: files[ 0 0 2 0 0 0 0 ]
-2025/12/29-23:03:32.812 17d8 Delete type=2 #149
-2025/12/29-23:03:32.812 17d8 Delete type=2 #150
-2025/12/29-23:03:32.812 17d8 Delete type=2 #152
-2025/12/29-23:05:43.825 17d8 Level-0 table #156: started
-2025/12/29-23:05:43.846 17d8 Level-0 table #156: 1284593 bytes OK
-2025/12/29-23:05:43.848 17d8 Delete type=0 #151
-2025/12/29-23:05:45.646 17d8 Compacting 1@1 + 2@2 files
-2025/12/29-23:05:45.699 17d8 Generated table #157@1: 50624 keys, 2344549 bytes
-2025/12/29-23:05:45.733 17d8 Generated table #158@1: 39423 keys, 1366739 bytes
-2025/12/29-23:05:45.733 17d8 Compacted 1@1 + 2@2 files => 3711288 bytes
-2025/12/29-23:05:45.733 17d8 compacted to: files[ 0 0 2 0 0 0 0 ]
-2025/12/29-23:05:45.734 17d8 Delete type=2 #153
-2025/12/29-23:05:45.734 17d8 Delete type=2 #154
-2025/12/29-23:05:45.734 17d8 Delete type=2 #156
-2025/12/29-23:08:09.935 ed8 Level-0 table #160: started
-2025/12/29-23:08:09.956 ed8 Level-0 table #160: 1286157 bytes OK
-2025/12/29-23:08:09.958 ed8 Delete type=0 #155
-2025/12/29-23:08:10.736 17d8 Compacting 1@1 + 2@2 files
-2025/12/29-23:08:10.791 17d8 Generated table #161@1: 52834 keys, 2360539 bytes
-2025/12/29-23:08:10.828 17d8 Generated table #162@1: 43010 keys, 1596603 bytes
-2025/12/29-23:08:10.828 17d8 Compacted 1@1 + 2@2 files => 3957142 bytes
-2025/12/29-23:08:10.829 17d8 compacted to: files[ 0 0 2 0 0 0 0 ]
-2025/12/29-23:08:10.829 17d8 Delete type=2 #157
-2025/12/29-23:08:10.829 17d8 Delete type=2 #158
-2025/12/29-23:08:10.829 17d8 Delete type=2 #160
-2025/12/29-23:33:39.156 17d8 Level-0 table #164: started
-2025/12/29-23:33:39.175 17d8 Level-0 table #164: 1303979 bytes OK
-2025/12/29-23:33:39.176 17d8 Delete type=0 #159
-2025/12/29-23:33:39.302 17d8 Compacting 1@1 + 2@2 files
-2025/12/29-23:33:39.356 17d8 Generated table #165@1: 52677 keys, 2376654 bytes
-2025/12/29-23:33:39.397 17d8 Generated table #166@1: 47889 keys, 1818394 bytes
-2025/12/29-23:33:39.397 17d8 Compacted 1@1 + 2@2 files => 4195048 bytes
-2025/12/29-23:33:39.398 17d8 compacted to: files[ 0 0 2 0 0 0 0 ]
-2025/12/29-23:33:39.398 17d8 Delete type=2 #161
-2025/12/29-23:33:39.399 17d8 Delete type=2 #162
-2025/12/29-23:33:39.399 17d8 Delete type=2 #164
+2026/01/02-03:14:38.318 1350 Reusing MANIFEST C:\wd\Autok\browser_profiles\whatsapp\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/01/02-03:14:38.318 1350 Recovering log #264
+2026/01/02-03:14:38.321 1350 Reusing old log C:\wd\Autok\browser_profiles\whatsapp\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000264.log 
+2026/01/02-03:14:38.863 32a0 Level-0 table #272: started
+2026/01/02-03:14:38.867 32a0 Level-0 table #272: 127408 bytes OK
+2026/01/02-03:14:38.869 32a0 Delete type=0 #264
+2026/01/02-03:14:38.869 32a0 Manual compaction at level-0 from '\x008\x00\x00\x00' @ 72057594037927935 : 1 .. '\x009\x00\x00\x00' @ 0 : 0; will stop at (end)
+2026/01/02-03:14:38.911 1350 Compacting 1@1 + 4@2 files
+2026/01/02-03:14:38.972 1350 Generated table #273@1: 86688 keys, 2246909 bytes
+2026/01/02-03:14:39.026 1350 Generated table #274@1: 10966 keys, 2493118 bytes
+2026/01/02-03:14:39.111 1350 Generated table #275@1: 42854 keys, 2205660 bytes
+2026/01/02-03:14:39.148 1350 Generated table #276@1: 52125 keys, 1038338 bytes
+2026/01/02-03:14:39.148 1350 Compacted 1@1 + 4@2 files => 7984025 bytes
+2026/01/02-03:14:39.150 1350 compacted to: files[ 0 0 4 0 0 0 0 ]
+2026/01/02-03:14:39.150 1350 Delete type=2 #266
+2026/01/02-03:14:39.150 1350 Delete type=2 #267
+2026/01/02-03:14:39.150 1350 Delete type=2 #268
+2026/01/02-03:14:39.150 1350 Delete type=2 #269
+2026/01/02-03:14:39.150 1350 Delete type=2 #272
+2026/01/02-03:17:57.808 1350 Level-0 table #278: started
+2026/01/02-03:17:57.832 1350 Level-0 table #278: 1293584 bytes OK
+2026/01/02-03:17:57.835 1350 Delete type=0 #271
+2026/01/02-03:17:58.094 1350 Compacting 1@1 + 4@2 files
+2026/01/02-03:17:58.154 1350 Generated table #279@1: 88405 keys, 2238146 bytes
+2026/01/02-03:17:58.195 1350 Generated table #280@1: 12427 keys, 2510547 bytes
+2026/01/02-03:17:58.240 1350 Generated table #281@1: 34824 keys, 2196577 bytes
+2026/01/02-03:17:58.278 1350 Generated table #282@1: 63445 keys, 1264925 bytes
+2026/01/02-03:17:58.278 1350 Compacted 1@1 + 4@2 files => 8210195 bytes
+2026/01/02-03:17:58.279 1350 compacted to: files[ 0 0 4 0 0 0 0 ]
+2026/01/02-03:17:58.280 1350 Delete type=2 #273
+2026/01/02-03:17:58.280 1350 Delete type=2 #274
+2026/01/02-03:17:58.280 1350 Delete type=2 #275
+2026/01/02-03:17:58.280 1350 Delete type=2 #276
+2026/01/02-03:17:58.280 1350 Delete type=2 #278
+2026/01/02-03:20:02.883 1350 Level-0 table #284: started
+2026/01/02-03:20:02.909 1350 Level-0 table #284: 1284729 bytes OK
+2026/01/02-03:20:02.910 1350 Delete type=0 #277
+2026/01/02-03:20:03.406 1350 Compacting 1@1 + 4@2 files
+2026/01/02-03:20:03.467 1350 Generated table #285@1: 88207 keys, 2238092 bytes
+2026/01/02-03:20:03.507 1350 Generated table #286@1: 14984 keys, 2521869 bytes
+2026/01/02-03:20:03.552 1350 Generated table #287@1: 25989 keys, 2188993 bytes
+2026/01/02-03:20:03.598 1350 Generated table #288@1: 76116 keys, 1518812 bytes
+2026/01/02-03:20:03.598 1350 Compacted 1@1 + 4@2 files => 8467766 bytes
+2026/01/02-03:20:03.599 1350 compacted to: files[ 0 0 4 0 0 0 0 ]
+2026/01/02-03:20:03.599 1350 Delete type=2 #279
+2026/01/02-03:20:03.599 1350 Delete type=2 #280
+2026/01/02-03:20:03.600 1350 Delete type=2 #281
+2026/01/02-03:20:03.600 1350 Delete type=2 #282
+2026/01/02-03:20:03.600 1350 Delete type=2 #284

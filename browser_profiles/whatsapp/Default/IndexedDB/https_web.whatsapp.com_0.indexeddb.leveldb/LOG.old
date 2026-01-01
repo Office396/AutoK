@@ -1,15 +1,54 @@
-2025/12/29-22:40:56.978 1770 Reusing MANIFEST C:\wd\Autok\browser_profiles\whatsapp\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
-2025/12/29-22:40:56.978 1770 Recovering log #137
-2025/12/29-22:40:57.003 1770 Reusing old log C:\wd\Autok\browser_profiles\whatsapp\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000137.log 
-2025/12/29-22:40:57.546 1770 Level-0 table #143: started
-2025/12/29-22:40:57.581 1770 Level-0 table #143: 789954 bytes OK
-2025/12/29-22:40:57.582 1770 Delete type=0 #137
-2025/12/29-22:40:57.583 1770 Manual compaction at level-0 from '\x000\x00\x00\x00' @ 72057594037927935 : 1 .. '\x001\x00\x00\x00' @ 0 : 0; will stop at (end)
-2025/12/29-22:40:57.607 10e0 Compacting 1@1 + 2@2 files
-2025/12/29-22:40:57.675 10e0 Generated table #144@1: 46887 keys, 2310698 bytes
-2025/12/29-22:40:57.699 10e0 Generated table #145@1: 30107 keys, 870065 bytes
-2025/12/29-22:40:57.699 10e0 Compacted 1@1 + 2@2 files => 3180763 bytes
-2025/12/29-22:40:57.700 10e0 compacted to: files[ 0 0 2 0 0 0 0 ]
-2025/12/29-22:40:57.701 10e0 Delete type=2 #139
-2025/12/29-22:40:57.701 10e0 Delete type=2 #140
-2025/12/29-22:40:57.701 10e0 Delete type=2 #143
+2026/01/02-03:08:24.551 2f28 Reusing MANIFEST C:\wd\Autok\browser_profiles\whatsapp\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/01/02-03:08:24.551 2f28 Recovering log #245
+2026/01/02-03:08:24.569 2f28 Reusing old log C:\wd\Autok\browser_profiles\whatsapp\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000245.log 
+2026/01/02-03:08:24.570 2f28 Delete type=2 #241
+2026/01/02-03:08:24.570 2f28 Delete type=2 #242
+2026/01/02-03:08:24.570 2f28 Delete type=2 #243
+2026/01/02-03:08:24.570 2f28 Delete type=2 #244
+2026/01/02-03:08:24.570 2f28 Delete type=2 #246
+2026/01/02-03:08:24.995 2df0 Level-0 table #253: started
+2026/01/02-03:08:25.009 2df0 Level-0 table #253: 585987 bytes OK
+2026/01/02-03:08:25.012 2df0 Delete type=0 #245
+2026/01/02-03:08:25.013 2df0 Manual compaction at level-0 from '\x007\x00\x00\x00' @ 72057594037927935 : 1 .. '\x008\x00\x00\x00' @ 0 : 0; will stop at (end)
+2026/01/02-03:08:25.029 368c Compacting 1@1 + 4@2 files
+2026/01/02-03:08:25.116 368c Generated table #254@1: 81290 keys, 2274611 bytes
+2026/01/02-03:08:25.155 368c Generated table #255@1: 11007 keys, 2438021 bytes
+2026/01/02-03:08:25.221 368c Generated table #256@1: 60623 keys, 2225234 bytes
+2026/01/02-03:08:25.241 368c Generated table #257@1: 27197 keys, 541857 bytes
+2026/01/02-03:08:25.241 368c Compacted 1@1 + 4@2 files => 7479723 bytes
+2026/01/02-03:08:25.242 368c compacted to: files[ 0 0 4 0 0 0 0 ]
+2026/01/02-03:08:25.243 368c Delete type=2 #247
+2026/01/02-03:08:25.243 368c Delete type=2 #248
+2026/01/02-03:08:25.243 368c Delete type=2 #249
+2026/01/02-03:08:25.243 368c Delete type=2 #250
+2026/01/02-03:08:25.243 368c Delete type=2 #253
+2026/01/02-03:11:44.786 2f28 Level-0 table #259: started
+2026/01/02-03:11:44.808 2f28 Level-0 table #259: 1308883 bytes OK
+2026/01/02-03:11:44.810 2f28 Delete type=0 #252
+2026/01/02-03:11:47.916 2f28 Compacting 1@1 + 4@2 files
+2026/01/02-03:11:47.976 2f28 Generated table #260@1: 84694 keys, 2259117 bytes
+2026/01/02-03:11:48.014 2f28 Generated table #261@1: 10991 keys, 2465887 bytes
+2026/01/02-03:11:48.068 2f28 Generated table #262@1: 52113 keys, 2215147 bytes
+2026/01/02-03:11:48.093 2f28 Generated table #263@1: 38526 keys, 766723 bytes
+2026/01/02-03:11:48.093 2f28 Compacted 1@1 + 4@2 files => 7706874 bytes
+2026/01/02-03:11:48.094 2f28 compacted to: files[ 0 0 4 0 0 0 0 ]
+2026/01/02-03:11:48.094 2f28 Delete type=2 #254
+2026/01/02-03:11:48.095 2f28 Delete type=2 #255
+2026/01/02-03:11:48.095 2f28 Delete type=2 #256
+2026/01/02-03:11:48.095 2f28 Delete type=2 #257
+2026/01/02-03:11:48.095 2f28 Delete type=2 #259
+2026/01/02-03:13:49.979 2f58 Level-0 table #265: started
+2026/01/02-03:13:50.004 2f58 Level-0 table #265: 1319784 bytes OK
+2026/01/02-03:13:50.005 2f58 Delete type=0 #258
+2026/01/02-03:13:50.496 2f28 Compacting 1@1 + 4@2 files
+2026/01/02-03:13:50.556 2f28 Generated table #266@1: 86606 keys, 2248360 bytes
+2026/01/02-03:13:50.597 2f28 Generated table #267@1: 10963 keys, 2492167 bytes
+2026/01/02-03:13:50.646 2f28 Generated table #268@1: 43680 keys, 2208399 bytes
+2026/01/02-03:13:50.678 2f28 Generated table #269@1: 50823 keys, 1011072 bytes
+2026/01/02-03:13:50.678 2f28 Compacted 1@1 + 4@2 files => 7959998 bytes
+2026/01/02-03:13:50.680 2f28 compacted to: files[ 0 0 4 0 0 0 0 ]
+2026/01/02-03:13:50.680 2f28 Delete type=2 #260
+2026/01/02-03:13:50.680 2f28 Delete type=2 #261
+2026/01/02-03:13:50.680 2f28 Delete type=2 #262
+2026/01/02-03:13:50.680 2f28 Delete type=2 #263
+2026/01/02-03:13:50.680 2f28 Delete type=2 #265
