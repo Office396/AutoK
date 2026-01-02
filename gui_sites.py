@@ -1,11 +1,12 @@
 """
 GUI Sites View
-View and search master site data
+View and manage master site data from Excel sheet
 """
 
 import customtkinter as ctk
 from typing import Optional, Callable, Dict, List
 import threading
+from tkinter import filedialog
 
 from gui_components import (
     Colors, SearchBox, ActionButton, StatCard
@@ -15,7 +16,7 @@ from config import settings
 
 
 class SitesView(ctk.CTkFrame):
-    """View for browsing and searching site data"""
+    """View for browsing and managing master site data"""
     
     def __init__(self, parent, **kwargs):
         super().__init__(parent, fg_color=Colors.BG_DARK, **kwargs)
@@ -25,14 +26,10 @@ class SitesView(ctk.CTkFrame):
     
     def _create_layout(self):
         """Create the layout"""
-        # Configure grid
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(1, weight=1)
         
-        # Header
         self._create_header()
-        
-        # Content
         self._create_content()
     
     def _create_header(self):
@@ -40,19 +37,17 @@ class SitesView(ctk.CTkFrame):
         header = ctk.CTkFrame(self, fg_color=Colors.BG_MEDIUM, corner_radius=10)
         header.grid(row=0, column=0, sticky="ew", padx=20, pady=20)
         
-        # Title and search
         top_row = ctk.CTkFrame(header, fg_color="transparent")
         top_row.pack(fill="x", padx=20, pady=15)
         
         title = ctk.CTkLabel(
             top_row,
-            text="📍 Site Database",
+            text="📍 Master Data Sheet",
             font=ctk.CTkFont(size=20, weight="bold"),
             text_color=Colors.TEXT_PRIMARY
         )
         title.pack(side="left")
         
-        # Search box
         self.search_box = SearchBox(
             top_row,
             placeholder="Search sites by code or name...",
@@ -60,7 +55,39 @@ class SitesView(ctk.CTkFrame):
         )
         self.search_box.pack(side="right")
         
-        # Stats row
+        file_row = ctk.CTkFrame(header, fg_color="transparent")
+        file_row.pack(fill="x", padx=20, pady=(0, 10))
+        
+        file_label = ctk.CTkLabel(
+            file_row,
+            text="Excel File:",
+            font=ctk.CTkFont(size=12),
+            text_color=Colors.TEXT_SECONDARY
+        )
+        file_label.pack(side="left")
+        
+        self.file_path_label = ctk.CTkLabel(
+            file_row,
+            text=settings.master_file_path or "No file selected",
+            font=ctk.CTkFont(size=11),
+            text_color=Colors.TEXT_MUTED,
+            wraplength=400,
+            anchor="w"
+        )
+        self.file_path_label.pack(side="left", padx=(10, 20), fill="x", expand=True)
+        
+        browse_btn = ActionButton(
+            file_row,
+            text="Browse",
+            icon="📂",
+            color=Colors.BG_LIGHT,
+            hover_color=Colors.BG_MEDIUM,
+            command=self._browse_file,
+            width=100,
+            height=32
+        )
+        browse_btn.pack(side="right")
+        
         stats_row = ctk.CTkFrame(header, fg_color="transparent")
         stats_row.pack(fill="x", padx=20, pady=(0, 15))
         
@@ -88,7 +115,14 @@ class SitesView(ctk.CTkFrame):
         )
         self.omo_sites_label.pack(side="left", padx=(0, 30))
         
-        # Reload button
+        self.mbu_count_label = ctk.CTkLabel(
+            stats_row,
+            text="MBUs: 0",
+            font=ctk.CTkFont(size=12),
+            text_color=Colors.WARNING
+        )
+        self.mbu_count_label.pack(side="left", padx=(0, 30))
+        
         reload_btn = ActionButton(
             stats_row,
             text="Reload Data",
@@ -109,11 +143,9 @@ class SitesView(ctk.CTkFrame):
         content.grid_columnconfigure(1, weight=1)
         content.grid_rowconfigure(0, weight=1)
         
-        # Sites table
         table_container = ctk.CTkFrame(content, fg_color=Colors.BG_CARD, corner_radius=10)
         table_container.grid(row=0, column=0, sticky="nsew", padx=(0, 10))
         
-        # Table header
         table_header = ctk.CTkFrame(table_container, fg_color=Colors.BG_LIGHT, corner_radius=5)
         table_header.pack(fill="x", padx=10, pady=10)
         
@@ -135,16 +167,27 @@ class SitesView(ctk.CTkFrame):
             )
             label.pack(side="left", padx=5, pady=8)
         
-        # Scrollable site list
         self.site_list = ctk.CTkScrollableFrame(
             table_container,
             fg_color="transparent"
         )
         self.site_list.pack(fill="both", expand=True, padx=10, pady=(0, 10))
         
-        # Site details panel
         self.details_panel = SiteDetailsPanel(content)
         self.details_panel.grid(row=0, column=1, sticky="nsew")
+    
+    def _browse_file(self):
+        """Browse for Excel master data file"""
+        filename = filedialog.askopenfilename(
+            title="Select Master Data Excel File",
+            filetypes=[("Excel files", "*.xlsx *.xls"), ("All files", "*.*")]
+        )
+        if filename:
+            settings.master_file_path = filename
+            settings.save()
+            self.file_path_label.configure(text=filename)
+            master_data.file_path = filename
+            self._reload_data()
     
     def _load_data(self):
         """Load site data"""
@@ -152,7 +195,7 @@ class SitesView(ctk.CTkFrame):
             master_data.load()
         
         self._update_stats()
-        self._display_sites(list(master_data.sites.values())[:100])  # Show first 100
+        self._display_sites(list(master_data.sites.values())[:100])
     
     def _reload_data(self):
         """Reload master data"""
@@ -165,10 +208,15 @@ class SitesView(ctk.CTkFrame):
         total = master_data.site_count
         b2s = len(master_data.get_b2s_sites())
         omo = len(master_data.get_omo_sites())
+        mbus = len(master_data.get_all_mbus())
         
         self.total_sites_label.configure(text=f"Total Sites: {total}")
         self.b2s_sites_label.configure(text=f"B2S Sites: {b2s}")
         self.omo_sites_label.configure(text=f"OMO Sites: {omo}")
+        self.mbu_count_label.configure(text=f"MBUs: {mbus}")
+        
+        if settings.master_file_path:
+            self.file_path_label.configure(text=settings.master_file_path)
     
     def _on_search(self, query: str):
         """Handle search"""
@@ -180,11 +228,9 @@ class SitesView(ctk.CTkFrame):
     
     def _display_sites(self, sites: List[SiteInfo]):
         """Display sites in the list"""
-        # Clear existing
         for widget in self.site_list.winfo_children():
             widget.destroy()
         
-        # Add sites
         for i, site in enumerate(sites):
             row = SiteRow(
                 self.site_list,
@@ -193,7 +239,6 @@ class SitesView(ctk.CTkFrame):
             )
             row.pack(fill="x", pady=1)
             
-            # Alternate colors
             if i % 2 == 0:
                 row.configure(fg_color=Colors.BG_MEDIUM)
     
