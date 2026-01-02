@@ -70,6 +70,16 @@ class AlarmTimingSettings:
 
 
 @dataclass
+class ExcelColumnMapping:
+    """Excel column header mappings for alarm data extraction"""
+    severity_column: str = "Severity"
+    alarm_name_column: str = "Name"
+    timestamp_column: str = "Last Occurred (NT)"
+    source_column: str = "Alarm Source"
+    alternate_source_column: str = "MO Name"
+
+
+@dataclass
 class MessageFormatSettings:
     """Custom message format templates using placeholders"""
     # Available placeholders: {alarm_type}, {timestamp}, {site_name}, {site_code}, 
@@ -225,6 +235,7 @@ class Settings:
         self.portal = PortalConfig()
         self.credentials = Credentials()
         self.timing = AlarmTimingSettings()
+        self.excel_columns = ExcelColumnMapping()
         self.message_formats = MessageFormatSettings()
         self.mbu_groups = MBUGroupMapping()
         self.b2s_groups = B2SGroupMapping()
@@ -303,6 +314,15 @@ class Settings:
                     self.message_formats.b2s_format = fmt.get('b2s_format', self.message_formats.b2s_format)
                     self.message_formats.omo_format = fmt.get('omo_format', self.message_formats.omo_format)
                 
+                # Load excel column mappings
+                if 'excel_columns' in data:
+                    col = data['excel_columns']
+                    self.excel_columns.severity_column = col.get('severity_column', self.excel_columns.severity_column)
+                    self.excel_columns.alarm_name_column = col.get('alarm_name_column', self.excel_columns.alarm_name_column)
+                    self.excel_columns.timestamp_column = col.get('timestamp_column', self.excel_columns.timestamp_column)
+                    self.excel_columns.source_column = col.get('source_column', self.excel_columns.source_column)
+                    self.excel_columns.alternate_source_column = col.get('alternate_source_column', self.excel_columns.alternate_source_column)
+                
             except json.JSONDecodeError as e:
                 logger.warning(f"Settings file corrupted, using defaults: {e}")
                 # Delete corrupted file and save defaults
@@ -338,7 +358,8 @@ class Settings:
             'whatsapp_sending_method': self.whatsapp_sending_method,
             'instant_alarms': self.instant_alarms,
             'ignored_sites': self.ignored_sites,
-            'message_formats': asdict(self.message_formats)
+            'message_formats': asdict(self.message_formats),
+            'excel_columns': asdict(self.excel_columns)
         }
         
         try:

@@ -110,18 +110,25 @@ class AlarmProcessor:
             df = pd.read_excel(file_path, header=None, dtype=str)
             df = df.fillna('')
             
-            # Find the header row (contains "Severity", "Name", etc.)
+            # Get column names from settings
+            severity_col = settings.excel_columns.severity_column
+            name_col = settings.excel_columns.alarm_name_column
+            time_col = settings.excel_columns.timestamp_column
+            source_col = settings.excel_columns.source_column
+            alt_source_col = settings.excel_columns.alternate_source_column
+            
+            # Find the header row (contains configured column names)
             header_row_idx = None
             col_map = {}
             
             for idx, row in df.iterrows():
                 row_values = [str(v).strip() for v in row.values]
-                # Check for key columns
-                if 'Severity' in row_values and 'Name' in row_values:
+                # Check for key columns using configured names
+                if severity_col in row_values and name_col in row_values:
                     header_row_idx = idx
                     # Build column map
                     for col_idx, val in enumerate(row_values):
-                        if val in ['Severity', 'Name', 'Last Occurred (NT)', 'Alarm Source', 'MO Name']:
+                        if val in [severity_col, name_col, time_col, source_col, alt_source_col]:
                             col_map[val] = col_idx
                     break
             
@@ -131,22 +138,20 @@ class AlarmProcessor:
             
             # Map alternative column names to standard keys
             final_map = {}
-            if 'Severity' in col_map:
-                final_map['severity'] = col_map['Severity']
-            if 'Name' in col_map:
-                final_map['name'] = col_map['Name']
+            if severity_col in col_map:
+                final_map['severity'] = col_map[severity_col]
+            if name_col in col_map:
+                final_map['name'] = col_map[name_col]
             
-            # Timestamp might be "Last Occurred (NT)" or similar
-            if 'Last Occurred (NT)' in col_map:
-                final_map['time'] = col_map['Last Occurred (NT)']
-            elif 'Last Occurred' in col_map:
-                final_map['time'] = col_map['Last Occurred']
-                
-            # Source might be "Alarm Source" or "MO Name"
-            if 'Alarm Source' in col_map:
-                final_map['source'] = col_map['Alarm Source']
-            elif 'MO Name' in col_map:
-                final_map['source'] = col_map['MO Name']
+            # Timestamp column
+            if time_col in col_map:
+                final_map['time'] = col_map[time_col]
+                  
+            # Source might be primary or alternate column
+            if source_col in col_map:
+                final_map['source'] = col_map[source_col]
+            elif alt_source_col in col_map:
+                final_map['source'] = col_map[alt_source_col]
                 
             # Verify we have minimum required columns
             if 'name' not in final_map or 'source' not in final_map:

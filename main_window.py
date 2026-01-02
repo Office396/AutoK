@@ -125,7 +125,7 @@ class MainWindow(ctk.CTk):
         
         nav_items = [
             ("dashboard", "📊", "Dashboard"),
-            ("formats", "📝", "Formats"),
+            ("formats", "📝", "Handle"),
             ("settings", "⚙️", "Settings"),
             ("sites", "📍", "Sites"),
             ("logs", "📜", "Logs"),
