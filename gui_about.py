@@ -83,7 +83,7 @@ class AboutView(ctk.CTkFrame):
         
         company_name = ctk.CTkLabel(
             inner,
-            text="MTS Studios",
+            text="MTA Studios",
             font=ctk.CTkFont(size=16, weight="bold"),
             text_color=Colors.PRIMARY
         )
@@ -91,7 +91,7 @@ class AboutView(ctk.CTkFrame):
         
         copyright_label = ctk.CTkLabel(
             center_frame,
-            text="© 2026 MTS Studios. All rights reserved.",
+            text="© 2026 MTA Studios. All rights reserved.",
             font=ctk.CTkFont(size=10),
             text_color=Colors.TEXT_MUTED
         )

@@ -40,7 +40,7 @@
         "TELENOR": "TP JAZZ Shared Sites C1"
     },
     "master_file_path": "C:\\wd\\Autok\\data\\Master_Data.xlsx",
-    "check_interval_seconds": 10,
+    "check_interval_seconds": 0,
     "auto_start": false,
     "separate_browser_window": false,
     "skip_toggle_mbus": [
@@ -51,11 +51,51 @@
     "instant_alarms": [
         "CSL Fault"
     ],
-    "ignored_sites": [],
+    "ignored_sites": [
+        "LHR1670"
+    ],
     "message_formats": {
         "mbu_format": "{alarm_type}\t{timestamp}\t{site_name}",
         "toggle_format": "Toggle alarm\t{severity}\t{alarm_type}\t{timestamp}\t{site_name}",
         "b2s_format": "{mbu}\t{ring_id}\t{alarm_type}\t{site_name}\t{timestamp}\t{b2s_id}",
         "omo_format": "{mbu}\t{ring_id}\t{alarm_type}\t{site_name}\t{timestamp}\t{b2s_id}"
+    },
+    "excel_columns": {
+        "severity_column": "Severity",
+        "alarm_name_column": "Name",
+        "timestamp_column": "Last Occurred (NT)",
+        "source_column": "Alarm Source",
+        "alternate_source_column": "MO Name"
+    },
+    "master_columns": {
+        "site_id": 0,
+        "site_code": 1,
+        "technology": 2,
+        "old_mbu": 3,
+        "site_name": 4,
+        "site_type": 5,
+        "dependent_sites": 6,
+        "power_status": 7,
+        "latitude": 8,
+        "longitude": 9,
+        "new_mbu": 10,
+        "dg_capacity": 11,
+        "dg_count": 12,
+        "share_holder": 14,
+        "remarks": 15,
+        "site_status": 18,
+        "omo_b2s_name": 19,
+        "omo_b2s_id": 20,
+        "hw_mbu_lead": 21,
+        "day_tech": 22,
+        "night_tech": 23,
+        "jazz_mbu_tech": 24,
+        "jazz_mbu_lead": 25,
+        "dependency_count": 26,
+        "connectivity": 27,
+        "ftts_ring_id": 28,
+        "site_type_new": 29,
+        "dependent": 30,
+        "new_dependent": 31
     }
 }

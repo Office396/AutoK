@@ -357,6 +357,22 @@ class MessageFormatsView(ctk.CTkFrame):
             height=40
         )
         reset_btn.pack(side="right", padx=10)
+        
+        change_pass_btn = ActionButton(
+            btn_frame,
+            text="Change Password",
+            icon="🔑",
+            color=Colors.INFO,
+            command=self._show_change_password,
+            width=180,
+            height=40
+        )
+        change_pass_btn.pack(side="left")
+    
+    def _show_change_password(self):
+        """Show change password dialog"""
+        from gui_password import ChangePasswordDialog
+        ChangePasswordDialog(self.winfo_toplevel())
     
     def _load_formats(self):
         """Load current formats into entries"""

@@ -16,6 +16,7 @@ from gui_message_formats import MessageFormatsView
 from gui_sites import SitesView
 from gui_logs import LogsView
 from gui_about import AboutView
+from gui_password import PasswordDialog, ChangePasswordDialog
 
 from automation_controller import (
     automation_controller, AutomationState, AutomationStats
@@ -57,6 +58,7 @@ class MainWindow(ctk.CTk):
         # Views
         self.views: Dict[str, ctk.CTkFrame] = {}
         self.current_view: Optional[str] = None
+        self._handle_unlocked = False  # Password protection state
         
         # Create layout
         self._create_layout()
@@ -200,6 +202,11 @@ class MainWindow(ctk.CTk):
     
     def _show_view(self, view_id: str):
         """Show a specific view"""
+        # Check if trying to access Handle tab (formats) without password
+        if view_id == "formats" and not self._handle_unlocked:
+            self._request_password_for_handle()
+            return
+        
         # Hide current view
         if self.current_view and self.current_view in self.views:
             self.views[self.current_view].grid_forget()
@@ -212,6 +219,18 @@ class MainWindow(ctk.CTk):
         if view_id in self.views:
             self.views[view_id].grid(row=0, column=0, sticky="nsew")
             self.current_view = view_id
+    
+    def _request_password_for_handle(self):
+        """Show password dialog for Handle tab access"""
+        def on_success():
+            self._handle_unlocked = True
+            self._show_view("formats")
+            self._show_toast("Handle tab unlocked!", "success")
+        
+        def on_cancel():
+            pass
+        
+        PasswordDialog(self, on_success=on_success, on_cancel=on_cancel)
     
     def _setup_callbacks(self):
         """Setup automation callbacks"""
