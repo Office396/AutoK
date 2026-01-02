@@ -492,23 +492,29 @@ class PortalHandler:
 
             # First check if we're on login page
             if self._is_login_page():
+                self.status.is_logged_in = False
                 return False
 
             # 1. OPTIMIZATION: Check URL FIRST (Fastest)
             current_url = driver.current_url
             if 'Access_MainTopoTitle' in current_url or 'fmAlarmView' in current_url:
+                self.status.is_logged_in = True
                 return True
             
             # 2. Check for welcome text or main page elements (Slower)
             if self._find_element('welcome_text', timeout=2):
+                self.status.is_logged_in = True
                 return True
 
             # If we have a username/password field visible, we're not logged in
             username_input = self._find_element('username_input', timeout=2)
             if username_input:
+                self.status.is_logged_in = False
                 return False
 
-            return True  # Assume logged in if no login elements found
+            # If no login elements found, assume still logged in but maybe on a subpage
+            # self.status.is_logged_in = True # Don't explicitly set True here to avoid false positives
+            return self.status.is_logged_in
 
         except Exception:
             return False

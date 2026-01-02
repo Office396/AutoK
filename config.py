@@ -237,6 +237,7 @@ class Settings:
         self.separate_browser_window: bool = False
         self.skip_toggle_mbus: List[str] = ["C1-LHR-04", "C1-LHR-05"]
         self.whatsapp_sending_method: str = "JavaScript"  # Options: "JavaScript", "Clipboard"
+        self.instant_alarms: List[str] = ["CSL Fault"]
         
         # Load saved settings
         self.load()
@@ -290,6 +291,7 @@ class Settings:
                 self.separate_browser_window = data.get('separate_browser_window', False)
                 self.skip_toggle_mbus = data.get('skip_toggle_mbus', ["C1-LHR-04", "C1-LHR-05"])
                 self.whatsapp_sending_method = data.get('whatsapp_sending_method', "JavaScript")
+                self.instant_alarms = data.get('instant_alarms', ["CSL Fault"])
                 
                 # Load message format settings
                 if 'message_formats' in data:
@@ -332,6 +334,7 @@ class Settings:
             'separate_browser_window': self.separate_browser_window,
             'skip_toggle_mbus': self.skip_toggle_mbus,
             'whatsapp_sending_method': self.whatsapp_sending_method,
+            'instant_alarms': self.instant_alarms,
             'message_formats': asdict(self.message_formats)
         }
         

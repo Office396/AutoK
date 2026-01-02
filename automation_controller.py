@@ -153,7 +153,7 @@ class AutomationController:
             # Browser/Portal stats
             browser_status = browser_manager.get_status()
             self.stats.portal_connected = browser_status.is_open
-            self.stats.portal_logged_in = browser_status.portal_logged_in
+            self.stats.portal_logged_in = portal_handler.status.is_logged_in
             
             # WhatsApp stats - check both browser_manager and whatsapp_handler
             wa_stats = whatsapp_handler.get_stats()
