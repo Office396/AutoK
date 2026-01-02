@@ -1,3 +1,17 @@
-2026/01/02-03:14:37.495 2044 Reusing MANIFEST C:\wd\Autok\browser_profiles\whatsapp\Default\Site Characteristics Database/MANIFEST-000001
-2026/01/02-03:14:37.495 2044 Recovering log #3
-2026/01/02-03:14:37.496 2044 Reusing old log C:\wd\Autok\browser_profiles\whatsapp\Default\Site Characteristics Database/000003.log 
+2026/01/02-04:31:20.714 f10 Reusing MANIFEST C:\wd\Autok\browser_profiles\whatsapp\Default\Site Characteristics Database/MANIFEST-000001
+2026/01/02-04:31:20.715 f10 Recovering log #3
+2026/01/02-04:31:20.715 f10 Level-0 table #3: started
+2026/01/02-04:31:20.718 f10 Level-0 table #3: 442 bytes OK
+2026/01/02-04:31:20.719 f10 Recovering log #6
+2026/01/02-04:31:20.719 f10 Level-0 table #4: started
+2026/01/02-04:31:20.721 f10 Level-0 table #4: 162 bytes OK
+2026/01/02-04:31:20.721 f10 Recovering log #10
+2026/01/02-04:31:20.721 f10 Level-0 table #7: started
+2026/01/02-04:31:20.724 f10 Level-0 table #7: 162 bytes OK
+2026/01/02-04:31:20.724 f10 Recovering log #13
+2026/01/02-04:31:20.724 f10 Reusing old log C:\wd\Autok\browser_profiles\whatsapp\Default\Site Characteristics Database/000013.log 
+2026/01/02-04:31:20.728 f10 Delete type=0 #3
+2026/01/02-04:31:20.728 f10 Delete type=0 #6
+2026/01/02-04:31:20.728 f10 Delete type=2 #8
+2026/01/02-04:31:20.728 f10 Delete type=0 #10
+2026/01/02-04:31:20.728 f10 Delete type=2 #14

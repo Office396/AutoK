@@ -204,13 +204,13 @@ class PortalMonitor:
             for alarm in processed_alarms:
                 atype_lower = alarm.alarm_type.lower()
                 if atype_lower in instant_types:
-                    entry = (alarm.site_code, alarm.alarm_time)
+                    entry = (alarm.site_code, alarm.timestamp_str)
                     current_instant_entries[atype_lower].add(entry)
                     
                     # Check if this (site, time) pair is NEW since last scan
                     if entry not in self.last_scan_sites[atype_lower]:
                         if alarm.mbu:
-                            logger.info(f"INSTANT ALARM: New/updated site {alarm.site_code} ({alarm.alarm_time}) found for {alarm.alarm_type} in {alarm.mbu}")
+                            logger.info(f"INSTANT ALARM: New/updated site {alarm.site_code} ({alarm.timestamp_str}) found for {alarm.alarm_type} in {alarm.mbu}")
                             new_instant_mbus.add((atype_lower, alarm.mbu))
             
             # Trigger immediate send for any MBU with a NEW instant alarm site

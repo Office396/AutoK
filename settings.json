@@ -48,6 +48,9 @@
         "C1-LHR-05"
     ],
     "whatsapp_sending_method": "JavaScript",
+    "instant_alarms": [
+        "CSL Fault"
+    ],
     "message_formats": {
         "mbu_format": "{alarm_type}\t{timestamp}\t{site_name}",
         "toggle_format": "Toggle alarm\t{severity}\t{alarm_type}\t{timestamp}\t{site_name}",

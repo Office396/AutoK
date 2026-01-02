@@ -169,7 +169,7 @@ class SettingsView(ctk.CTkFrame):
         self.check_interval_slider = TimingSlider(
             inner,
             label="Check Interval",
-            min_value=10,
+            min_value=0,
             max_value=120,
             default_value=30,
             unit="sec"

@@ -250,17 +250,18 @@ class DashboardView(ctk.CTkFrame):
         )
         alarms_title.pack(side="left")
         
-        clear_alarms_btn = ctk.CTkButton(
+        # Clear Alarms button
+        self.clear_alarms_btn = ctk.CTkButton(
             alarms_header,
-            text="Clear",
+            text="Clear Alarms",
             font=ctk.CTkFont(size=11),
             fg_color=Colors.BG_LIGHT,
             hover_color=Colors.BG_MEDIUM,
-            width=60,
+            width=90,
             height=25,
             command=self._clear_alarms
         )
-        clear_alarms_btn.pack(side="right")
+        self.clear_alarms_btn.pack(side="right", padx=5)
         
         # Alarms table
         self.alarm_table = AlarmTable(alarms_container, height=400)
@@ -282,7 +283,7 @@ class DashboardView(ctk.CTkFrame):
         )
         log_title.pack(side="left")
         
-        clear_log_btn = ctk.CTkButton(
+        self.clear_log_btn = ctk.CTkButton(
             log_header,
             text="Clear",
             font=ctk.CTkFont(size=11),
@@ -292,7 +293,7 @@ class DashboardView(ctk.CTkFrame):
             height=25,
             command=self._clear_log
         )
-        clear_log_btn.pack(side="right")
+        self.clear_log_btn.pack(side="right")
         
         # Log viewer
         self.log_viewer = LogViewer(log_container, height=400)
@@ -335,7 +336,14 @@ class DashboardView(ctk.CTkFrame):
             thread.start()
     
     def _clear_alarms(self):
+        from portal_monitor import portal_monitor
+        from automation_controller import automation_controller
+        
         self.alarm_table.clear()
+        portal_monitor.reset_seen_alarms()
+        automation_controller.stats.alarms_processed = 0
+        self.update_stats(alarms=0)
+        self.log("Alarms and seen cache cleared", "INFO")
     
     def _clear_log(self):
         self.log_viewer.clear()

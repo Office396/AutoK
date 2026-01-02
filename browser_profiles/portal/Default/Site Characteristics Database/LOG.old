@@ -1,3 +1,26 @@
-2026/01/02-03:14:36.013 568 Reusing MANIFEST C:\wd\Autok\browser_profiles\portal\Default\Site Characteristics Database/MANIFEST-000001
-2026/01/02-03:14:36.013 568 Recovering log #26
-2026/01/02-03:14:36.014 568 Reusing old log C:\wd\Autok\browser_profiles\portal\Default\Site Characteristics Database/000026.log 
+2026/01/02-04:31:19.367 5e4 Reusing MANIFEST C:\wd\Autok\browser_profiles\portal\Default\Site Characteristics Database/MANIFEST-000001
+2026/01/02-04:31:19.367 5e4 Recovering log #3
+2026/01/02-04:31:19.367 5e4 Level-0 table #29: started
+2026/01/02-04:31:19.370 5e4 Level-0 table #29: 130 bytes OK
+2026/01/02-04:31:19.370 5e4 Recovering log #6
+2026/01/02-04:31:19.370 5e4 Level-0 table #30: started
+2026/01/02-04:31:19.372 5e4 Level-0 table #30: 162 bytes OK
+2026/01/02-04:31:19.372 5e4 Recovering log #10
+2026/01/02-04:31:19.373 5e4 Level-0 table #31: started
+2026/01/02-04:31:19.376 5e4 Level-0 table #31: 162 bytes OK
+2026/01/02-04:31:19.376 5e4 Recovering log #13
+2026/01/02-04:31:19.376 5e4 Recovering log #26
+2026/01/02-04:31:19.376 5e4 Reusing old log C:\wd\Autok\browser_profiles\portal\Default\Site Characteristics Database/000026.log 
+2026/01/02-04:31:19.380 5e4 Delete type=0 #3
+2026/01/02-04:31:19.380 5e4 Delete type=0 #6
+2026/01/02-04:31:19.380 5e4 Delete type=2 #8
+2026/01/02-04:31:19.380 5e4 Delete type=0 #10
+2026/01/02-04:31:19.380 5e4 Delete type=0 #13
+2026/01/02-04:31:19.380 5e4 Delete type=2 #14
+2026/01/02-04:31:19.381 368c Compacting 2@0 + 1@1 files
+2026/01/02-04:31:19.385 368c Generated table #32@0: 1 keys, 162 bytes
+2026/01/02-04:31:19.385 368c Compacted 2@0 + 1@1 files => 162 bytes
+2026/01/02-04:31:19.386 368c compacted to: files[ 3 1 0 0 0 0 0 ]
+2026/01/02-04:31:19.386 368c Delete type=2 #27
+2026/01/02-04:31:19.386 368c Delete type=2 #30
+2026/01/02-04:31:19.386 368c Delete type=2 #31
