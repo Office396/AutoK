@@ -358,6 +358,25 @@ class SettingsView(ctk.CTkFrame):
             width=300
         )
         self.instant_alarms_entry.pack(fill="x", pady=5)
+        
+        # Ignored Sites
+        ignored_frame = ctk.CTkFrame(inner, fg_color="transparent")
+        ignored_frame.pack(fill="x", pady=(15, 5))
+        
+        self.ignored_sites_entry = SettingsEntry(
+            ignored_frame,
+            label="Ignored Site IDs (comma separated):",
+            width=300
+        )
+        self.ignored_sites_entry.pack(fill="x", pady=5)
+        
+        ignored_hint = ctk.CTkLabel(
+            ignored_frame,
+            text="e.g., LHR1670, LHR1234 - alarms from these sites will not be sent",
+            font=ctk.CTkFont(size=10),
+            text_color=Colors.TEXT_SECONDARY
+        )
+        ignored_hint.pack(anchor="w")
     
     def _create_save_button(self):
         """Create save button at bottom"""
@@ -454,6 +473,10 @@ class SettingsView(ctk.CTkFrame):
         instant_types_str = self.instant_alarms_entry.get()
         settings.instant_alarms = [t.strip() for t in instant_types_str.split(",") if t.strip()]
         
+        # Ignored Sites
+        ignored_sites_str = self.ignored_sites_entry.get()
+        settings.ignored_sites = [s.strip().upper() for s in ignored_sites_str.split(",") if s.strip()]
+        
         # Save to file
         settings.save()
         
@@ -511,3 +534,6 @@ class SettingsView(ctk.CTkFrame):
 
         # Instant Alarm Types
         self.instant_alarms_entry.set(", ".join(settings.instant_alarms))
+        
+        # Ignored Sites
+        self.ignored_sites_entry.set(", ".join(settings.ignored_sites))

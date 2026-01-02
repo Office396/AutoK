@@ -196,6 +196,15 @@ class PortalMonitor:
             
             logger.info(f"Processed {len(processed_alarms)} alarms from {portal.value}")
             
+            # Filter out ignored sites
+            ignored_sites = [s.upper() for s in settings.ignored_sites]
+            if ignored_sites:
+                before_count = len(processed_alarms)
+                processed_alarms = [a for a in processed_alarms if a.site_code.upper() not in ignored_sites]
+                filtered_count = before_count - len(processed_alarms)
+                if filtered_count > 0:
+                    logger.info(f"Filtered out {filtered_count} alarms from ignored sites")
+            
             # --- Instant Alarm Logic ---
             instant_types = [t.strip().lower() for t in settings.instant_alarms]
             current_instant_entries = defaultdict(set)  # {alarm_type: {(site_code, timestamp), ...}}

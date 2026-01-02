@@ -51,6 +51,7 @@
     "instant_alarms": [
         "CSL Fault"
     ],
+    "ignored_sites": [],
     "message_formats": {
         "mbu_format": "{alarm_type}\t{timestamp}\t{site_name}",
         "toggle_format": "Toggle alarm\t{severity}\t{alarm_type}\t{timestamp}\t{site_name}",

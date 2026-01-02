@@ -238,6 +238,7 @@ class Settings:
         self.skip_toggle_mbus: List[str] = ["C1-LHR-04", "C1-LHR-05"]
         self.whatsapp_sending_method: str = "JavaScript"  # Options: "JavaScript", "Clipboard"
         self.instant_alarms: List[str] = ["CSL Fault"]
+        self.ignored_sites: List[str] = []  # Site IDs to ignore (e.g., ["LHR1670", "LHR1234"])
         
         # Load saved settings
         self.load()
@@ -292,6 +293,7 @@ class Settings:
                 self.skip_toggle_mbus = data.get('skip_toggle_mbus', ["C1-LHR-04", "C1-LHR-05"])
                 self.whatsapp_sending_method = data.get('whatsapp_sending_method', "JavaScript")
                 self.instant_alarms = data.get('instant_alarms', ["CSL Fault"])
+                self.ignored_sites = data.get('ignored_sites', [])
                 
                 # Load message format settings
                 if 'message_formats' in data:
@@ -335,6 +337,7 @@ class Settings:
             'skip_toggle_mbus': self.skip_toggle_mbus,
             'whatsapp_sending_method': self.whatsapp_sending_method,
             'instant_alarms': self.instant_alarms,
+            'ignored_sites': self.ignored_sites,
             'message_formats': asdict(self.message_formats)
         }
         
