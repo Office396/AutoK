@@ -49,6 +49,10 @@ class PortalMonitor:
         self.alarm_callbacks: List[Callable] = []
         self.status_callbacks: List[Callable] = []
         self.lock = threading.Lock()
+        
+        # Track last scan sites for Instant Alarms
+        # Format: {alarm_type: {site_code, ...}}
+        self.last_scan_sites: Dict[str, Set[str]] = defaultdict(set)
     
     def add_alarm_callback(self, callback: Callable):
         self.alarm_callbacks.append(callback)
@@ -192,6 +196,42 @@ class PortalMonitor:
             
             logger.info(f"Processed {len(processed_alarms)} alarms from {portal.value}")
             
+            # --- Instant Alarm Logic ---
+            instant_types = [t.strip().lower() for t in settings.instant_alarms]
+            current_instant_sites = defaultdict(set)
+            new_instant_mbus = set() # (alarm_type, mbu)
+            
+            for alarm in processed_alarms:
+                atype_lower = alarm.alarm_type.lower()
+                if atype_lower in instant_types:
+                    current_instant_sites[atype_lower].add(alarm.site_code)
+                    
+                    # Check if this site is NEW for this alarm type since last scan
+                    if alarm.site_code not in self.last_scan_sites[atype_lower]:
+                        if alarm.mbu:
+                            logger.info(f"INSTANT ALARM: New site {alarm.site_code} found for {alarm.alarm_type} in {alarm.mbu}")
+                            new_instant_mbus.add((atype_lower, alarm.mbu))
+            
+            # Trigger immediate send for any MBU with a NEW instant alarm site
+            from whatsapp_handler import ordered_sender
+            for atype_lower, mbu in new_instant_mbus:
+                # Find all sites in this MBU with this alarm type
+                mbu_atype_alarms = [
+                    a for a in processed_alarms 
+                    if a.alarm_type.lower() == atype_lower and a.mbu == mbu
+                ]
+                if mbu_atype_alarms:
+                    logger.info(f"Triggering immediate send for {mbu} | {atype_lower} | Count: {len(mbu_atype_alarms)}")
+                    ordered_sender.send_all_ordered(mbu_atype_alarms)
+            
+            # Update history for next scan (reset/replace previous scan data)
+            # Only update for the types that were present or expected in this portal
+            for itype in instant_types:
+                # If we processed any alarms, it's safe to update the history for that type
+                # for this specific portal's perspective.
+                self.last_scan_sites[itype] = current_instant_sites.get(itype, set())
+            # ---------------------------
+
             self.stats.total_alarms_found += len(processed_alarms)
             
             # Filter for new alarms only (for scheduler) - but still return ALL for display

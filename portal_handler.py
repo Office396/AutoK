@@ -512,8 +512,11 @@ class PortalHandler:
                 self.status.is_logged_in = False
                 return False
 
-            # If no login elements found, assume still logged in but maybe on a subpage
-            # self.status.is_logged_in = True # Don't explicitly set True here to avoid false positives
+            # If no login elements found and we're not on a login page, we're likely logged in
+            if not self._is_login_page():
+                self.status.is_logged_in = True
+                return True
+
             return self.status.is_logged_in
 
         except Exception:

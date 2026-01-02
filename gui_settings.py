@@ -347,6 +347,17 @@ class SettingsView(ctk.CTkFrame):
             selected_hover_color=Colors.PRIMARY_DARK
         )
         self.sending_method_seg.pack(fill="x")
+
+        # Instant Alarm Types
+        instant_frame = ctk.CTkFrame(inner, fg_color="transparent")
+        instant_frame.pack(fill="x", pady=(15, 5))
+        
+        self.instant_alarms_entry = SettingsEntry(
+            instant_frame,
+            label="Instant Alarm Types (comma separated):",
+            width=300
+        )
+        self.instant_alarms_entry.pack(fill="x", pady=5)
     
     def _create_save_button(self):
         """Create save button at bottom"""
@@ -439,6 +450,10 @@ class SettingsView(ctk.CTkFrame):
         # WhatsApp Sending Method
         settings.whatsapp_sending_method = self.sending_method_var.get()
         
+        # Instant Alarm Types
+        instant_types_str = self.instant_alarms_entry.get()
+        settings.instant_alarms = [t.strip() for t in instant_types_str.split(",") if t.strip()]
+        
         # Save to file
         settings.save()
         
@@ -493,3 +508,6 @@ class SettingsView(ctk.CTkFrame):
 
         # WhatsApp Sending Method
         self.sending_method_var.set(settings.whatsapp_sending_method)
+
+        # Instant Alarm Types
+        self.instant_alarms_entry.set(", ".join(settings.instant_alarms))
