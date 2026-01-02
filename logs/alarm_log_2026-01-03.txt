@@ -2146,3 +2146,4 @@ Symbols not available. Dumping unresolved backtrace:
 	0x7ffed0d5e8d7
 	0x7ffed16ac53c
 
+[2026-01-03 04:13:39] [INFO] Application starting...
