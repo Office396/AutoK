@@ -32,7 +32,7 @@ class MainWindow(ctk.CTk):
         super().__init__()
         
         # Window configuration
-        self.title("Telecom Alarm Automation")
+        self.title("Autok - Telecom Alarm Automation")
         self.geometry("1400x800")
         self.minsize(1200, 700)
         
