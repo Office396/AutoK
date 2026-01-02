@@ -262,6 +262,7 @@ class MasterDataManager:
         """Parse a row into SiteInfo"""
         try:
             values = row.tolist()
+            mc = settings.master_columns if settings else None
             
             def get_val(idx: int) -> str:
                 if idx < len(values):
@@ -269,42 +270,43 @@ class MasterDataManager:
                     return str(val).strip() if pd.notna(val) and val != '' else ''
                 return ''
             
-            site_code = get_val(1)
+            site_code_idx = mc.site_code if mc else 1
+            site_code = get_val(site_code_idx)
             if not site_code or len(site_code) < 4:
                 return None
             
             site_code = site_code.strip().upper()
             
             return SiteInfo(
-                site_id=get_val(0),
+                site_id=get_val(mc.site_id if mc else 0),
                 site_code=site_code,
-                technology=get_val(2),
-                old_mbu=get_val(3),
-                site_name=get_val(4),
-                site_type=get_val(5),
-                dependent_sites=get_val(6),
-                power_status=get_val(7),
-                latitude=self._safe_float(get_val(8)),
-                longitude=self._safe_float(get_val(9)),
-                new_mbu=get_val(10),
-                dg_capacity=get_val(11) if len(values) > 11 else '',
-                dg_count=get_val(12) if len(values) > 12 else '',
-                share_holder=get_val(14) if len(values) > 14 else '',
-                remarks=get_val(15) if len(values) > 15 else '',
-                site_status=get_val(18) if len(values) > 18 else '',
-                omo_b2s_name=get_val(19) if len(values) > 19 else '',
-                omo_b2s_id=get_val(20) if len(values) > 20 else '',
-                hw_mbu_lead=get_val(21) if len(values) > 21 else '',
-                day_tech=get_val(22) if len(values) > 22 else '',
-                night_tech=get_val(23) if len(values) > 23 else '',
-                jazz_mbu_tech=get_val(24) if len(values) > 24 else '',
-                jazz_mbu_lead=get_val(25) if len(values) > 25 else '',
-                dependency_count=get_val(26) if len(values) > 26 else '',
-                connectivity=get_val(27) if len(values) > 27 else '',
-                ftts_ring_id=get_val(28) if len(values) > 28 else '',
-                site_type_new=get_val(29) if len(values) > 29 else '',
-                dependent=get_val(30) if len(values) > 30 else '',
-                new_dependent=get_val(31) if len(values) > 31 else ''
+                technology=get_val(mc.technology if mc else 2),
+                old_mbu=get_val(mc.old_mbu if mc else 3),
+                site_name=get_val(mc.site_name if mc else 4),
+                site_type=get_val(mc.site_type if mc else 5),
+                dependent_sites=get_val(mc.dependent_sites if mc else 6),
+                power_status=get_val(mc.power_status if mc else 7),
+                latitude=self._safe_float(get_val(mc.latitude if mc else 8)),
+                longitude=self._safe_float(get_val(mc.longitude if mc else 9)),
+                new_mbu=get_val(mc.new_mbu if mc else 10),
+                dg_capacity=get_val(mc.dg_capacity if mc else 11) if len(values) > (mc.dg_capacity if mc else 11) else '',
+                dg_count=get_val(mc.dg_count if mc else 12) if len(values) > (mc.dg_count if mc else 12) else '',
+                share_holder=get_val(mc.share_holder if mc else 14) if len(values) > (mc.share_holder if mc else 14) else '',
+                remarks=get_val(mc.remarks if mc else 15) if len(values) > (mc.remarks if mc else 15) else '',
+                site_status=get_val(mc.site_status if mc else 18) if len(values) > (mc.site_status if mc else 18) else '',
+                omo_b2s_name=get_val(mc.omo_b2s_name if mc else 19) if len(values) > (mc.omo_b2s_name if mc else 19) else '',
+                omo_b2s_id=get_val(mc.omo_b2s_id if mc else 20) if len(values) > (mc.omo_b2s_id if mc else 20) else '',
+                hw_mbu_lead=get_val(mc.hw_mbu_lead if mc else 21) if len(values) > (mc.hw_mbu_lead if mc else 21) else '',
+                day_tech=get_val(mc.day_tech if mc else 22) if len(values) > (mc.day_tech if mc else 22) else '',
+                night_tech=get_val(mc.night_tech if mc else 23) if len(values) > (mc.night_tech if mc else 23) else '',
+                jazz_mbu_tech=get_val(mc.jazz_mbu_tech if mc else 24) if len(values) > (mc.jazz_mbu_tech if mc else 24) else '',
+                jazz_mbu_lead=get_val(mc.jazz_mbu_lead if mc else 25) if len(values) > (mc.jazz_mbu_lead if mc else 25) else '',
+                dependency_count=get_val(mc.dependency_count if mc else 26) if len(values) > (mc.dependency_count if mc else 26) else '',
+                connectivity=get_val(mc.connectivity if mc else 27) if len(values) > (mc.connectivity if mc else 27) else '',
+                ftts_ring_id=get_val(mc.ftts_ring_id if mc else 28) if len(values) > (mc.ftts_ring_id if mc else 28) else '',
+                site_type_new=get_val(mc.site_type_new if mc else 29) if len(values) > (mc.site_type_new if mc else 29) else '',
+                dependent=get_val(mc.dependent if mc else 30) if len(values) > (mc.dependent if mc else 30) else '',
+                new_dependent=get_val(mc.new_dependent if mc else 31) if len(values) > (mc.new_dependent if mc else 31) else ''
             )
         except Exception as e:
             return None

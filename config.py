@@ -80,6 +80,40 @@ class ExcelColumnMapping:
 
 
 @dataclass
+class MasterDataColumnMapping:
+    """Master Data Excel sheet column indices (0-based)"""
+    site_id: int = 0
+    site_code: int = 1
+    technology: int = 2
+    old_mbu: int = 3
+    site_name: int = 4
+    site_type: int = 5
+    dependent_sites: int = 6
+    power_status: int = 7
+    latitude: int = 8
+    longitude: int = 9
+    new_mbu: int = 10
+    dg_capacity: int = 11
+    dg_count: int = 12
+    share_holder: int = 14
+    remarks: int = 15
+    site_status: int = 18
+    omo_b2s_name: int = 19
+    omo_b2s_id: int = 20
+    hw_mbu_lead: int = 21
+    day_tech: int = 22
+    night_tech: int = 23
+    jazz_mbu_tech: int = 24
+    jazz_mbu_lead: int = 25
+    dependency_count: int = 26
+    connectivity: int = 27
+    ftts_ring_id: int = 28
+    site_type_new: int = 29
+    dependent: int = 30
+    new_dependent: int = 31
+
+
+@dataclass
 class MessageFormatSettings:
     """Custom message format templates using placeholders"""
     # Available placeholders: {alarm_type}, {timestamp}, {site_name}, {site_code}, 
@@ -236,6 +270,7 @@ class Settings:
         self.credentials = Credentials()
         self.timing = AlarmTimingSettings()
         self.excel_columns = ExcelColumnMapping()
+        self.master_columns = MasterDataColumnMapping()
         self.message_formats = MessageFormatSettings()
         self.mbu_groups = MBUGroupMapping()
         self.b2s_groups = B2SGroupMapping()
@@ -323,6 +358,19 @@ class Settings:
                     self.excel_columns.source_column = col.get('source_column', self.excel_columns.source_column)
                     self.excel_columns.alternate_source_column = col.get('alternate_source_column', self.excel_columns.alternate_source_column)
                 
+                # Load master data column mappings
+                if 'master_columns' in data:
+                    mc = data['master_columns']
+                    for key in ['site_id', 'site_code', 'technology', 'old_mbu', 'site_name', 
+                               'site_type', 'dependent_sites', 'power_status', 'latitude', 
+                               'longitude', 'new_mbu', 'dg_capacity', 'dg_count', 'share_holder',
+                               'remarks', 'site_status', 'omo_b2s_name', 'omo_b2s_id', 
+                               'hw_mbu_lead', 'day_tech', 'night_tech', 'jazz_mbu_tech',
+                               'jazz_mbu_lead', 'dependency_count', 'connectivity', 
+                               'ftts_ring_id', 'site_type_new', 'dependent', 'new_dependent']:
+                        if key in mc:
+                            setattr(self.master_columns, key, mc[key])
+                
             except json.JSONDecodeError as e:
                 logger.warning(f"Settings file corrupted, using defaults: {e}")
                 # Delete corrupted file and save defaults
@@ -359,7 +407,8 @@ class Settings:
             'instant_alarms': self.instant_alarms,
             'ignored_sites': self.ignored_sites,
             'message_formats': asdict(self.message_formats),
-            'excel_columns': asdict(self.excel_columns)
+            'excel_columns': asdict(self.excel_columns),
+            'master_columns': asdict(self.master_columns)
         }
         
         try:
