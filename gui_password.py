@@ -107,28 +107,29 @@ class PasswordDialog(ctk.CTkToplevel):
         self.result = False
         self.attempts = 0
         self.max_attempts = 5
+        self._parent = parent
         
-        self.title("")
+        self.title("🔒 Authentication Required")
         self.geometry("420x380")
         self.resizable(False, False)
         self.configure(fg_color=Colors.BG_DARK)
         
         self.transient(parent)
-        self.grab_set()
         
-        self.overrideredirect(True)
+        self.protocol("WM_DELETE_WINDOW", self._on_close)
         
         self._create_ui()
         
-        self.after(10, self._center_on_parent)
+        self.after(10, self._center_and_focus)
         
         self.bind("<Return>", lambda e: self._on_submit())
         self.bind("<Escape>", lambda e: self._on_close())
+        self.bind("<FocusIn>", self._on_focus_in)
     
-    def _center_on_parent(self):
-        """Center dialog on parent window"""
+    def _center_and_focus(self):
+        """Center dialog on parent window and set focus"""
         self.update_idletasks()
-        parent = self.master
+        parent = self._parent
         
         pw = parent.winfo_width()
         ph = parent.winfo_height()
@@ -142,20 +143,23 @@ class PasswordDialog(ctk.CTkToplevel):
         y = py + (ph - h) // 2
         
         self.geometry(f"+{x}+{y}")
+        
+        self.lift()
+        self.focus_force()
+        self.grab_set()
+        self.password_entry.focus_set()
+    
+    def _on_focus_in(self, event):
+        """Handle focus in event"""
+        if self.winfo_exists():
+            self.lift()
     
     def _create_ui(self):
         """Create the dialog UI"""
         main_frame = ctk.CTkFrame(self, fg_color=Colors.BG_CARD, corner_radius=15)
-        main_frame.pack(fill="both", expand=True, padx=2, pady=2)
+        main_frame.pack(fill="both", expand=True, padx=10, pady=10)
         
-        border_frame = ctk.CTkFrame(
-            main_frame, 
-            fg_color=Colors.BG_MEDIUM,
-            corner_radius=13
-        )
-        border_frame.pack(fill="both", expand=True, padx=2, pady=2)
-        
-        content = ctk.CTkFrame(border_frame, fg_color="transparent")
+        content = ctk.CTkFrame(main_frame, fg_color="transparent")
         content.pack(fill="both", expand=True, padx=25, pady=25)
         
         header = ctk.CTkFrame(content, fg_color="transparent")
@@ -208,7 +212,6 @@ class PasswordDialog(ctk.CTkToplevel):
             corner_radius=10
         )
         self.password_entry.pack(fill="x")
-        self.password_entry.focus()
         
         self.show_password_var = ctk.BooleanVar(value=False)
         show_pass_check = ctk.CTkCheckBox(
@@ -280,6 +283,7 @@ class PasswordDialog(ctk.CTkToplevel):
         
         if password_manager.verify_password(password):
             self.result = True
+            self.grab_release()
             if self.on_success:
                 self.on_success()
             self.destroy()
@@ -305,6 +309,7 @@ class PasswordDialog(ctk.CTkToplevel):
     def _on_close(self):
         """Handle close/cancel"""
         self.result = False
+        self.grab_release()
         if self.on_cancel:
             self.on_cancel()
         self.destroy()
@@ -316,26 +321,28 @@ class ChangePasswordDialog(ctk.CTkToplevel):
     def __init__(self, parent):
         super().__init__(parent)
         
-        self.title("")
+        self._parent = parent
+        
+        self.title("🔑 Change Password")
         self.geometry("420x450")
         self.resizable(False, False)
         self.configure(fg_color=Colors.BG_DARK)
         
         self.transient(parent)
-        self.grab_set()
         
-        self.overrideredirect(True)
+        self.protocol("WM_DELETE_WINDOW", self._on_close)
         
         self._create_ui()
         
-        self.after(10, self._center_on_parent)
+        self.after(10, self._center_and_focus)
         
-        self.bind("<Escape>", lambda e: self.destroy())
+        self.bind("<Escape>", lambda e: self._on_close())
+        self.bind("<FocusIn>", self._on_focus_in)
     
-    def _center_on_parent(self):
-        """Center dialog on parent window"""
+    def _center_and_focus(self):
+        """Center dialog on parent window and set focus"""
         self.update_idletasks()
-        parent = self.master
+        parent = self._parent
         
         pw = parent.winfo_width()
         ph = parent.winfo_height()
@@ -349,20 +356,23 @@ class ChangePasswordDialog(ctk.CTkToplevel):
         y = py + (ph - h) // 2
         
         self.geometry(f"+{x}+{y}")
+        
+        self.lift()
+        self.focus_force()
+        self.grab_set()
+        self.current_entry.focus_set()
+    
+    def _on_focus_in(self, event):
+        """Handle focus in event"""
+        if self.winfo_exists():
+            self.lift()
     
     def _create_ui(self):
         """Create the dialog UI"""
         main_frame = ctk.CTkFrame(self, fg_color=Colors.BG_CARD, corner_radius=15)
-        main_frame.pack(fill="both", expand=True, padx=2, pady=2)
+        main_frame.pack(fill="both", expand=True, padx=10, pady=10)
         
-        border_frame = ctk.CTkFrame(
-            main_frame, 
-            fg_color=Colors.BG_MEDIUM,
-            corner_radius=13
-        )
-        border_frame.pack(fill="both", expand=True, padx=2, pady=2)
-        
-        content = ctk.CTkFrame(border_frame, fg_color="transparent")
+        content = ctk.CTkFrame(main_frame, fg_color="transparent")
         content.pack(fill="both", expand=True, padx=25, pady=25)
         
         header = ctk.CTkFrame(content, fg_color="transparent")
@@ -461,7 +471,7 @@ class ChangePasswordDialog(ctk.CTkToplevel):
         cancel_btn = ctk.CTkButton(
             button_frame,
             text="Cancel",
-            command=self.destroy,
+            command=self._on_close,
             width=120,
             height=42,
             font=ctk.CTkFont(size=13),
@@ -504,6 +514,12 @@ class ChangePasswordDialog(ctk.CTkToplevel):
             return
         
         if password_manager.change_password(current, new):
+            self.grab_release()
             self.destroy()
         else:
             self.error_label.configure(text="Current password is incorrect")
+    
+    def _on_close(self):
+        """Handle close"""
+        self.grab_release()
+        self.destroy()
