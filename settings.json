@@ -8,7 +8,7 @@
         "rf_unit_failure": 30,
         "cell_unavailable": 30,
         "low_voltage": 30,
-        "ac_main_failure": 60,
+        "ac_main_failure": 30,
         "system_on_battery": 30,
         "battery_high_temp": 30,
         "genset_operation": 60,

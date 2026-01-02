@@ -4,3 +4,2145 @@
 [2026-01-03 03:10:11] [INFO] Main window created, starting event loop
 [2026-01-03 03:23:51] [INFO] Application starting...
 [2026-01-03 03:23:55] [INFO] Main window created, starting event loop
+[2026-01-03 03:30:41] [INFO] Application starting...
+[2026-01-03 03:30:45] [INFO] Main window created, starting event loop
+[2026-01-03 03:36:22] [INFO] ==================================================
+[2026-01-03 03:36:22] [INFO] Starting Telecom Alarm Automation
+[2026-01-03 03:36:22] [INFO] ==================================================
+[2026-01-03 03:36:22] [INFO] Loading master data...
+[2026-01-03 03:36:22] [SUCCESS] Loaded 1695 sites
+[2026-01-03 03:36:22] [INFO] Starting browser...
+[2026-01-03 03:36:22] [INFO] Starting Portal browser...
+[2026-01-03 03:36:25] [INFO] Starting WhatsApp browser (session preserved)...
+[2026-01-03 03:36:25] [INFO] WhatsApp profile found at: C:\wd\Autok\browser_profiles\whatsapp - session will be preserved
+[2026-01-03 03:36:26] [INFO] Navigating to WhatsApp Web...
+[2026-01-03 03:36:30] [INFO] WhatsApp window focused
+[2026-01-03 03:36:30] [SUCCESS] WhatsApp Web loaded successfully
+[2026-01-03 03:36:30] [INFO] Checking WhatsApp connection...
+[2026-01-03 03:36:30] [INFO] Initializing WhatsApp handler status...
+[2026-01-03 03:36:31] [INFO] WhatsApp connected - found: #pane-side
+[2026-01-03 03:36:31] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:36:31] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:36:31] [INFO] WhatsApp handler status: Connected
+[2026-01-03 03:36:31] [INFO] Starting WhatsApp message sender...
+[2026-01-03 03:36:31] [INFO] WhatsApp message sender started
+[2026-01-03 03:36:31] [INFO] Starting alarm scheduler...
+[2026-01-03 03:36:31] [INFO] Alarm scheduler started
+[2026-01-03 03:36:31] [INFO] Starting portal monitor...
+[2026-01-03 03:36:31] [INFO] Starting portal check cycle...
+[2026-01-03 03:36:31] [INFO] Portal monitor started (interval: 0s)
+[2026-01-03 03:36:31] [INFO] Checking portal: CSL Fault
+[2026-01-03 03:36:31] [INFO] Exporting alarms from CSL Fault...
+[2026-01-03 03:36:31] [WARNING] No handle stored for C1 OML Fault. attempting to find or open...
+[2026-01-03 03:36:31] [SUCCESS] Automation started successfully!
+[2026-01-03 03:36:31] [INFO] Switching to portal C1 OML Fault...
+[2026-01-03 03:36:31] [INFO] Navigating to C1 OML Fault...
+[2026-01-03 03:36:33] [WARNING] Redirected to login page - session expired. Re-logging in...
+[2026-01-03 03:36:33] [INFO] Already on login page - proceeding with login
+[2026-01-03 03:36:33] [INFO] Entering credentials...
+[2026-01-03 03:36:34] [INFO] Login button clicked
+[2026-01-03 03:36:35] [SUCCESS] Login verified via URL check
+[2026-01-03 03:36:35] [INFO] Login successful/verified. Initializing portal tabs...
+[2026-01-03 03:36:35] [INFO] Preserved Tab 1 as Main Topology/Login Session
+[2026-01-03 03:36:35] [INFO] Opening New Tab for C1 OML Fault...
+[2026-01-03 03:36:37] [INFO] Tab opened for C1 OML Fault (Handle: A901BFC9)
+[2026-01-03 03:36:37] [INFO] Opening New Tab for c1-c2 All Alarm...
+[2026-01-03 03:36:38] [INFO] Tab opened for c1-c2 All Alarm (Handle: D64E2E0D)
+[2026-01-03 03:36:38] [INFO] Opening New Tab for RF-Unit AR...
+[2026-01-03 03:36:39] [INFO] Tab opened for RF-Unit AR (Handle: 9369D677)
+[2026-01-03 03:36:39] [INFO] Opening New Tab for C1 NodeB UMTS Cell Unavailable...
+[2026-01-03 03:36:41] [INFO] Tab opened for C1 NodeB UMTS Cell Unavailable (Handle: 5C7929C7)
+[2026-01-03 03:36:41] [SUCCESS] All portal tabs opened successfully
+[2026-01-03 03:36:41] [INFO] Re-navigating to C1 OML Fault after login...
+[2026-01-03 03:36:42] [INFO] Navigated to C1 OML Fault
+[2026-01-03 03:36:43] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:36:43] [INFO] Finding export button for C1 OML Fault...
+[2026-01-03 03:36:50] [INFO] Clicked export button
+[2026-01-03 03:36:51] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:36:52] [INFO] Waiting for export dialog...
+[2026-01-03 03:36:52] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:36:52] [INFO] Clicking OK to start export...
+[2026-01-03 03:36:52] [INFO] Waiting for file download...
+[2026-01-03 03:36:53] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103033652275.xlsx
+[2026-01-03 03:36:53] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103033652275.xlsx
+[2026-01-03 03:36:53] [INFO] Processed 7 alarms from C:\wd\Autok\exports\CurrentAlarms20260103033652275.xlsx
+[2026-01-03 03:36:53] [INFO] Processed 7 alarms from CSL Fault
+[2026-01-03 03:36:53] [INFO] INSTANT ALARM: New/updated site LHR1248 (01-03-2026 03:15:32) found for CSL Fault in C1-LHR-05
+[2026-01-03 03:36:53] [INFO] INSTANT ALARM: New/updated site LHR8952 (01-03-2026 03:02:14) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:36:53] [INFO] INSTANT ALARM: New/updated site LHR6474 (01-03-2026 02:56:43) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:36:53] [INFO] INSTANT ALARM: New/updated site LHR5210 (01-03-2026 02:49:10) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:36:53] [INFO] INSTANT ALARM: New/updated site LHR9873 (01-03-2026 02:06:31) found for CSL Fault in C1-LHR-04
+[2026-01-03 03:36:53] [INFO] INSTANT ALARM: New/updated site RUR0558 (01-03-2026 01:56:24) found for CSL Fault in C1-LHR-05
+[2026-01-03 03:36:53] [INFO] INSTANT ALARM: New/updated site LHR9355 (01-03-2026 00:39:43) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:36:53] [INFO] Triggering immediate send for C1-LHR-05 | csl fault | Count: 2
+[2026-01-03 03:36:53] [INFO] Queued message for MBU C1 LHR-05: CSL Fault (priority 1)
+[2026-01-03 03:36:53] [INFO] Ordered batch queued: CSL Fault | Count: 2 | Group: MBU C1 LHR-05
+[2026-01-03 03:36:53] [INFO] Attempting to send message to: MBU C1 LHR-05
+[2026-01-03 03:36:53] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:36:53] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:36:53] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:36:53] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:36:53] [INFO] Triggering immediate send for C1-LHR-04 | csl fault | Count: 1
+[2026-01-03 03:36:53] [INFO] Queued message for MBU C1-LHR-04: CSL Fault (priority 1)
+[2026-01-03 03:36:53] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: MBU C1-LHR-04
+[2026-01-03 03:36:53] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:36:53] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:36:53] [INFO] Triggering immediate send for C1-LHR-07 | csl fault | Count: 4
+[2026-01-03 03:36:53] [INFO] Queued message for MBU-C1-LHR-07: CSL Fault (priority 1)
+[2026-01-03 03:36:53] [INFO] Ordered batch queued: CSL Fault | Count: 4 | Group: MBU-C1-LHR-07
+[2026-01-03 03:36:53] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:36:54] [INFO] Ordered batch queued: CSL Fault | Count: 2 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:36:54] [INFO] Queued message for Jazz Enfrashare MPL C1: CSL Fault (priority 1)
+[2026-01-03 03:36:54] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz Enfrashare MPL C1
+[2026-01-03 03:36:54] [INFO] Found 7 alarms from CSL Fault (7 new)
+[2026-01-03 03:36:54] [INFO] Checking portal: All Alarms
+[2026-01-03 03:36:54] [INFO] Exporting alarms from All Alarms...
+[2026-01-03 03:36:54] [INFO] Switched to c1-c2 All Alarm using handle D64E2E0D
+[2026-01-03 03:36:54] [INFO] Cached 16 chats
+[2026-01-03 03:36:54] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:36:54] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU C1 LHR-05'
+[2026-01-03 03:36:54] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:36:54] [INFO] Finding export button for c1-c2 All Alarm...
+[2026-01-03 03:36:55] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'MBU C1 LHR-05'
+[2026-01-03 03:36:55] [DEBUG] : Verifying chat - Expected: 'MBU C1 LHR-05', Got: 'MBU C1 LHR-05'
+[2026-01-03 03:36:55] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:36:57] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:36:57] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:36:58] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:36:58] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:36:58] [SUCCESS] Message sent successfully to MBU C1 LHR-05
+[2026-01-03 03:36:59] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:36:59] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:36:59] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:36:59] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:36:59] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:37:00] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz~edotco C1 & C4'
+[2026-01-03 03:37:00] [DEBUG] : Verifying chat - Expected: 'Jazz~edotco C1 & C4', Got: 'Jazz~edotco C1 & C4'
+[2026-01-03 03:37:00] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:37:01] [INFO] Clicked export button
+[2026-01-03 03:37:02] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:37:02] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:37:02] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:37:03] [INFO] Waiting for export dialog...
+[2026-01-03 03:37:03] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:37:03] [INFO] Clicking OK to start export...
+[2026-01-03 03:37:03] [INFO] Waiting for file download...
+[2026-01-03 03:37:03] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:37:03] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:37:03] [SUCCESS] Message sent successfully to Jazz~edotco C1 & C4
+[2026-01-03 03:37:04] [INFO] Attempting to send message to: MBU C1-LHR-04
+[2026-01-03 03:37:04] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:37:04] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:37:04] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU C1-LHR-04'
+[2026-01-03 03:37:04] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:37:05] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'MBU C1-LHR-04'
+[2026-01-03 03:37:05] [DEBUG] : Verifying chat - Expected: 'MBU C1-LHR-04', Got: 'MBU C1-LHR-04'
+[2026-01-03 03:37:05] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:37:05] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103033703257.xlsx
+[2026-01-03 03:37:05] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103033703257.xlsx
+[2026-01-03 03:37:06] [INFO] Processed 211 alarms from C:\wd\Autok\exports\CurrentAlarms20260103033703257.xlsx
+[2026-01-03 03:37:06] [INFO] Processed 211 alarms from All Alarms
+[2026-01-03 03:37:06] [INFO] Found 211 alarms from All Alarms (211 new)
+[2026-01-03 03:37:07] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:37:07] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:37:08] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:37:11] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:37:11] [INFO] Checking portal: RF Unit
+[2026-01-03 03:37:11] [INFO] Exporting alarms from RF Unit...
+[2026-01-03 03:37:11] [SUCCESS] Message sent successfully to MBU C1-LHR-04
+[2026-01-03 03:37:11] [INFO] Switched to RF-Unit AR using handle 9369D677
+[2026-01-03 03:37:12] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:37:12] [INFO] Finding export button for RF-Unit AR...
+[2026-01-03 03:37:12] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:37:12] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:37:12] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:37:12] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:37:12] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:37:13] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz~edotco C1 & C4'
+[2026-01-03 03:37:13] [DEBUG] : Verifying chat - Expected: 'Jazz~edotco C1 & C4', Got: 'Jazz~edotco C1 & C4'
+[2026-01-03 03:37:13] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:37:15] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:37:15] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:37:16] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:37:16] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:37:16] [SUCCESS] Message sent successfully to Jazz~edotco C1 & C4
+[2026-01-03 03:37:17] [INFO] Attempting to send message to: MBU-C1-LHR-07
+[2026-01-03 03:37:17] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:37:17] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:37:17] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU-C1-LHR-07'
+[2026-01-03 03:37:17] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:37:18] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'MBU-C1-LHR-07'
+[2026-01-03 03:37:18] [DEBUG] : Verifying chat - Expected: 'MBU-C1-LHR-07', Got: 'MBU-C1-LHR-07'
+[2026-01-03 03:37:18] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:37:18] [INFO] Clicked export button
+[2026-01-03 03:37:19] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:37:20] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:37:20] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:37:21] [INFO] Waiting for export dialog...
+[2026-01-03 03:37:21] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:37:21] [INFO] Clicking OK to start export...
+[2026-01-03 03:37:21] [INFO] Waiting for file download...
+[2026-01-03 03:37:21] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:37:21] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:37:21] [SUCCESS] Message sent successfully to MBU-C1-LHR-07
+[2026-01-03 03:37:22] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:37:22] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:37:22] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:37:22] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:37:22] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:37:22] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103033720884.xlsx
+[2026-01-03 03:37:22] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103033720884.xlsx
+[2026-01-03 03:37:22] [INFO] Processed 61 alarms from C:\wd\Autok\exports\CurrentAlarms20260103033720884.xlsx
+[2026-01-03 03:37:22] [INFO] Processed 61 alarms from RF Unit
+[2026-01-03 03:37:22] [INFO] Filtered out 1 alarms from ignored sites
+[2026-01-03 03:37:22] [INFO] Found 60 alarms from RF Unit (60 new)
+[2026-01-03 03:37:23] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz~edotco C1 & C4'
+[2026-01-03 03:37:23] [DEBUG] : Verifying chat - Expected: 'Jazz~edotco C1 & C4', Got: 'Jazz~edotco C1 & C4'
+[2026-01-03 03:37:23] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:37:25] [INFO] Checking portal: NodeB Cell
+[2026-01-03 03:37:25] [INFO] Exporting alarms from NodeB Cell...
+[2026-01-03 03:37:25] [INFO] Switched to C1 NodeB UMTS Cell Unavailable using handle 5C7929C7
+[2026-01-03 03:37:25] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:37:25] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:37:25] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:37:25] [INFO] Finding export button for C1 NodeB UMTS Cell Unavailable...
+[2026-01-03 03:37:26] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:37:26] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:37:26] [SUCCESS] Message sent successfully to Jazz~edotco C1 & C4
+[2026-01-03 03:37:27] [INFO] Attempting to send message to: Jazz Enfrashare MPL C1
+[2026-01-03 03:37:27] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:37:27] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:37:27] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz Enfrashare MPL C1'
+[2026-01-03 03:37:27] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:37:28] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz Enfrashare MPL C1'
+[2026-01-03 03:37:28] [DEBUG] : Verifying chat - Expected: 'Jazz Enfrashare MPL C1', Got: 'Jazz Enfrashare MPL C1'
+[2026-01-03 03:37:28] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:37:29] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:37:30] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:37:31] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:37:31] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:37:31] [SUCCESS] Message sent successfully to Jazz Enfrashare MPL C1
+[2026-01-03 03:37:32] [INFO] Clicked export button
+[2026-01-03 03:37:33] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:37:34] [INFO] Waiting for export dialog...
+[2026-01-03 03:37:34] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:37:34] [INFO] Clicking OK to start export...
+[2026-01-03 03:37:34] [INFO] Waiting for file download...
+[2026-01-03 03:37:36] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103033734131.xlsx
+[2026-01-03 03:37:36] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103033734131.xlsx
+[2026-01-03 03:37:36] [INFO] Processed 34 alarms from C:\wd\Autok\exports\CurrentAlarms20260103033734131.xlsx
+[2026-01-03 03:37:36] [INFO] Processed 34 alarms from NodeB Cell
+[2026-01-03 03:37:36] [INFO] Filtered out 1 alarms from ignored sites
+[2026-01-03 03:37:36] [INFO] Found 33 alarms from NodeB Cell (33 new)
+[2026-01-03 03:37:38] [INFO] Total new alarms this cycle: 311
+[2026-01-03 03:37:38] [INFO] Waiting 0s for next check...
+[2026-01-03 03:37:38] [INFO] Starting portal check cycle...
+[2026-01-03 03:37:38] [INFO] Checking portal: CSL Fault
+[2026-01-03 03:37:38] [INFO] Exporting alarms from CSL Fault...
+[2026-01-03 03:37:38] [INFO] Switched to C1 OML Fault using handle A901BFC9
+[2026-01-03 03:37:38] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:37:38] [INFO] Finding export button for C1 OML Fault...
+[2026-01-03 03:37:45] [INFO] Clicked export button
+[2026-01-03 03:37:46] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:37:47] [INFO] Waiting for export dialog...
+[2026-01-03 03:37:47] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:37:48] [INFO] Clicking OK to start export...
+[2026-01-03 03:37:48] [INFO] Waiting for file download...
+[2026-01-03 03:37:49] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103033747773.xlsx
+[2026-01-03 03:37:49] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103033747773.xlsx
+[2026-01-03 03:37:49] [INFO] Processed 7 alarms from C:\wd\Autok\exports\CurrentAlarms20260103033747773.xlsx
+[2026-01-03 03:37:49] [INFO] Processed 7 alarms from CSL Fault
+[2026-01-03 03:37:49] [INFO] INSTANT ALARM: New/updated site LHR1248 (01-03-2026 03:15:32) found for CSL Fault in C1-LHR-05
+[2026-01-03 03:37:49] [INFO] INSTANT ALARM: New/updated site LHR8952 (01-03-2026 03:02:14) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:37:49] [INFO] INSTANT ALARM: New/updated site LHR6474 (01-03-2026 02:56:43) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:37:49] [INFO] INSTANT ALARM: New/updated site LHR5210 (01-03-2026 02:49:10) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:37:49] [INFO] INSTANT ALARM: New/updated site LHR9873 (01-03-2026 02:06:31) found for CSL Fault in C1-LHR-04
+[2026-01-03 03:37:49] [INFO] INSTANT ALARM: New/updated site RUR0558 (01-03-2026 01:56:24) found for CSL Fault in C1-LHR-05
+[2026-01-03 03:37:49] [INFO] INSTANT ALARM: New/updated site LHR9355 (01-03-2026 00:39:43) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:37:49] [INFO] Triggering immediate send for C1-LHR-05 | csl fault | Count: 2
+[2026-01-03 03:37:49] [INFO] Queued message for MBU C1 LHR-05: CSL Fault (priority 1)
+[2026-01-03 03:37:49] [INFO] Ordered batch queued: CSL Fault | Count: 2 | Group: MBU C1 LHR-05
+[2026-01-03 03:37:49] [INFO] Attempting to send message to: MBU C1 LHR-05
+[2026-01-03 03:37:49] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:37:49] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:37:49] [INFO] Triggering immediate send for C1-LHR-04 | csl fault | Count: 1
+[2026-01-03 03:37:49] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:37:49] [INFO] Queued message for MBU C1-LHR-04: CSL Fault (priority 1)
+[2026-01-03 03:37:49] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: MBU C1-LHR-04
+[2026-01-03 03:37:49] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:37:49] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU C1 LHR-05'
+[2026-01-03 03:37:49] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:37:49] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:37:49] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:37:49] [INFO] Triggering immediate send for C1-LHR-07 | csl fault | Count: 4
+[2026-01-03 03:37:49] [INFO] Queued message for MBU-C1-LHR-07: CSL Fault (priority 1)
+[2026-01-03 03:37:49] [INFO] Ordered batch queued: CSL Fault | Count: 4 | Group: MBU-C1-LHR-07
+[2026-01-03 03:37:49] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:37:49] [INFO] Ordered batch queued: CSL Fault | Count: 2 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:37:49] [INFO] Queued message for Jazz Enfrashare MPL C1: CSL Fault (priority 1)
+[2026-01-03 03:37:49] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz Enfrashare MPL C1
+[2026-01-03 03:37:49] [INFO] Found 7 alarms from CSL Fault (0 new)
+[2026-01-03 03:37:50] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'MBU C1 LHR-05'
+[2026-01-03 03:37:50] [DEBUG] : Verifying chat - Expected: 'MBU C1 LHR-05', Got: 'MBU C1 LHR-05'
+[2026-01-03 03:37:50] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:37:51] [INFO] Checking portal: All Alarms
+[2026-01-03 03:37:51] [INFO] Exporting alarms from All Alarms...
+[2026-01-03 03:37:51] [INFO] Switched to c1-c2 All Alarm using handle D64E2E0D
+[2026-01-03 03:37:51] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:37:51] [INFO] Finding export button for c1-c2 All Alarm...
+[2026-01-03 03:37:52] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:37:52] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:37:53] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:37:53] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:37:53] [SUCCESS] Message sent successfully to MBU C1 LHR-05
+[2026-01-03 03:37:54] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:37:54] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:37:54] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:37:54] [INFO] Cached 16 chats
+[2026-01-03 03:37:54] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:37:54] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:37:55] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz~edotco C1 & C4'
+[2026-01-03 03:37:55] [DEBUG] : Verifying chat - Expected: 'Jazz~edotco C1 & C4', Got: 'Jazz~edotco C1 & C4'
+[2026-01-03 03:37:56] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:37:57] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:37:57] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:37:58] [INFO] Clicked export button
+[2026-01-03 03:37:58] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:37:58] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:37:58] [SUCCESS] Message sent successfully to Jazz~edotco C1 & C4
+[2026-01-03 03:37:59] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:37:59] [INFO] Attempting to send message to: MBU C1-LHR-04
+[2026-01-03 03:37:59] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:37:59] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:37:59] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU C1-LHR-04'
+[2026-01-03 03:37:59] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:38:00] [INFO] Waiting for export dialog...
+[2026-01-03 03:38:00] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:38:00] [INFO] Clicking OK to start export...
+[2026-01-03 03:38:00] [INFO] Waiting for file download...
+[2026-01-03 03:38:00] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'MBU C1-LHR-04'
+[2026-01-03 03:38:00] [DEBUG] : Verifying chat - Expected: 'MBU C1-LHR-04', Got: 'MBU C1-LHR-04'
+[2026-01-03 03:38:00] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:38:02] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103033759914.xlsx
+[2026-01-03 03:38:02] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103033759914.xlsx
+[2026-01-03 03:38:02] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:38:02] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:38:02] [INFO] Processed 213 alarms from C:\wd\Autok\exports\CurrentAlarms20260103033759914.xlsx
+[2026-01-03 03:38:02] [INFO] Processed 213 alarms from All Alarms
+[2026-01-03 03:38:02] [INFO] Found 213 alarms from All Alarms (5 new)
+[2026-01-03 03:38:03] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:38:07] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:38:07] [INFO] Checking portal: RF Unit
+[2026-01-03 03:38:07] [INFO] Exporting alarms from RF Unit...
+[2026-01-03 03:38:07] [SUCCESS] Message sent successfully to MBU C1-LHR-04
+[2026-01-03 03:38:07] [INFO] Switched to RF-Unit AR using handle 9369D677
+[2026-01-03 03:38:07] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:38:11] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:38:11] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:38:11] [INFO] Finding export button for RF-Unit AR...
+[2026-01-03 03:38:11] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:38:11] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:38:11] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:38:13] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz~edotco C1 & C4'
+[2026-01-03 03:38:13] [DEBUG] : Verifying chat - Expected: 'Jazz~edotco C1 & C4', Got: 'Jazz~edotco C1 & C4'
+[2026-01-03 03:38:13] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:38:14] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:38:14] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:38:15] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:38:15] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:38:15] [SUCCESS] Message sent successfully to Jazz~edotco C1 & C4
+[2026-01-03 03:38:16] [INFO] Attempting to send message to: MBU-C1-LHR-07
+[2026-01-03 03:38:16] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:38:16] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:38:16] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU-C1-LHR-07'
+[2026-01-03 03:38:16] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:38:17] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'MBU-C1-LHR-07'
+[2026-01-03 03:38:17] [DEBUG] : Verifying chat - Expected: 'MBU-C1-LHR-07', Got: 'MBU-C1-LHR-07'
+[2026-01-03 03:38:17] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:38:18] [INFO] Clicked export button
+[2026-01-03 03:38:19] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:38:19] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:38:19] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:38:20] [INFO] Waiting for export dialog...
+[2026-01-03 03:38:20] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:38:20] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:38:20] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:38:20] [SUCCESS] Message sent successfully to MBU-C1-LHR-07
+[2026-01-03 03:38:20] [INFO] Clicking OK to start export...
+[2026-01-03 03:38:20] [INFO] Waiting for file download...
+[2026-01-03 03:38:21] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:38:21] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:38:21] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:38:21] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:38:21] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:38:21] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103033820514.xlsx
+[2026-01-03 03:38:21] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103033820514.xlsx
+[2026-01-03 03:38:22] [INFO] Processed 61 alarms from C:\wd\Autok\exports\CurrentAlarms20260103033820514.xlsx
+[2026-01-03 03:38:22] [INFO] Processed 61 alarms from RF Unit
+[2026-01-03 03:38:22] [INFO] Filtered out 1 alarms from ignored sites
+[2026-01-03 03:38:22] [INFO] Found 60 alarms from RF Unit (0 new)
+[2026-01-03 03:38:22] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz~edotco C1 & C4'
+[2026-01-03 03:38:22] [DEBUG] : Verifying chat - Expected: 'Jazz~edotco C1 & C4', Got: 'Jazz~edotco C1 & C4'
+[2026-01-03 03:38:22] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:38:24] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:38:24] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:38:25] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:38:25] [INFO] Checking portal: NodeB Cell
+[2026-01-03 03:38:25] [INFO] Exporting alarms from NodeB Cell...
+[2026-01-03 03:38:25] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:38:25] [INFO] Switched to C1 NodeB UMTS Cell Unavailable using handle 5C7929C7
+[2026-01-03 03:38:25] [SUCCESS] Message sent successfully to Jazz~edotco C1 & C4
+[2026-01-03 03:38:25] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:38:25] [INFO] Finding export button for C1 NodeB UMTS Cell Unavailable...
+[2026-01-03 03:38:26] [INFO] Attempting to send message to: Jazz Enfrashare MPL C1
+[2026-01-03 03:38:26] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:38:26] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:38:26] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz Enfrashare MPL C1'
+[2026-01-03 03:38:26] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:38:27] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz Enfrashare MPL C1'
+[2026-01-03 03:38:27] [DEBUG] : Verifying chat - Expected: 'Jazz Enfrashare MPL C1', Got: 'Jazz Enfrashare MPL C1'
+[2026-01-03 03:38:27] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:38:29] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:38:29] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:38:30] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:38:30] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:38:30] [SUCCESS] Message sent successfully to Jazz Enfrashare MPL C1
+[2026-01-03 03:38:32] [INFO] Clicked export button
+[2026-01-03 03:38:33] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:38:34] [INFO] Waiting for export dialog...
+[2026-01-03 03:38:34] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:38:35] [INFO] Clicking OK to start export...
+[2026-01-03 03:38:35] [INFO] Waiting for file download...
+[2026-01-03 03:38:37] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103033834711.xlsx
+[2026-01-03 03:38:37] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103033834711.xlsx
+[2026-01-03 03:38:37] [INFO] Processed 30 alarms from C:\wd\Autok\exports\CurrentAlarms20260103033834711.xlsx
+[2026-01-03 03:38:37] [INFO] Processed 30 alarms from NodeB Cell
+[2026-01-03 03:38:37] [INFO] Filtered out 1 alarms from ignored sites
+[2026-01-03 03:38:37] [INFO] Found 29 alarms from NodeB Cell (16 new)
+[2026-01-03 03:38:40] [INFO] Total new alarms this cycle: 21
+[2026-01-03 03:38:40] [INFO] Waiting 0s for next check...
+[2026-01-03 03:38:40] [INFO] Starting portal check cycle...
+[2026-01-03 03:38:40] [INFO] Checking portal: CSL Fault
+[2026-01-03 03:38:40] [INFO] Exporting alarms from CSL Fault...
+[2026-01-03 03:38:40] [INFO] Switched to C1 OML Fault using handle A901BFC9
+[2026-01-03 03:38:40] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:38:40] [INFO] Finding export button for C1 OML Fault...
+[2026-01-03 03:38:47] [INFO] Clicked export button
+[2026-01-03 03:38:48] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:38:49] [INFO] Waiting for export dialog...
+[2026-01-03 03:38:49] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:38:49] [INFO] Clicking OK to start export...
+[2026-01-03 03:38:49] [INFO] Waiting for file download...
+[2026-01-03 03:38:50] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103033849101.xlsx
+[2026-01-03 03:38:50] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103033849101.xlsx
+[2026-01-03 03:38:50] [INFO] Processed 8 alarms from C:\wd\Autok\exports\CurrentAlarms20260103033849101.xlsx
+[2026-01-03 03:38:50] [INFO] Processed 8 alarms from CSL Fault
+[2026-01-03 03:38:50] [INFO] INSTANT ALARM: New/updated site LHR5474 (01-03-2026 03:37:56) found for CSL Fault in C1-LHR-05
+[2026-01-03 03:38:50] [INFO] INSTANT ALARM: New/updated site LHR1248 (01-03-2026 03:15:32) found for CSL Fault in C1-LHR-05
+[2026-01-03 03:38:50] [INFO] INSTANT ALARM: New/updated site LHR8952 (01-03-2026 03:02:14) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:38:50] [INFO] INSTANT ALARM: New/updated site LHR6474 (01-03-2026 02:56:43) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:38:50] [INFO] INSTANT ALARM: New/updated site LHR5210 (01-03-2026 02:49:10) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:38:50] [INFO] INSTANT ALARM: New/updated site LHR9873 (01-03-2026 02:06:31) found for CSL Fault in C1-LHR-04
+[2026-01-03 03:38:50] [INFO] INSTANT ALARM: New/updated site RUR0558 (01-03-2026 01:56:24) found for CSL Fault in C1-LHR-05
+[2026-01-03 03:38:50] [INFO] INSTANT ALARM: New/updated site LHR9355 (01-03-2026 00:39:43) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:38:50] [INFO] Triggering immediate send for C1-LHR-05 | csl fault | Count: 3
+[2026-01-03 03:38:50] [INFO] Queued message for MBU C1 LHR-05: CSL Fault (priority 1)
+[2026-01-03 03:38:50] [INFO] Ordered batch queued: CSL Fault | Count: 3 | Group: MBU C1 LHR-05
+[2026-01-03 03:38:50] [INFO] Attempting to send message to: MBU C1 LHR-05
+[2026-01-03 03:38:50] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:38:50] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:38:50] [INFO] Ordered batch queued: CSL Fault | Count: 2 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:38:50] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:38:50] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU C1 LHR-05'
+[2026-01-03 03:38:50] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:38:50] [INFO] Triggering immediate send for C1-LHR-04 | csl fault | Count: 1
+[2026-01-03 03:38:50] [INFO] Queued message for MBU C1-LHR-04: CSL Fault (priority 1)
+[2026-01-03 03:38:50] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: MBU C1-LHR-04
+[2026-01-03 03:38:50] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:38:50] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:38:50] [INFO] Triggering immediate send for C1-LHR-07 | csl fault | Count: 4
+[2026-01-03 03:38:50] [INFO] Queued message for MBU-C1-LHR-07: CSL Fault (priority 1)
+[2026-01-03 03:38:50] [INFO] Ordered batch queued: CSL Fault | Count: 4 | Group: MBU-C1-LHR-07
+[2026-01-03 03:38:50] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:38:50] [INFO] Ordered batch queued: CSL Fault | Count: 2 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:38:50] [INFO] Queued message for Jazz Enfrashare MPL C1: CSL Fault (priority 1)
+[2026-01-03 03:38:50] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz Enfrashare MPL C1
+[2026-01-03 03:38:50] [INFO] Found 8 alarms from CSL Fault (8 new)
+[2026-01-03 03:38:52] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'MBU C1 LHR-05'
+[2026-01-03 03:38:52] [DEBUG] : Verifying chat - Expected: 'MBU C1 LHR-05', Got: 'MBU C1 LHR-05'
+[2026-01-03 03:38:52] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:38:52] [INFO] Checking portal: All Alarms
+[2026-01-03 03:38:52] [INFO] Exporting alarms from All Alarms...
+[2026-01-03 03:38:52] [INFO] Switched to c1-c2 All Alarm using handle D64E2E0D
+[2026-01-03 03:38:52] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:38:52] [INFO] Finding export button for c1-c2 All Alarm...
+[2026-01-03 03:38:53] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:38:53] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:38:55] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:38:55] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:38:55] [SUCCESS] Message sent successfully to MBU C1 LHR-05
+[2026-01-03 03:38:55] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:38:55] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:38:55] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:38:55] [INFO] Cached 16 chats
+[2026-01-03 03:38:55] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:38:55] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:38:57] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz~edotco C1 & C4'
+[2026-01-03 03:38:57] [DEBUG] : Verifying chat - Expected: 'Jazz~edotco C1 & C4', Got: 'Jazz~edotco C1 & C4'
+[2026-01-03 03:38:57] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:38:58] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:38:58] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:38:59] [INFO] Clicked export button
+[2026-01-03 03:39:00] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:39:00] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:39:00] [SUCCESS] Message sent successfully to Jazz~edotco C1 & C4
+[2026-01-03 03:39:00] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:39:00] [INFO] Attempting to send message to: MBU C1-LHR-04
+[2026-01-03 03:39:00] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:39:00] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:39:00] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU C1-LHR-04'
+[2026-01-03 03:39:00] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:39:01] [INFO] Waiting for export dialog...
+[2026-01-03 03:39:01] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:39:01] [INFO] Clicking OK to start export...
+[2026-01-03 03:39:01] [INFO] Waiting for file download...
+[2026-01-03 03:39:02] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'MBU C1-LHR-04'
+[2026-01-03 03:39:02] [DEBUG] : Verifying chat - Expected: 'MBU C1-LHR-04', Got: 'MBU C1-LHR-04'
+[2026-01-03 03:39:02] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:39:03] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:39:03] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:39:03] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103033901257.xlsx
+[2026-01-03 03:39:03] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103033901257.xlsx
+[2026-01-03 03:39:04] [INFO] Processed 214 alarms from C:\wd\Autok\exports\CurrentAlarms20260103033901257.xlsx
+[2026-01-03 03:39:04] [INFO] Processed 214 alarms from All Alarms
+[2026-01-03 03:39:04] [INFO] Found 214 alarms from All Alarms (214 new)
+[2026-01-03 03:39:05] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:39:08] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:39:13] [INFO] Checking portal: RF Unit
+[2026-01-03 03:39:13] [INFO] Exporting alarms from RF Unit...
+[2026-01-03 03:39:13] [SUCCESS] Message sent successfully to MBU C1-LHR-04
+[2026-01-03 03:39:13] [INFO] Switched to RF-Unit AR using handle 9369D677
+[2026-01-03 03:39:13] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:39:13] [INFO] Finding export button for RF-Unit AR...
+[2026-01-03 03:39:14] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:39:14] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:39:14] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:39:14] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:39:14] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:39:15] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz~edotco C1 & C4'
+[2026-01-03 03:39:15] [DEBUG] : Verifying chat - Expected: 'Jazz~edotco C1 & C4', Got: 'Jazz~edotco C1 & C4'
+[2026-01-03 03:39:15] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:39:17] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:39:17] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:39:18] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:39:18] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:39:18] [SUCCESS] Message sent successfully to Jazz~edotco C1 & C4
+[2026-01-03 03:39:18] [INFO] Attempting to send message to: MBU-C1-LHR-07
+[2026-01-03 03:39:18] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:39:18] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:39:18] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU-C1-LHR-07'
+[2026-01-03 03:39:18] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:39:20] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'MBU-C1-LHR-07'
+[2026-01-03 03:39:20] [DEBUG] : Verifying chat - Expected: 'MBU-C1-LHR-07', Got: 'MBU-C1-LHR-07'
+[2026-01-03 03:39:20] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:39:20] [INFO] Clicked export button
+[2026-01-03 03:39:21] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:39:21] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:39:21] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:39:22] [INFO] Waiting for export dialog...
+[2026-01-03 03:39:22] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:39:22] [INFO] Clicking OK to start export...
+[2026-01-03 03:39:22] [INFO] Waiting for file download...
+[2026-01-03 03:39:23] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:39:23] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:39:23] [SUCCESS] Message sent successfully to MBU-C1-LHR-07
+[2026-01-03 03:39:23] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:39:23] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:39:23] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:39:23] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:39:23] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:39:23] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103033922382.xlsx
+[2026-01-03 03:39:23] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103033922382.xlsx
+[2026-01-03 03:39:23] [INFO] Processed 61 alarms from C:\wd\Autok\exports\CurrentAlarms20260103033922382.xlsx
+[2026-01-03 03:39:23] [INFO] Processed 61 alarms from RF Unit
+[2026-01-03 03:39:23] [INFO] Filtered out 1 alarms from ignored sites
+[2026-01-03 03:39:23] [INFO] Found 60 alarms from RF Unit (0 new)
+[2026-01-03 03:39:25] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz~edotco C1 & C4'
+[2026-01-03 03:39:25] [DEBUG] : Verifying chat - Expected: 'Jazz~edotco C1 & C4', Got: 'Jazz~edotco C1 & C4'
+[2026-01-03 03:39:25] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:39:26] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:39:26] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:39:27] [INFO] Checking portal: NodeB Cell
+[2026-01-03 03:39:27] [INFO] Exporting alarms from NodeB Cell...
+[2026-01-03 03:39:27] [INFO] Switched to C1 NodeB UMTS Cell Unavailable using handle 5C7929C7
+[2026-01-03 03:39:27] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:39:27] [INFO] Finding export button for C1 NodeB UMTS Cell Unavailable...
+[2026-01-03 03:39:28] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:39:28] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:39:28] [SUCCESS] Message sent successfully to Jazz~edotco C1 & C4
+[2026-01-03 03:39:28] [INFO] Attempting to send message to: Jazz Enfrashare MPL C1
+[2026-01-03 03:39:28] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:39:28] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:39:28] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz Enfrashare MPL C1'
+[2026-01-03 03:39:28] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:39:30] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz Enfrashare MPL C1'
+[2026-01-03 03:39:30] [DEBUG] : Verifying chat - Expected: 'Jazz Enfrashare MPL C1', Got: 'Jazz Enfrashare MPL C1'
+[2026-01-03 03:39:30] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:39:31] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:39:31] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:39:33] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:39:33] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:39:33] [SUCCESS] Message sent successfully to Jazz Enfrashare MPL C1
+[2026-01-03 03:39:34] [INFO] Clicked export button
+[2026-01-03 03:39:35] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:39:36] [INFO] Waiting for export dialog...
+[2026-01-03 03:39:36] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:39:37] [INFO] Clicking OK to start export...
+[2026-01-03 03:39:37] [INFO] Waiting for file download...
+[2026-01-03 03:39:39] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103033936651.xlsx
+[2026-01-03 03:39:39] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103033936651.xlsx
+[2026-01-03 03:39:39] [INFO] Processed 30 alarms from C:\wd\Autok\exports\CurrentAlarms20260103033936651.xlsx
+[2026-01-03 03:39:39] [INFO] Processed 30 alarms from NodeB Cell
+[2026-01-03 03:39:39] [INFO] Filtered out 1 alarms from ignored sites
+[2026-01-03 03:39:39] [INFO] Found 29 alarms from NodeB Cell (0 new)
+[2026-01-03 03:39:41] [INFO] Total new alarms this cycle: 222
+[2026-01-03 03:39:41] [INFO] Waiting 0s for next check...
+[2026-01-03 03:39:41] [INFO] Starting portal check cycle...
+[2026-01-03 03:39:41] [INFO] Checking portal: CSL Fault
+[2026-01-03 03:39:41] [INFO] Exporting alarms from CSL Fault...
+[2026-01-03 03:39:41] [INFO] Switched to C1 OML Fault using handle A901BFC9
+[2026-01-03 03:39:41] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:39:41] [INFO] Finding export button for C1 OML Fault...
+[2026-01-03 03:39:48] [INFO] Clicked export button
+[2026-01-03 03:39:49] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:39:50] [INFO] Waiting for export dialog...
+[2026-01-03 03:39:50] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:39:50] [INFO] Clicking OK to start export...
+[2026-01-03 03:39:50] [INFO] Waiting for file download...
+[2026-01-03 03:39:51] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103033950426.xlsx
+[2026-01-03 03:39:51] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103033950426.xlsx
+[2026-01-03 03:39:51] [INFO] Processed 5 alarms from C:\wd\Autok\exports\CurrentAlarms20260103033950426.xlsx
+[2026-01-03 03:39:51] [INFO] Processed 5 alarms from CSL Fault
+[2026-01-03 03:39:51] [INFO] INSTANT ALARM: New/updated site LHR8952 (01-03-2026 03:02:14) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:39:51] [INFO] INSTANT ALARM: New/updated site LHR6474 (01-03-2026 02:56:43) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:39:51] [INFO] INSTANT ALARM: New/updated site LHR5210 (01-03-2026 02:49:10) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:39:51] [INFO] INSTANT ALARM: New/updated site LHR9873 (01-03-2026 02:06:31) found for CSL Fault in C1-LHR-04
+[2026-01-03 03:39:51] [INFO] INSTANT ALARM: New/updated site RUR0558 (01-03-2026 01:56:24) found for CSL Fault in C1-LHR-05
+[2026-01-03 03:39:51] [INFO] Triggering immediate send for C1-LHR-05 | csl fault | Count: 1
+[2026-01-03 03:39:51] [INFO] Queued message for MBU C1 LHR-05: CSL Fault (priority 1)
+[2026-01-03 03:39:51] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: MBU C1 LHR-05
+[2026-01-03 03:39:52] [INFO] Attempting to send message to: MBU C1 LHR-05
+[2026-01-03 03:39:52] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:39:52] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:39:52] [INFO] Triggering immediate send for C1-LHR-04 | csl fault | Count: 1
+[2026-01-03 03:39:52] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:39:52] [INFO] Queued message for MBU C1-LHR-04: CSL Fault (priority 1)
+[2026-01-03 03:39:52] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: MBU C1-LHR-04
+[2026-01-03 03:39:52] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:39:52] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:39:52] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU C1 LHR-05'
+[2026-01-03 03:39:52] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:39:52] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:39:52] [INFO] Triggering immediate send for C1-LHR-07 | csl fault | Count: 3
+[2026-01-03 03:39:52] [INFO] Queued message for MBU-C1-LHR-07: CSL Fault (priority 1)
+[2026-01-03 03:39:52] [INFO] Ordered batch queued: CSL Fault | Count: 3 | Group: MBU-C1-LHR-07
+[2026-01-03 03:39:52] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:39:52] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:39:52] [INFO] Queued message for Jazz Enfrashare MPL C1: CSL Fault (priority 1)
+[2026-01-03 03:39:52] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz Enfrashare MPL C1
+[2026-01-03 03:39:52] [INFO] Found 5 alarms from CSL Fault (0 new)
+[2026-01-03 03:39:53] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'MBU C1 LHR-05'
+[2026-01-03 03:39:53] [DEBUG] : Verifying chat - Expected: 'MBU C1 LHR-05', Got: 'MBU C1 LHR-05'
+[2026-01-03 03:39:53] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:39:53] [INFO] Checking portal: All Alarms
+[2026-01-03 03:39:53] [INFO] Exporting alarms from All Alarms...
+[2026-01-03 03:39:53] [INFO] Switched to c1-c2 All Alarm using handle D64E2E0D
+[2026-01-03 03:39:53] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:39:53] [INFO] Finding export button for c1-c2 All Alarm...
+[2026-01-03 03:39:55] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:39:55] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:39:56] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:39:56] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:39:56] [SUCCESS] Message sent successfully to MBU C1 LHR-05
+[2026-01-03 03:39:56] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:39:56] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:39:56] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:39:57] [INFO] Cached 16 chats
+[2026-01-03 03:39:57] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:39:57] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:39:58] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz~edotco C1 & C4'
+[2026-01-03 03:39:58] [DEBUG] : Verifying chat - Expected: 'Jazz~edotco C1 & C4', Got: 'Jazz~edotco C1 & C4'
+[2026-01-03 03:39:58] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:40:00] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:40:00] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:40:00] [INFO] Clicked export button
+[2026-01-03 03:40:01] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:40:01] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:40:01] [SUCCESS] Message sent successfully to Jazz~edotco C1 & C4
+[2026-01-03 03:40:01] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:40:02] [INFO] Attempting to send message to: MBU C1-LHR-04
+[2026-01-03 03:40:02] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:40:02] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:40:02] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU C1-LHR-04'
+[2026-01-03 03:40:02] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:40:02] [INFO] Waiting for export dialog...
+[2026-01-03 03:40:02] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:40:02] [INFO] Clicking OK to start export...
+[2026-01-03 03:40:02] [INFO] Waiting for file download...
+[2026-01-03 03:40:03] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'MBU C1-LHR-04'
+[2026-01-03 03:40:03] [DEBUG] : Verifying chat - Expected: 'MBU C1-LHR-04', Got: 'MBU C1-LHR-04'
+[2026-01-03 03:40:03] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:40:04] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034002403.xlsx
+[2026-01-03 03:40:04] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034002403.xlsx
+[2026-01-03 03:40:04] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:40:05] [INFO] Processed 213 alarms from C:\wd\Autok\exports\CurrentAlarms20260103034002403.xlsx
+[2026-01-03 03:40:05] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:40:05] [INFO] Processed 213 alarms from All Alarms
+[2026-01-03 03:40:05] [INFO] Found 213 alarms from All Alarms (202 new)
+[2026-01-03 03:40:06] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:40:09] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:40:09] [INFO] Checking portal: RF Unit
+[2026-01-03 03:40:09] [INFO] Exporting alarms from RF Unit...
+[2026-01-03 03:40:14] [SUCCESS] Message sent successfully to MBU C1-LHR-04
+[2026-01-03 03:40:14] [INFO] Switched to RF-Unit AR using handle 9369D677
+[2026-01-03 03:40:14] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:40:14] [INFO] Finding export button for RF-Unit AR...
+[2026-01-03 03:40:14] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:40:14] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:40:14] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:40:14] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:40:14] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:40:16] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz~edotco C1 & C4'
+[2026-01-03 03:40:16] [DEBUG] : Verifying chat - Expected: 'Jazz~edotco C1 & C4', Got: 'Jazz~edotco C1 & C4'
+[2026-01-03 03:40:16] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:40:17] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:40:17] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:40:19] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:40:19] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:40:19] [SUCCESS] Message sent successfully to Jazz~edotco C1 & C4
+[2026-01-03 03:40:19] [INFO] Attempting to send message to: MBU-C1-LHR-07
+[2026-01-03 03:40:19] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:40:19] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:40:19] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU-C1-LHR-07'
+[2026-01-03 03:40:19] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:40:21] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'MBU-C1-LHR-07'
+[2026-01-03 03:40:21] [DEBUG] : Verifying chat - Expected: 'MBU-C1-LHR-07', Got: 'MBU-C1-LHR-07'
+[2026-01-03 03:40:21] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:40:21] [INFO] Clicked export button
+[2026-01-03 03:40:22] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:40:22] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:40:22] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:40:23] [INFO] Waiting for export dialog...
+[2026-01-03 03:40:23] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:40:23] [INFO] Clicking OK to start export...
+[2026-01-03 03:40:23] [INFO] Waiting for file download...
+[2026-01-03 03:40:23] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:40:23] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:40:24] [SUCCESS] Message sent successfully to MBU-C1-LHR-07
+[2026-01-03 03:40:24] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:40:24] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:40:24] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:40:24] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:40:24] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:40:24] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034023233.xlsx
+[2026-01-03 03:40:24] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034023233.xlsx
+[2026-01-03 03:40:24] [INFO] Processed 41 alarms from C:\wd\Autok\exports\CurrentAlarms20260103034023233.xlsx
+[2026-01-03 03:40:24] [INFO] Processed 41 alarms from RF Unit
+[2026-01-03 03:40:24] [INFO] Filtered out 1 alarms from ignored sites
+[2026-01-03 03:40:24] [INFO] Found 40 alarms from RF Unit (17 new)
+[2026-01-03 03:40:26] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz~edotco C1 & C4'
+[2026-01-03 03:40:26] [DEBUG] : Verifying chat - Expected: 'Jazz~edotco C1 & C4', Got: 'Jazz~edotco C1 & C4'
+[2026-01-03 03:40:26] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:40:27] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:40:27] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:40:27] [INFO] Checking portal: NodeB Cell
+[2026-01-03 03:40:27] [INFO] Exporting alarms from NodeB Cell...
+[2026-01-03 03:40:27] [INFO] Switched to C1 NodeB UMTS Cell Unavailable using handle 5C7929C7
+[2026-01-03 03:40:27] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:40:27] [INFO] Finding export button for C1 NodeB UMTS Cell Unavailable...
+[2026-01-03 03:40:28] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:40:28] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:40:28] [SUCCESS] Message sent successfully to Jazz~edotco C1 & C4
+[2026-01-03 03:40:29] [INFO] Attempting to send message to: Jazz Enfrashare MPL C1
+[2026-01-03 03:40:29] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:40:29] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:40:29] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz Enfrashare MPL C1'
+[2026-01-03 03:40:29] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:40:30] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz Enfrashare MPL C1'
+[2026-01-03 03:40:30] [DEBUG] : Verifying chat - Expected: 'Jazz Enfrashare MPL C1', Got: 'Jazz Enfrashare MPL C1'
+[2026-01-03 03:40:30] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:40:32] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:40:32] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:40:33] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:40:33] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:40:33] [SUCCESS] Message sent successfully to Jazz Enfrashare MPL C1
+[2026-01-03 03:40:34] [INFO] Clicked export button
+[2026-01-03 03:40:35] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:40:36] [INFO] Waiting for export dialog...
+[2026-01-03 03:40:36] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:40:37] [INFO] Clicking OK to start export...
+[2026-01-03 03:40:37] [INFO] Waiting for file download...
+[2026-01-03 03:40:39] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034036695.xlsx
+[2026-01-03 03:40:39] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034036695.xlsx
+[2026-01-03 03:40:39] [INFO] Processed 30 alarms from C:\wd\Autok\exports\CurrentAlarms20260103034036695.xlsx
+[2026-01-03 03:40:39] [INFO] Processed 30 alarms from NodeB Cell
+[2026-01-03 03:40:39] [INFO] Filtered out 1 alarms from ignored sites
+[2026-01-03 03:40:39] [INFO] Found 29 alarms from NodeB Cell (22 new)
+[2026-01-03 03:40:41] [INFO] Total new alarms this cycle: 241
+[2026-01-03 03:40:41] [INFO] Waiting 0s for next check...
+[2026-01-03 03:40:41] [INFO] Starting portal check cycle...
+[2026-01-03 03:40:41] [INFO] Checking portal: CSL Fault
+[2026-01-03 03:40:41] [INFO] Exporting alarms from CSL Fault...
+[2026-01-03 03:40:41] [INFO] Switched to C1 OML Fault using handle A901BFC9
+[2026-01-03 03:40:41] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:40:41] [INFO] Finding export button for C1 OML Fault...
+[2026-01-03 03:40:48] [INFO] Clicked export button
+[2026-01-03 03:40:49] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:40:50] [INFO] Waiting for export dialog...
+[2026-01-03 03:40:50] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:40:50] [INFO] Clicking OK to start export...
+[2026-01-03 03:40:50] [INFO] Waiting for file download...
+[2026-01-03 03:40:51] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034050191.xlsx
+[2026-01-03 03:40:51] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034050191.xlsx
+[2026-01-03 03:40:51] [INFO] Processed 5 alarms from C:\wd\Autok\exports\CurrentAlarms20260103034050191.xlsx
+[2026-01-03 03:40:51] [INFO] Processed 5 alarms from CSL Fault
+[2026-01-03 03:40:51] [INFO] INSTANT ALARM: New/updated site LHR8952 (01-03-2026 03:02:14) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:40:51] [INFO] INSTANT ALARM: New/updated site LHR6474 (01-03-2026 02:56:43) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:40:51] [INFO] INSTANT ALARM: New/updated site LHR5210 (01-03-2026 02:49:10) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:40:51] [INFO] INSTANT ALARM: New/updated site LHR9873 (01-03-2026 02:06:31) found for CSL Fault in C1-LHR-04
+[2026-01-03 03:40:51] [INFO] INSTANT ALARM: New/updated site RUR0558 (01-03-2026 01:56:24) found for CSL Fault in C1-LHR-05
+[2026-01-03 03:40:51] [INFO] Triggering immediate send for C1-LHR-05 | csl fault | Count: 1
+[2026-01-03 03:40:51] [INFO] Queued message for MBU C1 LHR-05: CSL Fault (priority 1)
+[2026-01-03 03:40:51] [INFO] Attempting to send message to: MBU C1 LHR-05
+[2026-01-03 03:40:51] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:40:51] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: MBU C1 LHR-05
+[2026-01-03 03:40:51] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:40:51] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:40:51] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU C1 LHR-05'
+[2026-01-03 03:40:51] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:40:51] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:40:51] [INFO] Triggering immediate send for C1-LHR-04 | csl fault | Count: 1
+[2026-01-03 03:40:51] [INFO] Queued message for MBU C1-LHR-04: CSL Fault (priority 1)
+[2026-01-03 03:40:51] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: MBU C1-LHR-04
+[2026-01-03 03:40:51] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:40:51] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:40:51] [INFO] Triggering immediate send for C1-LHR-07 | csl fault | Count: 3
+[2026-01-03 03:40:51] [INFO] Queued message for MBU-C1-LHR-07: CSL Fault (priority 1)
+[2026-01-03 03:40:51] [INFO] Ordered batch queued: CSL Fault | Count: 3 | Group: MBU-C1-LHR-07
+[2026-01-03 03:40:51] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:40:51] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:40:51] [INFO] Queued message for Jazz Enfrashare MPL C1: CSL Fault (priority 1)
+[2026-01-03 03:40:51] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz Enfrashare MPL C1
+[2026-01-03 03:40:51] [INFO] Found 5 alarms from CSL Fault (5 new)
+[2026-01-03 03:40:53] [INFO] Checking portal: All Alarms
+[2026-01-03 03:40:53] [INFO] Exporting alarms from All Alarms...
+[2026-01-03 03:40:53] [INFO] Switched to c1-c2 All Alarm using handle D64E2E0D
+[2026-01-03 03:40:53] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:40:53] [INFO] Finding export button for c1-c2 All Alarm...
+[2026-01-03 03:40:53] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'MBU C1 LHR-05'
+[2026-01-03 03:40:53] [DEBUG] : Verifying chat - Expected: 'MBU C1 LHR-05', Got: 'MBU C1 LHR-05'
+[2026-01-03 03:40:53] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:40:54] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:40:54] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:40:56] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:40:56] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:40:56] [SUCCESS] Message sent successfully to MBU C1 LHR-05
+[2026-01-03 03:40:56] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:40:56] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:40:56] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:40:56] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:40:56] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:40:58] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz~edotco C1 & C4'
+[2026-01-03 03:40:58] [DEBUG] : Verifying chat - Expected: 'Jazz~edotco C1 & C4', Got: 'Jazz~edotco C1 & C4'
+[2026-01-03 03:40:58] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:40:59] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:40:59] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:41:00] [INFO] Clicked export button
+[2026-01-03 03:41:00] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:41:00] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:41:00] [SUCCESS] Message sent successfully to Jazz~edotco C1 & C4
+[2026-01-03 03:41:01] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:41:01] [INFO] Attempting to send message to: MBU C1-LHR-04
+[2026-01-03 03:41:01] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:41:01] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:41:01] [INFO] Cached 16 chats
+[2026-01-03 03:41:01] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU C1-LHR-04'
+[2026-01-03 03:41:01] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:41:02] [INFO] Waiting for export dialog...
+[2026-01-03 03:41:02] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:41:02] [INFO] Clicking OK to start export...
+[2026-01-03 03:41:02] [INFO] Waiting for file download...
+[2026-01-03 03:41:03] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'MBU C1-LHR-04'
+[2026-01-03 03:41:03] [DEBUG] : Verifying chat - Expected: 'MBU C1-LHR-04', Got: 'MBU C1-LHR-04'
+[2026-01-03 03:41:03] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:41:04] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034101925.xlsx
+[2026-01-03 03:41:04] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034101925.xlsx
+[2026-01-03 03:41:04] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:41:04] [INFO] Processed 211 alarms from C:\wd\Autok\exports\CurrentAlarms20260103034101925.xlsx
+[2026-01-03 03:41:04] [INFO] Processed 211 alarms from All Alarms
+[2026-01-03 03:41:04] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:41:04] [INFO] Found 211 alarms from All Alarms (205 new)
+[2026-01-03 03:41:06] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:41:08] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:41:13] [INFO] Checking portal: RF Unit
+[2026-01-03 03:41:13] [INFO] Exporting alarms from RF Unit...
+[2026-01-03 03:41:13] [SUCCESS] Message sent successfully to MBU C1-LHR-04
+[2026-01-03 03:41:13] [INFO] Switched to RF-Unit AR using handle 9369D677
+[2026-01-03 03:41:13] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:41:13] [INFO] Finding export button for RF-Unit AR...
+[2026-01-03 03:41:13] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:41:13] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:41:13] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:41:13] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:41:13] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:41:15] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz~edotco C1 & C4'
+[2026-01-03 03:41:15] [DEBUG] : Verifying chat - Expected: 'Jazz~edotco C1 & C4', Got: 'Jazz~edotco C1 & C4'
+[2026-01-03 03:41:15] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:41:16] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:41:16] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:41:17] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:41:17] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:41:17] [SUCCESS] Message sent successfully to Jazz~edotco C1 & C4
+[2026-01-03 03:41:18] [INFO] Attempting to send message to: MBU-C1-LHR-07
+[2026-01-03 03:41:18] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:41:18] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:41:18] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU-C1-LHR-07'
+[2026-01-03 03:41:18] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:41:19] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'MBU-C1-LHR-07'
+[2026-01-03 03:41:19] [DEBUG] : Verifying chat - Expected: 'MBU-C1-LHR-07', Got: 'MBU-C1-LHR-07'
+[2026-01-03 03:41:19] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:41:20] [INFO] Clicked export button
+[2026-01-03 03:41:21] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:41:21] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:41:21] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:41:22] [INFO] Waiting for export dialog...
+[2026-01-03 03:41:22] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:41:22] [INFO] Clicking OK to start export...
+[2026-01-03 03:41:22] [INFO] Waiting for file download...
+[2026-01-03 03:41:22] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:41:22] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:41:22] [SUCCESS] Message sent successfully to MBU-C1-LHR-07
+[2026-01-03 03:41:23] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:41:23] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:41:23] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:41:23] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:41:23] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:41:23] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034121921.xlsx
+[2026-01-03 03:41:23] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034121921.xlsx
+[2026-01-03 03:41:23] [INFO] Processed 41 alarms from C:\wd\Autok\exports\CurrentAlarms20260103034121921.xlsx
+[2026-01-03 03:41:23] [INFO] Processed 41 alarms from RF Unit
+[2026-01-03 03:41:23] [INFO] Filtered out 1 alarms from ignored sites
+[2026-01-03 03:41:23] [INFO] Found 40 alarms from RF Unit (7 new)
+[2026-01-03 03:41:24] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz~edotco C1 & C4'
+[2026-01-03 03:41:24] [DEBUG] : Verifying chat - Expected: 'Jazz~edotco C1 & C4', Got: 'Jazz~edotco C1 & C4'
+[2026-01-03 03:41:24] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:41:26] [INFO] Checking portal: NodeB Cell
+[2026-01-03 03:41:26] [INFO] Exporting alarms from NodeB Cell...
+[2026-01-03 03:41:26] [INFO] Switched to C1 NodeB UMTS Cell Unavailable using handle 5C7929C7
+[2026-01-03 03:41:26] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:41:26] [INFO] Finding export button for C1 NodeB UMTS Cell Unavailable...
+[2026-01-03 03:41:26] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:41:26] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:41:27] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:41:27] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:41:27] [SUCCESS] Message sent successfully to Jazz~edotco C1 & C4
+[2026-01-03 03:41:28] [INFO] Attempting to send message to: Jazz Enfrashare MPL C1
+[2026-01-03 03:41:28] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:41:28] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:41:28] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz Enfrashare MPL C1'
+[2026-01-03 03:41:28] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:41:29] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz Enfrashare MPL C1'
+[2026-01-03 03:41:29] [DEBUG] : Verifying chat - Expected: 'Jazz Enfrashare MPL C1', Got: 'Jazz Enfrashare MPL C1'
+[2026-01-03 03:41:29] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:41:31] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:41:31] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:41:32] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:41:32] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:41:32] [SUCCESS] Message sent successfully to Jazz Enfrashare MPL C1
+[2026-01-03 03:41:33] [INFO] Clicked export button
+[2026-01-03 03:41:34] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:41:35] [INFO] Waiting for export dialog...
+[2026-01-03 03:41:35] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:41:35] [INFO] Clicking OK to start export...
+[2026-01-03 03:41:35] [INFO] Waiting for file download...
+[2026-01-03 03:41:37] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034135078.xlsx
+[2026-01-03 03:41:37] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034135078.xlsx
+[2026-01-03 03:41:37] [INFO] Processed 30 alarms from C:\wd\Autok\exports\CurrentAlarms20260103034135078.xlsx
+[2026-01-03 03:41:37] [INFO] Processed 30 alarms from NodeB Cell
+[2026-01-03 03:41:37] [INFO] Filtered out 1 alarms from ignored sites
+[2026-01-03 03:41:37] [INFO] Found 29 alarms from NodeB Cell (0 new)
+[2026-01-03 03:41:39] [INFO] Total new alarms this cycle: 217
+[2026-01-03 03:41:39] [INFO] Waiting 0s for next check...
+[2026-01-03 03:41:39] [INFO] Starting portal check cycle...
+[2026-01-03 03:41:39] [INFO] Checking portal: CSL Fault
+[2026-01-03 03:41:39] [INFO] Exporting alarms from CSL Fault...
+[2026-01-03 03:41:39] [INFO] Switched to C1 OML Fault using handle A901BFC9
+[2026-01-03 03:41:39] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:41:39] [INFO] Finding export button for C1 OML Fault...
+[2026-01-03 03:41:46] [INFO] Clicked export button
+[2026-01-03 03:41:47] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:41:48] [INFO] Waiting for export dialog...
+[2026-01-03 03:41:48] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:41:48] [INFO] Clicking OK to start export...
+[2026-01-03 03:41:49] [INFO] Waiting for file download...
+[2026-01-03 03:41:50] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034148606.xlsx
+[2026-01-03 03:41:50] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034148606.xlsx
+[2026-01-03 03:41:50] [INFO] Processed 5 alarms from C:\wd\Autok\exports\CurrentAlarms20260103034148606.xlsx
+[2026-01-03 03:41:50] [INFO] Processed 5 alarms from CSL Fault
+[2026-01-03 03:41:50] [INFO] INSTANT ALARM: New/updated site LHR8952 (01-03-2026 03:02:14) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:41:50] [INFO] INSTANT ALARM: New/updated site LHR6474 (01-03-2026 02:56:43) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:41:50] [INFO] INSTANT ALARM: New/updated site LHR5210 (01-03-2026 02:49:10) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:41:50] [INFO] INSTANT ALARM: New/updated site LHR9873 (01-03-2026 02:06:31) found for CSL Fault in C1-LHR-04
+[2026-01-03 03:41:50] [INFO] INSTANT ALARM: New/updated site RUR0558 (01-03-2026 01:56:24) found for CSL Fault in C1-LHR-05
+[2026-01-03 03:41:50] [INFO] Triggering immediate send for C1-LHR-05 | csl fault | Count: 1
+[2026-01-03 03:41:50] [INFO] Queued message for MBU C1 LHR-05: CSL Fault (priority 1)
+[2026-01-03 03:41:50] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: MBU C1 LHR-05
+[2026-01-03 03:41:50] [INFO] Attempting to send message to: MBU C1 LHR-05
+[2026-01-03 03:41:50] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:41:50] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:41:50] [INFO] Triggering immediate send for C1-LHR-04 | csl fault | Count: 1
+[2026-01-03 03:41:50] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:41:50] [INFO] Queued message for MBU C1-LHR-04: CSL Fault (priority 1)
+[2026-01-03 03:41:50] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: MBU C1-LHR-04
+[2026-01-03 03:41:50] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:41:50] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU C1 LHR-05'
+[2026-01-03 03:41:50] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:41:50] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:41:50] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:41:50] [INFO] Triggering immediate send for C1-LHR-07 | csl fault | Count: 3
+[2026-01-03 03:41:50] [INFO] Queued message for MBU-C1-LHR-07: CSL Fault (priority 1)
+[2026-01-03 03:41:50] [INFO] Ordered batch queued: CSL Fault | Count: 3 | Group: MBU-C1-LHR-07
+[2026-01-03 03:41:50] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:41:50] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:41:50] [INFO] Queued message for Jazz Enfrashare MPL C1: CSL Fault (priority 1)
+[2026-01-03 03:41:50] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz Enfrashare MPL C1
+[2026-01-03 03:41:50] [INFO] Found 5 alarms from CSL Fault (0 new)
+[2026-01-03 03:41:51] [INFO] Checking portal: All Alarms
+[2026-01-03 03:41:51] [INFO] Exporting alarms from All Alarms...
+[2026-01-03 03:41:51] [INFO] Switched to c1-c2 All Alarm using handle D64E2E0D
+[2026-01-03 03:41:51] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:41:51] [INFO] Finding export button for c1-c2 All Alarm...
+[2026-01-03 03:41:51] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'MBU C1 LHR-05'
+[2026-01-03 03:41:51] [DEBUG] : Verifying chat - Expected: 'MBU C1 LHR-05', Got: 'MBU C1 LHR-05'
+[2026-01-03 03:41:51] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:41:53] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:41:53] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:41:54] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:41:54] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:41:54] [SUCCESS] Message sent successfully to MBU C1 LHR-05
+[2026-01-03 03:41:55] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:41:55] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:41:55] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:41:55] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:41:55] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:41:56] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz~edotco C1 & C4'
+[2026-01-03 03:41:56] [DEBUG] : Verifying chat - Expected: 'Jazz~edotco C1 & C4', Got: 'Jazz~edotco C1 & C4'
+[2026-01-03 03:41:56] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:41:58] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:41:58] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:41:58] [INFO] Clicked export button
+[2026-01-03 03:41:59] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:41:59] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:41:59] [SUCCESS] Message sent successfully to Jazz~edotco C1 & C4
+[2026-01-03 03:41:59] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:41:59] [INFO] Attempting to send message to: MBU C1-LHR-04
+[2026-01-03 03:41:59] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:41:59] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:41:59] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU C1-LHR-04'
+[2026-01-03 03:41:59] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:42:00] [INFO] Waiting for export dialog...
+[2026-01-03 03:42:00] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:42:00] [INFO] Clicking OK to start export...
+[2026-01-03 03:42:00] [INFO] Waiting for file download...
+[2026-01-03 03:42:01] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'MBU C1-LHR-04'
+[2026-01-03 03:42:01] [DEBUG] : Verifying chat - Expected: 'MBU C1-LHR-04', Got: 'MBU C1-LHR-04'
+[2026-01-03 03:42:01] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:42:02] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:42:02] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034200457.xlsx
+[2026-01-03 03:42:02] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034200457.xlsx
+[2026-01-03 03:42:02] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:42:03] [INFO] Processed 209 alarms from C:\wd\Autok\exports\CurrentAlarms20260103034200457.xlsx
+[2026-01-03 03:42:03] [INFO] Processed 209 alarms from All Alarms
+[2026-01-03 03:42:03] [INFO] Found 209 alarms from All Alarms (195 new)
+[2026-01-03 03:42:04] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:42:07] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:42:07] [INFO] Checking portal: RF Unit
+[2026-01-03 03:42:07] [INFO] Exporting alarms from RF Unit...
+[2026-01-03 03:42:07] [SUCCESS] Message sent successfully to MBU C1-LHR-04
+[2026-01-03 03:42:07] [INFO] Switched to RF-Unit AR using handle 9369D677
+[2026-01-03 03:42:07] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:42:11] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:42:11] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:42:11] [INFO] Finding export button for RF-Unit AR...
+[2026-01-03 03:42:11] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:42:12] [INFO] Cached 16 chats
+[2026-01-03 03:42:12] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:42:12] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:42:13] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz~edotco C1 & C4'
+[2026-01-03 03:42:13] [DEBUG] : Verifying chat - Expected: 'Jazz~edotco C1 & C4', Got: 'Jazz~edotco C1 & C4'
+[2026-01-03 03:42:13] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:42:15] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:42:15] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:42:16] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:42:16] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:42:16] [SUCCESS] Message sent successfully to Jazz~edotco C1 & C4
+[2026-01-03 03:42:17] [INFO] Attempting to send message to: MBU-C1-LHR-07
+[2026-01-03 03:42:17] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:42:17] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:42:17] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU-C1-LHR-07'
+[2026-01-03 03:42:17] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:42:18] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'MBU-C1-LHR-07'
+[2026-01-03 03:42:18] [DEBUG] : Verifying chat - Expected: 'MBU-C1-LHR-07', Got: 'MBU-C1-LHR-07'
+[2026-01-03 03:42:18] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:42:18] [INFO] Clicked export button
+[2026-01-03 03:42:19] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:42:19] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:42:19] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:42:20] [INFO] Waiting for export dialog...
+[2026-01-03 03:42:20] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:42:21] [INFO] Clicking OK to start export...
+[2026-01-03 03:42:21] [INFO] Waiting for file download...
+[2026-01-03 03:42:21] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:42:21] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:42:21] [SUCCESS] Message sent successfully to MBU-C1-LHR-07
+[2026-01-03 03:42:21] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:42:21] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:42:21] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:42:21] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:42:21] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:42:22] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034220618.xlsx
+[2026-01-03 03:42:22] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034220618.xlsx
+[2026-01-03 03:42:22] [INFO] Processed 41 alarms from C:\wd\Autok\exports\CurrentAlarms20260103034220618.xlsx
+[2026-01-03 03:42:22] [INFO] Processed 41 alarms from RF Unit
+[2026-01-03 03:42:22] [INFO] Filtered out 1 alarms from ignored sites
+[2026-01-03 03:42:22] [INFO] Found 40 alarms from RF Unit (0 new)
+[2026-01-03 03:42:23] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz~edotco C1 & C4'
+[2026-01-03 03:42:23] [DEBUG] : Verifying chat - Expected: 'Jazz~edotco C1 & C4', Got: 'Jazz~edotco C1 & C4'
+[2026-01-03 03:42:23] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:42:24] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:42:24] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:42:24] [INFO] Checking portal: NodeB Cell
+[2026-01-03 03:42:24] [INFO] Exporting alarms from NodeB Cell...
+[2026-01-03 03:42:24] [INFO] Switched to C1 NodeB UMTS Cell Unavailable using handle 5C7929C7
+[2026-01-03 03:42:24] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:42:24] [INFO] Finding export button for C1 NodeB UMTS Cell Unavailable...
+[2026-01-03 03:42:26] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:42:26] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:42:26] [SUCCESS] Message sent successfully to Jazz~edotco C1 & C4
+[2026-01-03 03:42:26] [INFO] Attempting to send message to: Jazz Enfrashare MPL C1
+[2026-01-03 03:42:26] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:42:26] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:42:26] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz Enfrashare MPL C1'
+[2026-01-03 03:42:26] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:42:28] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz Enfrashare MPL C1'
+[2026-01-03 03:42:28] [DEBUG] : Verifying chat - Expected: 'Jazz Enfrashare MPL C1', Got: 'Jazz Enfrashare MPL C1'
+[2026-01-03 03:42:28] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:42:29] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:42:29] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:42:30] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:42:30] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:42:30] [SUCCESS] Message sent successfully to Jazz Enfrashare MPL C1
+[2026-01-03 03:42:31] [INFO] Clicked export button
+[2026-01-03 03:42:32] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:42:34] [INFO] Waiting for export dialog...
+[2026-01-03 03:42:34] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:42:34] [INFO] Clicking OK to start export...
+[2026-01-03 03:42:34] [INFO] Waiting for file download...
+[2026-01-03 03:42:36] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034233915.xlsx
+[2026-01-03 03:42:36] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034233915.xlsx
+[2026-01-03 03:42:36] [INFO] Processed 30 alarms from C:\wd\Autok\exports\CurrentAlarms20260103034233915.xlsx
+[2026-01-03 03:42:36] [INFO] Processed 30 alarms from NodeB Cell
+[2026-01-03 03:42:36] [INFO] Filtered out 1 alarms from ignored sites
+[2026-01-03 03:42:36] [INFO] Found 29 alarms from NodeB Cell (0 new)
+[2026-01-03 03:42:38] [INFO] Total new alarms this cycle: 195
+[2026-01-03 03:42:38] [INFO] Waiting 0s for next check...
+[2026-01-03 03:42:38] [INFO] Starting portal check cycle...
+[2026-01-03 03:42:38] [INFO] Checking portal: CSL Fault
+[2026-01-03 03:42:38] [INFO] Exporting alarms from CSL Fault...
+[2026-01-03 03:42:38] [INFO] Switched to C1 OML Fault using handle A901BFC9
+[2026-01-03 03:42:38] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:42:38] [INFO] Finding export button for C1 OML Fault...
+[2026-01-03 03:42:45] [INFO] Clicked export button
+[2026-01-03 03:42:46] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:42:47] [INFO] Waiting for export dialog...
+[2026-01-03 03:42:47] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:42:47] [INFO] Clicking OK to start export...
+[2026-01-03 03:42:47] [INFO] Waiting for file download...
+[2026-01-03 03:42:48] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034247394.xlsx
+[2026-01-03 03:42:48] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034247394.xlsx
+[2026-01-03 03:42:48] [INFO] Processed 7 alarms from C:\wd\Autok\exports\CurrentAlarms20260103034247394.xlsx
+[2026-01-03 03:42:48] [INFO] Processed 7 alarms from CSL Fault
+[2026-01-03 03:42:48] [INFO] INSTANT ALARM: New/updated site LHR5474 (01-03-2026 03:42:31) found for CSL Fault in C1-LHR-05
+[2026-01-03 03:42:48] [INFO] INSTANT ALARM: New/updated site LHR1248 (01-03-2026 03:41:57) found for CSL Fault in C1-LHR-05
+[2026-01-03 03:42:48] [INFO] INSTANT ALARM: New/updated site LHR8952 (01-03-2026 03:02:14) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:42:48] [INFO] INSTANT ALARM: New/updated site LHR6474 (01-03-2026 02:56:43) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:42:48] [INFO] INSTANT ALARM: New/updated site LHR5210 (01-03-2026 02:49:10) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:42:48] [INFO] INSTANT ALARM: New/updated site LHR9873 (01-03-2026 02:06:31) found for CSL Fault in C1-LHR-04
+[2026-01-03 03:42:48] [INFO] INSTANT ALARM: New/updated site RUR0558 (01-03-2026 01:56:24) found for CSL Fault in C1-LHR-05
+[2026-01-03 03:42:48] [INFO] Triggering immediate send for C1-LHR-05 | csl fault | Count: 3
+[2026-01-03 03:42:48] [INFO] Queued message for MBU C1 LHR-05: CSL Fault (priority 1)
+[2026-01-03 03:42:48] [INFO] Ordered batch queued: CSL Fault | Count: 3 | Group: MBU C1 LHR-05
+[2026-01-03 03:42:48] [INFO] Attempting to send message to: MBU C1 LHR-05
+[2026-01-03 03:42:49] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:42:49] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:42:49] [INFO] Ordered batch queued: CSL Fault | Count: 2 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:42:49] [INFO] Triggering immediate send for C1-LHR-04 | csl fault | Count: 1
+[2026-01-03 03:42:49] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:42:49] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU C1 LHR-05'
+[2026-01-03 03:42:49] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:42:49] [INFO] Queued message for MBU C1-LHR-04: CSL Fault (priority 1)
+[2026-01-03 03:42:49] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: MBU C1-LHR-04
+[2026-01-03 03:42:49] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:42:49] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:42:49] [INFO] Triggering immediate send for C1-LHR-07 | csl fault | Count: 3
+[2026-01-03 03:42:49] [INFO] Queued message for MBU-C1-LHR-07: CSL Fault (priority 1)
+[2026-01-03 03:42:49] [INFO] Ordered batch queued: CSL Fault | Count: 3 | Group: MBU-C1-LHR-07
+[2026-01-03 03:42:49] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:42:49] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:42:49] [INFO] Queued message for Jazz Enfrashare MPL C1: CSL Fault (priority 1)
+[2026-01-03 03:42:49] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz Enfrashare MPL C1
+[2026-01-03 03:42:49] [INFO] Found 7 alarms from CSL Fault (2 new)
+[2026-01-03 03:42:50] [INFO] Checking portal: All Alarms
+[2026-01-03 03:42:50] [INFO] Exporting alarms from All Alarms...
+[2026-01-03 03:42:50] [INFO] Switched to c1-c2 All Alarm using handle D64E2E0D
+[2026-01-03 03:42:50] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:42:50] [INFO] Finding export button for c1-c2 All Alarm...
+[2026-01-03 03:42:50] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'MBU C1 LHR-05'
+[2026-01-03 03:42:50] [DEBUG] : Verifying chat - Expected: 'MBU C1 LHR-05', Got: 'MBU C1 LHR-05'
+[2026-01-03 03:42:50] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:42:52] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:42:52] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:42:53] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:42:53] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:42:53] [SUCCESS] Message sent successfully to MBU C1 LHR-05
+[2026-01-03 03:42:53] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:42:53] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:42:53] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:42:53] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:42:53] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:42:55] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz~edotco C1 & C4'
+[2026-01-03 03:42:55] [DEBUG] : Verifying chat - Expected: 'Jazz~edotco C1 & C4', Got: 'Jazz~edotco C1 & C4'
+[2026-01-03 03:42:55] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:42:56] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:42:56] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:42:57] [INFO] Clicked export button
+[2026-01-03 03:42:58] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:42:58] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:42:58] [SUCCESS] Message sent successfully to Jazz~edotco C1 & C4
+[2026-01-03 03:42:58] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:42:58] [INFO] Attempting to send message to: MBU C1-LHR-04
+[2026-01-03 03:42:58] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:42:58] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:42:58] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU C1-LHR-04'
+[2026-01-03 03:42:58] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:42:59] [INFO] Waiting for export dialog...
+[2026-01-03 03:42:59] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:42:59] [INFO] Clicking OK to start export...
+[2026-01-03 03:42:59] [INFO] Waiting for file download...
+[2026-01-03 03:43:00] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'MBU C1-LHR-04'
+[2026-01-03 03:43:00] [DEBUG] : Verifying chat - Expected: 'MBU C1-LHR-04', Got: 'MBU C1-LHR-04'
+[2026-01-03 03:43:00] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:43:01] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034259224.xlsx
+[2026-01-03 03:43:01] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034259224.xlsx
+[2026-01-03 03:43:01] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:43:01] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:43:02] [INFO] Processed 209 alarms from C:\wd\Autok\exports\CurrentAlarms20260103034259224.xlsx
+[2026-01-03 03:43:02] [INFO] Processed 209 alarms from All Alarms
+[2026-01-03 03:43:02] [INFO] Found 209 alarms from All Alarms (205 new)
+[2026-01-03 03:43:03] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:43:06] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:43:11] [INFO] Checking portal: RF Unit
+[2026-01-03 03:43:11] [SUCCESS] Message sent successfully to MBU C1-LHR-04
+[2026-01-03 03:43:11] [INFO] Exporting alarms from RF Unit...
+[2026-01-03 03:43:11] [INFO] Switched to RF-Unit AR using handle 9369D677
+[2026-01-03 03:43:11] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:43:11] [INFO] Finding export button for RF-Unit AR...
+[2026-01-03 03:43:11] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:43:11] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:43:11] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:43:11] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:43:11] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:43:13] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz~edotco C1 & C4'
+[2026-01-03 03:43:13] [DEBUG] : Verifying chat - Expected: 'Jazz~edotco C1 & C4', Got: 'Jazz~edotco C1 & C4'
+[2026-01-03 03:43:13] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:43:14] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:43:14] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:43:15] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:43:15] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:43:15] [SUCCESS] Message sent successfully to Jazz~edotco C1 & C4
+[2026-01-03 03:43:16] [INFO] Attempting to send message to: MBU-C1-LHR-07
+[2026-01-03 03:43:16] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:43:16] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:43:16] [INFO] Cached 16 chats
+[2026-01-03 03:43:16] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU-C1-LHR-07'
+[2026-01-03 03:43:16] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:43:18] [INFO] Clicked export button
+[2026-01-03 03:43:18] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'MBU-C1-LHR-07'
+[2026-01-03 03:43:18] [DEBUG] : Verifying chat - Expected: 'MBU-C1-LHR-07', Got: 'MBU-C1-LHR-07'
+[2026-01-03 03:43:18] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:43:19] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:43:19] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:43:19] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:43:20] [INFO] Waiting for export dialog...
+[2026-01-03 03:43:20] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:43:20] [INFO] Clicking OK to start export...
+[2026-01-03 03:43:20] [INFO] Waiting for file download...
+[2026-01-03 03:43:21] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:43:21] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:43:21] [SUCCESS] Message sent successfully to MBU-C1-LHR-07
+[2026-01-03 03:43:21] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034319961.xlsx
+[2026-01-03 03:43:21] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034319961.xlsx
+[2026-01-03 03:43:21] [INFO] Processed 41 alarms from C:\wd\Autok\exports\CurrentAlarms20260103034319961.xlsx
+[2026-01-03 03:43:21] [INFO] Processed 41 alarms from RF Unit
+[2026-01-03 03:43:21] [INFO] Filtered out 1 alarms from ignored sites
+[2026-01-03 03:43:21] [INFO] Found 40 alarms from RF Unit (0 new)
+[2026-01-03 03:43:21] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:43:22] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:43:24] [INFO] Checking portal: NodeB Cell
+[2026-01-03 03:43:24] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:43:24] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:43:24] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:43:24] [INFO] Exporting alarms from NodeB Cell...
+[2026-01-03 03:43:24] [INFO] Switched to C1 NodeB UMTS Cell Unavailable using handle 5C7929C7
+[2026-01-03 03:43:24] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:43:24] [INFO] Finding export button for C1 NodeB UMTS Cell Unavailable...
+[2026-01-03 03:43:25] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz~edotco C1 & C4'
+[2026-01-03 03:43:25] [DEBUG] : Verifying chat - Expected: 'Jazz~edotco C1 & C4', Got: 'Jazz~edotco C1 & C4'
+[2026-01-03 03:43:25] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:43:27] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:43:27] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:43:28] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:43:28] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:43:28] [SUCCESS] Message sent successfully to Jazz~edotco C1 & C4
+[2026-01-03 03:43:28] [INFO] Attempting to send message to: Jazz Enfrashare MPL C1
+[2026-01-03 03:43:28] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:43:28] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:43:28] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz Enfrashare MPL C1'
+[2026-01-03 03:43:28] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:43:30] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz Enfrashare MPL C1'
+[2026-01-03 03:43:30] [DEBUG] : Verifying chat - Expected: 'Jazz Enfrashare MPL C1', Got: 'Jazz Enfrashare MPL C1'
+[2026-01-03 03:43:30] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:43:31] [INFO] Clicked export button
+[2026-01-03 03:43:31] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:43:31] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:43:32] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:43:33] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:43:33] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:43:33] [SUCCESS] Message sent successfully to Jazz Enfrashare MPL C1
+[2026-01-03 03:43:33] [INFO] Waiting for export dialog...
+[2026-01-03 03:43:33] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:43:33] [INFO] Clicking OK to start export...
+[2026-01-03 03:43:33] [INFO] Waiting for file download...
+[2026-01-03 03:43:35] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034333034.xlsx
+[2026-01-03 03:43:35] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034333034.xlsx
+[2026-01-03 03:43:35] [INFO] Processed 32 alarms from C:\wd\Autok\exports\CurrentAlarms20260103034333034.xlsx
+[2026-01-03 03:43:35] [INFO] Processed 32 alarms from NodeB Cell
+[2026-01-03 03:43:35] [INFO] Filtered out 1 alarms from ignored sites
+[2026-01-03 03:43:35] [INFO] Found 31 alarms from NodeB Cell (25 new)
+[2026-01-03 03:43:37] [INFO] Total new alarms this cycle: 232
+[2026-01-03 03:43:37] [INFO] Waiting 0s for next check...
+[2026-01-03 03:43:37] [INFO] Starting portal check cycle...
+[2026-01-03 03:43:37] [INFO] Checking portal: CSL Fault
+[2026-01-03 03:43:37] [INFO] Exporting alarms from CSL Fault...
+[2026-01-03 03:43:37] [INFO] Switched to C1 OML Fault using handle A901BFC9
+[2026-01-03 03:43:37] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:43:37] [INFO] Finding export button for C1 OML Fault...
+[2026-01-03 03:43:44] [INFO] Clicked export button
+[2026-01-03 03:43:45] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:43:47] [INFO] Waiting for export dialog...
+[2026-01-03 03:43:47] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:43:47] [INFO] Clicking OK to start export...
+[2026-01-03 03:43:47] [INFO] Waiting for file download...
+[2026-01-03 03:43:48] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034346723.xlsx
+[2026-01-03 03:43:48] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034346723.xlsx
+[2026-01-03 03:43:48] [INFO] Processed 7 alarms from C:\wd\Autok\exports\CurrentAlarms20260103034346723.xlsx
+[2026-01-03 03:43:48] [INFO] Processed 7 alarms from CSL Fault
+[2026-01-03 03:43:48] [INFO] INSTANT ALARM: New/updated site LHR5474 (01-03-2026 03:42:31) found for CSL Fault in C1-LHR-05
+[2026-01-03 03:43:48] [INFO] INSTANT ALARM: New/updated site LHR1248 (01-03-2026 03:41:57) found for CSL Fault in C1-LHR-05
+[2026-01-03 03:43:48] [INFO] INSTANT ALARM: New/updated site LHR8952 (01-03-2026 03:02:14) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:43:48] [INFO] INSTANT ALARM: New/updated site LHR6474 (01-03-2026 02:56:43) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:43:48] [INFO] INSTANT ALARM: New/updated site LHR5210 (01-03-2026 02:49:10) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:43:48] [INFO] INSTANT ALARM: New/updated site LHR9873 (01-03-2026 02:06:31) found for CSL Fault in C1-LHR-04
+[2026-01-03 03:43:48] [INFO] INSTANT ALARM: New/updated site RUR0558 (01-03-2026 01:56:24) found for CSL Fault in C1-LHR-05
+[2026-01-03 03:43:48] [INFO] Triggering immediate send for C1-LHR-05 | csl fault | Count: 3
+[2026-01-03 03:43:48] [INFO] Queued message for MBU C1 LHR-05: CSL Fault (priority 1)
+[2026-01-03 03:43:48] [INFO] Ordered batch queued: CSL Fault | Count: 3 | Group: MBU C1 LHR-05
+[2026-01-03 03:43:48] [INFO] Attempting to send message to: MBU C1 LHR-05
+[2026-01-03 03:43:48] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:43:48] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:43:48] [INFO] Ordered batch queued: CSL Fault | Count: 2 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:43:48] [INFO] Triggering immediate send for C1-LHR-04 | csl fault | Count: 1
+[2026-01-03 03:43:48] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:43:48] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU C1 LHR-05'
+[2026-01-03 03:43:48] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:43:48] [INFO] Queued message for MBU C1-LHR-04: CSL Fault (priority 1)
+[2026-01-03 03:43:48] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: MBU C1-LHR-04
+[2026-01-03 03:43:48] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:43:48] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:43:48] [INFO] Triggering immediate send for C1-LHR-07 | csl fault | Count: 3
+[2026-01-03 03:43:48] [INFO] Queued message for MBU-C1-LHR-07: CSL Fault (priority 1)
+[2026-01-03 03:43:48] [INFO] Ordered batch queued: CSL Fault | Count: 3 | Group: MBU-C1-LHR-07
+[2026-01-03 03:43:48] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:43:48] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:43:48] [INFO] Queued message for Jazz Enfrashare MPL C1: CSL Fault (priority 1)
+[2026-01-03 03:43:48] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz Enfrashare MPL C1
+[2026-01-03 03:43:48] [INFO] Found 7 alarms from CSL Fault (0 new)
+[2026-01-03 03:43:48] [INFO] Checking portal: All Alarms
+[2026-01-03 03:43:49] [INFO] Exporting alarms from All Alarms...
+[2026-01-03 03:43:49] [INFO] Switched to c1-c2 All Alarm using handle D64E2E0D
+[2026-01-03 03:43:49] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:43:49] [INFO] Finding export button for c1-c2 All Alarm...
+[2026-01-03 03:43:49] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'MBU C1 LHR-05'
+[2026-01-03 03:43:49] [DEBUG] : Verifying chat - Expected: 'MBU C1 LHR-05', Got: 'MBU C1 LHR-05'
+[2026-01-03 03:43:49] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:43:51] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:43:51] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:43:52] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:43:52] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:43:52] [SUCCESS] Message sent successfully to MBU C1 LHR-05
+[2026-01-03 03:43:53] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:43:53] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:43:53] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:43:53] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:43:53] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:43:54] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz~edotco C1 & C4'
+[2026-01-03 03:43:54] [DEBUG] : Verifying chat - Expected: 'Jazz~edotco C1 & C4', Got: 'Jazz~edotco C1 & C4'
+[2026-01-03 03:43:54] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:43:56] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:43:56] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:43:56] [INFO] Clicked export button
+[2026-01-03 03:43:57] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:43:57] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:43:57] [SUCCESS] Message sent successfully to Jazz~edotco C1 & C4
+[2026-01-03 03:43:57] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:43:58] [INFO] Attempting to send message to: MBU C1-LHR-04
+[2026-01-03 03:43:58] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:43:58] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:43:58] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU C1-LHR-04'
+[2026-01-03 03:43:58] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:43:58] [INFO] Waiting for export dialog...
+[2026-01-03 03:43:58] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:43:59] [INFO] Clicking OK to start export...
+[2026-01-03 03:43:59] [INFO] Waiting for file download...
+[2026-01-03 03:43:59] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'MBU C1-LHR-04'
+[2026-01-03 03:43:59] [DEBUG] : Verifying chat - Expected: 'MBU C1-LHR-04', Got: 'MBU C1-LHR-04'
+[2026-01-03 03:43:59] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:44:01] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:44:01] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:44:01] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034358711.xlsx
+[2026-01-03 03:44:01] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034358711.xlsx
+[2026-01-03 03:44:01] [INFO] Processed 208 alarms from C:\wd\Autok\exports\CurrentAlarms20260103034358711.xlsx
+[2026-01-03 03:44:01] [INFO] Processed 208 alarms from All Alarms
+[2026-01-03 03:44:01] [INFO] Found 208 alarms from All Alarms (188 new)
+[2026-01-03 03:44:02] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:44:05] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:44:10] [INFO] Checking portal: RF Unit
+[2026-01-03 03:44:10] [INFO] Exporting alarms from RF Unit...
+[2026-01-03 03:44:10] [SUCCESS] Message sent successfully to MBU C1-LHR-04
+[2026-01-03 03:44:10] [INFO] Switched to RF-Unit AR using handle 9369D677
+[2026-01-03 03:44:10] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:44:10] [INFO] Finding export button for RF-Unit AR...
+[2026-01-03 03:44:10] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:44:10] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:44:10] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:44:10] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:44:10] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:44:12] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz~edotco C1 & C4'
+[2026-01-03 03:44:12] [DEBUG] : Verifying chat - Expected: 'Jazz~edotco C1 & C4', Got: 'Jazz~edotco C1 & C4'
+[2026-01-03 03:44:12] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:44:13] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:44:13] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:44:15] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:44:15] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:44:15] [SUCCESS] Message sent successfully to Jazz~edotco C1 & C4
+[2026-01-03 03:44:15] [INFO] Attempting to send message to: MBU-C1-LHR-07
+[2026-01-03 03:44:15] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:44:15] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:44:15] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU-C1-LHR-07'
+[2026-01-03 03:44:15] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:44:17] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'MBU-C1-LHR-07'
+[2026-01-03 03:44:17] [DEBUG] : Verifying chat - Expected: 'MBU-C1-LHR-07', Got: 'MBU-C1-LHR-07'
+[2026-01-03 03:44:17] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:44:17] [INFO] Clicked export button
+[2026-01-03 03:44:18] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:44:18] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:44:18] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:44:19] [INFO] Waiting for export dialog...
+[2026-01-03 03:44:19] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:44:19] [INFO] Clicking OK to start export...
+[2026-01-03 03:44:19] [INFO] Waiting for file download...
+[2026-01-03 03:44:19] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:44:19] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:44:19] [SUCCESS] Message sent successfully to MBU-C1-LHR-07
+[2026-01-03 03:44:20] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:44:20] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:44:20] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:44:20] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034419046.xlsx
+[2026-01-03 03:44:20] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034419046.xlsx
+[2026-01-03 03:44:20] [INFO] Processed 42 alarms from C:\wd\Autok\exports\CurrentAlarms20260103034419046.xlsx
+[2026-01-03 03:44:20] [INFO] Processed 42 alarms from RF Unit
+[2026-01-03 03:44:20] [INFO] Filtered out 1 alarms from ignored sites
+[2026-01-03 03:44:20] [INFO] Found 41 alarms from RF Unit (8 new)
+[2026-01-03 03:44:20] [INFO] Cached 16 chats
+[2026-01-03 03:44:21] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:44:21] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:44:22] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz~edotco C1 & C4'
+[2026-01-03 03:44:22] [DEBUG] : Verifying chat - Expected: 'Jazz~edotco C1 & C4', Got: 'Jazz~edotco C1 & C4'
+[2026-01-03 03:44:22] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:44:23] [INFO] Checking portal: NodeB Cell
+[2026-01-03 03:44:23] [INFO] Exporting alarms from NodeB Cell...
+[2026-01-03 03:44:23] [INFO] Switched to C1 NodeB UMTS Cell Unavailable using handle 5C7929C7
+[2026-01-03 03:44:23] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:44:23] [INFO] Finding export button for C1 NodeB UMTS Cell Unavailable...
+[2026-01-03 03:44:24] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:44:24] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:44:25] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:44:25] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:44:25] [SUCCESS] Message sent successfully to Jazz~edotco C1 & C4
+[2026-01-03 03:44:26] [INFO] Attempting to send message to: Jazz Enfrashare MPL C1
+[2026-01-03 03:44:26] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:44:26] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:44:26] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz Enfrashare MPL C1'
+[2026-01-03 03:44:26] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:44:27] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz Enfrashare MPL C1'
+[2026-01-03 03:44:27] [DEBUG] : Verifying chat - Expected: 'Jazz Enfrashare MPL C1', Got: 'Jazz Enfrashare MPL C1'
+[2026-01-03 03:44:27] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:44:29] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:44:29] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:44:30] [INFO] Clicked export button
+[2026-01-03 03:44:30] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:44:30] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:44:30] [SUCCESS] Message sent successfully to Jazz Enfrashare MPL C1
+[2026-01-03 03:44:31] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:44:32] [INFO] Waiting for export dialog...
+[2026-01-03 03:44:32] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:44:32] [INFO] Clicking OK to start export...
+[2026-01-03 03:44:32] [INFO] Waiting for file download...
+[2026-01-03 03:44:34] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034432465.xlsx
+[2026-01-03 03:44:34] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034432465.xlsx
+[2026-01-03 03:44:35] [INFO] Processed 32 alarms from C:\wd\Autok\exports\CurrentAlarms20260103034432465.xlsx
+[2026-01-03 03:44:35] [INFO] Processed 32 alarms from NodeB Cell
+[2026-01-03 03:44:35] [INFO] Filtered out 1 alarms from ignored sites
+[2026-01-03 03:44:35] [INFO] Found 31 alarms from NodeB Cell (0 new)
+[2026-01-03 03:44:37] [INFO] Total new alarms this cycle: 196
+[2026-01-03 03:44:37] [INFO] Waiting 0s for next check...
+[2026-01-03 03:44:37] [INFO] Starting portal check cycle...
+[2026-01-03 03:44:37] [INFO] Checking portal: CSL Fault
+[2026-01-03 03:44:37] [INFO] Exporting alarms from CSL Fault...
+[2026-01-03 03:44:37] [INFO] Switched to C1 OML Fault using handle A901BFC9
+[2026-01-03 03:44:37] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:44:37] [INFO] Finding export button for C1 OML Fault...
+[2026-01-03 03:44:44] [INFO] Clicked export button
+[2026-01-03 03:44:45] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:44:46] [INFO] Waiting for export dialog...
+[2026-01-03 03:44:46] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:44:46] [INFO] Clicking OK to start export...
+[2026-01-03 03:44:46] [INFO] Waiting for file download...
+[2026-01-03 03:44:47] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034446017.xlsx
+[2026-01-03 03:44:47] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034446017.xlsx
+[2026-01-03 03:44:47] [INFO] Processed 6 alarms from C:\wd\Autok\exports\CurrentAlarms20260103034446017.xlsx
+[2026-01-03 03:44:47] [INFO] Processed 6 alarms from CSL Fault
+[2026-01-03 03:44:47] [INFO] INSTANT ALARM: New/updated site LHR1248 (01-03-2026 03:41:57) found for CSL Fault in C1-LHR-05
+[2026-01-03 03:44:47] [INFO] INSTANT ALARM: New/updated site LHR8952 (01-03-2026 03:02:14) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:44:47] [INFO] INSTANT ALARM: New/updated site LHR6474 (01-03-2026 02:56:43) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:44:47] [INFO] INSTANT ALARM: New/updated site LHR5210 (01-03-2026 02:49:10) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:44:47] [INFO] INSTANT ALARM: New/updated site LHR9873 (01-03-2026 02:06:31) found for CSL Fault in C1-LHR-04
+[2026-01-03 03:44:47] [INFO] INSTANT ALARM: New/updated site RUR0558 (01-03-2026 01:56:24) found for CSL Fault in C1-LHR-05
+[2026-01-03 03:44:47] [INFO] Triggering immediate send for C1-LHR-05 | csl fault | Count: 2
+[2026-01-03 03:44:47] [INFO] Queued message for MBU C1 LHR-05: CSL Fault (priority 1)
+[2026-01-03 03:44:47] [INFO] Ordered batch queued: CSL Fault | Count: 2 | Group: MBU C1 LHR-05
+[2026-01-03 03:44:47] [INFO] Attempting to send message to: MBU C1 LHR-05
+[2026-01-03 03:44:47] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:44:47] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:44:47] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:44:47] [INFO] Triggering immediate send for C1-LHR-04 | csl fault | Count: 1
+[2026-01-03 03:44:47] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:44:47] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU C1 LHR-05'
+[2026-01-03 03:44:47] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:44:47] [INFO] Queued message for MBU C1-LHR-04: CSL Fault (priority 1)
+[2026-01-03 03:44:47] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: MBU C1-LHR-04
+[2026-01-03 03:44:47] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:44:47] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:44:47] [INFO] Triggering immediate send for C1-LHR-07 | csl fault | Count: 3
+[2026-01-03 03:44:47] [INFO] Queued message for MBU-C1-LHR-07: CSL Fault (priority 1)
+[2026-01-03 03:44:47] [INFO] Ordered batch queued: CSL Fault | Count: 3 | Group: MBU-C1-LHR-07
+[2026-01-03 03:44:47] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:44:47] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:44:47] [INFO] Queued message for Jazz Enfrashare MPL C1: CSL Fault (priority 1)
+[2026-01-03 03:44:47] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz Enfrashare MPL C1
+[2026-01-03 03:44:47] [INFO] Found 6 alarms from CSL Fault (1 new)
+[2026-01-03 03:44:49] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'MBU C1 LHR-05'
+[2026-01-03 03:44:49] [DEBUG] : Verifying chat - Expected: 'MBU C1 LHR-05', Got: 'MBU C1 LHR-05'
+[2026-01-03 03:44:49] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:44:49] [INFO] Checking portal: All Alarms
+[2026-01-03 03:44:49] [INFO] Exporting alarms from All Alarms...
+[2026-01-03 03:44:49] [INFO] Switched to c1-c2 All Alarm using handle D64E2E0D
+[2026-01-03 03:44:49] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:44:49] [INFO] Finding export button for c1-c2 All Alarm...
+[2026-01-03 03:44:50] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:44:50] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:44:51] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:44:51] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:44:51] [SUCCESS] Message sent successfully to MBU C1 LHR-05
+[2026-01-03 03:44:52] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:44:52] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:44:52] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:44:52] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:44:52] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:44:53] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz~edotco C1 & C4'
+[2026-01-03 03:44:53] [DEBUG] : Verifying chat - Expected: 'Jazz~edotco C1 & C4', Got: 'Jazz~edotco C1 & C4'
+[2026-01-03 03:44:53] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:44:55] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:44:55] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:44:56] [INFO] Clicked export button
+[2026-01-03 03:44:56] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:44:56] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:44:56] [SUCCESS] Message sent successfully to Jazz~edotco C1 & C4
+[2026-01-03 03:44:57] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:44:57] [INFO] Attempting to send message to: MBU C1-LHR-04
+[2026-01-03 03:44:57] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:44:57] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:44:57] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU C1-LHR-04'
+[2026-01-03 03:44:57] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:44:58] [INFO] Waiting for export dialog...
+[2026-01-03 03:44:58] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:44:58] [INFO] Clicking OK to start export...
+[2026-01-03 03:44:58] [INFO] Waiting for file download...
+[2026-01-03 03:44:58] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'MBU C1-LHR-04'
+[2026-01-03 03:44:58] [DEBUG] : Verifying chat - Expected: 'MBU C1-LHR-04', Got: 'MBU C1-LHR-04'
+[2026-01-03 03:44:58] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:45:00] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:45:00] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:45:00] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034457977.xlsx
+[2026-01-03 03:45:00] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034457977.xlsx
+[2026-01-03 03:45:00] [INFO] Processed 209 alarms from C:\wd\Autok\exports\CurrentAlarms20260103034457977.xlsx
+[2026-01-03 03:45:00] [INFO] Processed 209 alarms from All Alarms
+[2026-01-03 03:45:00] [INFO] Found 209 alarms from All Alarms (140 new)
+[2026-01-03 03:45:01] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:45:04] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:45:09] [INFO] Checking portal: RF Unit
+[2026-01-03 03:45:09] [INFO] Exporting alarms from RF Unit...
+[2026-01-03 03:45:09] [SUCCESS] Message sent successfully to MBU C1-LHR-04
+[2026-01-03 03:45:09] [INFO] Switched to RF-Unit AR using handle 9369D677
+[2026-01-03 03:45:09] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:45:09] [INFO] Finding export button for RF-Unit AR...
+[2026-01-03 03:45:09] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:45:09] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:45:09] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:45:09] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:45:09] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:45:11] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz~edotco C1 & C4'
+[2026-01-03 03:45:11] [DEBUG] : Verifying chat - Expected: 'Jazz~edotco C1 & C4', Got: 'Jazz~edotco C1 & C4'
+[2026-01-03 03:45:11] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:45:12] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:45:12] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:45:14] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:45:14] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:45:14] [SUCCESS] Message sent successfully to Jazz~edotco C1 & C4
+[2026-01-03 03:45:14] [INFO] Attempting to send message to: MBU-C1-LHR-07
+[2026-01-03 03:45:14] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:45:14] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:45:14] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU-C1-LHR-07'
+[2026-01-03 03:45:14] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:45:16] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'MBU-C1-LHR-07'
+[2026-01-03 03:45:16] [DEBUG] : Verifying chat - Expected: 'MBU-C1-LHR-07', Got: 'MBU-C1-LHR-07'
+[2026-01-03 03:45:16] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:45:16] [INFO] Clicked export button
+[2026-01-03 03:45:17] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:45:17] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:45:17] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:45:18] [INFO] Waiting for export dialog...
+[2026-01-03 03:45:18] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:45:18] [INFO] Clicking OK to start export...
+[2026-01-03 03:45:18] [INFO] Waiting for file download...
+[2026-01-03 03:45:19] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:45:19] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:45:19] [SUCCESS] Message sent successfully to MBU-C1-LHR-07
+[2026-01-03 03:45:19] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:45:19] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:45:19] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:45:19] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:45:19] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:45:19] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034518264.xlsx
+[2026-01-03 03:45:19] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034518264.xlsx
+[2026-01-03 03:45:19] [INFO] Processed 42 alarms from C:\wd\Autok\exports\CurrentAlarms20260103034518264.xlsx
+[2026-01-03 03:45:19] [INFO] Processed 42 alarms from RF Unit
+[2026-01-03 03:45:19] [INFO] Filtered out 1 alarms from ignored sites
+[2026-01-03 03:45:19] [INFO] Found 41 alarms from RF Unit (0 new)
+[2026-01-03 03:45:21] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz~edotco C1 & C4'
+[2026-01-03 03:45:21] [DEBUG] : Verifying chat - Expected: 'Jazz~edotco C1 & C4', Got: 'Jazz~edotco C1 & C4'
+[2026-01-03 03:45:21] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:45:22] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:45:22] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:45:22] [INFO] Checking portal: NodeB Cell
+[2026-01-03 03:45:22] [INFO] Exporting alarms from NodeB Cell...
+[2026-01-03 03:45:22] [INFO] Switched to C1 NodeB UMTS Cell Unavailable using handle 5C7929C7
+[2026-01-03 03:45:22] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:45:22] [INFO] Finding export button for C1 NodeB UMTS Cell Unavailable...
+[2026-01-03 03:45:23] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:45:23] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:45:23] [SUCCESS] Message sent successfully to Jazz~edotco C1 & C4
+[2026-01-03 03:45:24] [INFO] Attempting to send message to: Jazz Enfrashare MPL C1
+[2026-01-03 03:45:24] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:45:24] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:45:24] [INFO] Cached 16 chats
+[2026-01-03 03:45:24] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz Enfrashare MPL C1'
+[2026-01-03 03:45:24] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:45:26] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz Enfrashare MPL C1'
+[2026-01-03 03:45:26] [DEBUG] : Verifying chat - Expected: 'Jazz Enfrashare MPL C1', Got: 'Jazz Enfrashare MPL C1'
+[2026-01-03 03:45:26] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:45:27] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:45:27] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:45:28] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:45:28] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:45:28] [SUCCESS] Message sent successfully to Jazz Enfrashare MPL C1
+[2026-01-03 03:45:29] [INFO] Clicked export button
+[2026-01-03 03:45:30] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:45:31] [INFO] Waiting for export dialog...
+[2026-01-03 03:45:31] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:45:31] [INFO] Clicking OK to start export...
+[2026-01-03 03:45:32] [INFO] Waiting for file download...
+[2026-01-03 03:45:34] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034531580.xlsx
+[2026-01-03 03:45:34] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034531580.xlsx
+[2026-01-03 03:45:34] [INFO] Processed 32 alarms from C:\wd\Autok\exports\CurrentAlarms20260103034531580.xlsx
+[2026-01-03 03:45:34] [INFO] Processed 32 alarms from NodeB Cell
+[2026-01-03 03:45:34] [INFO] Filtered out 1 alarms from ignored sites
+[2026-01-03 03:45:34] [INFO] Found 31 alarms from NodeB Cell (0 new)
+[2026-01-03 03:45:36] [INFO] Total new alarms this cycle: 141
+[2026-01-03 03:45:36] [INFO] Waiting 0s for next check...
+[2026-01-03 03:45:36] [INFO] Starting portal check cycle...
+[2026-01-03 03:45:36] [INFO] Checking portal: CSL Fault
+[2026-01-03 03:45:36] [INFO] Exporting alarms from CSL Fault...
+[2026-01-03 03:45:36] [INFO] Switched to C1 OML Fault using handle A901BFC9
+[2026-01-03 03:45:36] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:45:36] [INFO] Finding export button for C1 OML Fault...
+[2026-01-03 03:45:43] [INFO] Clicked export button
+[2026-01-03 03:45:44] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:45:45] [INFO] Waiting for export dialog...
+[2026-01-03 03:45:45] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:45:45] [INFO] Clicking OK to start export...
+[2026-01-03 03:45:45] [INFO] Waiting for file download...
+[2026-01-03 03:45:46] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034545209.xlsx
+[2026-01-03 03:45:46] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034545209.xlsx
+[2026-01-03 03:45:46] [INFO] Processed 5 alarms from C:\wd\Autok\exports\CurrentAlarms20260103034545209.xlsx
+[2026-01-03 03:45:46] [INFO] Processed 5 alarms from CSL Fault
+[2026-01-03 03:45:46] [INFO] INSTANT ALARM: New/updated site LHR1248 (01-03-2026 03:41:57) found for CSL Fault in C1-LHR-05
+[2026-01-03 03:45:46] [INFO] INSTANT ALARM: New/updated site LHR6474 (01-03-2026 02:56:43) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:45:46] [INFO] INSTANT ALARM: New/updated site LHR5210 (01-03-2026 02:49:10) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:45:46] [INFO] INSTANT ALARM: New/updated site LHR9873 (01-03-2026 02:06:31) found for CSL Fault in C1-LHR-04
+[2026-01-03 03:45:46] [INFO] INSTANT ALARM: New/updated site RUR0558 (01-03-2026 01:56:24) found for CSL Fault in C1-LHR-05
+[2026-01-03 03:45:46] [INFO] Triggering immediate send for C1-LHR-05 | csl fault | Count: 2
+[2026-01-03 03:45:46] [INFO] Queued message for MBU C1 LHR-05: CSL Fault (priority 1)
+[2026-01-03 03:45:46] [INFO] Ordered batch queued: CSL Fault | Count: 2 | Group: MBU C1 LHR-05
+[2026-01-03 03:45:46] [INFO] Attempting to send message to: MBU C1 LHR-05
+[2026-01-03 03:45:46] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:45:46] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:45:46] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:45:46] [INFO] Triggering immediate send for C1-LHR-04 | csl fault | Count: 1
+[2026-01-03 03:45:46] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:45:46] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU C1 LHR-05'
+[2026-01-03 03:45:46] [INFO] Queued message for MBU C1-LHR-04: CSL Fault (priority 1)
+[2026-01-03 03:45:46] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: MBU C1-LHR-04
+[2026-01-03 03:45:46] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:45:46] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:45:46] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:45:46] [INFO] Triggering immediate send for C1-LHR-07 | csl fault | Count: 2
+[2026-01-03 03:45:46] [INFO] Queued message for MBU-C1-LHR-07: CSL Fault (priority 1)
+[2026-01-03 03:45:46] [INFO] Ordered batch queued: CSL Fault | Count: 2 | Group: MBU-C1-LHR-07
+[2026-01-03 03:45:46] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:45:46] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:45:46] [INFO] Found 5 alarms from CSL Fault (4 new)
+[2026-01-03 03:45:48] [INFO] Checking portal: All Alarms
+[2026-01-03 03:45:48] [INFO] Exporting alarms from All Alarms...
+[2026-01-03 03:45:48] [INFO] Switched to c1-c2 All Alarm using handle D64E2E0D
+[2026-01-03 03:45:48] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:45:48] [INFO] Finding export button for c1-c2 All Alarm...
+[2026-01-03 03:45:48] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'MBU C1 LHR-05'
+[2026-01-03 03:45:48] [DEBUG] : Verifying chat - Expected: 'MBU C1 LHR-05', Got: 'MBU C1 LHR-05'
+[2026-01-03 03:45:48] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:45:49] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:45:49] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:45:51] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:45:51] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:45:51] [SUCCESS] Message sent successfully to MBU C1 LHR-05
+[2026-01-03 03:45:51] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:45:51] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:45:51] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:45:51] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:45:51] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:45:53] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz~edotco C1 & C4'
+[2026-01-03 03:45:53] [DEBUG] : Verifying chat - Expected: 'Jazz~edotco C1 & C4', Got: 'Jazz~edotco C1 & C4'
+[2026-01-03 03:45:53] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:45:54] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:45:54] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:45:55] [INFO] Clicked export button
+[2026-01-03 03:45:56] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:45:56] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:45:56] [SUCCESS] Message sent successfully to Jazz~edotco C1 & C4
+[2026-01-03 03:45:56] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:45:56] [INFO] Attempting to send message to: MBU C1-LHR-04
+[2026-01-03 03:45:56] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:45:56] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:45:56] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU C1-LHR-04'
+[2026-01-03 03:45:56] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:45:57] [INFO] Waiting for export dialog...
+[2026-01-03 03:45:57] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:45:57] [INFO] Clicking OK to start export...
+[2026-01-03 03:45:57] [INFO] Waiting for file download...
+[2026-01-03 03:45:58] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'MBU C1-LHR-04'
+[2026-01-03 03:45:58] [DEBUG] : Verifying chat - Expected: 'MBU C1-LHR-04', Got: 'MBU C1-LHR-04'
+[2026-01-03 03:45:58] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:45:59] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:45:59] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:45:59] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034557070.xlsx
+[2026-01-03 03:45:59] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034557070.xlsx
+[2026-01-03 03:45:59] [INFO] Processed 213 alarms from C:\wd\Autok\exports\CurrentAlarms20260103034557070.xlsx
+[2026-01-03 03:45:59] [INFO] Processed 213 alarms from All Alarms
+[2026-01-03 03:45:59] [INFO] Found 213 alarms from All Alarms (199 new)
+[2026-01-03 03:46:00] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:46:04] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:46:04] [INFO] Checking portal: RF Unit
+[2026-01-03 03:46:04] [SUCCESS] Message sent successfully to MBU C1-LHR-04
+[2026-01-03 03:46:04] [INFO] Exporting alarms from RF Unit...
+[2026-01-03 03:46:04] [INFO] Switched to RF-Unit AR using handle 9369D677
+[2026-01-03 03:46:08] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:46:08] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:46:08] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:46:08] [INFO] Finding export button for RF-Unit AR...
+[2026-01-03 03:46:08] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:46:08] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:46:08] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:46:10] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz~edotco C1 & C4'
+[2026-01-03 03:46:10] [DEBUG] : Verifying chat - Expected: 'Jazz~edotco C1 & C4', Got: 'Jazz~edotco C1 & C4'
+[2026-01-03 03:46:10] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:46:11] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:46:11] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:46:13] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:46:13] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:46:13] [SUCCESS] Message sent successfully to Jazz~edotco C1 & C4
+[2026-01-03 03:46:13] [INFO] Attempting to send message to: MBU-C1-LHR-07
+[2026-01-03 03:46:13] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:46:13] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:46:13] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU-C1-LHR-07'
+[2026-01-03 03:46:13] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:46:15] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'MBU-C1-LHR-07'
+[2026-01-03 03:46:15] [DEBUG] : Verifying chat - Expected: 'MBU-C1-LHR-07', Got: 'MBU-C1-LHR-07'
+[2026-01-03 03:46:15] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:46:15] [INFO] Clicked export button
+[2026-01-03 03:46:16] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:46:16] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:46:16] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:46:17] [INFO] Waiting for export dialog...
+[2026-01-03 03:46:17] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:46:18] [INFO] Clicking OK to start export...
+[2026-01-03 03:46:18] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:46:18] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:46:18] [SUCCESS] Message sent successfully to MBU-C1-LHR-07
+[2026-01-03 03:46:18] [INFO] Waiting for file download...
+[2026-01-03 03:46:18] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:46:18] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:46:18] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:46:18] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:46:18] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:46:19] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034617638.xlsx
+[2026-01-03 03:46:19] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034617638.xlsx
+[2026-01-03 03:46:19] [INFO] Processed 42 alarms from C:\wd\Autok\exports\CurrentAlarms20260103034617638.xlsx
+[2026-01-03 03:46:19] [INFO] Processed 42 alarms from RF Unit
+[2026-01-03 03:46:19] [INFO] Filtered out 1 alarms from ignored sites
+[2026-01-03 03:46:19] [INFO] Found 41 alarms from RF Unit (0 new)
+[2026-01-03 03:46:20] [DEBUG] : Found chat title with selector 'header [dir="auto"]': 'Jazz~edotco C1 & C4'
+[2026-01-03 03:46:20] [DEBUG] : Verifying chat - Expected: 'Jazz~edotco C1 & C4', Got: 'Jazz~edotco C1 & C4'
+[2026-01-03 03:46:20] [DEBUG] : Chat verification PASSED
+[2026-01-03 03:46:21] [DEBUG]  _find_clickable_element: Finding message_input
+[2026-01-03 03:46:21] [DEBUG]  _find_clickable_element: Found message_input with div[contenteditable="true"][data-tab="10"]
+[2026-01-03 03:46:21] [INFO] Checking portal: NodeB Cell
+[2026-01-03 03:46:21] [INFO] Exporting alarms from NodeB Cell...
+[2026-01-03 03:46:21] [INFO] Switched to C1 NodeB UMTS Cell Unavailable using handle 5C7929C7
+[2026-01-03 03:46:21] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:46:21] [INFO] Finding export button for C1 NodeB UMTS Cell Unavailable...
+[2026-01-03 03:46:22] [INFO] WhatsApp status changed to: Connected
+[2026-01-03 03:46:22] [SUCCESS] WhatsApp is now connected!
+[2026-01-03 03:46:23] [SUCCESS] Message sent successfully to Jazz~edotco C1 & C4
+[2026-01-03 03:46:28] [INFO] Clicked export button
+[2026-01-03 03:46:29] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:46:31] [INFO] Waiting for export dialog...
+[2026-01-03 03:46:31] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:46:31] [INFO] Clicking OK to start export...
+[2026-01-03 03:46:31] [INFO] Waiting for file download...
+[2026-01-03 03:46:33] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034630802.xlsx
+[2026-01-03 03:46:33] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034630802.xlsx
+[2026-01-03 03:46:33] [INFO] Processed 31 alarms from C:\wd\Autok\exports\CurrentAlarms20260103034630802.xlsx
+[2026-01-03 03:46:33] [INFO] Processed 31 alarms from NodeB Cell
+[2026-01-03 03:46:33] [INFO] Filtered out 1 alarms from ignored sites
+[2026-01-03 03:46:33] [INFO] Found 30 alarms from NodeB Cell (9 new)
+[2026-01-03 03:46:35] [INFO] Total new alarms this cycle: 212
+[2026-01-03 03:46:35] [INFO] Waiting 0s for next check...
+[2026-01-03 03:46:35] [INFO] Starting portal check cycle...
+[2026-01-03 03:46:35] [INFO] Checking portal: CSL Fault
+[2026-01-03 03:46:35] [INFO] Exporting alarms from CSL Fault...
+[2026-01-03 03:46:35] [INFO] Switched to C1 OML Fault using handle A901BFC9
+[2026-01-03 03:46:35] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:46:35] [INFO] Finding export button for C1 OML Fault...
+[2026-01-03 03:46:42] [INFO] Clicked export button
+[2026-01-03 03:46:43] [INFO] Selecting 'All' alarms option...
+[2026-01-03 03:46:44] [INFO] Waiting for export dialog...
+[2026-01-03 03:46:44] [INFO] Ensuring XLSX format is selected...
+[2026-01-03 03:46:44] [INFO] Clicking OK to start export...
+[2026-01-03 03:46:45] [INFO] Waiting for file download...
+[2026-01-03 03:46:46] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034644629.xlsx
+[2026-01-03 03:46:46] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260103034644629.xlsx
+[2026-01-03 03:46:46] [INFO] Processed 5 alarms from C:\wd\Autok\exports\CurrentAlarms20260103034644629.xlsx
+[2026-01-03 03:46:46] [INFO] Processed 5 alarms from CSL Fault
+[2026-01-03 03:46:46] [INFO] INSTANT ALARM: New/updated site LHR1248 (01-03-2026 03:41:57) found for CSL Fault in C1-LHR-05
+[2026-01-03 03:46:46] [INFO] INSTANT ALARM: New/updated site LHR6474 (01-03-2026 02:56:43) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:46:46] [INFO] INSTANT ALARM: New/updated site LHR5210 (01-03-2026 02:49:10) found for CSL Fault in C1-LHR-07
+[2026-01-03 03:46:46] [INFO] INSTANT ALARM: New/updated site LHR9873 (01-03-2026 02:06:31) found for CSL Fault in C1-LHR-04
+[2026-01-03 03:46:46] [INFO] INSTANT ALARM: New/updated site RUR0558 (01-03-2026 01:56:24) found for CSL Fault in C1-LHR-05
+[2026-01-03 03:46:46] [INFO] Triggering immediate send for C1-LHR-05 | csl fault | Count: 2
+[2026-01-03 03:46:46] [INFO] Queued message for MBU C1 LHR-05: CSL Fault (priority 1)
+[2026-01-03 03:46:46] [INFO] Ordered batch queued: CSL Fault | Count: 2 | Group: MBU C1 LHR-05
+[2026-01-03 03:46:46] [INFO] Attempting to send message to: MBU C1 LHR-05
+[2026-01-03 03:46:46] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:46:46] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:46:46] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:46:46] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:46:46] [INFO] Triggering immediate send for C1-LHR-04 | csl fault | Count: 1
+[2026-01-03 03:46:46] [INFO] Queued message for MBU C1-LHR-04: CSL Fault (priority 1)
+[2026-01-03 03:46:46] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: MBU C1-LHR-04
+[2026-01-03 03:46:46] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:46:46] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:46:46] [INFO] Triggering immediate send for C1-LHR-07 | csl fault | Count: 2
+[2026-01-03 03:46:46] [INFO] Queued message for MBU-C1-LHR-07: CSL Fault (priority 1)
+[2026-01-03 03:46:46] [INFO] Ordered batch queued: CSL Fault | Count: 2 | Group: MBU-C1-LHR-07
+[2026-01-03 03:46:46] [INFO] Queued message for Jazz~edotco C1 & C4: CSL Fault (priority 1)
+[2026-01-03 03:46:46] [INFO] Ordered batch queued: CSL Fault | Count: 1 | Group: Jazz~edotco C1 & C4
+[2026-01-03 03:46:46] [INFO] Found 5 alarms from CSL Fault (0 new)
+[2026-01-03 03:46:46] [INFO] Checking portal: All Alarms
+[2026-01-03 03:46:46] [INFO] Exporting alarms from All Alarms...
+[2026-01-03 03:46:46] [INFO] Switched to c1-c2 All Alarm using handle D64E2E0D
+[2026-01-03 03:46:48] [INFO] Cached 16 chats
+[2026-01-03 03:46:48] [INFO] Waiting for alarm table to load...
+[2026-01-03 03:46:48] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU C1 LHR-05'
+[2026-01-03 03:46:48] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:46:48] [ERROR] Error sending to MBU C1 LHR-05: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: chrome=143.0.7499.170)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff65d4e88e5
+	0x7ff65d4e8940
+	0x7ff65d2c165d
+	0x7ff65d2ad202
+	0x7ff65d2d27af
+	0x7ff65d349a29
+	0x7ff65d36a5c2
+	0x7ff65d30ac29
+	0x7ff65d30ba93
+	0x7ff65d800640
+	0x7ff65d7faf80
+	0x7ff65d8196e6
+	0x7ff65d505de4
+	0x7ff65d50ed8c
+	0x7ff65d4f2004
+	0x7ff65d4f21b5
+	0x7ff65d4d7ee2
+	0x7ffed0d5e8d7
+	0x7ffed16ac53c
+
+[2026-01-03 03:46:48] [INFO] Finding export button for c1-c2 All Alarm...
+[2026-01-03 03:46:49] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:46:49] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU C1 LHR-05'
+[2026-01-03 03:46:49] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:46:49] [ERROR] Error sending to MBU C1 LHR-05: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff65d4e88e5
+	0x7ff65d4e8940
+	0x7ff65d2c1465
+	0x7ff65d309d83
+	0x7ff65d341ee2
+	0x7ff65d33c500
+	0x7ff65d33b6f0
+	0x7ff65d28b325
+	0x7ff65d800640
+	0x7ff65d7faf80
+	0x7ff65d8196e6
+	0x7ff65d505de4
+	0x7ff65d50ed8c
+	0x7ff65d289cb8
+	0x7ff65d95f008
+	0x7ffed0d5e8d7
+	0x7ffed16ac53c
+
+[2026-01-03 03:46:49] [ERROR] Export button not found (Single Attempt)
+[2026-01-03 03:46:49] [ERROR] Export failed for All Alarms
+[2026-01-03 03:46:49] [INFO] Checking portal: RF Unit
+[2026-01-03 03:46:49] [INFO] Exporting alarms from RF Unit...
+[2026-01-03 03:46:49] [ERROR] Error switching tab: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff65d4e88e5
+	0x7ff65d4e8940
+	0x7ff65d2c1465
+	0x7ff65d309d83
+	0x7ff65d341ee2
+	0x7ff65d33c500
+	0x7ff65d33b6f0
+	0x7ff65d28b325
+	0x7ff65d800640
+	0x7ff65d7faf80
+	0x7ff65d8196e6
+	0x7ff65d505de4
+	0x7ff65d50ed8c
+	0x7ff65d289cb8
+	0x7ff65d95f008
+	0x7ffed0d5e8d7
+	0x7ffed16ac53c
+
+[2026-01-03 03:46:49] [INFO] Switching to portal RF-Unit AR...
+[2026-01-03 03:46:49] [INFO] Navigating to RF-Unit AR...
+[2026-01-03 03:46:49] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff65d4e88e5
+	0x7ff65d4e8940
+	0x7ff65d2c1465
+	0x7ff65d309d83
+	0x7ff65d341ee2
+	0x7ff65d33c500
+	0x7ff65d33b6f0
+	0x7ff65d28b325
+	0x7ff65d800640
+	0x7ff65d7faf80
+	0x7ff65d8196e6
+	0x7ff65d505de4
+	0x7ff65d50ed8c
+	0x7ff65d289cb8
+	0x7ff65d95f008
+	0x7ffed0d5e8d7
+	0x7ffed16ac53c
+
+[2026-01-03 03:46:50] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:46:50] [DEBUG]  find_and_open_group_direct: Looking for group 'MBU C1 LHR-05'
+[2026-01-03 03:46:50] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:46:50] [ERROR] Error sending to MBU C1 LHR-05: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff65d4e88e5
+	0x7ff65d4e8940
+	0x7ff65d2c1465
+	0x7ff65d309d83
+	0x7ff65d341ee2
+	0x7ff65d33c500
+	0x7ff65d33b6f0
+	0x7ff65d28b325
+	0x7ff65d800640
+	0x7ff65d7faf80
+	0x7ff65d8196e6
+	0x7ff65d505de4
+	0x7ff65d50ed8c
+	0x7ff65d289cb8
+	0x7ff65d95f008
+	0x7ffed0d5e8d7
+	0x7ffed16ac53c
+
+[2026-01-03 03:46:50] [INFO] Waiting for user to acknowledge error: Sending Failed
+[2026-01-03 03:46:50] [WARNING] Mismatch: Expected 'templateId835' in URL, but got 
+[2026-01-03 03:46:50] [INFO] Error acknowledged, continuing...
+[2026-01-03 03:46:50] [INFO] Re-navigating to RF-Unit AR...
+[2026-01-03 03:46:50] [INFO] WhatsApp status changed to: Error
+[2026-01-03 03:46:50] [INFO] Navigating to RF-Unit AR...
+[2026-01-03 03:46:50] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff65d4e88e5
+	0x7ff65d4e8940
+	0x7ff65d2c1465
+	0x7ff65d309d83
+	0x7ff65d341ee2
+	0x7ff65d33c500
+	0x7ff65d33b6f0
+	0x7ff65d28b325
+	0x7ff65d800640
+	0x7ff65d7faf80
+	0x7ff65d8196e6
+	0x7ff65d505de4
+	0x7ff65d50ed8c
+	0x7ff65d289cb8
+	0x7ff65d95f008
+	0x7ffed0d5e8d7
+	0x7ffed16ac53c
+
+[2026-01-03 03:46:50] [ERROR] Export failed for RF Unit
+[2026-01-03 03:46:50] [INFO] Checking portal: NodeB Cell
+[2026-01-03 03:46:50] [INFO] Exporting alarms from NodeB Cell...
+[2026-01-03 03:46:50] [ERROR] Error switching tab: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff65d4e88e5
+	0x7ff65d4e8940
+	0x7ff65d2c1465
+	0x7ff65d309d83
+	0x7ff65d341ee2
+	0x7ff65d33c500
+	0x7ff65d33b6f0
+	0x7ff65d28b325
+	0x7ff65d800640
+	0x7ff65d7faf80
+	0x7ff65d8196e6
+	0x7ff65d505de4
+	0x7ff65d50ed8c
+	0x7ff65d289cb8
+	0x7ff65d95f008
+	0x7ffed0d5e8d7
+	0x7ffed16ac53c
+
+[2026-01-03 03:46:50] [INFO] Switching to portal C1 NodeB UMTS Cell Unavailable...
+[2026-01-03 03:46:50] [INFO] Navigating to C1 NodeB UMTS Cell Unavailable...
+[2026-01-03 03:46:50] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff65d4e88e5
+	0x7ff65d4e8940
+	0x7ff65d2c1465
+	0x7ff65d309d83
+	0x7ff65d341ee2
+	0x7ff65d33c500
+	0x7ff65d33b6f0
+	0x7ff65d28b325
+	0x7ff65d800640
+	0x7ff65d7faf80
+	0x7ff65d8196e6
+	0x7ff65d505de4
+	0x7ff65d50ed8c
+	0x7ff65d289cb8
+	0x7ff65d95f008
+	0x7ffed0d5e8d7
+	0x7ffed16ac53c
+
+[2026-01-03 03:46:50] [INFO] Attempting to send message to: Jazz~edotco C1 & C4
+[2026-01-03 03:46:50] [INFO] WhatsApp status changed to: Sending Message
+[2026-01-03 03:46:50] [DEBUG]  find_and_open_group_direct: Refreshing chat list before search
+[2026-01-03 03:46:50] [DEBUG]  find_and_open_group_direct: Looking for group 'Jazz~edotco C1 & C4'
+[2026-01-03 03:46:50] [DEBUG] : Found group in cache, clicking...
+[2026-01-03 03:46:50] [ERROR] Error sending to Jazz~edotco C1 & C4: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff65d4e88e5
+	0x7ff65d4e8940
+	0x7ff65d2c1465
+	0x7ff65d309d83
+	0x7ff65d341ee2
+	0x7ff65d33c500
+	0x7ff65d33b6f0
+	0x7ff65d28b325
+	0x7ff65d800640
+	0x7ff65d7faf80
+	0x7ff65d8196e6
+	0x7ff65d505de4
+	0x7ff65d50ed8c
+	0x7ff65d289cb8
+	0x7ff65d95f008
+	0x7ffed0d5e8d7
+	0x7ffed16ac53c
+

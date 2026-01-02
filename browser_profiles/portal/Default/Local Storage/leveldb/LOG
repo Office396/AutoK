@@ -1,3 +1,4 @@
-2026/01/02-05:56:20.572 1a00 Reusing MANIFEST C:\wd\Autok\browser_profiles\portal\Default\Local Storage\leveldb/MANIFEST-000001
-2026/01/02-05:56:20.579 1a00 Recovering log #4
-2026/01/02-05:56:20.581 1a00 Reusing old log C:\wd\Autok\browser_profiles\portal\Default\Local Storage\leveldb/000004.log 
+2026/01/03-03:36:24.699 3238 Reusing MANIFEST C:\wd\Autok\browser_profiles\portal\Default\Local Storage\leveldb/MANIFEST-000001
+2026/01/03-03:36:24.706 3238 Recovering log #4
+2026/01/03-03:36:24.709 3238 Reusing old log C:\wd\Autok\browser_profiles\portal\Default\Local Storage\leveldb/000004.log 
+2026/01/03-03:36:24.710 3238 Delete type=2 #3
