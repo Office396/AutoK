@@ -67,7 +67,7 @@ class AboutView(ctk.CTkFrame):
         
         developer_name = ctk.CTkLabel(
             inner,
-            text="Taha Aslam",
+            text="😎 Taha Aslam 😎",
             font=ctk.CTkFont(size=16, weight="bold"),
             text_color=Colors.TEXT_PRIMARY
         )

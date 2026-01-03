@@ -886,7 +886,7 @@ class OrderedAlarmSender:
         return batches
     
     @classmethod
-    def send_all_ordered(cls, alarms: List):
+    def send_all_ordered(cls, alarms: List, mbu_only: bool = False):
         if not alarms:
             return
             
@@ -897,6 +897,10 @@ class OrderedAlarmSender:
         batches = cls.get_ordered_batches(alarms)
         
         for i, (group_name, alarm_type, batch_alarms, is_toggle, group_type) in enumerate(batches):
+            # If mbu_only is True, skip non-MBU groups
+            if mbu_only and group_type != 'MBU':
+                continue
+                
             if is_toggle:
                 message = message_formatter.format_toggle_alarms(batch_alarms)
             elif group_type == 'B2S':
@@ -908,9 +912,19 @@ class OrderedAlarmSender:
                 message = message_formatter.format_mbu_alarms(batch_alarms, alarm_type)
             
             if message.strip():
-                # Priority: 1 for CSL, 2 for others. 
-                # Within same priority, the order of queueing determines order of sending.
-                priority = 1 if "csl" in alarm_type.lower() else 2
+                # Priority: 1 for instant alarms (like CSL), 2 for others. 
+                # We check if the alarm type is in the configured instant alarms list
+                is_instant = False
+                try:
+                    instant_types = [t.strip().lower() for t in settings.instant_alarms]
+                    if alarm_type.lower() in instant_types:
+                        is_instant = True
+                except:
+                    # Fallback if settings not available or error
+                    if "csl" in alarm_type.lower():
+                        is_instant = True
+                
+                priority = 1 if is_instant else 2
                 whatsapp_handler.queue_message(group_name, message, alarm_type, priority)
                 logger.info(f"Ordered batch queued: {alarm_type} | Count: {len(batch_alarms)} | Group: {group_name}")
 

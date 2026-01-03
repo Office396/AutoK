@@ -134,11 +134,9 @@ class AlarmScheduler:
             
             for group_name, group_type, alarms in send_list:
                 if self.send_callback and alarms:
-                    if group_type == "MBU":
-                        message = alarm_processor.format_mbu_message(alarms)
-                    else:
-                        message = alarm_processor.format_b2s_message(alarms)
-                    
+                    if group_type != "MBU":
+                        continue
+                    message = alarm_processor.format_mbu_message(alarms)
                     self.send_callback(group_name, message, alarm.alarm_type)
                     logger.alarm_batch_sent(alarm.alarm_type, len(alarms), group_name)
                     

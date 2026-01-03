@@ -1,17 +1,19 @@
-2026/01/03-03:36:24.739 3238 Reusing MANIFEST C:\wd\Autok\browser_profiles\portal\Default\Session Storage/MANIFEST-000001
-2026/01/03-03:36:24.740 3238 Recovering log #63
-2026/01/03-03:36:24.744 3238 Reusing old log C:\wd\Autok\browser_profiles\portal\Default\Session Storage/000063.log 
-2026/01/03-03:36:24.748 3238 Delete type=0 #3
-2026/01/03-03:36:24.748 3238 Delete type=0 #4
-2026/01/03-03:36:24.748 3238 Delete type=0 #6
-2026/01/03-03:36:24.748 3238 Delete type=2 #7
-2026/01/03-03:36:24.748 3238 Delete type=2 #54
-2026/01/03-03:36:24.748 3238 Delete type=0 #56
-2026/01/03-03:36:24.748 3238 Delete type=2 #57
-2026/01/03-03:36:24.748 3238 Delete type=2 #59
-2026/01/03-03:36:24.748 3238 Delete type=0 #60
-2026/01/03-03:36:24.748 3238 Delete type=0 #61
-2026/01/03-03:36:24.749 3238 Delete type=2 #62
-2026/01/03-03:37:35.895 ed0 Level-0 table #68: started
-2026/01/03-03:37:35.899 ed0 Level-0 table #68: 21345 bytes OK
-2026/01/03-03:37:35.901 ed0 Delete type=0 #63
+2026/01/03-07:52:21.656 30d0 Reusing MANIFEST C:\wd\Autok\browser_profiles\portal\Default\Session Storage/MANIFEST-000001
+2026/01/03-07:52:21.657 30d0 Recovering log #83
+2026/01/03-07:52:21.657 30d0 Level-0 table #86: started
+2026/01/03-07:52:21.668 30d0 Level-0 table #86: 17968 bytes OK
+2026/01/03-07:52:21.675 30d0 Recovering log #85
+2026/01/03-07:52:21.682 30d0 Reusing old log C:\wd\Autok\browser_profiles\portal\Default\Session Storage/000085.log 
+2026/01/03-07:52:21.684 30d0 Delete type=0 #83
+2026/01/03-07:52:21.685 26c Compacting 4@0 + 1@1 files
+2026/01/03-07:52:21.703 26c Generated table #87@0: 2101 keys, 51997 bytes
+2026/01/03-07:52:21.703 26c Compacted 4@0 + 1@1 files => 51997 bytes
+2026/01/03-07:52:21.704 26c compacted to: files[ 0 1 1 0 0 0 0 ]
+2026/01/03-07:52:21.705 26c Delete type=2 #78
+2026/01/03-07:52:21.705 26c Delete type=2 #80
+2026/01/03-07:52:21.705 26c Delete type=2 #82
+2026/01/03-07:52:21.705 26c Delete type=2 #84
+2026/01/03-07:52:21.706 26c Delete type=2 #86
+2026/01/03-07:54:28.095 26c Level-0 table #89: started
+2026/01/03-07:54:28.103 26c Level-0 table #89: 18240 bytes OK
+2026/01/03-07:54:28.104 26c Delete type=0 #85

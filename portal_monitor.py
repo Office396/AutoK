@@ -53,6 +53,10 @@ class PortalMonitor:
         # Track last scan sites for Instant Alarms
         # Format: {alarm_type: {(site_code, timestamp), ...}}
         self.last_scan_sites: Dict[str, Set[tuple]] = defaultdict(set)
+        # Track alarms triggered for MBU in current cycle to prevent double triggering
+        self._cycle_handled_mbu_entries: Set[tuple] = set()
+        self._cycle_handled_b2s_triggers: Set[tuple] = set()
+        self._first_scan_done = False
     
     def add_alarm_callback(self, callback: Callable):
         self.alarm_callbacks.append(callback)
@@ -101,6 +105,121 @@ class PortalMonitor:
             self.monitor_thread.join(timeout=10)
         logger.info("Portal monitor stopped")
     
+    def _process_instant_alarms(self, alarms: List[ProcessedAlarm], is_end_of_cycle: bool = False):
+        """
+        Process instant alarms.
+        
+        Args:
+            alarms: List of alarms to check for instant triggers
+            is_end_of_cycle: If True, performs cleanup of history and triggers B2S logic (global)
+        """
+        try:
+            instant_types = [t.strip().lower() for t in settings.instant_alarms]
+            new_instant_mbus = set() # (alarm_type, mbu)
+            
+            # 1. Check for NEW alarms and trigger sends
+            for alarm in alarms:
+                atype_lower = alarm.alarm_type.lower()
+                if atype_lower in instant_types:
+                    entry = (alarm.site_code, alarm.timestamp_str)
+                    
+                    # 2. If first scan, allow all current alarms to be processed as "new"
+                    if not self._first_scan_done:
+                        logger.info("First scan processing. All current instant alarms will trigger initial notifications.")
+                        self._first_scan_done = True
+                        # No return here - let it flow to Step 3 where it compares with empty history
+                    
+                    # 3. Compare with history to find NEW entries
+                    if entry not in self.last_scan_sites[atype_lower]:
+                        # It's new compared to history!
+                        
+                        # MBU Logic: Check if we already handled this MBU trigger THIS cycle
+                        # We use _cycle_handled_mbu_entries to avoid re-triggering MBU send 
+                        # when we re-process the same new alarm at end of cycle.
+                        if entry not in self._cycle_handled_mbu_entries:
+                            # Not handled this cycle yet -> Trigger MBU send
+                            if alarm.mbu:
+                                logger.info(f"INSTANT ALARM: New/updated site {alarm.site_code} ({alarm.timestamp_str}) found for {alarm.alarm_type} in {alarm.mbu}")
+                                new_instant_mbus.add((atype_lower, alarm.mbu))
+                                self._cycle_handled_mbu_entries.add(entry)
+                        
+                        if alarm.is_b2s and alarm.b2s_company:
+                            key = (atype_lower, alarm.b2s_company)
+                            if key not in self._cycle_handled_b2s_triggers:
+                                new_instant_mbus.add(("B2S", atype_lower, alarm.b2s_company))
+                                self._cycle_handled_b2s_triggers.add(key)
+
+            # 4. Trigger Sending
+            if new_instant_mbus:
+                from whatsapp_handler import ordered_sender, whatsapp_handler, message_formatter
+                
+                # Separate MBU and B2S triggers
+                mbu_triggers = set()
+                b2s_triggers = set()
+                
+                for item in new_instant_mbus:
+                    if len(item) == 3 and item[0] == "B2S":
+                        b2s_triggers.add((item[1], item[2])) # (itype, b2s_company)
+                    else:
+                        mbu_triggers.add(item) # (itype, mbu)
+                
+                # Process MBU Triggers (Usually Immediate)
+                for atype_lower, mbu in mbu_triggers:
+                    # Find ALL active alarms for this MBU and Type (Old + New)
+                    mbu_atype_alarms = [
+                        a for a in alarms 
+                        if a.alarm_type.lower() == atype_lower and a.mbu == mbu
+                    ]
+                    
+                    if mbu_atype_alarms:
+                        logger.info(f"Triggering immediate MBU send for {mbu} | {atype_lower} | Count: {len(mbu_atype_alarms)}")
+                        # Use mbu_only=True to prevent double sending of B2S/OMO alarms that might be in this list
+                        ordered_sender.send_all_ordered(mbu_atype_alarms, mbu_only=True)
+                
+                # Process B2S Triggers (Only at End of Cycle)
+                for atype_lower, b2s_company in b2s_triggers:
+                    # Find ALL active alarms for this B2S Company and Type - ACROSS ALL MBUs
+                    b2s_atype_alarms = [
+                        a for a in alarms 
+                        if a.alarm_type.lower() == atype_lower 
+                        and a.is_b2s 
+                        and a.b2s_company == b2s_company
+                    ]
+                    
+                    if b2s_atype_alarms:
+                        group_name = settings.get_b2s_group_name(b2s_company)
+                        if group_name:
+                            logger.info(f"Triggering immediate B2S send for {b2s_company} | {atype_lower} | Count: {len(b2s_atype_alarms)}")
+                            message = message_formatter.format_b2s_alarms(b2s_atype_alarms)
+                            if message.strip():
+                                # Priority: 1 for instant alarms (like CSL), 2 for others.
+                                priority = 1 if atype_lower in instant_types else 2
+                                whatsapp_handler.queue_message(group_name, message, atype_lower, priority)
+
+            # 5. Cleanup History (Only at End of Cycle)
+            if is_end_of_cycle:
+                # 'alarms' here should contain ALL alarms from ALL portals (cycle_alarms)
+                current_cycle_entries = defaultdict(set)
+                for alarm in alarms:
+                    atype_lower = alarm.alarm_type.lower()
+                    if atype_lower in instant_types:
+                        current_cycle_entries[atype_lower].add((alarm.site_code, alarm.timestamp_str))
+                
+                # Replace history with current cycle state
+                for itype in instant_types:
+                    self.last_scan_sites[itype] = current_cycle_entries.get(itype, set())
+                
+                # Reset cycle tracker for next cycle
+                self._cycle_handled_mbu_entries.clear()
+                self._cycle_handled_b2s_triggers.clear()
+                
+                logger.info("Instant Alarm History updated/cleaned for next cycle")
+                
+        except Exception as e:
+            logger.error(f"Error in _process_instant_alarms: {e}")
+            import traceback
+            traceback.print_exc()
+
     def _monitor_loop(self, interval: int):
         """Main monitoring loop"""
         portals_to_check = [
@@ -116,6 +235,11 @@ class PortalMonitor:
                 # if whatsapp_handler.sending_active: ...
                 
                 all_new_alarms = []
+                cycle_alarms = [] # For instant logic
+                cycle_success = True # Track if all checks were successful
+                
+                # Clear MBU tracker at start of cycle
+                self._cycle_handled_mbu_entries.clear()
                 
                 logger.info(f"Starting portal check cycle...")
                 
@@ -126,17 +250,43 @@ class PortalMonitor:
                     logger.info(f"Checking portal: {portal.value}")
                     current_alarms, new_alarms = self._check_portal(portal)
                     
+                    if current_alarms is None:
+                        logger.error(f"Check failed for {portal.value}. Marking cycle as incomplete.")
+                        cycle_success = False
+                        continue
+                    
                     if current_alarms:
                         count = len(current_alarms)
                         all_new_alarms.extend(new_alarms) # Track new for total stats
+                        cycle_alarms.extend(current_alarms) # Collect for instant logic
                         logger.info(f"Found {count} alarms from {portal.value} ({len(new_alarms)} new)")
                         
                         # Process and notify immediately for this portal
                         if new_alarms:
                             alarm_scheduler.add_alarms(new_alarms)
                         
+                        # --- Trigger Instant Alarms IMMEDIATELY ---
+                        # Use ONLY the current portal snapshot to avoid including stale sites
+                        # This ensures the MBU/B2S messages reflect the latest terminal view
+                        snapshot_alarms = list({a.alarm_id: a for a in current_alarms}.values())
+                        self._process_instant_alarms(snapshot_alarms, is_end_of_cycle=False)
+                        # ------------------------------------------
+                        
                         # Update GUI with ALL current alarms (snapshot view)
                         self._notify_alarms(current_alarms, source=portal.value)
+                    elif new_alarms: # Should not happen if current is empty but just in case
+                         all_new_alarms.extend(new_alarms)
+
+                # --- Instant Alarm Cleanup (End of Cycle) ---
+                if self.running and cycle_success:
+                    # Deduplicate cycle_alarms based on alarm_id to prevent double processing
+                    # Use a dictionary to keep unique alarms
+                    unique_cycle_alarms = list({a.alarm_id: a for a in cycle_alarms}.values())
+                    
+                    # Only clean history if the cycle was fully successful
+                    # If we missed a tab (e.g. CSL failed), we shouldn't assume CSL faults are gone
+                    self._process_instant_alarms(unique_cycle_alarms, is_end_of_cycle=True)
+                # -----------------------------------------------
                 
                 self.stats.total_checks += 1
                 self.stats.last_check_time = datetime.now()
@@ -187,7 +337,7 @@ class PortalMonitor:
 
             if not exported_file or not os.path.exists(exported_file):
                 logger.error(f"Export failed for {portal.value}")
-                return [], []
+                return None, None
             
             logger.success(f"Export completed: {exported_file}")
             
@@ -205,40 +355,6 @@ class PortalMonitor:
                 if filtered_count > 0:
                     logger.info(f"Filtered out {filtered_count} alarms from ignored sites")
             
-            # --- Instant Alarm Logic ---
-            instant_types = [t.strip().lower() for t in settings.instant_alarms]
-            current_instant_entries = defaultdict(set)  # {alarm_type: {(site_code, timestamp), ...}}
-            new_instant_mbus = set() # (alarm_type, mbu)
-            
-            for alarm in processed_alarms:
-                atype_lower = alarm.alarm_type.lower()
-                if atype_lower in instant_types:
-                    entry = (alarm.site_code, alarm.timestamp_str)
-                    current_instant_entries[atype_lower].add(entry)
-                    
-                    # Check if this (site, time) pair is NEW since last scan
-                    if entry not in self.last_scan_sites[atype_lower]:
-                        if alarm.mbu:
-                            logger.info(f"INSTANT ALARM: New/updated site {alarm.site_code} ({alarm.timestamp_str}) found for {alarm.alarm_type} in {alarm.mbu}")
-                            new_instant_mbus.add((atype_lower, alarm.mbu))
-            
-            # Trigger immediate send for any MBU with a NEW instant alarm site
-            from whatsapp_handler import ordered_sender
-            for atype_lower, mbu in new_instant_mbus:
-                # Find all sites in this MBU with this alarm type
-                mbu_atype_alarms = [
-                    a for a in processed_alarms 
-                    if a.alarm_type.lower() == atype_lower and a.mbu == mbu
-                ]
-                if mbu_atype_alarms:
-                    logger.info(f"Triggering immediate send for {mbu} | {atype_lower} | Count: {len(mbu_atype_alarms)}")
-                    ordered_sender.send_all_ordered(mbu_atype_alarms)
-            
-            # Update history for next scan (reset/replace previous scan data)
-            for itype in instant_types:
-                self.last_scan_sites[itype] = current_instant_entries.get(itype, set())
-            # ---------------------------
-
             self.stats.total_alarms_found += len(processed_alarms)
             
             # Filter for new alarms only (for scheduler) - but still return ALL for display
@@ -259,7 +375,7 @@ class PortalMonitor:
             logger.error(f"Error checking portal {portal.value}: {e}")
             import traceback
             traceback.print_exc()
-            return [], []
+            return None, None
     
     def clear_seen_alarms(self):
         """Clear the seen alarms cache - useful for testing or fresh start"""
@@ -302,7 +418,8 @@ class PortalMonitor:
         all_alarms = []
         for portal in [TabType.CSL_FAULT, TabType.ALL_ALARMS, TabType.RF_UNIT, TabType.NODEB_CELL]:
             alarms, _ = self._check_portal(portal)
-            all_alarms.extend(alarms)
+            if alarms:
+                all_alarms.extend(alarms)
         return all_alarms
     
     def get_stats(self) -> MonitorStats:

@@ -1,23 +1,22 @@
-[1116:176:0103/033626.081:INFO:components\enterprise\browser\controller\chrome_browser_cloud_management_controller.cc:206] No machine level policy manager exists.
-[1116:176:0103/033626.107:WARNING:chrome\browser\extensions\extension_service.cc:429] --disable-extensions-except is not allowed in Google Chrome, ignoring.
-[1116:176:0103/033626.111:WARNING:chrome\browser\chrome_browser_main_win.cc:787] Command line too long for RegisterApplicationRestart:  --allow-insecure-localhost --allow-pre-commit-input --allow-running-insecure-content --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-blink-features=AutomationControlled --disable-client-side-phishing-detection --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-extensions-except --disable-features=IgnoreDuplicateNavs,Prewarm,VizDisplayCompositor,TranslateUI --disable-gpu --disable-hang-monitor --disable-ipc-flooding-protection --disable-notifications --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-site-isolation-trials --disable-sync --disable-web-security --enable-logging --ignore-certificate-errors --ignore-ssl-errors --log-level=0 --no-first-run --no-sandbox --no-service-autorun --password-store=basic --remote-allow-origins=* --remote-debugging-port=0 --start-maximized --test-type=webdriver --use-mock-keychain --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" --user-data-dir=C:/wd/Autok/browser_profiles/whatsapp --restore-last-session --restart
-[2380:10252:0103/033626.201:VERBOSE1:components\viz\service\main\viz_main_impl.cc:86] VizNullHypothesis is disabled (not a warning)
-[10596:2688:0103/033626.234:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
-[7148:10820:0103/033626.433:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
-[11296:8872:0103/033626.530:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
-[6480:6928:0103/033626.543:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
-[1116:176:0103/033626.870:INFO:CONSOLE:113] "Event handler of 'x-storagemutated-1' event must be added on the initial evaluation of worker script.", source: https://static.whatsapp.net/rsrc.php/v4/yH/r/sxej_bq7PGz.js (113)
-[1116:176:0103/033627.462:INFO:CONSOLE:77] "ErrorUtils caught an error:
+[16184:14412:0103/075215.945:INFO:components\enterprise\browser\controller\chrome_browser_cloud_management_controller.cc:206] No machine level policy manager exists.
+[16184:14412:0103/075215.967:WARNING:chrome\browser\extensions\extension_service.cc:429] --disable-extensions-except is not allowed in Google Chrome, ignoring.
+[16184:14412:0103/075215.969:WARNING:chrome\browser\chrome_browser_main_win.cc:787] Command line too long for RegisterApplicationRestart:  --allow-insecure-localhost --allow-pre-commit-input --allow-running-insecure-content --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-blink-features=AutomationControlled --disable-client-side-phishing-detection --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-extensions-except --disable-features=IgnoreDuplicateNavs,Prewarm,VizDisplayCompositor,TranslateUI --disable-gpu --disable-hang-monitor --disable-ipc-flooding-protection --disable-notifications --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-site-isolation-trials --disable-sync --disable-web-security --enable-logging --ignore-certificate-errors --ignore-ssl-errors --log-level=0 --no-first-run --no-sandbox --no-service-autorun --password-store=basic --remote-allow-origins=* --remote-debugging-port=0 --start-maximized --test-type=webdriver --use-mock-keychain --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" --user-data-dir=C:/wd/Autok/browser_profiles/whatsapp --restore-last-session --restart
+[9676:8464:0103/075216.050:VERBOSE1:components\viz\service\main\viz_main_impl.cc:86] VizNullHypothesis is disabled (not a warning)
+[15640:14912:0103/075216.058:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
+[15656:6376:0103/075216.236:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
+[13908:9156:0103/075216.364:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
+[15272:10964:0103/075216.374:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
+[16184:14412:0103/075216.690:INFO:CONSOLE:113] "Event handler of 'x-storagemutated-1' event must be added on the initial evaluation of worker script.", source: https://static.whatsapp.net/rsrc.php/v4/yg/r/W3kNf1u67v_.js (113)
+[16184:14412:0103/075217.034:INFO:CONSOLE:77] "ErrorUtils caught an error:
 
 multiple-uim-roots
 
 Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. [object Object]", source: https://static.whatsapp.net/rsrc.php/v4/yP/r/UnXae5I7-4r.js (77)
-[4740:9960:0103/033633.947:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
-[1116:11784:0103/033633.980:ERROR:google_apis\gcm\engine\registration_request.cc:292] Registration response error message: DEPRECATED_ENDPOINT
-[1116:176:0103/033634.874:INFO:CONSOLE:113] "Event handler of 'x-storagemutated-1' event must be added on the initial evaluation of worker script.", source: https://static.whatsapp.net/rsrc.php/v4/yu/r/d59PA1d8c-z.js (113)
-[1116:11784:0103/033658.591:ERROR:google_apis\gcm\engine\registration_request.cc:292] Registration response error message: DEPRECATED_ENDPOINT
-[1116:11784:0103/033746.444:ERROR:google_apis\gcm\engine\registration_request.cc:292] Registration response error message: DEPRECATED_ENDPOINT
-[1116:11784:0103/033941.198:ERROR:google_apis\gcm\engine\registration_request.cc:292] Registration response error message: DEPRECATED_ENDPOINT
-[1116:11784:0103/034308.576:ERROR:google_apis\gcm\engine\registration_request.cc:292] Registration response error message: DEPRECATED_ENDPOINT
-[9556:3456:0103/034647.573:WARNING:net\extras\sqlite\sqlite_persistent_store_backend_base.cc:176] Failed to post task from FlushAndNotifyInBackground@net\extras\sqlite\sqlite_persistent_store_backend_base.cc:226 to client_task_runner_.
-[9556:3456:0103/034647.573:WARNING:net\extras\sqlite\sqlite_persistent_store_backend_base.cc:176] Failed to post task from FlushAndNotifyInBackground@net\extras\sqlite\sqlite_persistent_store_backend_base.cc:226 to client_task_runner_.
+[16184:9680:0103/075222.795:ERROR:google_apis\gcm\engine\registration_request.cc:292] Registration response error message: DEPRECATED_ENDPOINT
+[15824:9892:0103/075222.942:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
+[16184:14412:0103/075223.585:INFO:CONSOLE:113] "Event handler of 'x-storagemutated-1' event must be added on the initial evaluation of worker script.", source: https://static.whatsapp.net/rsrc.php/v4/yg/r/W3kNf1u67v_.js (113)
+[16184:9680:0103/075247.673:ERROR:google_apis\gcm\engine\registration_request.cc:292] Registration response error message: DEPRECATED_ENDPOINT
+[16184:9680:0103/075342.629:ERROR:google_apis\gcm\engine\registration_request.cc:292] Registration response error message: DEPRECATED_ENDPOINT
+[16184:9680:0103/075522.300:ERROR:google_apis\gcm\engine\registration_request.cc:292] Registration response error message: DEPRECATED_ENDPOINT
+[16184:9680:0103/075921.175:ERROR:google_apis\gcm\engine\registration_request.cc:292] Registration response error message: DEPRECATED_ENDPOINT
+[16184:9680:0103/080531.629:ERROR:google_apis\gcm\engine\registration_request.cc:292] Registration response error message: DEPRECATED_ENDPOINT
