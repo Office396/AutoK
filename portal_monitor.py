@@ -46,6 +46,7 @@ class PortalMonitor:
         self.monitor_thread: Optional[threading.Thread] = None
         self.stats = MonitorStats()
         self.seen_alarms: Set[str] = set()
+        self.seen_alarms_timestamps: Dict[str, datetime] = {}  # Track when alarms were seen
         self.alarm_callbacks: List[Callable] = []
         self.status_callbacks: List[Callable] = []
         self.lock = threading.Lock()
@@ -57,6 +58,10 @@ class PortalMonitor:
         self._cycle_handled_mbu_entries: Set[tuple] = set()
         self._cycle_handled_b2s_triggers: Set[tuple] = set()
         self._first_scan_done = False
+        
+        # Performance: TTL for seen alarms (24 hours)
+        self.seen_alarms_ttl_hours = 24
+        self._last_cleanup_time = datetime.now()
     
     def add_alarm_callback(self, callback: Callable):
         self.alarm_callbacks.append(callback)
@@ -316,6 +321,7 @@ class PortalMonitor:
     
     def _check_portal(self, portal: TabType) -> List[ProcessedAlarm]:
         """Check a specific portal for new alarms using export functionality"""
+        exported_file = None
         try:
             # Map TabType to PortalType
             portal_type_map = {
@@ -376,6 +382,14 @@ class PortalMonitor:
             import traceback
             traceback.print_exc()
             return None, None
+        finally:
+            # CRITICAL: Clean up the exported file to prevent disk/memory bloat
+            if exported_file and os.path.exists(exported_file):
+                try:
+                    os.remove(exported_file)
+                    logger.debug(f"Cleaned up export file: {exported_file}")
+                except Exception as cleanup_error:
+                    logger.warning(f"Failed to cleanup export file {exported_file}: {cleanup_error}")
     
     def clear_seen_alarms(self):
         """Clear the seen alarms cache - useful for testing or fresh start"""
@@ -409,10 +423,34 @@ class PortalMonitor:
         return alarm.alarm_id not in self.seen_alarms
     
     def _mark_alarm_seen(self, alarm: ProcessedAlarm):
+        """Mark alarm as seen with timestamp for TTL-based cleanup"""
+        current_time = datetime.now()
         with self.lock:
             self.seen_alarms.add(alarm.alarm_id)
-            if len(self.seen_alarms) > 10000:
-                self.seen_alarms = set(list(self.seen_alarms)[5000:])
+            self.seen_alarms_timestamps[alarm.alarm_id] = current_time
+            
+            # Perform cleanup every hour to avoid frequent operations
+            if (current_time - self._last_cleanup_time).total_seconds() > 3600:
+                self._cleanup_old_seen_alarms(current_time)
+                self._last_cleanup_time = current_time
+    
+    def _cleanup_old_seen_alarms(self, current_time: datetime):
+        """Remove seen alarms older than TTL (called while holding lock)"""
+        cutoff_time = current_time - timedelta(hours=self.seen_alarms_ttl_hours)
+        
+        # Find expired alarm IDs
+        expired_ids = [
+            alarm_id for alarm_id, timestamp in self.seen_alarms_timestamps.items()
+            if timestamp < cutoff_time
+        ]
+        
+        # Remove expired alarms
+        for alarm_id in expired_ids:
+            self.seen_alarms.discard(alarm_id)
+            self.seen_alarms_timestamps.pop(alarm_id, None)
+        
+        if expired_ids:
+            logger.info(f"Cleaned up {len(expired_ids)} expired seen alarms (older than {self.seen_alarms_ttl_hours}h)")
     
     def force_check(self) -> List[ProcessedAlarm]:
         all_alarms = []

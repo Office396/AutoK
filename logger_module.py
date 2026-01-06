@@ -1,23 +1,29 @@
-"""
+"""  
 Logging Module for Telecom Alarm Automation
-Handles all logging functionality
+Handles all logging functionality with performance tracking
 """
 
 import os
+import time
 from datetime import datetime
 from pathlib import Path
-from typing import Optional, List
+from typing import Optional, List, Dict
+from contextlib import contextmanager
 from config import LOGS_DIR
 import threading
 
 
 class AlarmLogger:
-    """Logger for alarm activities"""
+    """Logger for alarm activities with performance monitoring"""
     
     def __init__(self):
         self.log_lock = threading.Lock()
         self._ensure_log_dir()
         self.callbacks = []
+        
+        # Performance tracking (lightweight)
+        self.perf_stats: Dict[str, List[float]] = {}
+        self.perf_lock = threading.Lock()
     
     def add_callback(self, callback):
         """Add a callback for new log entries"""
@@ -105,6 +111,41 @@ class AlarmLogger:
         """Get recent log entries"""
         logs = self.get_today_logs()
         return logs[-count:] if len(logs) > count else logs
+    
+    @contextmanager
+    def performance_track(self, operation_name: str):
+        """Context manager for tracking operation performance"""
+        start_time = time.perf_counter()
+        try:
+            yield
+        finally:
+            elapsed = time.perf_counter() - start_time
+            with self.perf_lock:
+                if operation_name not in self.perf_stats:
+                    self.perf_stats[operation_name] = []
+                self.perf_stats[operation_name].append(elapsed)
+                
+                # Keep only last 100 measurements per operation
+                if len(self.perf_stats[operation_name]) > 100:
+                    self.perf_stats[operation_name] = self.perf_stats[operation_name][-100:]
+            
+            # Log if operation takes longer than 5 seconds
+            if elapsed > 5.0:
+                self.warning(f"SLOW OPERATION: {operation_name} took {elapsed:.2f}s")
+    
+    def get_performance_stats(self) -> Dict[str, Dict[str, float]]:
+        """Get performance statistics for all tracked operations"""
+        stats = {}
+        with self.perf_lock:
+            for op_name, measurements in self.perf_stats.items():
+                if measurements:
+                    stats[op_name] = {
+                        'count': len(measurements),
+                        'avg_ms': (sum(measurements) / len(measurements)) * 1000,
+                        'max_ms': max(measurements) * 1000,
+                        'min_ms': min(measurements) * 1000,
+                    }
+        return stats
 
 
 # Global logger instance

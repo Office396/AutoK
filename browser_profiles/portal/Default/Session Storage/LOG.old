@@ -1,9 +1,15 @@
-2026/01/03-07:05:48.985 594 Reusing MANIFEST C:\wd\Autok\browser_profiles\portal\Default\Session Storage/MANIFEST-000001
-2026/01/03-07:05:48.986 594 Recovering log #81
-2026/01/03-07:05:48.986 594 Level-0 table #84: started
-2026/01/03-07:05:48.992 594 Level-0 table #84: 17803 bytes OK
-2026/01/03-07:05:48.992 594 Recovering log #83
-2026/01/03-07:05:48.994 594 Reusing old log C:\wd\Autok\browser_profiles\portal\Default\Session Storage/000083.log 
-2026/01/03-07:05:48.996 594 Delete type=0 #81
-2026/01/03-07:16:49.667 2328 Level-0 table #86: started
-2026/01/03-07:16:49.673 2328 Level-0 table #86: 17968 bytes OK
+2026/01/06-21:55:22.804 4450 Reusing MANIFEST C:\wd\Autok\browser_profiles\portal\Default\Session Storage/MANIFEST-000001
+2026/01/06-21:55:22.806 4450 Recovering log #107
+2026/01/06-21:55:22.808 4450 Reusing old log C:\wd\Autok\browser_profiles\portal\Default\Session Storage/000107.log 
+2026/01/06-21:55:35.649 295c Level-0 table #111: started
+2026/01/06-21:55:35.654 295c Level-0 table #111: 17041 bytes OK
+2026/01/06-21:55:35.657 295c Delete type=0 #107
+2026/01/06-21:55:35.658 295c Compacting 4@0 + 1@1 files
+2026/01/06-21:55:35.665 295c Generated table #112@0: 2889 keys, 56988 bytes
+2026/01/06-21:55:35.665 295c Compacted 4@0 + 1@1 files => 56988 bytes
+2026/01/06-21:55:35.666 295c compacted to: files[ 0 1 1 0 0 0 0 ]
+2026/01/06-21:55:35.667 295c Delete type=2 #99
+2026/01/06-21:55:35.668 295c Delete type=2 #102
+2026/01/06-21:55:35.668 295c Delete type=2 #105
+2026/01/06-21:55:35.668 295c Delete type=2 #108
+2026/01/06-21:55:35.668 295c Delete type=2 #111

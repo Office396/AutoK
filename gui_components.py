@@ -9,40 +9,69 @@ from datetime import datetime
 from enum import Enum
 
 
-# Color scheme
+# Color scheme - Modern Professional Design
 class Colors:
-    """Application color scheme - Optimized"""
-    # Primary colors
-    PRIMARY = "#2196F3"  # Brighter blue
-    PRIMARY_DARK = "#1976D2"
-    PRIMARY_LIGHT = "#64B5F6"
+    """Modern application color scheme with gradients and depth"""
+    # Primary colors - Modern blue gradient
+    PRIMARY = "#3B82F6"  # Vibrant blue
+    PRIMARY_DARK = "#2563EB"  # Darker blue
+    PRIMARY_LIGHT = "#60A5FA"  # Lighter blue
+    PRIMARY_HOVER = "#1D4ED8"  # Hover state
     
-    # Status colors
-    SUCCESS = "#4CAF50"
-    WARNING = "#FFC107"  # Brighter warning
-    ERROR = "#F44336"
-    INFO = "#03A9F4"
+    # Secondary colors - Purple accent
+    SECONDARY = "#8B5CF6"  # Purple
+    SECONDARY_DARK = "#7C3AED"
+    SECONDARY_LIGHT = "#A78BFA"
     
-    # Background colors - Slightly lighter for better contrast
-    BG_DARK = "#121212"
-    BG_MEDIUM = "#1E1E1E"
-    BG_LIGHT = "#2D2D2D"
-    BG_CARD = "#252525"
+    # Status colors - Enhanced visibility
+    SUCCESS = "#10B981"  # Emerald green
+    SUCCESS_LIGHT = "#34D399"
+    WARNING = "#F59E0B"  # Amber
+    WARNING_LIGHT = "#FBBF24"
+    ERROR = "#EF4444"  # Red
+    ERROR_LIGHT = "#F87171"
+    INFO = "#06B6D4"  # Cyan
+    INFO_LIGHT = "#22D3EE"
     
-    # Text colors
-    TEXT_PRIMARY = "#FFFFFF"
-    TEXT_SECONDARY = "#B3B3B3"
-    TEXT_MUTED = "#808080"
+    # Background colors - Improved depth and contrast
+    BG_DARK = "#0F172A"  # Deep slate
+    BG_MEDIUM = "#1E293B"  # Medium slate
+    BG_LIGHT = "#334155"  # Light slate
+    BG_CARD = "#1E293B"  # Card background
+    BG_HOVER = "#334155"  # Hover state
     
-    # Border colors
-    BORDER = "#404040"
-    BORDER_LIGHT = "#505050"
+    # Surface colors for elevation
+    SURFACE_1 = "#1E293B"  # Elevation 1
+    SURFACE_2 = "#334155"  # Elevation 2
+    SURFACE_3 = "#475569"  # Elevation 3
     
-    # Accent colors
-    ACCENT_BLUE = "#00BCD4"
-    ACCENT_PURPLE = "#AB47BC"
-    ACCENT_ORANGE = "#FF7043"
-    ACCENT_GREEN = "#66BB6A"
+    # Text colors - Better readability
+    TEXT_PRIMARY = "#F1F5F9"  # Almost white
+    TEXT_SECONDARY = "#CBD5E1"  # Light gray
+    TEXT_MUTED = "#94A3B8"  # Muted gray
+    TEXT_DISABLED = "#64748B"  # Disabled gray
+    
+    # Border colors - Subtle but visible
+    BORDER = "#334155"
+    BORDER_LIGHT = "#475569"
+    BORDER_FOCUS = "#3B82F6"  # Focus border
+    
+    # Accent colors - Rich palette
+    ACCENT_BLUE = "#06B6D4"  # Cyan
+    ACCENT_PURPLE = "#A855F7"  # Purple
+    ACCENT_PINK = "#EC4899"  # Pink
+    ACCENT_ORANGE = "#F97316"  # Orange
+    ACCENT_GREEN = "#10B981"  # Green
+    ACCENT_YELLOW = "#EAB308"  # Yellow
+    
+    # Gradient colors
+    GRADIENT_START = "#3B82F6"
+    GRADIENT_END = "#8B5CF6"
+    
+    # Shadow colors
+    SHADOW_LIGHT = "rgba(0, 0, 0, 0.1)"
+    SHADOW_MEDIUM = "rgba(0, 0, 0, 0.2)"
+    SHADOW_HEAVY = "rgba(0, 0, 0, 0.3)"
 
 
 class StatusIndicator(ctk.CTkFrame):
@@ -92,7 +121,7 @@ class StatusIndicator(ctk.CTkFrame):
 
 
 class StatCard(ctk.CTkFrame):
-    """A card displaying a statistic"""
+    """A card displaying a statistic - Updated with modern styling"""
     
     def __init__(
         self,
@@ -105,37 +134,50 @@ class StatCard(ctk.CTkFrame):
     ):
         super().__init__(
             parent,
-            fg_color=Colors.BG_CARD,
-            corner_radius=10,
+            fg_color=Colors.SURFACE_1,  # Updated to modern color
+            corner_radius=12,  # Updated corner radius
+            border_width=1,  # Added border
+            border_color=Colors.BORDER,
             **kwargs
         )
         
         self.color = color
         
-        # Icon and title row
+        # Icon and title row with better spacing
         title_frame = ctk.CTkFrame(self, fg_color="transparent")
-        title_frame.pack(fill="x", padx=15, pady=(15, 5))
+        title_frame.pack(fill="x", padx=15, pady=(15, 8))
+        
+        # Icon with colored background
+        icon_frame = ctk.CTkFrame(
+            title_frame,
+            width=40,
+            height=40,
+            corner_radius=8,
+            fg_color=color
+        )
+        icon_frame.pack(side="left")
+        icon_frame.pack_propagate(False)
         
         icon_label = ctk.CTkLabel(
-            title_frame,
+            icon_frame,
             text=icon,
-            font=ctk.CTkFont(size=20)
+            font=ctk.CTkFont(size=18)
         )
-        icon_label.pack(side="left")
+        icon_label.place(relx=0.5, rely=0.5, anchor="center")
         
         title_label = ctk.CTkLabel(
             title_frame,
             text=title,
-            font=ctk.CTkFont(size=12),
-            text_color=Colors.TEXT_SECONDARY
+            font=ctk.CTkFont(size=13, weight="bold"),  # Updated font
+            text_color=Colors.TEXT_PRIMARY  # Updated color
         )
-        title_label.pack(side="left", padx=(10, 0))
+        title_label.pack(side="left", padx=(12, 0))
         
-        # Value
+        # Value with better styling
         self.value_label = ctk.CTkLabel(
             self,
             text=value,
-            font=ctk.CTkFont(size=28, weight="bold"),
+            font=ctk.CTkFont(size=32, weight="bold"),  # Larger font
             text_color=color
         )
         self.value_label.pack(padx=15, pady=(5, 15), anchor="w")
@@ -161,15 +203,23 @@ class AlarmTable(ctk.CTkScrollableFrame):
         )
         
         self.rows: List[ctk.CTkFrame] = []
-        self.max_rows = 2000
+        # PERFORMANCE: Reduced from 2000 to 1000 to prevent UI lag
+        # Advanced software uses virtual scrolling, but limiting rows is a good compromise
+        self.max_rows = 1000
         
         # Header
         self._create_header()
     
     def _create_header(self):
-        """Create table header"""
-        header = ctk.CTkFrame(self, fg_color=Colors.BG_LIGHT, corner_radius=5)
-        header.pack(fill="x", padx=5, pady=5)
+        """Create modern table header with better styling"""
+        header = ctk.CTkFrame(
+            self,
+            fg_color=Colors.SURFACE_2,
+            corner_radius=10,
+            border_width=1,
+            border_color=Colors.BORDER
+        )
+        header.pack(fill="x", padx=8, pady=(8, 5))
         
         columns = [
             ("Time", 120),
@@ -184,34 +234,33 @@ class AlarmTable(ctk.CTkScrollableFrame):
             label = ctk.CTkLabel(
                 header,
                 text=col_name,
-                font=ctk.CTkFont(size=11, weight="bold"),
+                font=ctk.CTkFont(size=12, weight="bold"),
                 text_color=Colors.TEXT_PRIMARY,
                 width=width
             )
-            label.pack(side="left", padx=5, pady=8)
+            label.pack(side="left", padx=8, pady=12)
     
     def add_alarm(self, alarm_data: Dict, source: str = None):
-        """Add an alarm row"""
-        row = ctk.CTkFrame(self, fg_color="transparent", height=35)
+        """Add an alarm row - OPTIMIZED: Append-only with modern styling"""
+        row = ctk.CTkFrame(
+            self,
+            fg_color="transparent",
+            height=40,
+            corner_radius=8
+        )
         
         # Store source on the row widget for later filtering
         row.source = source
-        
-        # Insert at the top (visually)
-        if self.rows:
-            # Pack before the first row
-            row.pack(fill="x", padx=5, pady=2, before=self.rows[0])
-            # Insert at beginning of list
-            self.rows.insert(0, row)
-        else:
-            # First row
-            row.pack(fill="x", padx=5, pady=2)
-            self.rows.append(row)
-        
         row.pack_propagate(False)
         
-        # Alternate row colors
-        row.configure(fg_color=Colors.BG_MEDIUM if len(self.rows) % 2 == 0 else "transparent")
+        # PERFORMANCE FIX: Append to end instead of inserting at beginning
+        row.pack(fill="x", padx=8, pady=3)
+        self.rows.append(row)
+        
+        # Modern alternating row colors with better contrast
+        row.configure(
+            fg_color=Colors.SURFACE_1 if len(self.rows) % 2 == 0 else Colors.BG_MEDIUM
+        )
         
         # Time
         time_label = ctk.CTkLabel(
@@ -283,19 +332,19 @@ class AlarmTable(ctk.CTkScrollableFrame):
             old_row.destroy()
     
     def remove_alarms_by_source(self, source: str):
-        """Remove all alarms from a specific source"""
+        """Remove all alarms from a specific source - optimized"""
         if not source:
             return
-            
-        # Create new list for keeping
-        keep_rows = []
-        for row in self.rows:
-            if hasattr(row, 'source') and row.source == source:
-                row.destroy()
-            else:
-                keep_rows.append(row)
         
-        self.rows = keep_rows
+        # PERFORMANCE: Use list comprehension instead of loop for better performance
+        to_remove = [row for row in self.rows if hasattr(row, 'source') and row.source == source]
+        
+        # Batch destroy operations
+        for row in to_remove:
+            row.destroy()
+        
+        # Update rows list efficiently
+        self.rows = [row for row in self.rows if row not in to_remove]
     
     def _get_alarm_color(self, alarm_type: str) -> str:
         """Get color for alarm type"""
@@ -802,3 +851,142 @@ class SearchBox(ctk.CTkFrame):
     
     def clear(self):
         self.entry.delete(0, "end")
+
+
+class ModernButton(ctk.CTkButton):
+    """Enhanced button with hover effects and modern styling"""
+    
+    def __init__(self, parent, style="primary", **kwargs):
+        # Style presets
+        styles = {
+            "primary": {
+                "fg_color": Colors.PRIMARY,
+                "hover_color": Colors.PRIMARY_HOVER,
+                "text_color": Colors.TEXT_PRIMARY,
+                "border_width": 0,
+                "corner_radius": 8,
+                "font": ctk.CTkFont(size=13, weight="bold")
+            },
+            "secondary": {
+                "fg_color": Colors.SECONDARY,
+                "hover_color": Colors.SECONDARY_DARK,
+                "text_color": Colors.TEXT_PRIMARY,
+                "border_width": 0,
+                "corner_radius": 8,
+                "font": ctk.CTkFont(size=13, weight="bold")
+            },
+            "success": {
+                "fg_color": Colors.SUCCESS,
+                "hover_color": Colors.SUCCESS_LIGHT,
+                "text_color": Colors.TEXT_PRIMARY,
+                "border_width": 0,
+                "corner_radius": 8,
+                "font": ctk.CTkFont(size=13, weight="bold")
+            },
+            "danger": {
+                "fg_color": Colors.ERROR,
+                "hover_color": Colors.ERROR_LIGHT,
+                "text_color": Colors.TEXT_PRIMARY,
+                "border_width": 0,
+                "corner_radius": 8,
+                "font": ctk.CTkFont(size=13, weight="bold")
+            },
+            "outline": {
+                "fg_color": "transparent",
+                "hover_color": Colors.BG_HOVER,
+                "text_color": Colors.PRIMARY,
+                "border_width": 2,
+                "border_color": Colors.PRIMARY,
+                "corner_radius": 8,
+                "font": ctk.CTkFont(size=13, weight="bold")
+            }
+        }
+        
+        # Get style config
+        style_config = styles.get(style, styles["primary"])
+        style_config.update(kwargs)  # Allow override
+        
+        super().__init__(parent, **style_config)
+
+
+class ModernCard(ctk.CTkFrame):
+    """Modern card component with elevation and rounded corners"""
+    
+    def __init__(self, parent, title=None, **kwargs):
+        default_config = {
+            "fg_color": Colors.SURFACE_1,
+            "corner_radius": 12,
+            "border_width": 1,
+            "border_color": Colors.BORDER
+        }
+        default_config.update(kwargs)
+        
+        super().__init__(parent, **default_config)
+        
+        if title:
+            # Title bar
+            title_frame = ctk.CTkFrame(self, fg_color="transparent")
+            title_frame.pack(fill="x", padx=20, pady=(15, 10))
+            
+            title_label = ctk.CTkLabel(
+                title_frame,
+                text=title,
+                font=ctk.CTkFont(size=16, weight="bold"),
+                text_color=Colors.TEXT_PRIMARY
+            )
+            title_label.pack(side="left")
+            
+            # Separator line
+            separator = ctk.CTkFrame(
+                self,
+                height=1,
+                fg_color=Colors.BORDER
+            )
+            separator.pack(fill="x", padx=20, pady=(0, 15))
+        
+        # Content area
+        self.content = ctk.CTkFrame(self, fg_color="transparent")
+        self.content.pack(fill="both", expand=True, padx=20, pady=(0, 15))
+
+class ModernProgressBar(ctk.CTkFrame):
+    """Modern progress bar with label"""
+    
+    def __init__(self, parent, label="Progress", **kwargs):
+        super().__init__(parent, fg_color="transparent", **kwargs)
+        
+        # Label
+        label_frame = ctk.CTkFrame(self, fg_color="transparent")
+        label_frame.pack(fill="x", pady=(0, 5))
+        
+        self.label = ctk.CTkLabel(
+            label_frame,
+            text=label,
+            font=ctk.CTkFont(size=12),
+            text_color=Colors.TEXT_SECONDARY
+        )
+        self.label.pack(side="left")
+        
+        self.percentage = ctk.CTkLabel(
+            label_frame,
+            text="0%",
+            font=ctk.CTkFont(size=12, weight="bold"),
+            text_color=Colors.TEXT_PRIMARY
+        )
+        self.percentage.pack(side="right")
+        
+        # Progress bar
+        self.progress = ctk.CTkProgressBar(
+            self,
+            height=8,
+            corner_radius=4,
+            fg_color=Colors.BG_LIGHT,
+            progress_color=Colors.PRIMARY
+        )
+        self.progress.pack(fill="x")
+        self.progress.set(0)
+    
+    def set_progress(self, value, max_value=100):
+        """Set progress value (0-max_value)"""
+        percentage = min(100, int((value / max_value) * 100))
+        self.progress.set(value / max_value)
+        self.percentage.configure(text=f"{percentage}%")

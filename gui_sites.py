@@ -25,15 +25,19 @@ class SitesView(ctk.CTkFrame):
     
     def _create_layout(self):
         """Create the layout"""
-        # Configure grid
+        # Configure grid - 3 rows: header, main content, and duplicates
         self.grid_columnconfigure(0, weight=1)
-        self.grid_rowconfigure(1, weight=1)
-        
+        self.grid_rowconfigure(1, weight=1)  # Main content area
+        self.grid_rowconfigure(2, weight=0)  # Duplicates section (if any)
+            
         # Header
         self._create_header()
-        
-        # Content
+            
+        # Main content
         self._create_content()
+            
+        # Duplicate sites section
+        self._create_duplicates_section()
     
     def _create_header(self):
         """Create header with search and stats"""
@@ -105,9 +109,10 @@ class SitesView(ctk.CTkFrame):
         content = ctk.CTkFrame(self, fg_color="transparent")
         content.grid(row=1, column=0, sticky="nsew", padx=20, pady=(0, 20))
         
+        # Configure content grid to have 2 rows: main content and duplicates
         content.grid_columnconfigure(0, weight=2)
         content.grid_columnconfigure(1, weight=1)
-        content.grid_rowconfigure(0, weight=1)
+        content.grid_rowconfigure(0, weight=1)  # Main content (sites table + details)
         
         # Sites table
         table_container = ctk.CTkFrame(content, fg_color=Colors.BG_CARD, corner_radius=10)
@@ -145,6 +150,50 @@ class SitesView(ctk.CTkFrame):
         # Site details panel
         self.details_panel = SiteDetailsPanel(content)
         self.details_panel.grid(row=0, column=1, sticky="nsew")
+    
+    def _create_duplicates_section(self):
+        """Create section to display duplicate sites"""
+        # Check if there are duplicates
+        if master_data.duplicate_count == 0:
+            return
+        
+        # Create duplicate sites section
+        duplicates_frame = ctk.CTkFrame(self, fg_color=Colors.BG_CARD, corner_radius=10)
+        duplicates_frame.grid(row=2, column=0, sticky="ew", padx=20, pady=(0, 20))
+        
+        # Header for duplicates section
+        dup_header = ctk.CTkFrame(duplicates_frame, fg_color=Colors.BG_LIGHT, corner_radius=5)
+        dup_header.pack(fill="x", padx=10, pady=10)
+        
+        dup_title = ctk.CTkLabel(
+            dup_header,
+            text=f"⚠️ Duplicate Sites Found ({master_data.duplicate_count})",
+            font=ctk.CTkFont(size=12, weight="bold"),
+            text_color=Colors.WARNING
+        )
+        dup_title.pack(side="left", padx=5, pady=8)
+        
+        # Scrollable duplicate list
+        self.duplicate_list = ctk.CTkScrollableFrame(
+            duplicates_frame,
+            fg_color="transparent",
+            height=150
+        )
+        self.duplicate_list.pack(fill="x", padx=10, pady=(0, 10))
+        
+        # Add duplicate sites to the list
+        for dup in master_data.get_duplicate_sites():
+            dup_row = ctk.CTkFrame(self.duplicate_list, fg_color=Colors.BG_MEDIUM, corner_radius=5)
+            dup_row.pack(fill="x", pady=2)
+            
+            dup_info = ctk.CTkLabel(
+                dup_row,
+                text=f"Site: {dup['site_code']} | Row: {dup['row_number']} | New: {dup['new_name'][:30]}... | Existing: {dup['existing_name'][:30]}...",
+                font=ctk.CTkFont(size=10),
+                text_color=Colors.WARNING,
+                anchor="w"
+            )
+            dup_info.pack(fill="x", padx=5, pady=3)
     
     def _load_data(self):
         """Load site data"""

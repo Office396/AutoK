@@ -148,6 +148,7 @@ class MasterDataManager:
         self.df: Optional[pd.DataFrame] = None
         self.sites: Dict[str, SiteInfo] = {}
         self.site_codes: List[str] = []
+        self.duplicate_sites: List[Dict] = []
         self._loaded = False
     
     @property
@@ -194,14 +195,15 @@ class MasterDataManager:
                         if site_info.site_code in self.sites:
                             duplicate_codes.append(site_info.site_code)
                             existing = self.sites[site_info.site_code]
-                            duplicate_details.append({
+                            duplicate_detail = {
                                 'site_code': site_info.site_code,
                                 'row_number': idx + 2,
                                 'new_name': site_info.site_name,
                                 'existing_name': existing.site_name,
                                 'new_mbu': site_info.new_mbu,
                                 'existing_mbu': existing.new_mbu
-                            })
+                            }
+                            duplicate_details.append(duplicate_detail)
                         else:
                             self.sites[site_info.site_code] = site_info
                             self.site_codes.append(site_info.site_code)
@@ -210,6 +212,9 @@ class MasterDataManager:
                 except Exception as e:
                     skipped_rows.append(idx + 2)
                     continue
+            
+            # Store duplicate details for access by other modules
+            self.duplicate_sites = duplicate_details
             
             self._loaded = True
             
@@ -383,6 +388,15 @@ class MasterDataManager:
                 query in site.site_id.lower()):
                 results.append(site)
         return results
+    
+    @property
+    def duplicate_count(self) -> int:
+        """Get number of duplicate sites"""
+        return len(self.duplicate_sites)
+    
+    def get_duplicate_sites(self) -> List[Dict]:
+        """Get list of duplicate sites"""
+        return self.duplicate_sites
     
     def reload(self) -> bool:
         """Reload the master data"""

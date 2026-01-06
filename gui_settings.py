@@ -133,7 +133,7 @@ class SettingsView(ctk.CTkFrame):
             inner,
             label="CSL Fault (0 = Realtime)",
             min_value=0,
-            max_value=120,
+            max_value=180,
             default_value=0
         )
         csl_slider.pack(fill="x", pady=5)
@@ -157,11 +157,32 @@ class SettingsView(ctk.CTkFrame):
                 inner,
                 label=label,
                 min_value=5,
-                max_value=120,
+                max_value=180,
                 default_value=default
             )
             slider.pack(fill="x", pady=5)
             self.timing_sliders[key] = slider
+        
+        # Hourly minute entries per alarm type
+        self.hourly_minute_entries = {}
+        minute_settings = [
+            ("Low Voltage", "low_voltage"),
+            ("AC Main Failure", "ac_main_failure"),
+            ("System on Battery", "system_on_battery"),
+            ("Battery High Temp", "battery_high_temp"),
+            ("RF Unit Failure", "rf_unit_failure"),
+            ("Cell Unavailable", "cell_unavailable"),
+            ("Genset Operation", "genset_operation"),
+            ("Mains Failure", "mains_failure"),
+        ]
+        for label, key in minute_settings:
+            entry = SettingsEntry(
+                inner,
+                label=f"{label} Hourly Minutes (comma: e.g., 10, 30, 45):",
+                width=120
+            )
+            entry.pack(fill="x", pady=4)
+            self.hourly_minute_entries[key] = entry
         
         # Check interval
         self._create_section_header(inner, "Portal Check Interval", "🔄")
@@ -188,18 +209,8 @@ class SettingsView(ctk.CTkFrame):
         
         self.mbu_mappings = {}
         
-        mbu_list = [
-            ("C1-LHR-01", "C1-LHR-MBU-01"),
-            ("C1-LHR-02", "MBU C1-LHR-02"),
-            ("C1-LHR-03", "C1-LHR-03"),
-            ("C1-LHR-04", "MBU C1-LHR-04"),
-            ("C1-LHR-05", "MBU C1 LHR-05"),
-            ("C1-LHR-06", "MBU C1-LHR-06 Hotline"),
-            ("C1-LHR-07", "MBU-C1-LHR-07"),
-            ("C1-LHR-08", "MBU C1-LHR-08 Hotline"),
-        ]
-        
-        for mbu, default_group in mbu_list:
+        # Load from settings instead of hardcoded list
+        for mbu, default_group in settings.mbu_groups.mapping.items():
             mapping = GroupMappingEntry(inner, mbu, default_group)
             mapping.pack(fill="x", pady=3)
             self.mbu_mappings[mbu] = mapping
@@ -216,14 +227,8 @@ class SettingsView(ctk.CTkFrame):
         
         self.b2s_mappings = {}
         
-        b2s_list = [
-            ("ATL", "JAZZ ATL CA-LHR-C1"),
-            ("Edotco", "Jazz~edotco C1 & C4"),
-            ("Enfrashare", "Jazz Enfrashare MPL C1"),
-            ("Tawal", "TAWAL - Jazz (Central-A)"),
-        ]
-        
-        for company, default_group in b2s_list:
+        # Load from settings instead of hardcoded list
+        for company, default_group in settings.b2s_groups.mapping.items():
             mapping = GroupMappingEntry(inner, company, default_group)
             mapping.pack(fill="x", pady=3)
             self.b2s_mappings[company] = mapping
@@ -240,13 +245,8 @@ class SettingsView(ctk.CTkFrame):
         
         self.omo_mappings = {}
         
-        omo_list = [
-            ("Zong", "MPL JAZZ & CMPAK"),
-            ("Ufone", "Ufone Jazz Sites Huawei Group"),
-            ("Telenor", "TP JAZZ Shared Sites C1"),
-        ]
-        
-        for company, default_group in omo_list:
+        # Load from settings instead of hardcoded list
+        for company, default_group in settings.omo_groups.mapping.items():
             mapping = GroupMappingEntry(inner, company, default_group)
             mapping.pack(fill="x", pady=3)
             self.omo_mappings[company] = mapping
@@ -295,36 +295,6 @@ class SettingsView(ctk.CTkFrame):
         )
         browse_btn.pack(side="left")
         
-        # Skip toggle MBUs
-        toggle_frame = ctk.CTkFrame(inner, fg_color="transparent")
-        toggle_frame.pack(fill="x", pady=(15, 5))
-        
-        toggle_label = ctk.CTkLabel(
-            toggle_frame,
-            text="Skip Toggle Alarms for:",
-            font=ctk.CTkFont(size=12),
-            text_color=Colors.TEXT_SECONDARY
-        )
-        toggle_label.pack(anchor="w")
-        
-        self.skip_toggle_vars = {}
-        
-        skip_mbus = ["C1-LHR-04", "C1-LHR-05"]
-        for mbu in ["C1-LHR-01", "C1-LHR-02", "C1-LHR-03", "C1-LHR-04", 
-                    "C1-LHR-05", "C1-LHR-06", "C1-LHR-07", "C1-LHR-08"]:
-            var = ctk.BooleanVar(value=mbu in skip_mbus)
-            cb = ctk.CTkCheckBox(
-                toggle_frame,
-                text=mbu,
-                variable=var,
-                font=ctk.CTkFont(size=11),
-                text_color=Colors.TEXT_SECONDARY,
-                fg_color=Colors.PRIMARY,
-                hover_color=Colors.PRIMARY_DARK
-            )
-            cb.pack(side="left", padx=10, pady=5)
-            self.skip_toggle_vars[mbu] = var
-
         # WhatsApp Sending Method
         method_frame = ctk.CTkFrame(inner, fg_color="transparent")
         method_frame.pack(fill="x", pady=(15, 5))
@@ -441,6 +411,24 @@ class SettingsView(ctk.CTkFrame):
         settings.timing.genset_operation = self.timing_sliders["genset_operation"].get()
         settings.timing.mains_failure = self.timing_sliders["mains_failure"].get()
         
+        # Hourly minute settings
+        settings.hourly_minute_map.clear()
+        for key, entry in self.hourly_minute_entries.items():
+            val = entry.get().strip()
+            if val:
+                parts = [p.strip() for p in val.split(",") if p.strip()]
+                minutes: List[int] = []
+                for p in parts:
+                    try:
+                        m = int(p)
+                        if 0 <= m <= 59:
+                            minutes.append(m)
+                    except:
+                        continue
+                if minutes:
+                    # Deduplicate and sort
+                    settings.hourly_minute_map[key] = sorted(set(minutes))
+        
         settings.check_interval_seconds = self.check_interval_slider.get()
         
         # MBU mappings
@@ -460,11 +448,6 @@ class SettingsView(ctk.CTkFrame):
         
         # Other settings
         settings.master_file_path = self.file_path_entry.get()
-        
-        # Skip toggle MBUs
-        settings.skip_toggle_mbus = [
-            mbu for mbu, var in self.skip_toggle_vars.items() if var.get()
-        ]
         
         # WhatsApp Sending Method
         settings.whatsapp_sending_method = self.sending_method_var.get()
@@ -505,6 +488,14 @@ class SettingsView(ctk.CTkFrame):
         self.timing_sliders["genset_operation"].set(settings.timing.genset_operation)
         self.timing_sliders["mains_failure"].set(settings.timing.mains_failure)
         
+        # Hourly minute settings
+        for key, entry in self.hourly_minute_entries.items():
+            minutes = settings.hourly_minute_map.get(key, None)
+            if not minutes:
+                entry.set("")
+            else:
+                entry.set(", ".join(str(m) for m in minutes))
+        
         self.check_interval_slider.set(settings.check_interval_seconds)
         
         # MBU mappings
@@ -525,10 +516,6 @@ class SettingsView(ctk.CTkFrame):
         # Other settings
         self.file_path_entry.insert(0, settings.master_file_path)
         
-        # Skip toggle MBUs
-        for mbu, var in self.skip_toggle_vars.items():
-            var.set(mbu in settings.skip_toggle_mbus)
-
         # WhatsApp Sending Method
         self.sending_method_var.set(settings.whatsapp_sending_method)
 

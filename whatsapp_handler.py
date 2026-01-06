@@ -47,6 +47,7 @@ class MessageResult:
     message: str = ""
     error: str = ""
     timestamp: datetime = field(default_factory=datetime.now)
+    alarm_type: str = ""
 
 
 @dataclass(order=True)
@@ -277,6 +278,9 @@ class WhatsAppHandler:
         self.chat_cache = CachedChatList()
         self._driver: Optional[webdriver.Chrome] = None
         self._current_chat_name: Optional[str] = None  # Cache currently open chat
+        self._current_message: Optional[QueuedMessage] = None
+        from collections import deque
+        self._recent_sent = deque(maxlen=50)
     
     def set_popup_callback(self, callback: Callable):
         """Set callback for showing error popups"""
@@ -405,6 +409,7 @@ class WhatsAppHandler:
             logger.warning(f"Attempted to queue empty message for {group_name}")
             return
         
+        # PERFORMANCE: Get sequence number with minimal lock time
         with self.lock:
             self._message_sequence += 1
             seq = self._message_sequence
@@ -443,12 +448,26 @@ class WhatsAppHandler:
                 except queue.Empty:
                     continue
                 
+                self._current_message = queued
                 result = self.send_message(queued.group_name, queued.message)
+                result.alarm_type = queued.alarm_type
                 self._notify_message_sent(result)
                 
                 if result.success:
                     self._messages_sent += 1
                     self._last_message_time = datetime.now()
+                
+                try:
+                    self._recent_sent.append({
+                        'group_name': queued.group_name,
+                        'alarm_type': queued.alarm_type,
+                        'success': result.success,
+                        'timestamp': result.timestamp
+                    })
+                except:
+                    pass
+                
+                self._current_message = None
                 
                 time.sleep(0.5)
                 
@@ -468,6 +487,13 @@ class WhatsAppHandler:
         logger.info(f"Attempting to send message to: {group_name}")
         self._notify_status(WhatsAppStatus.SENDING)
         
+        # PERFORMANCE: Track message sending time
+        with logger.performance_track("WhatsApp_Send"):
+            return self._send_message_impl(driver, group_name, message, retry_count)
+    
+    def _send_message_impl(self, driver, group_name: str, message: str, retry_count: int) -> MessageResult:
+        """Internal message sending implementation"""
+        
         for attempt in range(retry_count):
             try:
                 # 1. OPTIMIZATION: Check if already in the correct group
@@ -483,7 +509,7 @@ class WhatsAppHandler:
                     if not self._find_and_open_group(driver, group_name):
                         logger.warning(f"Group '{group_name}' not found (Attempt {attempt + 1})")
                         if attempt < retry_count - 1:
-                            time.sleep(0.5)
+                            time.sleep(0.3)  # Reduced from 0.5s
                             continue
                         
                         # ALERT on group not found
@@ -495,17 +521,14 @@ class WhatsAppHandler:
                     
                     # Update current chat cache
                     self._current_chat_name = group_name
+                    # Wait for chat to stabilize after opening
+                    time.sleep(0.3)  # Reduced from 1.5s total
                 
-                # Reduced sleep from 1s to 0.5s
-                time.sleep(0.5)
-                
-                time.sleep(1)
-                
-                # 2. Find input box
-                input_box = self._find_clickable_element(driver, "message_input")
+                # 2. Find input box with smart wait
+                input_box = self._find_clickable_element(driver, "message_input", timeout=10)
                 if not input_box:
                     if attempt < retry_count - 1:
-                        time.sleep(1)
+                        time.sleep(0.5)  # Reduced from 1s
                         continue
                     
                     # ALERT on input not found
@@ -517,7 +540,7 @@ class WhatsAppHandler:
                 
                 # 3. INSTANT PASTE logic
                 input_box.click()
-                time.sleep(0.2)
+                time.sleep(0.15)  # Reduced from 0.2s
                 
                 # determine sending method
                 method = settings.whatsapp_sending_method
@@ -527,7 +550,7 @@ class WhatsAppHandler:
                     try:
                         pyperclip.copy(message)
                         input_box.send_keys(Keys.CONTROL + 'v')
-                        time.sleep(0.5) # Wait for paste to register
+                        time.sleep(0.3)  # Reduced from 0.5s
                     except Exception as clip_e:
                         logger.error(f"Clipboard method failed, falling back to JavaScript: {clip_e}")
                         method = "JavaScript"
@@ -562,11 +585,11 @@ class WhatsAppHandler:
                             if i < len(parts) - 1:
                                 input_box.send_keys(Keys.SHIFT + Keys.ENTER)
                 
-                time.sleep(0.5) # Wait for input to register
+                time.sleep(0.3)  # Reduced from 0.5s - Wait for input to register
                 
                 # 4. Send
                 input_box.send_keys(Keys.ENTER)
-                time.sleep(0.5)
+                time.sleep(0.3)  # Reduced from 0.5s
                 
                 self._notify_status(WhatsAppStatus.CONNECTED)
                 logger.success(f"Message sent successfully to {group_name}")
@@ -575,7 +598,7 @@ class WhatsAppHandler:
             except Exception as e:
                 logger.error(f"Error sending to {group_name}: {e}")
                 if attempt < retry_count - 1:
-                    time.sleep(1)
+                    time.sleep(0.5)  # Reduced from 1s
                     continue
                 
                 # ALERT on crash/error
@@ -602,7 +625,7 @@ class WhatsAppHandler:
             try:
                 logger.debug(f": Found group in cache, clicking...")
                 ActionChains(driver).move_to_element(cached_element).click().perform()
-                time.sleep(1)
+                time.sleep(0.5)  # Reduced from 1s
                 
                 if self._verify_chat_opened(driver, group_name):
                     return True
@@ -675,7 +698,7 @@ class WhatsAppHandler:
                     
                     logger.debug(f": Scrolling group '{group_name}' into view")
                     driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", row)
-                    time.sleep(0.5)
+                    time.sleep(0.3)  # Reduced from 0.5s
                     
                     logger.debug(f": Clicking on group '{group_name}'")
                     try:
@@ -685,7 +708,7 @@ class WhatsAppHandler:
                         row.click()
                     
                     
-                    time.sleep(0.5) # Reduced from 1s
+                    time.sleep(0.3)  # Reduced from 0.5s
                     
                     logger.debug(f": Waiting for chat '{group_name}' to load...")
                     
@@ -694,7 +717,7 @@ class WhatsAppHandler:
                         if self._verify_chat_opened(driver, group_name):
                             logger.success(f"Successfully opened group: {group_name}")
                             return True
-                        time.sleep(0.5)
+                        time.sleep(0.3)  # Reduced from 0.5s
                     
                     for chat in self.chat_cache.get_all_group_names()[:5]:
                         logger.debug(f": Found chat title: '{chat}'")
@@ -784,6 +807,53 @@ class WhatsAppHandler:
             'cached_chats': len(self.chat_cache.chats)
         }
 
+    def get_detailed_stats(self) -> Dict:
+        try:
+            current = None
+            if self._current_message:
+                current = {
+                    'group_name': self._current_message.group_name,
+                    'alarm_type': self._current_message.alarm_type,
+                    'priority': self._current_message.priority,
+                    'queued_at': self._current_message.timestamp.isoformat()
+                }
+            
+            try:
+                queue_items = list(self.message_queue.queue)
+                queue_preview = []
+                for qm in sorted(queue_items, key=lambda x: x.sort_index)[:10]:
+                    queue_preview.append({
+                        'group_name': qm.group_name,
+                        'alarm_type': qm.alarm_type,
+                        'priority': qm.priority,
+                        'queued_at': qm.timestamp.isoformat()
+                    })
+            except:
+                queue_preview = []
+            
+            sent_preview = []
+            try:
+                for item in list(self._recent_sent)[-10:]:
+                    sent_preview.append({
+                        'group_name': item.get('group_name'),
+                        'alarm_type': item.get('alarm_type'),
+                        'success': item.get('success'),
+                        'timestamp': item.get('timestamp').isoformat() if item.get('timestamp') else None
+                    })
+            except:
+                pass
+            
+            base = self.get_stats()
+            base.update({
+                'current': current,
+                'queue_preview': queue_preview,
+                'sent_recent': sent_preview
+            })
+            return base
+        except Exception as e:
+            logger.error(f"Error building detailed stats: {e}")
+            return self.get_stats()
+
 
 whatsapp_handler = WhatsAppHandler()
 
@@ -813,13 +883,9 @@ class OrderedAlarmSender:
         "Cell Unavailable"
     ]
     
-    MBU_ORDER = [
-        "C1-LHR-01", "C1-LHR-02", "C1-LHR-03", "C1-LHR-04",
-        "C1-LHR-05", "C1-LHR-06", "C1-LHR-07", "C1-LHR-08"
-    ]
-    
-    B2S_ORDER = ["ATL", "Edotco", "Enfrashare", "Tawal"]
-    OMO_ORDER = ["Ufone", "Telenor", "CMpak", "Zong", "CMPAK", "CM-PAK"]
+    MBU_ORDER = list(settings.mbu_groups.mapping.keys())  # Dynamic from settings
+    B2S_ORDER = list(settings.b2s_groups.mapping.keys())  # Dynamic from settings
+    OMO_ORDER = list(settings.omo_groups.mapping.keys())  # Dynamic from settings
     
     @classmethod
     def get_ordered_batches(cls, alarms: List) -> List[Tuple[str, str, List, bool, str]]:
@@ -879,6 +945,11 @@ class OrderedAlarmSender:
                     whatsapp_group = settings.get_b2s_group_name(group_id)
                 elif group_type == 'OMO':
                     whatsapp_group = settings.get_omo_group_name(group_id)
+                
+                # Check send control: skip if disabled for this group/alarm
+                from config import settings as _settings
+                if _settings.is_alarm_disabled(group_type, group_id, alarm_type):
+                    continue
                 
                 if whatsapp_group:
                     batches.append((whatsapp_group, alarm_type, group_alarms, is_toggle, group_type))

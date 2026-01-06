@@ -40,6 +40,7 @@ class AlarmScheduler:
         self.scheduler_thread: Optional[threading.Thread] = None
         self.lock = threading.Lock()
         self.alarm_queue = queue.Queue()
+        self.last_sent_buckets: Dict[str, set] = {}
         
         # Real-time alarm types (sent immediately)
         # CSL Fault is now handled as a regular alarm with 0 min delay
@@ -52,24 +53,26 @@ class AlarmScheduler:
     
     def add_alarm(self, alarm: ProcessedAlarm):
         """Add an alarm to the scheduler"""
+        alarm_type = alarm.alarm_type.lower()
+        
+        # Check if real-time alarm (no lock needed for read-only check)
+        if self._is_realtime(alarm.alarm_type):
+            # Queue for immediate sending
+            self.alarm_queue.put(("realtime", alarm))
+            return
+        
+        # Only lock when modifying shared state
         with self.lock:
             # DEDUPLICATION: Avoid adding the same alarm instance twice to pending
             if any(a.alarm_id == alarm.alarm_id for a in self.pending_alarms[alarm.alarm_type]):
                 return
-                
-            alarm_type = alarm.alarm_type.lower()
             
-            # Check if real-time alarm
-            if self._is_realtime(alarm.alarm_type):
-                # Queue for immediate sending
-                self.alarm_queue.put(("realtime", alarm))
-            else:
-                # Add to pending batch
-                self.pending_alarms[alarm.alarm_type].append(alarm)
-                
-                # Initialize last send time if not exists
-                if alarm.alarm_type not in self.last_send_time:
-                    self.last_send_time[alarm.alarm_type] = datetime.now()
+            # Add to pending batch
+            self.pending_alarms[alarm.alarm_type].append(alarm)
+            
+            # Initialize last send time if not exists
+            if alarm.alarm_type not in self.last_send_time:
+                self.last_send_time[alarm.alarm_type] = datetime.now()
     
     def add_alarms(self, alarms: List[ProcessedAlarm]):
         """Add multiple alarms"""
@@ -152,7 +155,31 @@ class AlarmScheduler:
                 if not alarms:
                     continue
                 
-                # Get timing for this alarm type
+                minutes_of_hour = settings.get_hourly_minutes_for_alarm(alarm_type)
+                if minutes_of_hour is not None and len(minutes_of_hour) > 0:
+                    bucket_hour = current_time.strftime("%Y-%m-%d %H")
+                    # Initialize bucket set for this alarm type
+                    sent_set = self.last_sent_buckets.get(alarm_type)
+                    if sent_set is None:
+                        sent_set = set()
+                        self.last_sent_buckets[alarm_type] = sent_set
+                    # Prune previous hour entries to avoid growth
+                    if sent_set:
+                        to_remove = [k for k in sent_set if not k.startswith(bucket_hour)]
+                        for k in to_remove:
+                            sent_set.discard(k)
+                    # Check each configured minute
+                    for minute_of_hour in minutes_of_hour:
+                        if current_time.minute == minute_of_hour:
+                            bucket_key = f"{bucket_hour}:{minute_of_hour:02d}"
+                            if bucket_key not in sent_set:
+                                self._send_batch_alarms(alarm_type, alarms)
+                                self.pending_alarms[alarm_type] = []
+                                self.last_send_time[alarm_type] = current_time
+                                sent_set.add(bucket_key)
+                            break
+                    continue
+                
                 timing_minutes = settings.get_timing_for_alarm(alarm_type)
                 
                 # Get last send time
@@ -204,6 +231,11 @@ class AlarmScheduler:
                 self.pending_alarms[alarm_type] = []
                 self.last_send_time[alarm_type] = datetime.now()
     
+    def get_pending_for_type(self, alarm_type: str) -> List[ProcessedAlarm]:
+        """Get a copy of pending alarms for a specific type"""
+        with self.lock:
+            return list(self.pending_alarms.get(alarm_type, []))
+    
     def get_pending_counts(self) -> Dict[str, int]:
         """Get count of pending alarms by type"""
         with self.lock:
@@ -216,10 +248,26 @@ class AlarmScheduler:
         
         with self.lock:
             for alarm_type in self.pending_alarms.keys():
-                timing_minutes = settings.get_timing_for_alarm(alarm_type)
-                last_sent = self.last_send_time.get(alarm_type, current_time)
-                next_send = last_sent + timedelta(minutes=timing_minutes)
-                result[alarm_type] = next_send
+                minutes_of_hour = settings.get_hourly_minutes_for_alarm(alarm_type)
+                if minutes_of_hour is not None and len(minutes_of_hour) > 0:
+                    sorted_minutes = sorted(minutes_of_hour)
+                    next_minute = None
+                    for m in sorted_minutes:
+                        if current_time.minute < m:
+                            next_minute = m
+                            break
+                    if next_minute is None:
+                        # Wrap to next hour at the first minute
+                        next_hour = current_time + timedelta(hours=1)
+                        next_send = next_hour.replace(minute=sorted_minutes[0], second=0, microsecond=0)
+                    else:
+                        next_send = current_time.replace(minute=next_minute, second=0, microsecond=0)
+                    result[alarm_type] = next_send
+                else:
+                    timing_minutes = settings.get_timing_for_alarm(alarm_type)
+                    last_sent = self.last_send_time.get(alarm_type, current_time)
+                    next_send = last_sent + timedelta(minutes=timing_minutes)
+                    result[alarm_type] = next_send
         
         return result
     

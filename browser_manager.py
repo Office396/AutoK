@@ -103,7 +103,7 @@ class BrowserManager:
         chrome_options.add_argument("--disable-notifications")
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
-        chrome_options.add_argument("--disable-gpu")
+        # REMOVED: --disable-gpu (GPU acceleration improves performance on Windows)
         
         # SSL and certificate handling
         chrome_options.add_argument("--ignore-certificate-errors")
@@ -119,21 +119,19 @@ class BrowserManager:
         # WhatsApp-specific options for reliable QR code loading and session persistence
         if profile_name == "whatsapp":
             # Essential for WhatsApp Web to work properly
-            chrome_options.add_argument("--disable-web-security")
             chrome_options.add_argument("--disable-features=VizDisplayCompositor")
             chrome_options.add_argument("--disable-background-timer-throttling")
             chrome_options.add_argument("--disable-backgrounding-occluded-windows")
             chrome_options.add_argument("--disable-renderer-backgrounding")
+            # REMOVED DUPLICATE: --disable-ipc-flooding-protection (was added twice)
             chrome_options.add_argument("--disable-ipc-flooding-protection")
             chrome_options.add_argument("--disable-site-isolation-trials")
 
             # User agent to avoid detection issues
             chrome_options.add_argument("--user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36")
 
-            # Allow insecure content for WhatsApp Web
-            chrome_options.add_argument("--allow-running-insecure-content")
+            # REMOVED: Redundant --allow-running-insecure-content (already added above)
             chrome_options.add_argument("--disable-features=TranslateUI")
-            chrome_options.add_argument("--disable-ipc-flooding-protection")
 
             # Ensure smooth rendering
             chrome_options.add_argument("--disable-extensions-except")

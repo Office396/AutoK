@@ -54,6 +54,165 @@
     "ignored_sites": [
         "LHR1670"
     ],
+    "hourly_minute_map": {
+        "low_voltage": [
+            30,
+            59
+        ],
+        "ac_main_failure": [
+            20,
+            55
+        ],
+        "system_on_battery": [
+            20,
+            55
+        ],
+        "battery_high_temp": [
+            25
+        ],
+        "rf_unit_failure": [
+            5,
+            35
+        ],
+        "cell_unavailable": [
+            35
+        ],
+        "genset_operation": [
+            20
+        ],
+        "mains_failure": [
+            20,
+            55
+        ]
+    },
+    "send_control": {
+        "MBU": {
+            "C1-LHR-01": [],
+            "C1-LHR-02": [],
+            "C1-LHR-03": [],
+            "C1-LHR-04": [],
+            "C1-LHR-05": [],
+            "C1-LHR-06": [],
+            "C1-LHR-07": [],
+            "C1-LHR-08": []
+        },
+        "B2S": {
+            "ATL": [
+                "Battery High Temp",
+                "Genset Running",
+                "DG Running",
+                "Genset Operation",
+                "Toggle"
+            ],
+            "Edotco": [
+                "Battery High Temp",
+                "Genset Running",
+                "DG Running",
+                "Genset Operation",
+                "Toggle"
+            ],
+            "Enfrashare": [
+                "Battery High Temp",
+                "Genset Running",
+                "DG Running",
+                "Genset Operation",
+                "Toggle"
+            ],
+            "Tawal": [
+                "Battery High Temp",
+                "Genset Running",
+                "DG Running",
+                "Genset Operation",
+                "Toggle"
+            ]
+        },
+        "OMO": {
+            "Zong": [
+                "RF Unit Maintenance Link Failure",
+                "AC Main Failure",
+                "Battery High Temp",
+                "Genset Running",
+                "DG Running",
+                "Genset Operation",
+                "Low Voltage",
+                "System on Battery",
+                "Toggle",
+                "Cell Unavailable"
+            ],
+            "CM-PAK": [
+                "RF Unit Maintenance Link Failure",
+                "AC Main Failure",
+                "Battery High Temp",
+                "Genset Running",
+                "DG Running",
+                "Genset Operation",
+                "Low Voltage",
+                "System on Battery",
+                "Toggle",
+                "Cell Unavailable"
+            ],
+            "CMPAK": [
+                "RF Unit Maintenance Link Failure",
+                "AC Main Failure",
+                "Battery High Temp",
+                "Genset Running",
+                "DG Running",
+                "Genset Operation",
+                "Low Voltage",
+                "System on Battery",
+                "Toggle",
+                "Cell Unavailable"
+            ],
+            "Ufone": [
+                "RF Unit Maintenance Link Failure",
+                "AC Main Failure",
+                "Battery High Temp",
+                "Genset Running",
+                "DG Running",
+                "Genset Operation",
+                "Low Voltage",
+                "System on Battery",
+                "Toggle",
+                "Cell Unavailable"
+            ],
+            "UFONE": [
+                "RF Unit Maintenance Link Failure",
+                "AC Main Failure",
+                "Battery High Temp",
+                "Genset Running",
+                "DG Running",
+                "Genset Operation",
+                "Low Voltage",
+                "System on Battery",
+                "Toggle",
+                "Cell Unavailable"
+            ],
+            "Telenor": [
+                "RF Unit Maintenance Link Failure",
+                "AC Main Failure",
+                "Battery High Temp",
+                "Genset Running",
+                "DG Running",
+                "Genset Operation",
+                "Low Voltage",
+                "System on Battery",
+                "Toggle",
+                "Cell Unavailable"
+            ],
+            "TELENOR": [
+                "RF Unit Maintenance Link Failure",
+                "AC Main Failure",
+                "Battery High Temp",
+                "Genset Running",
+                "DG Running",
+                "Genset Operation",
+                "Low Voltage",
+                "System on Battery",
+                "Toggle",
+                "Cell Unavailable"
+            ]
+        }
+    },
     "message_formats": {
         "mbu_format": "{alarm_type}\t{timestamp}\t{site_name}",
         "toggle_format": "Toggle alarm\t{severity}\t{alarm_type}\t{timestamp}\t{site_name}",

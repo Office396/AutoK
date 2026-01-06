@@ -34,26 +34,15 @@ class MainWindow(ctk.CTk):
         
         # Window configuration
         self.title("Autok - Telecom Alarm Automation")
-        self.geometry("1400x800")
-        self.minsize(1200, 700)
+        self.geometry("1450x850")  # Slightly larger for better spacing
+        self.minsize(1280, 720)
         
         # Set theme
         ctk.set_appearance_mode("dark")
         ctk.set_default_color_theme("blue")
         
-        # Configure colors
+        # Configure modern dark background
         self.configure(fg_color=Colors.BG_DARK)
-
-        # Basic UI setup - keep it simple and stable
-        self.configure(fg_color=Colors.BG_DARK)
-        
-        # DPI awareness commented out to prevent display issues
-        # try:
-        #     from ctypes import windll
-        #     windll.shcore.SetProcessDpiAwareness(1)
-        # except:
-        #     pass
-        # ===========
         
         # Views
         self.views: Dict[str, ctk.CTkFrame] = {}
@@ -94,70 +83,105 @@ class MainWindow(ctk.CTk):
         self._show_view("dashboard")
     
     def _create_sidebar(self):
-        """Create the sidebar navigation"""
-        sidebar = ctk.CTkFrame(self, fg_color=Colors.BG_MEDIUM, width=220, corner_radius=0)
+        """Create the modern sidebar navigation with enhanced styling"""
+        sidebar = ctk.CTkFrame(
+            self,
+            fg_color=Colors.SURFACE_1,
+            width=240,
+            corner_radius=0,
+            border_width=0
+        )
         sidebar.grid(row=0, column=0, sticky="nsew")
         sidebar.grid_propagate(False)
         
-        # Logo section
-        logo_frame = ctk.CTkFrame(sidebar, fg_color="transparent")
-        logo_frame.pack(fill="x", padx=15, pady=20)
+        # Logo section with gradient-like effect
+        logo_frame = ctk.CTkFrame(sidebar, fg_color=Colors.BG_MEDIUM, corner_radius=0)
+        logo_frame.pack(fill="x", padx=0, pady=0)
+        
+        logo_inner = ctk.CTkFrame(logo_frame, fg_color="transparent")
+        logo_inner.pack(fill="x", padx=20, pady=25)
         
         logo_icon = ctk.CTkLabel(
-            logo_frame,
+            logo_inner,
             text="🗼",
-            font=ctk.CTkFont(size=40)
+            font=ctk.CTkFont(size=42)
         )
         logo_icon.pack()
         
         logo_text = ctk.CTkLabel(
-            logo_frame,
+            logo_inner,
             text="Alarm Automation",
-            font=ctk.CTkFont(size=14, weight="bold"),
+            font=ctk.CTkFont(size=15, weight="bold"),
             text_color=Colors.TEXT_PRIMARY
         )
-        logo_text.pack(pady=(5, 0))
+        logo_text.pack(pady=(8, 0))
         
-        # Separator
-        sep = ctk.CTkFrame(sidebar, fg_color=Colors.BORDER, height=1)
-        sep.pack(fill="x", padx=15, pady=10)
+        version_label = ctk.CTkLabel(
+            logo_inner,
+            text="v2.0",
+            font=ctk.CTkFont(size=10),
+            text_color=Colors.TEXT_MUTED
+        )
+        version_label.pack(pady=(2, 0))
+        
+        # Navigation section
+        nav_frame = ctk.CTkFrame(sidebar, fg_color="transparent")
+        nav_frame.pack(fill="both", expand=True, padx=0, pady=15)
         
         # Navigation buttons
         self.nav_buttons: Dict[str, TabButton] = {}
         
         nav_items = [
             ("dashboard", "📊", "Dashboard"),
-            ("formats", "📝", "Handle"),
-            ("settings", "⚙️", "Settings"),
-            ("sites", "📍", "Sites"),
+            ("formats", "📝", "Handler"),
+            ("controller", "🛂", "Alarm Controller"),
+            ("sites", "🗼", "Sites"),
             ("logs", "📜", "Logs"),
+            ("settings", "⚙️", "Settings"),
             ("about", "ℹ️", "About"),
         ]
         
         for view_id, icon, label in nav_items:
             btn = TabButton(
-                sidebar,
+                nav_frame,
                 text=label,
                 icon=icon,
                 is_active=(view_id == "dashboard"),
                 command=lambda v=view_id: self._show_view(v),
-                width=190,
-                height=40
+                width=200,
+                height=44
             )
-            btn.pack(padx=15, pady=3)
+            btn.pack(padx=20, pady=4)
             self.nav_buttons[view_id] = btn
         
-        # Bottom section - Status
-        bottom_frame = ctk.CTkFrame(sidebar, fg_color="transparent")
-        bottom_frame.pack(side="bottom", fill="x", padx=15, pady=20)
+        # Bottom section with status and info
+        bottom_frame = ctk.CTkFrame(sidebar, fg_color=Colors.BG_MEDIUM, corner_radius=0)
+        bottom_frame.pack(side="bottom", fill="x", padx=0, pady=0)
+        
+        bottom_inner = ctk.CTkFrame(bottom_frame, fg_color="transparent")
+        bottom_inner.pack(fill="x", padx=20, pady=20)
+        
+        # Status indicator with modern dot
+        status_frame = ctk.CTkFrame(bottom_inner, fg_color="transparent")
+        status_frame.pack(fill="x")
+        
+        self.status_dot = ctk.CTkFrame(
+            status_frame,
+            width=10,
+            height=10,
+            corner_radius=5,
+            fg_color=Colors.ERROR
+        )
+        self.status_dot.pack(side="left", padx=(0, 10))
+        self.status_dot.pack_propagate(False)
         
         self.status_label = ctk.CTkLabel(
-            bottom_frame,
-            text="● Stopped",
-            font=ctk.CTkFont(size=11),
-            text_color=Colors.ERROR
+            status_frame,
+            text="Stopped",
+            font=ctk.CTkFont(size=12, weight="bold"),
+            text_color=Colors.TEXT_SECONDARY
         )
-        self.status_label.pack(anchor="w")
+        self.status_label.pack(side="left")
         
         self.uptime_label = ctk.CTkLabel(
             bottom_frame,
@@ -195,6 +219,12 @@ class MainWindow(ctk.CTk):
         # Logs
         logs_view = LogsView(self.content_frame)
         self.views["logs"] = logs_view
+        
+        # Alarm Controller
+        from gui_alarm_controller import AlarmControllerView
+        controller_view = AlarmControllerView(self.content_frame)
+        controller_view.on_save = self._on_controller_saved
+        self.views["controller"] = controller_view
         
         # About
         about_view = AboutView(self.content_frame)
@@ -260,7 +290,7 @@ class MainWindow(ctk.CTk):
         self._update_ui()
     
     def _update_ui(self):
-        """Periodic UI update"""
+        """Periodic UI update - optimized to reduce CPU usage"""
         try:
             # Update stats if running
             if automation_controller.is_running():
@@ -269,8 +299,9 @@ class MainWindow(ctk.CTk):
         except Exception as e:
             pass
         
-        # Schedule next update
-        self.after(1000, self._update_ui)
+        # Schedule next update - increased from 1s to 3s to reduce CPU load
+        # Advanced software uses event-driven updates, but polling at 3s is acceptable compromise
+        self.after(3000, self._update_ui)
     
     def _update_dashboard_stats(self, stats: AutomationStats):
         """Update dashboard with stats"""
@@ -306,12 +337,15 @@ class MainWindow(ctk.CTk):
         if automation_controller.is_running():
             # Stop
             automation_controller.stop()
+        elif automation_controller.get_state() == AutomationState.STARTING:
+            # Already starting, ignore multiple clicks
+            return
         else:
             # Start
             dashboard = self.views.get("dashboard")
             if dashboard:
                 dashboard.log("Starting automation...", "INFO")
-            
+                
             # Run in thread to not block UI
             thread = threading.Thread(target=self._start_automation)
             thread.daemon = True
@@ -349,6 +383,9 @@ class MainWindow(ctk.CTk):
         """Handle settings saved"""
         self._show_toast("Settings saved successfully!", "success")
     
+    def _on_controller_saved(self):
+        self._show_toast("Alarm Controller settings saved!", "success")
+    
     def _on_state_change(self, state: AutomationState):
         """Handle automation state change"""
         def _update():
@@ -358,24 +395,29 @@ class MainWindow(ctk.CTk):
                 if dashboard:
                     dashboard.set_automation_running(True)
                     dashboard.log("Automation started", "SUCCESS")
-                self.status_label.configure(text="● Running", text_color=Colors.SUCCESS)
+                self.status_label.configure(text="Running", text_color=Colors.SUCCESS)
+                self.status_dot.configure(fg_color=Colors.SUCCESS)
             
             elif state == AutomationState.STOPPED:
                 if dashboard:
                     dashboard.set_automation_running(False)
                     dashboard.log("Automation stopped", "INFO")
-                self.status_label.configure(text="● Stopped", text_color=Colors.ERROR)
+                self.status_label.configure(text="Stopped", text_color=Colors.TEXT_SECONDARY)
+                self.status_dot.configure(fg_color=Colors.ERROR)
             
             elif state == AutomationState.PAUSED:
                 if dashboard:
                     dashboard.set_automation_paused(True)
                     dashboard.log("Automation paused", "WARNING")
-                self.status_label.configure(text="● Paused", text_color=Colors.WARNING)
+                self.status_label.configure(text="Paused", text_color=Colors.WARNING)
+                self.status_dot.configure(fg_color=Colors.WARNING)
             
             elif state == AutomationState.ERROR:
                 if dashboard:
                     dashboard.log("Automation error occurred", "ERROR")
-                self.status_label.configure(text="● Error", text_color=Colors.ERROR)
+                    dashboard.set_automation_error()  # Re-enable start button
+                self.status_label.configure(text="Error", text_color=Colors.ERROR)
+                self.status_dot.configure(fg_color=Colors.ERROR)
         
         self.after(0, _update)
     

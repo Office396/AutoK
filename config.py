@@ -285,6 +285,12 @@ class Settings:
         self.whatsapp_sending_method: str = "JavaScript"  # Options: "JavaScript", "Clipboard"
         self.instant_alarms: List[str] = ["CSL Fault"]
         self.ignored_sites: List[str] = []  # Site IDs to ignore (e.g., ["LHR1670", "LHR1234"])
+        self.hourly_minute_map: Dict[str, List[int]] = {}
+        self.send_control: Dict[str, Dict[str, List[str]]] = {
+            "MBU": {},
+            "B2S": {},
+            "OMO": {}
+        }
         
         # Load saved settings
         self.load()
@@ -340,6 +346,8 @@ class Settings:
                 self.whatsapp_sending_method = data.get('whatsapp_sending_method', "JavaScript")
                 self.instant_alarms = data.get('instant_alarms', ["CSL Fault"])
                 self.ignored_sites = data.get('ignored_sites', [])
+                self.hourly_minute_map = data.get('hourly_minute_map', {})
+                self.send_control = data.get('send_control', self.send_control)
                 
                 # Load message format settings
                 if 'message_formats' in data:
@@ -406,6 +414,8 @@ class Settings:
             'whatsapp_sending_method': self.whatsapp_sending_method,
             'instant_alarms': self.instant_alarms,
             'ignored_sites': self.ignored_sites,
+            'hourly_minute_map': self.hourly_minute_map,
+            'send_control': self.send_control,
             'message_formats': asdict(self.message_formats),
             'excel_columns': asdict(self.excel_columns),
             'master_columns': asdict(self.master_columns)
@@ -436,6 +446,18 @@ class Settings:
         
         return timing_map.get(alarm_name_lower, 30)
     
+    def get_hourly_minutes_for_alarm(self, alarm_name: str) -> Optional[List[int]]:
+        alarm_name_lower = alarm_name.lower().replace(" ", "_")
+        minutes = self.hourly_minute_map.get(alarm_name_lower)
+        if not minutes:
+            return None
+        # Ensure sorted unique ints between 0-59
+        try:
+            cleaned = sorted({int(m) for m in minutes if 0 <= int(m) <= 59})
+            return cleaned if cleaned else None
+        except:
+            return None
+    
     def get_whatsapp_group_name(self, mbu: str) -> Optional[str]:
         """Get WhatsApp group name for MBU"""
         return self.mbu_groups.mapping.get(mbu)
@@ -447,6 +469,22 @@ class Settings:
     def get_omo_group_name(self, company: str) -> Optional[str]:
         """Get OMO WhatsApp group name"""
         return self.omo_groups.mapping.get(company)
+    
+    def is_alarm_disabled(self, group_type: str, group_id: str, alarm_type: str) -> bool:
+        """
+        Check if an alarm type is disabled for a given group.
+        group_type: 'MBU' | 'B2S' | 'OMO'
+        group_id: MBU code or company name
+        alarm_type: alarm type string (case-insensitive)
+        """
+        try:
+            gmap = self.send_control.get(group_type, {})
+            disabled = gmap.get(group_id, [])
+            alarm_norm = alarm_type.strip().lower()
+            disabled_norm = [a.strip().lower() for a in disabled]
+            return alarm_norm in disabled_norm
+        except:
+            return False
 
 
 # Global settings instance

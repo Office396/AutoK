@@ -343,11 +343,8 @@ class AlarmProcessor:
     ) -> ProcessedAlarm:
         """Create a ProcessedAlarm object"""
         
-        # Generate unique ID - include instance_index to allow duplicates in the same scan
         import hashlib
-        # We include instance_index so that two identical lines in the same portal view get different IDs
-        # This allows them both to be sent, but keeps them stable across refreshes (same row index)
-        id_source = f"{alarm_type}_{site_code}_{timestamp_str}_{instance_index}"
+        id_source = f"{alarm_type}_{site_code}_{timestamp_str}"
         alarm_id = hashlib.md5(id_source.encode()).hexdigest()[:16]
         
         # Determine category
@@ -452,10 +449,10 @@ class AlarmProcessor:
             "Cell Unavailable"
         ]
         
-        # Define Group Order (Priority)
-        mbu_list = [f"C1-LHR-0{i}" for i in range(1, 9)]
-        b2s_list = ["ATL", "Edotco", "Enfrashare", "Tawal"]
-        omo_list = ["Ufone", "Telenor", "CMpak", "Zong", "CMPAK", "CM-PAK"]
+        # Define Group Order (Priority) - Get from settings dynamically
+        mbu_list = list(settings.mbu_groups.mapping.keys())
+        b2s_list = list(settings.b2s_groups.mapping.keys())
+        omo_list = list(settings.omo_groups.mapping.keys())
         
         # Helper to get priority score for a group
         def get_group_priority(alarm: ProcessedAlarm) -> int:
