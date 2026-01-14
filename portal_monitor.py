@@ -57,6 +57,7 @@ class PortalMonitor:
         # Track alarms triggered for MBU in current cycle to prevent double triggering
         self._cycle_handled_mbu_entries: Set[tuple] = set()
         self._cycle_handled_b2s_triggers: Set[tuple] = set()
+        self._cycle_handled_omo_triggers: Set[tuple] = set()
         self._first_scan_done = False
         
         # Performance: TTL for seen alarms (24 hours)
@@ -153,18 +154,28 @@ class PortalMonitor:
                             if key not in self._cycle_handled_b2s_triggers:
                                 new_instant_mbus.add(("B2S", atype_lower, alarm.b2s_company))
                                 self._cycle_handled_b2s_triggers.add(key)
+                        
+                        if alarm.is_omo and alarm.omo_company:
+                            key = (atype_lower, alarm.omo_company)
+                            if key not in self._cycle_handled_omo_triggers:
+                                new_instant_mbus.add(("OMO", atype_lower, alarm.omo_company))
+                                self._cycle_handled_omo_triggers.add(key)
 
             # 4. Trigger Sending
             if new_instant_mbus:
                 from whatsapp_handler import ordered_sender, whatsapp_handler, message_formatter
                 
-                # Separate MBU and B2S triggers
+                # Separate MBU, B2S, and OMO triggers
                 mbu_triggers = set()
                 b2s_triggers = set()
+                omo_triggers = set()
                 
                 for item in new_instant_mbus:
-                    if len(item) == 3 and item[0] == "B2S":
-                        b2s_triggers.add((item[1], item[2])) # (itype, b2s_company)
+                    if len(item) == 3:
+                        if item[0] == "B2S":
+                            b2s_triggers.add((item[1], item[2])) # (itype, b2s_company)
+                        elif item[0] == "OMO":
+                            omo_triggers.add((item[1], item[2])) # (itype, omo_company)
                     else:
                         mbu_triggers.add(item) # (itype, mbu)
                 
@@ -197,7 +208,25 @@ class PortalMonitor:
                             logger.info(f"Triggering immediate B2S send for {b2s_company} | {atype_lower} | Count: {len(b2s_atype_alarms)}")
                             message = message_formatter.format_b2s_alarms(b2s_atype_alarms)
                             if message.strip():
-                                # Priority: 1 for instant alarms (like CSL), 2 for others.
+                                priority = 1 if atype_lower in instant_types else 2
+                                whatsapp_handler.queue_message(group_name, message, atype_lower, priority)
+
+                # Process OMO Triggers (Only at End of Cycle)
+                for atype_lower, omo_company in omo_triggers:
+                    # Find ALL active alarms for this OMO Company and Type - ACROSS ALL MBUs
+                    omo_atype_alarms = [
+                        a for a in alarms 
+                        if a.alarm_type.lower() == atype_lower 
+                        and a.is_omo 
+                        and a.omo_company == omo_company
+                    ]
+                    
+                    if omo_atype_alarms:
+                        group_name = settings.get_omo_group_name(omo_company)
+                        if group_name:
+                            logger.info(f"Triggering immediate OMO send for {omo_company} | {atype_lower} | Count: {len(omo_atype_alarms)}")
+                            message = message_formatter.format_omo_alarms(omo_atype_alarms)
+                            if message.strip():
                                 priority = 1 if atype_lower in instant_types else 2
                                 whatsapp_handler.queue_message(group_name, message, atype_lower, priority)
 
@@ -217,6 +246,7 @@ class PortalMonitor:
                 # Reset cycle tracker for next cycle
                 self._cycle_handled_mbu_entries.clear()
                 self._cycle_handled_b2s_triggers.clear()
+                self._cycle_handled_omo_triggers.clear()
                 
                 logger.info("Instant Alarm History updated/cleaned for next cycle")
                 

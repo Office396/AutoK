@@ -160,7 +160,18 @@ class AlarmControllerView(ctk.CTkFrame):
         for i in range(3):
             alarm_types_grid.grid_columnconfigure(i, weight=1)
         
-        for idx, atype in enumerate(OrderedAlarmSender.ALARM_TYPE_ORDER):
+        # Dynamic alarm types for manual send
+        manual_alarm_types = list(OrderedAlarmSender.ALARM_TYPE_ORDER)
+        try:
+            custom_types = set(settings.instant_alarms)
+            existing_types = {t.lower() for t in manual_alarm_types}
+            for c_type in custom_types:
+                if c_type.lower() not in existing_types:
+                    manual_alarm_types.append(c_type)
+        except:
+            pass
+
+        for idx, atype in enumerate(manual_alarm_types):
             var = ctk.BooleanVar(value=False)
             cb = ctk.CTkCheckBox(
                 alarm_types_grid,
@@ -249,7 +260,20 @@ class AlarmControllerView(ctk.CTkFrame):
 
         self.group_type_vars[group_type] = {}
 
+        # Merge static list with any custom instant alarms defined in settings
+        # This ensures user-defined alarms also appear in the controller
         alarm_types = list(OrderedAlarmSender.ALARM_TYPE_ORDER)
+        try:
+            custom_types = set(settings.instant_alarms)
+            existing_types = {t.lower() for t in alarm_types}
+            for c_type in custom_types:
+                if c_type.lower() not in existing_types:
+                    alarm_types.append(c_type)
+        except:
+            pass
+            
+        # Sort for better UX (keep important ones at top if needed, but adding to end is safer for now)
+        # alarm_types.sort()
 
         for gid in group_ids:
             frame = ctk.CTkFrame(container, fg_color=Colors.BG_CARD, corner_radius=10)

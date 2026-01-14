@@ -422,56 +422,62 @@ class MainWindow(ctk.CTk):
         self.after(0, _update)
     
     def _on_stats_update(self, stats: AutomationStats):
-        """Handle stats update"""
-        dashboard = self.views.get("dashboard")
-        if dashboard:
-            # Update portal status
-            dashboard.update_portal_status(
-                stats.portal_connected,
-                stats.portal_logged_in
-            )
-            
-            # Update WhatsApp status
-            wa_status = "Connected" if stats.whatsapp_connected else "Disconnected"
-            dashboard.update_whatsapp_status(wa_status)
+        """Handle stats update - Thread Safe"""
+        def _update():
+            dashboard = self.views.get("dashboard")
+            if dashboard:
+                # Update portal status
+                dashboard.update_portal_status(
+                    stats.portal_connected,
+                    stats.portal_logged_in
+                )
+                
+                # Update WhatsApp status
+                wa_status = "Connected" if stats.whatsapp_connected else "Disconnected"
+                dashboard.update_whatsapp_status(wa_status)
+        
+        self.after(0, _update)
     
     def _on_new_alarms(self, alarms, source: str = None):
-        """Handle new alarms"""
-        dashboard = self.views.get("dashboard")
-        if not dashboard:
-            return
-            
-        def _get_alarm_dict(alarm):
-            return {
-                'time': str(alarm.timestamp_str or datetime.now().strftime("%H:%M:%S")),
-                'type': str(alarm.alarm_type or "Unknown"),
-                'site_code': str(alarm.site_code or "Unknown"),
-                'site_name': str(alarm.site_name or ""),
-                'mbu': str(alarm.mbu or ""),
-                'status': 'Pending'
-            }
-        
-        if source:
-            # Use replacement logic
-            alarm_dicts = [_get_alarm_dict(a) for a in alarms]
-            dashboard.update_alarms(alarm_dicts, source)
-            
-            # Add to log summary (just count or first few)
-            dashboard.log(
-                f"Updated {len(alarms)} active alarms from {source}",
-                "INFO"
-            )
-        else:
-            # Add additive logic (legacy)
-            for alarm in alarms:
-                # Add to table
-                dashboard.add_alarm(_get_alarm_dict(alarm))
+        """Handle new alarms - Thread Safe"""
+        def _update():
+            dashboard = self.views.get("dashboard")
+            if not dashboard:
+                return
                 
-                # Add to log
+            def _get_alarm_dict(alarm):
+                return {
+                    'time': str(alarm.timestamp_str or datetime.now().strftime("%H:%M:%S")),
+                    'type': str(alarm.alarm_type or "Unknown"),
+                    'site_code': str(alarm.site_code or "Unknown"),
+                    'site_name': str(alarm.site_name or ""),
+                    'mbu': str(alarm.mbu or ""),
+                    'status': 'Pending'
+                }
+            
+            if source:
+                # Use replacement logic
+                alarm_dicts = [_get_alarm_dict(a) for a in alarms]
+                dashboard.update_alarms(alarm_dicts, source)
+                
+                # Add to log summary (just count or first few)
                 dashboard.log(
-                    f"New alarm: {alarm.alarm_type} - {alarm.site_code}",
-                    "ALARM" if "csl" in alarm.alarm_type.lower() else "INFO"
+                    f"Updated {len(alarms)} active alarms from {source}",
+                    "INFO"
                 )
+            else:
+                # Add additive logic (legacy)
+                for alarm in alarms:
+                    # Add to table
+                    dashboard.add_alarm(_get_alarm_dict(alarm))
+                    
+                    # Add to log
+                    dashboard.log(
+                        f"New alarm: {alarm.alarm_type} - {alarm.site_code}",
+                        "ALARM" if "csl" in alarm.alarm_type.lower() else "INFO"
+                    )
+        
+        self.after(0, _update)
     
     def _show_toast(self, message: str, toast_type: str = "info"):
         """Show a toast notification"""

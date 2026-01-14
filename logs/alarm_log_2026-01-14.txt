@@ -1,0 +1,3 @@
+[2026-01-14 23:31:42] [INFO] Application closed normally
+[2026-01-14 23:40:54] [INFO] Application starting...
+[2026-01-14 23:41:02] [INFO] Main window created, starting event loop

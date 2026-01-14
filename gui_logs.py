@@ -22,36 +22,60 @@ class LogsView(ctk.CTkFrame):
         self._create_layout()
         self._load_logs()
         
+        # Buffer for log updates
+        self._log_buffer = []
+        self._update_scheduled = False
+        
         # Register for real-time updates
         logger.add_callback(self._on_new_log)
     
     def _on_new_log(self, entry: str, level: str):
-        """Handle new log entry from logger"""
-        def _update():
-            # Check if it matches current filter
-            current_level = self.level_var.get()
+        """Handle new log entry from logger (called from any thread)"""
+        # Add to buffer instead of scheduling immediate update
+        self._log_buffer.append((entry, level))
+        
+        # Schedule update only if not already scheduled
+        if not self._update_scheduled:
+            self._update_scheduled = True
+            self.after(100, self._process_log_buffer)
+            
+    def _process_log_buffer(self):
+        """Process buffered logs in a single batch update"""
+        self._update_scheduled = False
+        
+        if not self._log_buffer:
+            return
+            
+        # Get pending logs
+        pending = list(self._log_buffer)
+        self._log_buffer.clear()
+        
+        # Filter and process
+        current_level = self.level_var.get()
+        current_date = self.date_var.get()
+        
+        # Skip if filters would hide everything anyway (optimization)
+        if current_date != "Today" and current_date != "All":
+            return
+            
+        self.log_text.configure(state="normal")
+        
+        # Add all pending entries in one go
+        for entry, level in pending:
             if current_level != "All Levels" and level != current_level:
-                return
-            
-            # Check if it's today
-            current_date_filter = self.date_var.get()
-            if current_date_filter != "Today" and current_date_filter != "All":
-                return
-            
-            self.log_text.configure(state="normal")
+                continue
             self._add_log_entry(entry)
-            self.log_text.configure(state="disabled")
-            self.log_text.see("end")
             
-            # Update count
-            try:
-                count_text = self.stats_label.cget("text")
-                count = int(count_text.split()[0])
-                self.stats_label.configure(text=f"{count + 1} log entries")
-            except:
-                pass
-                
-        self.after(0, _update)
+        self.log_text.configure(state="disabled")
+        self.log_text.see("end")
+        
+        # Update count
+        try:
+            current_text = self.log_text.get("1.0", "end-1c")
+            count = len(current_text.splitlines()) if current_text else 0
+            self.stats_label.configure(text=f"{count} log entries")
+        except:
+            pass
     
     def _create_layout(self):
         """Create the layout"""

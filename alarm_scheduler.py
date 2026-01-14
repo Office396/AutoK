@@ -34,7 +34,8 @@ class AlarmScheduler:
     
     def __init__(self):
         self.pending_alarms: Dict[str, List[ProcessedAlarm]] = defaultdict(list)  # alarm_type -> list
-        self.last_send_time: Dict[str, datetime] = {}  # alarm_type -> last send time
+        self.batch_start_times: Dict[str, datetime] = {}  # alarm_type -> time when first alarm in batch arrived
+        self.last_send_time: Dict[str, datetime] = {}  # Kept for compatibility but unused in new logic
         self.send_callback: Optional[Callable] = None
         self.running = False
         self.scheduler_thread: Optional[threading.Thread] = None
@@ -67,10 +68,15 @@ class AlarmScheduler:
             if any(a.alarm_id == alarm.alarm_id for a in self.pending_alarms[alarm.alarm_type]):
                 return
             
+            # Start batch timer if this is the first alarm in the batch
+            if not self.pending_alarms[alarm.alarm_type]:
+                self.batch_start_times[alarm.alarm_type] = datetime.now()
+                logger.info(f"Started batch timer for {alarm.alarm_type}")
+            
             # Add to pending batch
             self.pending_alarms[alarm.alarm_type].append(alarm)
             
-            # Initialize last send time if not exists
+            # Initialize last send time if not exists (legacy)
             if alarm.alarm_type not in self.last_send_time:
                 self.last_send_time[alarm.alarm_type] = datetime.now()
     
@@ -175,6 +181,7 @@ class AlarmScheduler:
                             if bucket_key not in sent_set:
                                 self._send_batch_alarms(alarm_type, alarms)
                                 self.pending_alarms[alarm_type] = []
+                                self.batch_start_times.pop(alarm_type, None)
                                 self.last_send_time[alarm_type] = current_time
                                 sent_set.add(bucket_key)
                             break
@@ -182,19 +189,28 @@ class AlarmScheduler:
                 
                 timing_minutes = settings.get_timing_for_alarm(alarm_type)
                 
-                # Get last send time
-                last_sent = self.last_send_time.get(alarm_type, current_time - timedelta(minutes=timing_minutes + 1))
+                # Check batch aging using start time
+                start_time = self.batch_start_times.get(alarm_type)
+                if start_time is None:
+                    # Should not happen if logic is correct, but self-heal
+                    start_time = current_time
+                    self.batch_start_times[alarm_type] = start_time
                 
-                # Check if it's time to send
-                time_since_last = (current_time - last_sent).total_seconds() / 60
+                # Check how long we've been buffering this batch
+                batch_age_minutes = (current_time - start_time).total_seconds() / 60
                 
-                if time_since_last >= timing_minutes:
+                if batch_age_minutes >= timing_minutes:
                     # Time to send!
-                    self._send_batch_alarms(alarm_type, alarms)
+                    # Create a defensive copy of the list to ensure stability during sending
+                    alarms_to_send = list(alarms)
                     
-                    # Clear pending and update last send time
+                    # Clear pending and reset timer immediately
                     self.pending_alarms[alarm_type] = []
+                    self.batch_start_times.pop(alarm_type, None)
                     self.last_send_time[alarm_type] = current_time
+                    
+                    logger.info(f"Sending batch for {alarm_type}. Buffered for {batch_age_minutes:.1f} min. Count: {len(alarms_to_send)}")
+                    self._send_batch_alarms(alarm_type, alarms_to_send)
     
     def _send_batch_alarms(self, alarm_type: str, alarms: List[ProcessedAlarm]):
         """Send a batch of alarms using ordered sending"""
@@ -229,6 +245,7 @@ class AlarmScheduler:
             if alarms:
                 self._send_batch_alarms(alarm_type, alarms)
                 self.pending_alarms[alarm_type] = []
+                self.batch_start_times.pop(alarm_type, None)
                 self.last_send_time[alarm_type] = datetime.now()
     
     def get_pending_for_type(self, alarm_type: str) -> List[ProcessedAlarm]:

@@ -380,32 +380,53 @@ class LogViewer(ctk.CTkTextbox):
         self.configure(state="disabled")
         self.max_lines = 500
         self.line_count = 0
+        
+        # Buffer for batch updates
+        self._log_buffer = []
+        self._update_scheduled = False
     
     def log(self, message: str, level: str = "INFO"):
-        """Add a log entry"""
+        """Add a log entry (thread-safe, batched)"""
+        self._log_buffer.append((message, level))
+        
+        if not self._update_scheduled:
+            self._update_scheduled = True
+            self.after(100, self._process_log_queue)
+            
+    def _process_log_queue(self):
+        """Process buffered logs"""
+        self._update_scheduled = False
+        if not self._log_buffer:
+            return
+            
+        # Get batch
+        batch = list(self._log_buffer)
+        self._log_buffer.clear()
+        
         self.configure(state="normal")
         
-        timestamp = datetime.now().strftime("%H:%M:%S")
-        
-        # Color based on level
-        if level == "ERROR":
-            prefix = "❌"
-        elif level == "SUCCESS":
-            prefix = "✅"
-        elif level == "WARNING":
-            prefix = "⚠️"
-        else:
-            prefix = "ℹ️"
-        
-        log_line = f"[{timestamp}] {prefix} {message}\n"
-        
-        self.insert("end", log_line)
-        self.line_count += 1
+        for message, level in batch:
+            timestamp = datetime.now().strftime("%H:%M:%S")
+            
+            # Color based on level
+            if level == "ERROR":
+                prefix = "❌"
+            elif level == "SUCCESS":
+                prefix = "✅"
+            elif level == "WARNING":
+                prefix = "⚠️"
+            else:
+                prefix = "ℹ️"
+            
+            log_line = f"[{timestamp}] {prefix} {message}\n"
+            self.insert("end", log_line)
+            self.line_count += 1
         
         # Remove old lines if exceeding max
         if self.line_count > self.max_lines:
-            self.delete("1.0", "2.0")
-            self.line_count -= 1
+            lines_to_remove = self.line_count - self.max_lines
+            self.delete("1.0", f"{lines_to_remove + 1}.0")
+            self.line_count = self.max_lines
         
         self.see("end")
         self.configure(state="disabled")

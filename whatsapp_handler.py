@@ -883,22 +883,23 @@ class OrderedAlarmSender:
         "Cell Unavailable"
     ]
     
-    MBU_ORDER = list(settings.mbu_groups.mapping.keys())  # Dynamic from settings
-    B2S_ORDER = list(settings.b2s_groups.mapping.keys())  # Dynamic from settings
-    OMO_ORDER = list(settings.omo_groups.mapping.keys())  # Dynamic from settings
-    
     @classmethod
     def get_ordered_batches(cls, alarms: List) -> List[Tuple[str, str, List, bool, str]]:
         from alarm_processor import alarm_processor
         
         batches = []
         
+        # Read group mappings dynamically at runtime (not at import time!)
+        mbu_order = list(settings.mbu_groups.mapping.keys())
+        b2s_order = list(settings.b2s_groups.mapping.keys())
+        omo_order = list(settings.omo_groups.mapping.keys())
+        
         all_groups = []
-        for mbu in cls.MBU_ORDER:
+        for mbu in mbu_order:
             all_groups.append(('MBU', mbu))
-        for b2s in cls.B2S_ORDER:
+        for b2s in b2s_order:
             all_groups.append(('B2S', b2s))
-        for omo in cls.OMO_ORDER:
+        for omo in omo_order:
             all_groups.append(('OMO', omo))
         
         extended_order = list(cls.ALARM_TYPE_ORDER)
@@ -925,13 +926,17 @@ class OrderedAlarmSender:
                         # Case-insensitive comparison for alarm types
                         current_type = getattr(a, 'alarm_type', '')
                         if current_type.lower() != alarm_type.lower() or getattr(a, 'is_toggle', False): continue
-                        
+                    
+                    # Match alarm to group based on its properties
                     if group_type == 'MBU':
-                        if getattr(a, 'mbu', '') == group_id: group_alarms.append(a)
+                        if getattr(a, 'mbu', '') == group_id:
+                            group_alarms.append(a)
                     elif group_type == 'B2S':
-                        if getattr(a, 'b2s_company', '') == group_id: group_alarms.append(a)
+                        if getattr(a, 'is_b2s', False) and getattr(a, 'b2s_company', '') == group_id:
+                            group_alarms.append(a)
                     elif group_type == 'OMO':
-                        if getattr(a, 'omo_company', '') == group_id: group_alarms.append(a)
+                        if getattr(a, 'is_omo', False) and getattr(a, 'omo_company', '') == group_id:
+                            group_alarms.append(a)
 
                 if not group_alarms:
                     continue
@@ -949,6 +954,7 @@ class OrderedAlarmSender:
                 # Check send control: skip if disabled for this group/alarm
                 from config import settings as _settings
                 if _settings.is_alarm_disabled(group_type, group_id, alarm_type):
+                    logger.info(f"Skipping disabled alarm: {alarm_type} for {group_type} {group_id}")
                     continue
                 
                 if whatsapp_group:

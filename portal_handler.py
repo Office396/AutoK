@@ -438,7 +438,10 @@ class PortalHandler:
                     logger.error("Login verification timed out - still on login page or loading")
                     return False
 
-            # SUCCESS: Now open all portal tabs immediately
+            # SUCCESS: Handle password change page if it appears
+            self._handle_password_change_page()
+            
+            # Now open all portal tabs immediately
             # This is the "Accurate Method": Login First -> Then Open Tabs
             logger.info("Login successful/verified. Initializing portal tabs...")
             
@@ -459,6 +462,64 @@ class PortalHandler:
             logger.error(f"Login error: {e}")
             self.status.error_message = str(e)
             return False
+    
+    def _handle_password_change_page(self):
+        """
+        Handle the password change/expiry warning page that appears after login.
+        Clicks the Cancel button to skip password change and access the system.
+        """
+        try:
+            driver = self._get_driver()
+            if not driver:
+                return
+            
+            # Wait a moment for page to load
+            time.sleep(1)
+            
+            # Check if we're on the password change page
+            # Look for the "Change Password" text or the cancel button
+            page_source = driver.page_source
+            
+            if 'Change Password' in page_source or 'password will expire' in page_source or 'changeValue__chgPwd' in page_source:
+                logger.info("Password change/expiry page detected. Clicking Cancel...")
+                
+                # Try to find and click the Cancel button
+                cancel_selectors = [
+                    '#cancel',  # ID selector
+                    'button#cancel',  # button with ID
+                    'button.eui-btn-default',  # Class selector
+                    'button[id="cancel"]',  # Attribute selector
+                    '.changeValue__button_center___u_XwP button:first-child',  # First button in the button container
+                ]
+                
+                clicked = False
+                for selector in cancel_selectors:
+                    try:
+                        cancel_btn = driver.find_element(By.CSS_SELECTOR, selector)
+                        if cancel_btn and cancel_btn.is_displayed():
+                            cancel_btn.click()
+                            logger.success("Clicked Cancel button on password change page")
+                            clicked = True
+                            time.sleep(2)  # Wait for redirect
+                            break
+                    except Exception:
+                        continue
+                
+                if not clicked:
+                    # Try finding by text content
+                    try:
+                        buttons = driver.find_elements(By.TAG_NAME, 'button')
+                        for btn in buttons:
+                            if 'Cancel' in btn.text:
+                                btn.click()
+                                logger.success("Clicked Cancel button (found by text)")
+                                time.sleep(2)
+                                break
+                    except Exception as e:
+                        logger.warning(f"Could not find Cancel button by text: {e}")
+                        
+        except Exception as e:
+            logger.warning(f"Error handling password change page: {e}")
     
     def _is_login_page(self) -> bool:
         """Check if currently on login page"""

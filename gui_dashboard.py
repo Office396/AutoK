@@ -409,6 +409,7 @@ class DashboardView(ctk.CTkFrame):
     def _on_force_check_click(self):
         """Handle force check button - only works when automation is running"""
         # Check if automation is running before allowing check
+        from automation_controller import automation_controller
         if not automation_controller.is_running():
             self.log("Cannot check now - automation is not running", "WARNING")
             return
