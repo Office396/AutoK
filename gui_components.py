@@ -134,9 +134,9 @@ class StatCard(ctk.CTkFrame):
     ):
         super().__init__(
             parent,
-            fg_color=Colors.SURFACE_1,  # Updated to modern color
-            corner_radius=12,  # Updated corner radius
-            border_width=1,  # Added border
+            fg_color=Colors.SURFACE_1,
+            corner_radius=8,  # Simplified for performance
+            border_width=1,
             border_color=Colors.BORDER,
             **kwargs
         )
@@ -192,7 +192,7 @@ class StatCard(ctk.CTkFrame):
 
 
 class AlarmTable(ctk.CTkScrollableFrame):
-    """A table displaying alarms"""
+    """A table displaying alarms - FIXED to prevent widget destruction during scroll"""
     
     def __init__(self, parent, **kwargs):
         super().__init__(
@@ -203,12 +203,63 @@ class AlarmTable(ctk.CTkScrollableFrame):
         )
         
         self.rows: List[ctk.CTkFrame] = []
-        # PERFORMANCE: Reduced from 2000 to 1000 to prevent UI lag
-        # Advanced software uses virtual scrolling, but limiting rows is a good compromise
-        self.max_rows = 1000
+        self.row_pool: List[ctk.CTkFrame] = [] # Pool for reusing widgets
+        # PERFORMANCE: Reduced from 2000 to 500 to prevent UI lag
+        self.max_rows = 500
+        
+        # CRITICAL FIX: Track scroll state to prevent updates during user scrolling
+        self._user_scrolling = False
+        self._scroll_timer = None
+        self._pending_updates = []  # Buffer updates during scroll
+        
+        # CRITICAL FIX: Bind scroll events to detect when user is scrolling
+        # This prevents widget destruction/recreation during scroll (like Excel)
+        self.bind('<Button-4>', self._on_scroll_start)  # Linux scroll
+        self.bind('<Button-5>', self._on_scroll_start)  # Linux scroll
+        self.bind('<MouseWheel>', self._on_scroll_start)  # Windows/Mac scroll
+        
+        # CRITICAL FIX: Use canvas scrolling detection
+        try:
+            # Get the inner canvas of the scrollable frame
+            self._canvas = None
+            for child in self.winfo_children():
+                if isinstance(child, ctk.CTkCanvas) or hasattr(child, 'yview'):
+                    self._canvas = child
+                    break
+            
+            if self._canvas:
+                self._canvas.bind('<Button-1>', self._on_scroll_start)
+                self._canvas.bind('<B1-Motion>', self._on_scroll_start)
+        except:
+            pass
         
         # Header
         self._create_header()
+    
+    def _on_scroll_start(self, event=None):
+        """Detect when user starts scrolling"""
+        self._user_scrolling = True
+        
+        # Cancel any pending scroll-end timer
+        if self._scroll_timer:
+            self.after_cancel(self._scroll_timer)
+        
+        # Set timer to detect when scrolling stops (300ms after last scroll event)
+        self._scroll_timer = self.after(300, self._on_scroll_end)
+    
+    def _on_scroll_end(self):
+        """Detect when user stops scrolling"""
+        self._user_scrolling = False
+        self._scroll_timer = None
+        
+        # Process any pending updates that were deferred during scroll
+        if self._pending_updates:
+            for update_func in self._pending_updates:
+                try:
+                    update_func()
+                except:
+                    pass
+            self._pending_updates.clear()
     
     def _create_header(self):
         """Create modern table header with better styling"""
@@ -241,7 +292,16 @@ class AlarmTable(ctk.CTkScrollableFrame):
             label.pack(side="left", padx=8, pady=12)
     
     def add_alarm(self, alarm_data: Dict, source: str = None):
-        """Add an alarm row - OPTIMIZED: Append-only with modern styling"""
+        """Add an alarm row - OPTIMIZED: Deferred during scroll"""
+        # If user is scrolling, defer the update
+        if self._user_scrolling:
+            self._pending_updates.append(lambda: self._add_alarm_immediate(alarm_data, source))
+            return
+        
+        self._add_alarm_immediate(alarm_data, source)
+    
+    def _add_alarm_immediate(self, alarm_data: Dict, source: str = None):
+        """Actually add an alarm row immediately"""
         row = ctk.CTkFrame(
             self,
             fg_color="transparent",
@@ -341,10 +401,104 @@ class AlarmTable(ctk.CTkScrollableFrame):
         
         # Batch destroy operations
         for row in to_remove:
-            row.destroy()
+            try:
+                if row.winfo_exists():
+                    row.destroy()
+            except:
+                pass
         
         # Update rows list efficiently
         self.rows = [row for row in self.rows if row not in to_remove]
+    
+    def _batch_update_alarms(self, alarms: List[Dict], source: str):
+        """HIGH PERFORMANCE: Batch update alarms using widget pooling"""
+        try:
+            # CRITICAL: Don't update if user is scrolling
+            if self._user_scrolling:
+                self._pending_updates.append(lambda: self._batch_update_alarms(alarms, source))
+                return
+            
+            # Step 1: Collect current rows for this source and move to pool
+            current_source_rows = [row for row in self.rows if getattr(row, 'source', None) == source]
+            for row in current_source_rows:
+                row.pack_forget()
+                self.row_pool.append(row)
+            
+            # Remove from active list
+            self.rows = [row for row in self.rows if row not in current_source_rows]
+            
+            # Step 2: Display new data using pool
+            # Limits to max_rows
+            alarms_to_show = reversed(alarms[:self.max_rows])
+            
+            new_active_rows = []
+            for alarm_data in alarms_to_show:
+                if not self.winfo_exists(): return
+
+                # Get from pool or create
+                if self.row_pool:
+                    row = self.row_pool.pop()
+                    row.configure(fg_color="transparent") # Reset color
+                else:
+                    row = ctk.CTkFrame(self, fg_color="transparent", height=38, corner_radius=4)
+                    row.pack_propagate(False)
+                    
+                    # Create labels once (they will be reused)
+                    # We store them in a list for faster access by index
+                    row.labels = []
+                    # Time, Type, Code, Name, MBU, Status
+                    widths = [120, 150, 100, 200, 100, 80]
+                    for w in widths:
+                        lbl = ctk.CTkLabel(row, text="", font=ctk.CTkFont(size=11), width=w, anchor="w")
+                        lbl.pack(side="left", padx=5)
+                        row.labels.append(lbl)
+
+                row.source = source
+                
+                # Update Labels
+                # Time
+                row.labels[0].configure(text=alarm_data.get('time', ''), text_color=Colors.TEXT_SECONDARY)
+                # Alarm Type
+                alarm_lower = alarm_data.get('type', '').lower()
+                type_color = self._get_alarm_color(alarm_data.get('type', ''))
+                row.labels[1].configure(text=alarm_data.get('type', ''), text_color=type_color)
+                # Site Code
+                row.labels[2].configure(text=alarm_data.get('site_code', ''), font=ctk.CTkFont(size=11, weight="bold"), text_color=Colors.TEXT_PRIMARY)
+                # Site Name
+                row.labels[3].configure(text=alarm_data.get('site_name', '')[:30], text_color=Colors.TEXT_SECONDARY)
+                # MBU
+                row.labels[4].configure(text=alarm_data.get('mbu', ''), text_color=Colors.ACCENT_BLUE)
+                # Status
+                status = alarm_data.get('status', 'Pending')
+                status_color = Colors.SUCCESS if status == 'Sent' else Colors.WARNING
+                row.labels[5].configure(text=status, text_color=status_color)
+                
+                new_active_rows.append(row)
+
+            # Step 3: Repack everything (active + new) to maintain order if necessary
+            # Actually, just pack new rows at the end
+            for i, row in enumerate(new_active_rows):
+                row.configure(fg_color=Colors.SURFACE_1 if (len(self.rows) + i) % 2 == 0 else Colors.BG_MEDIUM)
+                row.pack(fill="x", padx=8, pady=2, anchor="w")
+                self.rows.append(row)
+
+            # Step 4: Maintenance - limit total rows
+            while len(self.rows) > self.max_rows:
+                old_row = self.rows.pop(0)
+                old_row.pack_forget()
+                self.row_pool.append(old_row)
+                
+            # Limit pool size to prevent memory leaks (e.g., max 100 extra rows)
+            while len(self.row_pool) > 100:
+                p_row = self.row_pool.pop(0)
+                p_row.destroy()
+
+        except Exception as e:
+            logger.debug(f"AlarmTable pool update error: {e}")
+                    
+        except Exception as e:
+            # Silently fail - don't break the UI
+            pass
     
     def _get_alarm_color(self, alarm_type: str) -> str:
         """Get color for alarm type"""
@@ -378,33 +532,49 @@ class LogViewer(ctk.CTkTextbox):
         )
         
         self.configure(state="disabled")
-        self.max_lines = 500
+        self.max_lines = 300  # Reduced from 500 to 300 for better performance
         self.line_count = 0
         
         # Buffer for batch updates
         self._log_buffer = []
         self._update_scheduled = False
+        self._last_update_time = 0
     
     def log(self, message: str, level: str = "INFO"):
-        """Add a log entry (thread-safe, batched)"""
+        """Add a log entry (thread-safe, batched, throttled)"""
         self._log_buffer.append((message, level))
         
+        # OPTIMIZED: Only schedule update if not already scheduled
+        # and throttle to max 5 updates per second
         if not self._update_scheduled:
-            self._update_scheduled = True
-            self.after(100, self._process_log_queue)
+            import time
+            now = time.time()
+            time_since_last = now - self._last_update_time
+            
+            if time_since_last >= 0.2:  # Max 5 updates/sec
+                self._update_scheduled = True
+                self.after(200, self._process_log_queue)
+            elif len(self._log_buffer) > 50:  # Force update if buffer is large
+                self._update_scheduled = True
+                self.after(50, self._process_log_queue)
             
     def _process_log_queue(self):
-        """Process buffered logs"""
+        """Process buffered logs - OPTIMIZED with throttling"""
+        import time
         self._update_scheduled = False
+        self._last_update_time = time.time()
+        
         if not self._log_buffer:
             return
-            
-        # Get batch
-        batch = list(self._log_buffer)
-        self._log_buffer.clear()
+        
+        # Get batch (limit to 100 at a time to prevent lag)
+        batch = list(self._log_buffer[:100])
+        self._log_buffer = self._log_buffer[100:]
         
         self.configure(state="normal")
         
+        # Build all log lines first, then insert in one operation
+        log_text = ""
         for message, level in batch:
             timestamp = datetime.now().strftime("%H:%M:%S")
             
@@ -418,9 +588,11 @@ class LogViewer(ctk.CTkTextbox):
             else:
                 prefix = "ℹ️"
             
-            log_line = f"[{timestamp}] {prefix} {message}\n"
-            self.insert("end", log_line)
-            self.line_count += 1
+            log_text += f"[{timestamp}] {prefix} {message}\n"
+        
+        # Single insert operation instead of multiple
+        self.insert("end", log_text)
+        self.line_count += len(batch)
         
         # Remove old lines if exceeding max
         if self.line_count > self.max_lines:
@@ -430,6 +602,11 @@ class LogViewer(ctk.CTkTextbox):
         
         self.see("end")
         self.configure(state="disabled")
+        
+        # If there are still buffered logs, schedule another update
+        if self._log_buffer and not self._update_scheduled:
+            self._update_scheduled = True
+            self.after(200, self._process_log_queue)
     
     def clear(self):
         """Clear the log"""

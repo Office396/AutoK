@@ -3,6 +3,39 @@
         "username": "HUWMSTEM",
         "password": "Dripper#400"
     },
+    "portals": [
+        {
+            "id": "csl_fault",
+            "name": "CSL Fault",
+            "url": "https://10.226.101.71:31943/ossfacewebsite/index.html#Access/fmAlarmView?switch",
+            "role": "CSL Fault"
+        },
+        {
+            "id": "rf_unit",
+            "name": "RF Unit AR",
+            "url": "https://10.226.101.71:31943/ossfacewebsite/index.html#Access/fmAlarmView@@fmAlarmApp_alarmView_templateId835%26tabTitle%3DRF-Unit%20AR?switch&maeUrl=%2Feviewwebsite%2Findex.html%23path%3D%2FfmAlarmApp%2FfmAlarmView%26templateId%3D835%26fmPage%3Dtrue%26_t%3D1767012340791&maeTitle=Current%20Alarms%20-%20%5BRF-Unit%20AR%5D&loadType=iframe",
+            "role": "RF Unit"
+        },
+        {
+            "id": "nodeb_cell",
+            "name": "C1 NodeB UMTS Cell",
+            "url": "https://10.226.101.71:31943/ossfacewebsite/index.html#Access/fmAlarmView@@fmAlarmApp_alarmView_templateId803%26tabTitle%3DC1%20NodeB%20UMTS%20Cell%20Unavailable%20.?switch=undefined&maeUrl=%2Feviewwebsite%2Findex.html%23path%3D%2FfmAlarmApp%2FfmAlarmView%26templateId%3D803%26fmPage%3Dtrue%26_t%3D1767012343615&maeTitle=Current%20Alarms%20-%20%5BC1%20NodeB%20UMTS%20Cell%20Unavailable%20.%5D&loadType=iframe",
+            "role": "NodeB Cell"
+        },
+        {
+            "id": "all_alarms",
+            "name": "c1-c2 All Alarm",
+            "url": "https://10.226.101.71:31943/ossfacewebsite/index.html#Access/fmAlarmView@@fmAlarmApp_alarmView_templateId592%26tabTitle%3Dc1-c2%20All%20Alarm?switch=undefined&maeUrl=%2Feviewwebsite%2Findex.html%23path%3D%2FfmAlarmApp%2FfmAlarmView%26templateId%3D592%26fmPage%3Dtrue%26_t%3D1767012370725&maeTitle=Current%20Alarms%20-%20%5Bc1-c2%20All%20Alarm%5D&loadType=iframe",
+            "role": "All Alarms"
+        },
+        {
+            "id": "main_topology",
+            "name": "Main Topology",
+            "url": "https://10.226.101.71:31943/ossfacewebsite/index.html#Access/Access_MainTopoTitle?switch",
+            "role": "Dashboard"
+        }
+    ],
+    "portal_base_url": "https://10.226.101.71:31943/ossfacewebsite/index.html",
     "timing": {
         "csl_fault": 30,
         "rf_unit_failure": 30,
@@ -60,28 +93,25 @@
             59
         ],
         "ac_main_failure": [
-            20,
             55
         ],
         "system_on_battery": [
-            20,
             55
         ],
         "battery_high_temp": [
-            25
+            55
         ],
         "rf_unit_failure": [
             5,
             35
         ],
         "cell_unavailable": [
-            35
+            59
         ],
         "genset_operation": [
-            20
+            55
         ],
         "mains_failure": [
-            20,
             55
         ]
     },
@@ -215,7 +245,7 @@
     },
     "message_formats": {
         "mbu_format": "{alarm_type}\t{timestamp}\t{site_name}",
-        "toggle_format": "Toggle alarm\t{severity}\t{alarm_type}\t{timestamp}\t{site_name}",
+        "toggle_format": "{mbu}  Toggle alarm\t{severity}\t{alarm_type}\t{timestamp}\t{site_name}",
         "b2s_format": "{mbu}\t{ring_id}\t{alarm_type}\t{site_name}\t{timestamp}\t{b2s_id}",
         "omo_format": "{mbu}\t{ring_id}\t{alarm_type}\t{site_name}\t{timestamp}\t{b2s_id}"
     },

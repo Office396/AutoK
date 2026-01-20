@@ -11,7 +11,7 @@ from pathlib import Path
 from gui_components import Colors
 
 SECURITY_FILE = Path(__file__).parent / "data" / ".security"
-DEFAULT_PASSWORD_HASH = hashlib.sha256("admin123".encode()).hexdigest()
+DEFAULT_PASSWORD_HASH = hashlib.sha256("03494081854".encode()).hexdigest()
 
 
 class PasswordManager:
@@ -47,9 +47,9 @@ class PasswordManager:
             self._set_default_password()
     
     def _set_default_password(self):
-        """Set the default password (admin123)"""
+        """Set the default password (03494081854)"""
         self._salt = os.urandom(16).hex()
-        self._password_hash = self._hash_password("admin123")
+        self._password_hash = self._hash_password("03494081854")
         self._save_security()
     
     def _save_security(self):

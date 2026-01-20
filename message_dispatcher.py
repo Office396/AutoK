@@ -40,10 +40,19 @@ class MessageDispatcher:
         self.dispatch_callbacks.append(callback)
     
     def _notify_dispatch(self, group_name: str, alarm_type: str, count: int):
-        """Notify dispatch callbacks"""
+        """Notify dispatch callbacks - FIXED to prevent blocking"""
+        import tkinter as tk
         for callback in self.dispatch_callbacks:
             try:
-                callback(group_name, alarm_type, count)
+                # Check if this is a GUI callback that needs to be scheduled on the main thread
+                if hasattr(callback, '__self__') and isinstance(callback.__self__, tk.Widget):
+                    # Schedule GUI updates to run on the main thread
+                    try:
+                        callback.__self__.after(0, lambda: callback(group_name, alarm_type, count))
+                    except:
+                        pass
+                else:
+                    callback(group_name, alarm_type, count)
             except:
                 pass
     

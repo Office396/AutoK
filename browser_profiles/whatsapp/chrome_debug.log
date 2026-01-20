@@ -1,23 +1,18 @@
-[13364:8036:0114/231821.089:INFO:components\enterprise\browser\controller\chrome_browser_cloud_management_controller.cc:206] No machine level policy manager exists.
-[13364:8036:0114/231821.113:WARNING:chrome\browser\extensions\extension_service.cc:429] --disable-extensions-except is not allowed in Google Chrome, ignoring.
-[13364:8036:0114/231821.115:WARNING:chrome\browser\chrome_browser_main_win.cc:787] Command line too long for RegisterApplicationRestart:  --allow-insecure-localhost --allow-pre-commit-input --allow-running-insecure-content --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-blink-features=AutomationControlled --disable-client-side-phishing-detection --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-extensions-except --disable-features=IgnoreDuplicateNavs,Prewarm,VizDisplayCompositor,TranslateUI --disable-hang-monitor --disable-ipc-flooding-protection --disable-notifications --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-site-isolation-trials --disable-sync --enable-logging --ignore-certificate-errors --ignore-ssl-errors --log-level=0 --no-first-run --no-sandbox --no-service-autorun --password-store=basic --remote-allow-origins=* --remote-debugging-port=0 --start-maximized --test-type=webdriver --use-mock-keychain --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" --user-data-dir=C:/wd/Autok/browser_profiles/whatsapp --restore-last-session --restart
-[6528:324:0114/231821.204:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
-[6472:15016:0114/231821.379:VERBOSE1:components\viz\service\main\viz_main_impl.cc:86] VizNullHypothesis is disabled (not a warning)
-[1484:6208:0114/231821.434:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
-[9700:11252:0114/231821.500:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
-[10840:14440:0114/231821.508:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
-[13364:8036:0114/231821.838:INFO:CONSOLE:113] "Event handler of 'x-storagemutated-1' event must be added on the initial evaluation of worker script.", source: https://static.whatsapp.net/rsrc.php/v4/yy/r/0T8KNS7gC3M.js (113)
-[13364:8036:0114/231822.458:INFO:CONSOLE:77] "ErrorUtils caught an error:
+[15760:17872:0120/142648.542:INFO:components\enterprise\browser\controller\chrome_browser_cloud_management_controller.cc:206] No machine level policy manager exists.
+[15760:17872:0120/142648.568:WARNING:chrome\browser\extensions\extension_service.cc:428] --disable-extensions-except is not allowed in Google Chrome, ignoring.
+[15760:17872:0120/142648.573:WARNING:chrome\browser\chrome_browser_main_win.cc:787] Command line too long for RegisterApplicationRestart:  --allow-insecure-localhost --allow-pre-commit-input --allow-running-insecure-content --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-blink-features=AutomationControlled --disable-client-side-phishing-detection --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-extensions-except --disable-features=IgnoreDuplicateNavs,Prewarm,VizDisplayCompositor,TranslateUI --disable-hang-monitor --disable-ipc-flooding-protection --disable-notifications --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-site-isolation-trials --disable-sync --enable-logging --ignore-certificate-errors --ignore-ssl-errors --log-level=0 --no-first-run --no-sandbox --no-service-autorun --password-store=basic --remote-allow-origins=* --remote-debugging-port=0 --start-maximized --test-type=webdriver --use-mock-keychain --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36" --user-data-dir=C:/wd/Autok/browser_profiles/whatsapp --restore-last-session --restart
+[12672:14044:0120/142648.654:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
+[20408:18420:0120/142648.831:VERBOSE1:components\viz\service\main\viz_main_impl.cc:86] VizNullHypothesis is disabled (not a warning)
+[5132:19108:0120/142648.895:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
+[18220:19988:0120/142648.969:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
+[3724:5652:0120/142648.990:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
+[15760:17872:0120/142649.348:INFO:CONSOLE:113] "Event handler of 'x-storagemutated-1' event must be added on the initial evaluation of worker script.", source: https://static.whatsapp.net/rsrc.php/v4/y6/r/OKxnvvyb4kv.js (113)
+[15760:17872:0120/142649.755:INFO:CONSOLE:77] "ErrorUtils caught an error:
 
 multiple-uim-roots
 
-Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. [object Object]", source: https://static.whatsapp.net/rsrc.php/v4/yv/r/0p5QPbRp7Rp.js (77)
-[12924:6760:0114/231827.759:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
-[13364:11656:0114/231827.896:ERROR:google_apis\gcm\engine\registration_request.cc:292] Registration response error message: DEPRECATED_ENDPOINT
-[13364:8036:0114/231828.568:INFO:CONSOLE:113] "Event handler of 'x-storagemutated-1' event must be added on the initial evaluation of worker script.", source: https://static.whatsapp.net/rsrc.php/v4/yy/r/0T8KNS7gC3M.js (113)
-[13364:11656:0114/231856.647:ERROR:google_apis\gcm\engine\registration_request.cc:292] Registration response error message: DEPRECATED_ENDPOINT
-[13364:11656:0114/231944.881:ERROR:google_apis\gcm\engine\registration_request.cc:292] Registration response error message: DEPRECATED_ENDPOINT
-[7724:14220:0114/232021.369:VERBOSE1:components\viz\service\main\viz_main_impl.cc:86] VizNullHypothesis is disabled (not a warning)
-[13364:11656:0114/232108.985:ERROR:google_apis\gcm\engine\registration_request.cc:292] Registration response error message: DEPRECATED_ENDPOINT
-[10068:8788:0114/232238.711:WARNING:net\extras\sqlite\sqlite_persistent_store_backend_base.cc:176] Failed to post task from FlushAndNotifyInBackground@net\extras\sqlite\sqlite_persistent_store_backend_base.cc:226 to client_task_runner_.
-[10068:8788:0114/232238.711:WARNING:net\extras\sqlite\sqlite_persistent_store_backend_base.cc:176] Failed to post task from FlushAndNotifyInBackground@net\extras\sqlite\sqlite_persistent_store_backend_base.cc:226 to client_task_runner_.
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. [object Object]", source: https://static.whatsapp.net/rsrc.php/v4/y-/r/ARqZ0p7S31Z.js (77)
+[14792:17360:0120/142658.296:INFO:third_party\webrtc\rtc_base\cpu_info.cc:75] Available number of cores: 6
+[15760:17724:0120/142658.364:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: QUOTA_EXCEEDED
+[15760:17872:0120/142658.932:INFO:CONSOLE:113] "Event handler of 'x-storagemutated-1' event must be added on the initial evaluation of worker script.", source: https://static.whatsapp.net/rsrc.php/v4/y6/r/OKxnvvyb4kv.js (113)
+[19040:13080:0120/142848.826:VERBOSE1:components\viz\service\main\viz_main_impl.cc:86] VizNullHypothesis is disabled (not a warning)

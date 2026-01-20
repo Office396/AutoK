@@ -64,10 +64,7 @@ class AlarmScheduler:
         
         # Only lock when modifying shared state
         with self.lock:
-            # DEDUPLICATION: Avoid adding the same alarm instance twice to pending
-            if any(a.alarm_id == alarm.alarm_id for a in self.pending_alarms[alarm.alarm_type]):
-                return
-            
+            # Add to pending batch - allow duplicates
             # Start batch timer if this is the first alarm in the batch
             if not self.pending_alarms[alarm.alarm_type]:
                 self.batch_start_times[alarm.alarm_type] = datetime.now()

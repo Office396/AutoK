@@ -25,27 +25,11 @@ for dir_path in [DATA_DIR, LOGS_DIR, EXPORTS_DIR, PROFILES_DIR]:
 
 @dataclass
 class PortalConfig:
-    """Portal URLs and settings"""
-    base_url: str = "https://10.226.101.71:31943/ossfacewebsite/index.html"
-    
-    main_topology: str = "https://10.226.101.71:31943/ossfacewebsite/index.html#Access/Access_MainTopoTitle?switch"
-    
-    csl_fault: str = "https://10.226.101.71:31943/ossfacewebsite/index.html#Access/fmAlarmView?switch"
-    
-    rf_unit: str = ("https://10.226.101.71:31943/ossfacewebsite/index.html#Access/"
-                    "fmAlarmView@@fmAlarmApp_alarmView_templateId835%26tabTitle%3DRF-Unit%20AR?switch=undefined"
-                    "&maeUrl=%2Feviewwebsite%2Findex.html%23path%3D%2FfmAlarmApp%2FfmAlarmView%26templateId%3D835"
-                    "%26fmPage%3Dtrue%26_t%3D1765394552105&maeTitle=Current%20Alarms%20-%20%5BRF-Unit%20AR%5D&loadType=iframe")
-    
-    nodeb_cell: str = ("https://10.226.101.71:31943/ossfacewebsite/index.html#Access/"
-                       "fmAlarmView@@fmAlarmApp_alarmView_templateId803%26tabTitle%3DC1%20NodeB%20UMTS%20Cell%20Unavailable%20.?"
-                       "switch=undefined&maeUrl=%2Feviewwebsite%2Findex.html%23path%3D%2FfmAlarmApp%2FfmAlarmView%26templateId%3D803"
-                       "%26fmPage%3Dtrue%26_t%3D1765394556232&maeTitle=Current%20Alarms%20-%20%5BC1%20NodeB%20UMTS%20Cell%20Unavailable%20.%5D&loadType=iframe")
-    
-    all_alarms: str = ("https://10.226.101.71:31943/ossfacewebsite/index.html#Access/"
-                       "fmAlarmView@@fmAlarmApp_alarmView_templateId592%26tabTitle%3Dc1-c2%20All%20Alarm?switch=undefined"
-                       "&maeUrl=%2Feviewwebsite%2Findex.html%23path%3D%2FfmAlarmApp%2FfmAlarmView%26templateId%3D592"
-                       "%26fmPage%3Dtrue%26_t%3D1765394587633&maeTitle=Current%20Alarms%20-%20%5Bc1-c2%20All%20Alarm%5D&loadType=iframe")
+    """Dynamic Portal configuration"""
+    id: str
+    name: str
+    url: str
+    role: str  # Role/Type (e.g. "CSL Fault", "All Alarms", etc.)
 
 
 @dataclass
@@ -266,7 +250,15 @@ class Settings:
     """Main settings manager"""
     
     def __init__(self):
-        self.portal = PortalConfig()
+        # Dynamic portals list
+        self.portals: List[PortalConfig] = [
+            PortalConfig("csl_fault", "CSL Fault", "https://10.226.101.71:31943/ossfacewebsite/index.html#Access/fmAlarmView?switch", "CSL Fault"),
+            PortalConfig("rf_unit", "RF Unit AR", "https://10.226.101.71:31943/ossfacewebsite/index.html#Access/fmAlarmView@@fmAlarmApp_alarmView_templateId835%26tabTitle%3DRF-Unit%20AR?switch&maeUrl=%2Feviewwebsite%2Findex.html%23path%3D%2FfmAlarmApp%2FfmAlarmView%26templateId%3D835%26fmPage%3Dtrue%26_t%3D1767012340791&maeTitle=Current%20Alarms%20-%20%5BRF-Unit%20AR%5D&loadType=iframe", "RF Unit"),
+            PortalConfig("nodeb_cell", "C1 NodeB UMTS Cell", "https://10.226.101.71:31943/ossfacewebsite/index.html#Access/fmAlarmView@@fmAlarmApp_alarmView_templateId803%26tabTitle%3DC1%20NodeB%20UMTS%20Cell%20Unavailable%20.?switch=undefined&maeUrl=%2Feviewwebsite%2Findex.html%23path%3D%2FfmAlarmApp%2FfmAlarmView%26templateId%3D803%26fmPage%3Dtrue%26_t%3D1767012343615&maeTitle=Current%20Alarms%20-%20%5BC1%20NodeB%20UMTS%20Cell%20Unavailable%20.%5D&loadType=iframe", "NodeB Cell"),
+            PortalConfig("all_alarms", "c1-c2 All Alarm", "https://10.226.101.71:31943/ossfacewebsite/index.html#Access/fmAlarmView@@fmAlarmApp_alarmView_templateId592%26tabTitle%3Dc1-c2%20All%20Alarm?switch=undefined&maeUrl=%2Feviewwebsite%2Findex.html%23path%3D%2FfmAlarmApp%2FfmAlarmView%26templateId%3D592%26fmPage%3Dtrue%26_t%3D1767012370725&maeTitle=Current%20Alarms%20-%20%5Bc1-c2%20All%20Alarm%5D&loadType=iframe", "All Alarms"),
+            PortalConfig("main_topology", "Main Topology", "https://10.226.101.71:31943/ossfacewebsite/index.html#Access/Access_MainTopoTitle?switch", "Dashboard")
+        ]
+        self.portal_base_url: str = "https://10.226.101.71:31943/ossfacewebsite/index.html"
         self.credentials = Credentials()
         self.timing = AlarmTimingSettings()
         self.excel_columns = ExcelColumnMapping()
@@ -312,6 +304,11 @@ class Settings:
                         return
                     
                     data = json.loads(content)
+                
+                # Load portals
+                if 'portals' in data:
+                    self.portals = [PortalConfig(**p) for p in data['portals']]
+                self.portal_base_url = data.get('portal_base_url', self.portal_base_url)
                 
                 # Load credentials
                 if 'credentials' in data:
@@ -401,6 +398,8 @@ class Settings:
                 'username': self.credentials.username,
                 'password': self.credentials.password
             },
+            'portals': [asdict(p) for p in self.portals],
+            'portal_base_url': self.portal_base_url,
             'timing': asdict(self.timing),
             'mbu_groups': self.mbu_groups.mapping,
             'b2s_groups': self.b2s_groups.mapping,
@@ -448,7 +447,27 @@ class Settings:
     
     def get_hourly_minutes_for_alarm(self, alarm_name: str) -> Optional[List[int]]:
         alarm_name_lower = alarm_name.lower().replace(" ", "_")
-        minutes = self.hourly_minute_map.get(alarm_name_lower)
+        # Normalize genset/DG synonyms to ensure minutes mapping applies
+        genset_aliases = {
+            "genset_running",
+            "genset_operation",
+            "dg_running",
+            "dg_operation",
+            "generator_running",
+            "diesel_generator_running"
+        }
+        if alarm_name_lower in genset_aliases:
+            # Prefer a canonical key if present
+            minutes = (
+                self.hourly_minute_map.get("genset_running")
+                or self.hourly_minute_map.get("genset_operation")
+                or self.hourly_minute_map.get("dg_running")
+                or self.hourly_minute_map.get("dg_operation")
+                or self.hourly_minute_map.get("generator_running")
+                or self.hourly_minute_map.get("diesel_generator_running")
+            )
+        else:
+            minutes = self.hourly_minute_map.get(alarm_name_lower)
         if not minutes:
             return None
         # Ensure sorted unique ints between 0-59

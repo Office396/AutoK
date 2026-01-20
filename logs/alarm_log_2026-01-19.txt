@@ -1,0 +1,1911 @@
+[2026-01-19 12:25:44] [INFO] Security Manager started for PC: DESKTOP-ND0C715 (119.73.65.2)
+[2026-01-19 12:25:44] [INFO] Application starting...
+[2026-01-19 12:25:53] [INFO] Main window created, starting event loop
+[2026-01-19 12:27:45] [INFO] Application closed normally
+[2026-01-19 12:30:56] [INFO] Security Manager started for PC: DESKTOP-ND0C715 (119.73.65.2)
+[2026-01-19 12:30:56] [INFO] Application starting...
+[2026-01-19 12:31:07] [INFO] Main window created, starting event loop
+[2026-01-19 14:15:40] [INFO] Security Manager started for PC: DESKTOP-ND0C715 (119.73.65.2)
+[2026-01-19 14:15:40] [INFO] Application starting...
+[2026-01-19 14:15:48] [INFO] Main window created, starting event loop
+[2026-01-19 14:39:38] [INFO] Application closed normally
+[2026-01-19 14:54:11] [INFO] Security Manager started for PC: DESKTOP-ND0C715 (119.73.65.2)
+[2026-01-19 14:54:11] [INFO] Application starting...
+[2026-01-19 14:54:19] [INFO] Main window created, starting event loop
+[2026-01-19 15:02:21] [INFO] Application closed normally
+[2026-01-19 15:16:04] [INFO] Security Manager started for PC: DESKTOP-ND0C715 (119.73.65.2)
+[2026-01-19 15:16:04] [INFO] Application starting in WEB mode...
+[2026-01-19 15:16:04] [INFO] WebApp: Initializing modern UI window...
+[2026-01-19 15:18:01] [INFO] WebBridge: Starting automation...
+[2026-01-19 15:18:01] [INFO] ==================================================
+[2026-01-19 15:18:01] [INFO] Starting Telecom Alarm Automation
+[2026-01-19 15:18:01] [INFO] ==================================================
+[2026-01-19 15:18:01] [INFO] Loading master data...
+[2026-01-19 15:18:02] [SUCCESS] Loaded 1702 sites
+[2026-01-19 15:18:02] [INFO] Starting browser...
+[2026-01-19 15:18:02] [INFO] Starting Portal browser...
+[2026-01-19 15:18:04] [INFO] Starting WhatsApp browser (session preserved)...
+[2026-01-19 15:18:04] [INFO] WhatsApp profile found at: C:\wd\Autok\browser_profiles\whatsapp - session will be preserved
+[2026-01-19 15:18:06] [INFO] Navigating to WhatsApp Web...
+[2026-01-19 15:18:09] [INFO] WhatsApp window focused
+[2026-01-19 15:18:09] [SUCCESS] WhatsApp Web loaded successfully
+[2026-01-19 15:18:09] [INFO] Checking WhatsApp connection...
+[2026-01-19 15:18:09] [INFO] Initializing WhatsApp handler status...
+[2026-01-19 15:18:11] [INFO] WhatsApp connected - found: #pane-side
+[2026-01-19 15:18:11] [INFO] WhatsApp status changed to: Connected
+[2026-01-19 15:18:11] [SUCCESS] WhatsApp is now connected!
+[2026-01-19 15:18:11] [INFO] WhatsApp handler status: Connected
+[2026-01-19 15:18:11] [INFO] Starting WhatsApp message sender...
+[2026-01-19 15:18:11] [INFO] WhatsApp message sender started
+[2026-01-19 15:18:11] [INFO] Starting alarm scheduler...
+[2026-01-19 15:18:11] [INFO] Alarm scheduler started
+[2026-01-19 15:18:11] [INFO] Starting portal monitor...
+[2026-01-19 15:18:11] [INFO] Exporting alarms from CSL Fault (CSL Fault)...
+[2026-01-19 15:18:11] [INFO] Portal monitor started (interval: 0s)
+[2026-01-19 15:18:11] [WARNING] No handle stored for C1 OML Fault. attempting to find or open...
+[2026-01-19 15:18:11] [SUCCESS] Automation started successfully!
+[2026-01-19 15:18:11] [INFO] Switching to portal C1 OML Fault...
+[2026-01-19 15:18:11] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:18:12] [WARNING] Redirected to login page - session expired. Re-logging in...
+[2026-01-19 15:18:12] [INFO] Already on login page - proceeding with login
+[2026-01-19 15:18:12] [INFO] Entering credentials...
+[2026-01-19 15:18:13] [INFO] Login button clicked
+[2026-01-19 15:18:14] [SUCCESS] Login verified via URL check
+[2026-01-19 15:18:15] [INFO] Password change/expiry page detected. Clicking Cancel...
+[2026-01-19 15:18:16] [SUCCESS] Clicked Cancel button on password change page
+[2026-01-19 15:18:18] [INFO] Login successful/verified. Initializing portal tabs...
+[2026-01-19 15:18:18] [INFO] Preserved Tab 1 as Main Topology/Login Session
+[2026-01-19 15:18:18] [INFO] Opening New Tab for C1 OML Fault...
+[2026-01-19 15:18:19] [INFO] Tab opened for C1 OML Fault (Handle: 408AF247)
+[2026-01-19 15:18:19] [INFO] Opening New Tab for RF-Unit AR...
+[2026-01-19 15:18:20] [INFO] Tab opened for RF-Unit AR (Handle: F9F7C247)
+[2026-01-19 15:18:20] [INFO] Opening New Tab for C1 NodeB UMTS Cell Unavailable...
+[2026-01-19 15:18:22] [INFO] Tab opened for C1 NodeB UMTS Cell Unavailable (Handle: AC1DE04E)
+[2026-01-19 15:18:22] [INFO] Opening New Tab for c1-c2 All Alarm...
+[2026-01-19 15:18:23] [INFO] Tab opened for c1-c2 All Alarm (Handle: 20D86589)
+[2026-01-19 15:18:23] [SUCCESS] All portal tabs opened successfully
+[2026-01-19 15:18:23] [INFO] Re-navigating to C1 OML Fault after login...
+[2026-01-19 15:18:24] [INFO] Navigated to C1 OML Fault
+[2026-01-19 15:18:25] [INFO] Waiting for alarm table to load...
+[2026-01-19 15:18:25] [INFO] Finding export button for C1 OML Fault...
+[2026-01-19 15:18:32] [INFO] Clicked export button
+[2026-01-19 15:18:33] [INFO] Selecting 'All' alarms option...
+[2026-01-19 15:18:34] [INFO] Waiting for export dialog...
+[2026-01-19 15:18:34] [INFO] Ensuring XLSX format is selected...
+[2026-01-19 15:18:34] [INFO] Clicking OK to start export...
+[2026-01-19 15:18:35] [INFO] Waiting for file download...
+[2026-01-19 15:18:36] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260119151835098.xlsx
+[2026-01-19 15:18:36] [SUCCESS] Export completed for CSL Fault
+[2026-01-19 15:18:36] [INFO] Processed 35 alarms from C:\wd\Autok\exports\CurrentAlarms20260119151835098.xlsx
+[2026-01-19 15:18:36] [DEBUG] Cleaned up export file: C:\wd\Autok\exports\CurrentAlarms20260119151835098.xlsx
+[2026-01-19 15:18:36] [ERROR] Monitor loop error: 'PortalConfig' object has no attribute 'value'
+[2026-01-19 15:18:41] [INFO] Exporting alarms from CSL Fault (CSL Fault)...
+[2026-01-19 15:18:41] [INFO] Switched to C1 OML Fault using handle 408AF247
+[2026-01-19 15:18:41] [INFO] Waiting for alarm table to load...
+[2026-01-19 15:18:41] [INFO] Finding export button for C1 OML Fault...
+[2026-01-19 15:18:48] [INFO] Clicked export button
+[2026-01-19 15:18:49] [INFO] Selecting 'All' alarms option...
+[2026-01-19 15:18:50] [INFO] Waiting for export dialog...
+[2026-01-19 15:18:50] [INFO] Ensuring XLSX format is selected...
+[2026-01-19 15:18:50] [INFO] Clicking OK to start export...
+[2026-01-19 15:18:50] [INFO] Waiting for file download...
+[2026-01-19 15:18:51] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260119151850618.xlsx
+[2026-01-19 15:18:51] [SUCCESS] Export completed for CSL Fault
+[2026-01-19 15:18:51] [INFO] Processed 35 alarms from C:\wd\Autok\exports\CurrentAlarms20260119151850618.xlsx
+[2026-01-19 15:18:51] [DEBUG] Cleaned up export file: C:\wd\Autok\exports\CurrentAlarms20260119151850618.xlsx
+[2026-01-19 15:18:51] [ERROR] Monitor loop error: 'PortalConfig' object has no attribute 'value'
+[2026-01-19 15:18:56] [INFO] Exporting alarms from CSL Fault (CSL Fault)...
+[2026-01-19 15:18:56] [INFO] Switched to C1 OML Fault using handle 408AF247
+[2026-01-19 15:18:56] [INFO] Waiting for alarm table to load...
+[2026-01-19 15:18:56] [INFO] Finding export button for C1 OML Fault...
+[2026-01-19 15:19:04] [INFO] Clicked export button
+[2026-01-19 15:19:05] [INFO] Selecting 'All' alarms option...
+[2026-01-19 15:19:06] [INFO] Waiting for export dialog...
+[2026-01-19 15:19:06] [INFO] Ensuring XLSX format is selected...
+[2026-01-19 15:19:06] [INFO] Clicking OK to start export...
+[2026-01-19 15:19:06] [INFO] Waiting for file download...
+[2026-01-19 15:19:07] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260119151906709.xlsx
+[2026-01-19 15:19:07] [SUCCESS] Export completed for CSL Fault
+[2026-01-19 15:19:07] [INFO] Processed 35 alarms from C:\wd\Autok\exports\CurrentAlarms20260119151906709.xlsx
+[2026-01-19 15:19:07] [DEBUG] Cleaned up export file: C:\wd\Autok\exports\CurrentAlarms20260119151906709.xlsx
+[2026-01-19 15:19:07] [ERROR] Monitor loop error: 'PortalConfig' object has no attribute 'value'
+[2026-01-19 15:19:12] [INFO] Exporting alarms from CSL Fault (CSL Fault)...
+[2026-01-19 15:19:12] [INFO] Switched to C1 OML Fault using handle 408AF247
+[2026-01-19 15:19:12] [INFO] Waiting for alarm table to load...
+[2026-01-19 15:19:12] [INFO] Finding export button for C1 OML Fault...
+[2026-01-19 15:19:19] [INFO] Clicked export button
+[2026-01-19 15:19:20] [INFO] Selecting 'All' alarms option...
+[2026-01-19 15:19:21] [INFO] Waiting for export dialog...
+[2026-01-19 15:19:21] [INFO] Ensuring XLSX format is selected...
+[2026-01-19 15:19:21] [INFO] Clicking OK to start export...
+[2026-01-19 15:19:21] [INFO] Waiting for file download...
+[2026-01-19 15:19:22] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260119151921997.xlsx
+[2026-01-19 15:19:22] [SUCCESS] Export completed for CSL Fault
+[2026-01-19 15:19:22] [INFO] Processed 35 alarms from C:\wd\Autok\exports\CurrentAlarms20260119151921997.xlsx
+[2026-01-19 15:19:22] [DEBUG] Cleaned up export file: C:\wd\Autok\exports\CurrentAlarms20260119151921997.xlsx
+[2026-01-19 15:19:22] [ERROR] Monitor loop error: 'PortalConfig' object has no attribute 'value'
+[2026-01-19 15:19:28] [INFO] Exporting alarms from CSL Fault (CSL Fault)...
+[2026-01-19 15:19:28] [INFO] Switched to C1 OML Fault using handle 408AF247
+[2026-01-19 15:19:28] [INFO] Waiting for alarm table to load...
+[2026-01-19 15:19:28] [INFO] Finding export button for C1 OML Fault...
+[2026-01-19 15:19:34] [INFO] Clicked export button
+[2026-01-19 15:19:36] [INFO] Selecting 'All' alarms option...
+[2026-01-19 15:19:37] [INFO] Waiting for export dialog...
+[2026-01-19 15:19:37] [INFO] Ensuring XLSX format is selected...
+[2026-01-19 15:19:37] [INFO] Clicking OK to start export...
+[2026-01-19 15:19:37] [INFO] Waiting for file download...
+[2026-01-19 15:19:38] [SUCCESS] Export completed: C:\wd\Autok\exports\CurrentAlarms20260119151937489.xlsx
+[2026-01-19 15:19:38] [SUCCESS] Export completed for CSL Fault
+[2026-01-19 15:19:38] [INFO] Processed 35 alarms from C:\wd\Autok\exports\CurrentAlarms20260119151937489.xlsx
+[2026-01-19 15:19:38] [DEBUG] Cleaned up export file: C:\wd\Autok\exports\CurrentAlarms20260119151937489.xlsx
+[2026-01-19 15:19:38] [ERROR] Monitor loop error: 'PortalConfig' object has no attribute 'value'
+[2026-01-19 15:19:43] [INFO] Exporting alarms from CSL Fault (CSL Fault)...
+[2026-01-19 15:19:43] [ERROR] Handle for C1 OML Fault is no longer valid (tab closed?)
+[2026-01-19 15:19:43] [INFO] Switching to portal C1 OML Fault...
+[2026-01-19 15:19:43] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:19:43] [ERROR] Navigation error: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=144.0.7559.59)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710fed
+	0x7ff6a26e7b92
+	0x7ff6a279d696
+	0x7ff6a27b9a72
+	0x7ff6a275cedc
+	0x7ff6a275de23
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a2973e54
+	0x7ff6a2974006
+	0x7ff6a2959e27
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:19:44] [WARNING] Mismatch: Expected 'fmAlarmView' in URL, but got 
+[2026-01-19 15:19:44] [INFO] Re-navigating to C1 OML Fault...
+[2026-01-19 15:19:44] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:19:44] [ERROR] Navigation error: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=144.0.7559.59)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710fed
+	0x7ff6a26e7b92
+	0x7ff6a279d696
+	0x7ff6a27b9a72
+	0x7ff6a275cedc
+	0x7ff6a275de23
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a2973e54
+	0x7ff6a2974006
+	0x7ff6a2959e27
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:19:44] [ERROR] Export failed for CSL Fault
+[2026-01-19 15:19:44] [ERROR] Monitor loop error: 'PortalConfig' object has no attribute 'value'
+[2026-01-19 15:19:49] [INFO] Exporting alarms from CSL Fault (CSL Fault)...
+[2026-01-19 15:19:49] [ERROR] Error switching tab: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: chrome=144.0.7559.59)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710fed
+	0x7ff6a26fae8f
+	0x7ff6a26fbf4f
+	0x7ff6a2711b63
+	0x7ff6a26e7561
+	0x7ff6a27a88e8
+	0x7ff6a275cedc
+	0x7ff6a275de23
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a2973e54
+	0x7ff6a2974006
+	0x7ff6a2959e27
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:19:49] [INFO] Switching to portal C1 OML Fault...
+[2026-01-19 15:19:49] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:19:49] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:19:50] [WARNING] Mismatch: Expected 'fmAlarmView' in URL, but got 
+[2026-01-19 15:19:50] [INFO] Re-navigating to C1 OML Fault...
+[2026-01-19 15:19:50] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:19:50] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:19:50] [ERROR] Export failed for CSL Fault
+[2026-01-19 15:19:50] [ERROR] Monitor loop error: 'PortalConfig' object has no attribute 'value'
+[2026-01-19 15:19:55] [INFO] Exporting alarms from CSL Fault (CSL Fault)...
+[2026-01-19 15:19:55] [ERROR] Error switching tab: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:19:55] [INFO] Switching to portal C1 OML Fault...
+[2026-01-19 15:19:55] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:19:55] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:19:56] [WARNING] Mismatch: Expected 'fmAlarmView' in URL, but got 
+[2026-01-19 15:19:56] [INFO] Re-navigating to C1 OML Fault...
+[2026-01-19 15:19:56] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:19:56] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:19:56] [ERROR] Export failed for CSL Fault
+[2026-01-19 15:19:56] [ERROR] Monitor loop error: 'PortalConfig' object has no attribute 'value'
+[2026-01-19 15:20:01] [INFO] Exporting alarms from CSL Fault (CSL Fault)...
+[2026-01-19 15:20:01] [ERROR] Error switching tab: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:20:01] [INFO] Switching to portal C1 OML Fault...
+[2026-01-19 15:20:01] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:20:01] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:20:02] [WARNING] Mismatch: Expected 'fmAlarmView' in URL, but got 
+[2026-01-19 15:20:02] [INFO] Re-navigating to C1 OML Fault...
+[2026-01-19 15:20:02] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:20:02] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:20:02] [ERROR] Export failed for CSL Fault
+[2026-01-19 15:20:02] [ERROR] Monitor loop error: 'PortalConfig' object has no attribute 'value'
+[2026-01-19 15:20:07] [INFO] Exporting alarms from CSL Fault (CSL Fault)...
+[2026-01-19 15:20:07] [ERROR] Error switching tab: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:20:07] [INFO] Switching to portal C1 OML Fault...
+[2026-01-19 15:20:07] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:20:07] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:20:08] [WARNING] Mismatch: Expected 'fmAlarmView' in URL, but got 
+[2026-01-19 15:20:08] [INFO] Re-navigating to C1 OML Fault...
+[2026-01-19 15:20:08] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:20:08] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:20:08] [ERROR] Export failed for CSL Fault
+[2026-01-19 15:20:08] [ERROR] Monitor loop error: 'PortalConfig' object has no attribute 'value'
+[2026-01-19 15:20:13] [INFO] Exporting alarms from CSL Fault (CSL Fault)...
+[2026-01-19 15:20:13] [ERROR] Error switching tab: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:20:13] [INFO] Switching to portal C1 OML Fault...
+[2026-01-19 15:20:13] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:20:13] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:20:14] [WARNING] Mismatch: Expected 'fmAlarmView' in URL, but got 
+[2026-01-19 15:20:14] [INFO] Re-navigating to C1 OML Fault...
+[2026-01-19 15:20:14] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:20:14] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:20:14] [ERROR] Export failed for CSL Fault
+[2026-01-19 15:20:14] [ERROR] Monitor loop error: 'PortalConfig' object has no attribute 'value'
+[2026-01-19 15:20:19] [INFO] Exporting alarms from CSL Fault (CSL Fault)...
+[2026-01-19 15:20:19] [ERROR] Error switching tab: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:20:19] [INFO] Switching to portal C1 OML Fault...
+[2026-01-19 15:20:19] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:20:19] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:20:20] [WARNING] Mismatch: Expected 'fmAlarmView' in URL, but got 
+[2026-01-19 15:20:20] [INFO] Re-navigating to C1 OML Fault...
+[2026-01-19 15:20:20] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:20:20] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:20:20] [ERROR] Export failed for CSL Fault
+[2026-01-19 15:20:20] [ERROR] Monitor loop error: 'PortalConfig' object has no attribute 'value'
+[2026-01-19 15:20:25] [INFO] Exporting alarms from CSL Fault (CSL Fault)...
+[2026-01-19 15:20:25] [ERROR] Error switching tab: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:20:25] [INFO] Switching to portal C1 OML Fault...
+[2026-01-19 15:20:25] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:20:25] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:20:26] [WARNING] Mismatch: Expected 'fmAlarmView' in URL, but got 
+[2026-01-19 15:20:26] [INFO] Re-navigating to C1 OML Fault...
+[2026-01-19 15:20:26] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:20:26] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:20:26] [ERROR] Export failed for CSL Fault
+[2026-01-19 15:20:26] [ERROR] Monitor loop error: 'PortalConfig' object has no attribute 'value'
+[2026-01-19 15:20:31] [INFO] Exporting alarms from CSL Fault (CSL Fault)...
+[2026-01-19 15:20:31] [ERROR] Error switching tab: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:20:31] [INFO] Switching to portal C1 OML Fault...
+[2026-01-19 15:20:31] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:20:31] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:20:32] [WARNING] Mismatch: Expected 'fmAlarmView' in URL, but got 
+[2026-01-19 15:20:32] [INFO] Re-navigating to C1 OML Fault...
+[2026-01-19 15:20:32] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:20:32] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:20:32] [ERROR] Export failed for CSL Fault
+[2026-01-19 15:20:32] [ERROR] Monitor loop error: 'PortalConfig' object has no attribute 'value'
+[2026-01-19 15:20:37] [INFO] Exporting alarms from CSL Fault (CSL Fault)...
+[2026-01-19 15:20:37] [ERROR] Error switching tab: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:20:37] [INFO] Switching to portal C1 OML Fault...
+[2026-01-19 15:20:37] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:20:37] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:20:38] [WARNING] Mismatch: Expected 'fmAlarmView' in URL, but got 
+[2026-01-19 15:20:38] [INFO] Re-navigating to C1 OML Fault...
+[2026-01-19 15:20:38] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:20:38] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:20:38] [ERROR] Export failed for CSL Fault
+[2026-01-19 15:20:38] [ERROR] Monitor loop error: 'PortalConfig' object has no attribute 'value'
+[2026-01-19 15:20:43] [INFO] Exporting alarms from CSL Fault (CSL Fault)...
+[2026-01-19 15:20:43] [ERROR] Error switching tab: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:20:43] [INFO] Switching to portal C1 OML Fault...
+[2026-01-19 15:20:43] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:20:43] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:20:44] [WARNING] Mismatch: Expected 'fmAlarmView' in URL, but got 
+[2026-01-19 15:20:44] [INFO] Re-navigating to C1 OML Fault...
+[2026-01-19 15:20:44] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:20:44] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:20:44] [ERROR] Export failed for CSL Fault
+[2026-01-19 15:20:44] [ERROR] Monitor loop error: 'PortalConfig' object has no attribute 'value'
+[2026-01-19 15:20:49] [INFO] Exporting alarms from CSL Fault (CSL Fault)...
+[2026-01-19 15:20:49] [ERROR] Error switching tab: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:20:49] [INFO] Switching to portal C1 OML Fault...
+[2026-01-19 15:20:49] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:20:49] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:20:50] [WARNING] Mismatch: Expected 'fmAlarmView' in URL, but got 
+[2026-01-19 15:20:50] [INFO] Re-navigating to C1 OML Fault...
+[2026-01-19 15:20:50] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:20:50] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:20:50] [ERROR] Export failed for CSL Fault
+[2026-01-19 15:20:50] [ERROR] Monitor loop error: 'PortalConfig' object has no attribute 'value'
+[2026-01-19 15:20:55] [INFO] Exporting alarms from CSL Fault (CSL Fault)...
+[2026-01-19 15:20:55] [ERROR] Error switching tab: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:20:55] [INFO] Switching to portal C1 OML Fault...
+[2026-01-19 15:20:55] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:20:55] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:20:56] [WARNING] Mismatch: Expected 'fmAlarmView' in URL, but got 
+[2026-01-19 15:20:56] [INFO] Re-navigating to C1 OML Fault...
+[2026-01-19 15:20:56] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:20:56] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:20:56] [ERROR] Export failed for CSL Fault
+[2026-01-19 15:20:56] [ERROR] Monitor loop error: 'PortalConfig' object has no attribute 'value'
+[2026-01-19 15:21:01] [INFO] Exporting alarms from CSL Fault (CSL Fault)...
+[2026-01-19 15:21:01] [ERROR] Error switching tab: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:21:01] [INFO] Switching to portal C1 OML Fault...
+[2026-01-19 15:21:01] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:21:01] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:21:02] [WARNING] Mismatch: Expected 'fmAlarmView' in URL, but got 
+[2026-01-19 15:21:02] [INFO] Re-navigating to C1 OML Fault...
+[2026-01-19 15:21:02] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:21:02] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:21:02] [ERROR] Export failed for CSL Fault
+[2026-01-19 15:21:02] [ERROR] Monitor loop error: 'PortalConfig' object has no attribute 'value'
+[2026-01-19 15:21:07] [INFO] Exporting alarms from CSL Fault (CSL Fault)...
+[2026-01-19 15:21:07] [ERROR] Error switching tab: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:21:07] [INFO] Switching to portal C1 OML Fault...
+[2026-01-19 15:21:07] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:21:07] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:21:08] [WARNING] Mismatch: Expected 'fmAlarmView' in URL, but got 
+[2026-01-19 15:21:08] [INFO] Re-navigating to C1 OML Fault...
+[2026-01-19 15:21:08] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:21:08] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:21:08] [ERROR] Export failed for CSL Fault
+[2026-01-19 15:21:08] [ERROR] Monitor loop error: 'PortalConfig' object has no attribute 'value'
+[2026-01-19 15:21:13] [INFO] Exporting alarms from CSL Fault (CSL Fault)...
+[2026-01-19 15:21:13] [ERROR] Error switching tab: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:21:13] [INFO] Switching to portal C1 OML Fault...
+[2026-01-19 15:21:13] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:21:13] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:21:14] [WARNING] Mismatch: Expected 'fmAlarmView' in URL, but got 
+[2026-01-19 15:21:14] [INFO] Re-navigating to C1 OML Fault...
+[2026-01-19 15:21:14] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:21:14] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:21:14] [ERROR] Export failed for CSL Fault
+[2026-01-19 15:21:14] [ERROR] Monitor loop error: 'PortalConfig' object has no attribute 'value'
+[2026-01-19 15:21:19] [INFO] Exporting alarms from CSL Fault (CSL Fault)...
+[2026-01-19 15:21:19] [ERROR] Error switching tab: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:21:19] [INFO] Switching to portal C1 OML Fault...
+[2026-01-19 15:21:19] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:21:19] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:21:20] [WARNING] Mismatch: Expected 'fmAlarmView' in URL, but got 
+[2026-01-19 15:21:20] [INFO] Re-navigating to C1 OML Fault...
+[2026-01-19 15:21:20] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:21:20] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:21:20] [ERROR] Export failed for CSL Fault
+[2026-01-19 15:21:20] [ERROR] Monitor loop error: 'PortalConfig' object has no attribute 'value'
+[2026-01-19 15:21:25] [INFO] Exporting alarms from CSL Fault (CSL Fault)...
+[2026-01-19 15:21:25] [ERROR] Error switching tab: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:21:25] [INFO] Switching to portal C1 OML Fault...
+[2026-01-19 15:21:25] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:21:25] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:21:26] [WARNING] Mismatch: Expected 'fmAlarmView' in URL, but got 
+[2026-01-19 15:21:26] [INFO] Re-navigating to C1 OML Fault...
+[2026-01-19 15:21:26] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:21:26] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:21:26] [ERROR] Export failed for CSL Fault
+[2026-01-19 15:21:26] [ERROR] Monitor loop error: 'PortalConfig' object has no attribute 'value'
+[2026-01-19 15:21:31] [INFO] Exporting alarms from CSL Fault (CSL Fault)...
+[2026-01-19 15:21:31] [ERROR] Error switching tab: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:21:31] [INFO] Switching to portal C1 OML Fault...
+[2026-01-19 15:21:31] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:21:31] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:21:32] [WARNING] Mismatch: Expected 'fmAlarmView' in URL, but got 
+[2026-01-19 15:21:32] [INFO] Re-navigating to C1 OML Fault...
+[2026-01-19 15:21:32] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:21:32] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:21:32] [ERROR] Export failed for CSL Fault
+[2026-01-19 15:21:32] [ERROR] Monitor loop error: 'PortalConfig' object has no attribute 'value'
+[2026-01-19 15:21:37] [INFO] Exporting alarms from CSL Fault (CSL Fault)...
+[2026-01-19 15:21:37] [ERROR] Error switching tab: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:21:37] [INFO] Switching to portal C1 OML Fault...
+[2026-01-19 15:21:37] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:21:37] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:21:38] [WARNING] Mismatch: Expected 'fmAlarmView' in URL, but got 
+[2026-01-19 15:21:38] [INFO] Re-navigating to C1 OML Fault...
+[2026-01-19 15:21:38] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:21:38] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:21:38] [ERROR] Export failed for CSL Fault
+[2026-01-19 15:21:38] [ERROR] Monitor loop error: 'PortalConfig' object has no attribute 'value'
+[2026-01-19 15:21:43] [INFO] Exporting alarms from CSL Fault (CSL Fault)...
+[2026-01-19 15:21:43] [ERROR] Error switching tab: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:21:43] [INFO] Switching to portal C1 OML Fault...
+[2026-01-19 15:21:43] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:21:43] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:21:44] [WARNING] Mismatch: Expected 'fmAlarmView' in URL, but got 
+[2026-01-19 15:21:44] [INFO] Re-navigating to C1 OML Fault...
+[2026-01-19 15:21:44] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:21:44] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:21:44] [ERROR] Export failed for CSL Fault
+[2026-01-19 15:21:44] [ERROR] Monitor loop error: 'PortalConfig' object has no attribute 'value'
+[2026-01-19 15:21:49] [INFO] Exporting alarms from CSL Fault (CSL Fault)...
+[2026-01-19 15:21:49] [ERROR] Error switching tab: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:21:49] [INFO] Switching to portal C1 OML Fault...
+[2026-01-19 15:21:49] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:21:49] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:21:50] [WARNING] Mismatch: Expected 'fmAlarmView' in URL, but got 
+[2026-01-19 15:21:50] [INFO] Re-navigating to C1 OML Fault...
+[2026-01-19 15:21:50] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:21:50] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:21:50] [ERROR] Export failed for CSL Fault
+[2026-01-19 15:21:50] [ERROR] Monitor loop error: 'PortalConfig' object has no attribute 'value'
+[2026-01-19 15:21:55] [INFO] Exporting alarms from CSL Fault (CSL Fault)...
+[2026-01-19 15:21:55] [ERROR] Error switching tab: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:21:55] [INFO] Switching to portal C1 OML Fault...
+[2026-01-19 15:21:55] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:21:55] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:21:56] [WARNING] Mismatch: Expected 'fmAlarmView' in URL, but got 
+[2026-01-19 15:21:56] [INFO] Re-navigating to C1 OML Fault...
+[2026-01-19 15:21:56] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:21:56] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:21:56] [ERROR] Export failed for CSL Fault
+[2026-01-19 15:21:56] [ERROR] Monitor loop error: 'PortalConfig' object has no attribute 'value'
+[2026-01-19 15:22:01] [INFO] Exporting alarms from CSL Fault (CSL Fault)...
+[2026-01-19 15:22:01] [ERROR] Error switching tab: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:22:01] [INFO] Switching to portal C1 OML Fault...
+[2026-01-19 15:22:01] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:22:01] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:22:02] [WARNING] Mismatch: Expected 'fmAlarmView' in URL, but got 
+[2026-01-19 15:22:02] [INFO] Re-navigating to C1 OML Fault...
+[2026-01-19 15:22:02] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:22:02] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:22:02] [ERROR] Export failed for CSL Fault
+[2026-01-19 15:22:02] [ERROR] Monitor loop error: 'PortalConfig' object has no attribute 'value'
+[2026-01-19 15:22:07] [INFO] Exporting alarms from CSL Fault (CSL Fault)...
+[2026-01-19 15:22:07] [ERROR] Error switching tab: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:22:07] [INFO] Switching to portal C1 OML Fault...
+[2026-01-19 15:22:07] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:22:07] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:22:08] [WARNING] Mismatch: Expected 'fmAlarmView' in URL, but got 
+[2026-01-19 15:22:08] [INFO] Re-navigating to C1 OML Fault...
+[2026-01-19 15:22:08] [INFO] Navigating to C1 OML Fault...
+[2026-01-19 15:22:08] [ERROR] Navigation error: Message: invalid session id
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x7ff6a296a545
+	0x7ff6a296a5a0
+	0x7ff6a2710dd6
+	0x7ff6a275bee3
+	0x7ff6a2795ba2
+	0x7ff6a278ff86
+	0x7ff6a278eef1
+	0x7ff6a26d99e5
+	0x7ff6a2c48bb0
+	0x7ff6a2c42fbd
+	0x7ff6a2c6420a
+	0x7ff6a2986e15
+	0x7ff6a298f4dc
+	0x7ff6a26d87aa
+	0x7ff6a2dad1e8
+	0x7ffc8bcee8d7
+	0x7ffc8d00c53c
+
+[2026-01-19 15:22:08] [ERROR] Export failed for CSL Fault
+[2026-01-19 15:22:08] [ERROR] Monitor loop error: 'PortalConfig' object has no attribute 'value'
+[2026-01-19 15:22:55] [INFO] Security Manager started for PC: DESKTOP-ND0C715 (119.73.65.2)
+[2026-01-19 15:22:55] [INFO] Application starting in WEB mode...
+[2026-01-19 15:22:55] [INFO] WebApp: Initializing modern UI window...
+[2026-01-19 15:23:33] [INFO] Application closed normally

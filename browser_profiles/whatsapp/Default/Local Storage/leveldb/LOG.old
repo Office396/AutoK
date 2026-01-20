@@ -1,3 +1,6 @@
-2026/01/14-23:07:52.380 3368 Reusing MANIFEST C:\wd\Autok\browser_profiles\whatsapp\Default\Local Storage\leveldb/MANIFEST-000001
-2026/01/14-23:07:52.386 3368 Recovering log #55
-2026/01/14-23:07:52.388 3368 Reusing old log C:\wd\Autok\browser_profiles\whatsapp\Default\Local Storage\leveldb/000055.log 
+2026/01/20-14:04:48.102 3b04 Reusing MANIFEST C:\wd\Autok\browser_profiles\whatsapp\Default\Local Storage\leveldb/MANIFEST-000001
+2026/01/20-14:04:48.108 3b04 Recovering log #4
+2026/01/20-14:04:48.110 3b04 Reusing old log C:\wd\Autok\browser_profiles\whatsapp\Default\Local Storage\leveldb/000004.log 
+2026/01/20-14:10:48.755 31d0 Level-0 table #8: started
+2026/01/20-14:10:48.760 31d0 Level-0 table #8: 23140 bytes OK
+2026/01/20-14:10:48.762 31d0 Delete type=0 #4

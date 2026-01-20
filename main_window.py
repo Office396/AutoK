@@ -43,11 +43,20 @@ class MainWindow(ctk.CTk):
         
         # Configure modern dark background
         self.configure(fg_color=Colors.BG_DARK)
+        self.attributes("-topmost", False)
+        self.bind("<FocusOut>", lambda e: self.attributes("-topmost", False))
+        self.bind("<FocusIn>", lambda e: self.attributes("-topmost", False))
         
         # Views
         self.views: Dict[str, ctk.CTkFrame] = {}
         self.current_view: Optional[str] = None
         self._handle_unlocked = False  # Password protection state
+        
+        # CRITICAL: Initialize state flags BEFORE creating layout
+        self._resize_in_progress = False
+        self._is_minimized = False
+        self._last_state = self.state()
+        self._update_interval = 3000  # Start with 3 seconds, will adapt
         
         # Create layout
         self._create_layout()
@@ -55,11 +64,14 @@ class MainWindow(ctk.CTk):
         # Setup callbacks
         self._setup_callbacks()
         
-        # Start update loop
-        self._start_update_loop()
-        
         # Handle close
         self.protocol("WM_DELETE_WINDOW", self._on_close)
+        
+        # Bind window events
+        self.bind('<Configure>', self._on_window_configure)
+        
+        # Start smart update loop (only updates when needed)
+        self._start_smart_updates()
     
     def _create_layout(self):
         """Create the main layout"""
@@ -133,6 +145,7 @@ class MainWindow(ctk.CTk):
         
         nav_items = [
             ("dashboard", "📊", "Dashboard"),
+            ("alarms", "🔔", "Alarms"),
             ("formats", "📝", "Handler"),
             ("controller", "🛂", "Alarm Controller"),
             ("sites", "🗼", "Sites"),
@@ -202,6 +215,11 @@ class MainWindow(ctk.CTk):
         dashboard.on_force_send = self._on_force_send
         self.views["dashboard"] = dashboard
         
+        # Alarms
+        from gui_alarms import AlarmsView
+        alarms_view = AlarmsView(self.content_frame)
+        self.views["alarms"] = alarms_view
+        
         # Settings
         settings_view = SettingsView(self.content_frame)
         settings_view.on_save = self._on_settings_saved
@@ -231,24 +249,54 @@ class MainWindow(ctk.CTk):
         self.views["about"] = about_view
     
     def _show_view(self, view_id: str):
-        """Show a specific view"""
+        """Show a specific view - FIXED: No widget destruction during tab switch"""
         # Check if trying to access Handle tab (formats) without password
         if view_id == "formats" and not self._handle_unlocked:
             self._request_password_for_handle()
             return
         
-        # Hide current view
-        if self.current_view and self.current_view in self.views:
-            self.views[self.current_view].grid_forget()
+        # Already showing this view, no need to do anything
+        if self.current_view == view_id:
+            return
         
-        # Update nav buttons
-        for vid, btn in self.nav_buttons.items():
-            btn.set_active(vid == view_id)
-        
-        # Show new view
-        if view_id in self.views:
-            self.views[view_id].grid(row=0, column=0, sticky="nsew")
-            self.current_view = view_id
+        # CRITICAL FIX: Use lower() to hide/show instead of grid_remove/grid
+        # This prevents widget destruction/recreation that causes graphics issues
+        try:
+            # Hide current view using lower (move to back, invisible but not destroyed)
+            if self.current_view and self.current_view in self.views:
+                try:
+                    current_view = self.views[self.current_view]
+                    # Use lower instead of grid_remove to keep widgets intact
+                    current_view.lower()
+                    # Also use pack_forget if it was packed, but keep the widget alive
+                    try:
+                        current_view.grid_remove()
+                    except:
+                        pass
+                except:
+                    pass
+            
+            # Update nav buttons
+            for vid, btn in self.nav_buttons.items():
+                btn.set_active(vid == view_id)
+            
+            # Show new view
+            if view_id in self.views:
+                try:
+                    new_view = self.views[view_id]
+                    # Use grid instead of recreating - widget already exists
+                    new_view.grid(row=0, column=0, sticky="nsew")
+                    # Lift to front (make visible)
+                    new_view.lift()
+                    self.current_view = view_id
+                    
+                    # CRITICAL FIX: Update once after tab switch, but don't force
+                    # Excel doesn't redraw everything on tab switch - it just shows what's there
+                    self.update_idletasks()
+                except Exception as e:
+                    logger.debug(f"Error showing view {view_id}: {e}")
+        except Exception as e:
+            logger.debug(f"Error in _show_view: {e}")
     
     def _request_password_for_handle(self):
         """Show password dialog for Handle tab access"""
@@ -285,29 +333,81 @@ class MainWindow(ctk.CTk):
             
         self.after(0, _show)
     
-    def _start_update_loop(self):
-        """Start the UI update loop"""
-        self._update_ui()
+    def _start_smart_updates(self):
+        """Start smart update loop - only updates when automation is running and visible"""
+        self._do_smart_update()
     
-    def _update_ui(self):
-        """Periodic UI update - optimized to reduce CPU usage"""
+    def _do_smart_update(self):
+        """Smart update - adaptive interval based on activity"""
         try:
-            # Update stats if running
-            if automation_controller.is_running():
-                stats = automation_controller.get_stats()
-                self._update_dashboard_stats(stats)
-        except Exception as e:
+            # --- SECURITY CHECK ---
+            from security_manager import security_manager
+            if security_manager.is_locked:
+                self._handle_remote_lock()
+                return
+                
+            # Check if minimized by comparing window state
+            current_state = self.state()
+            self._is_minimized = (current_state == 'iconic' or current_state == 'withdrawn')
+            
+            # Adaptive interval: faster when active, slower when idle
+            is_running = automation_controller.is_running()
+            state = automation_controller.get_state()
+            
+            # Only update if visible and not resizing
+            if not self._is_minimized and not self._resize_in_progress:
+                if is_running:
+                    stats = automation_controller.get_stats()
+                    self._update_dashboard_stats(stats)
+                    
+                    # Faster updates when running (3 seconds - reduced from 2 to prevent freezing)
+                    self._update_interval = 3000
+                elif state == AutomationState.STARTING:
+                    # Much slower during startup to prevent blocking (10 seconds)
+                    self._update_interval = 10000
+                else:
+                    # Slower updates when stopped (5 seconds)
+                    self._update_interval = 5000
+            else:
+                # Much slower when minimized (10 seconds)
+                self._update_interval = 10000
+        except:
             pass
         
-        # Schedule next update - increased from 1s to 3s to reduce CPU load
-        # Advanced software uses event-driven updates, but polling at 3s is acceptable compromise
-        self.after(3000, self._update_ui)
+        # Reschedule with adaptive interval
+        try:
+            if self.winfo_exists():
+                self.after(self._update_interval, self._do_smart_update)
+        except:
+            pass
     
     def _update_dashboard_stats(self, stats: AutomationStats):
-        """Update dashboard with stats"""
+        """Update dashboard with stats - EVENT DRIVEN with change detection"""
+        # Skip if minimized or resizing
+        if self._is_minimized or self._resize_in_progress:
+            return
+        
         dashboard = self.views.get("dashboard")
         if not dashboard:
             return
+        
+        # Check if stats actually changed (avoid unnecessary updates)
+        if not hasattr(self, '_last_stats'):
+            self._last_stats = {}
+        
+        current_stats = {
+            'uptime': stats.uptime_seconds,
+            'alarms': stats.alarms_processed,
+            'messages': stats.messages_sent,
+            'queued': stats.messages_queued,
+            'errors': stats.error_count
+        }
+        
+        # Only update if something changed
+        if current_stats == self._last_stats:
+            return
+        
+        self._last_stats = current_stats
         
         # Format uptime
         uptime_str = self._format_uptime(stats.uptime_seconds)
@@ -359,7 +459,35 @@ class MainWindow(ctk.CTk):
             self.after(0, lambda: self._show_toast("Automation started successfully!", "success"))
         else:
             self.after(0, lambda: self._show_toast("Failed to start automation", "error"))
-    
+
+    def _handle_remote_lock(self):
+        """Handle remote lock signal by showing a locking overlay"""
+        if hasattr(self, '_lock_overlay'):
+            return
+            
+        # Stop everything
+        automation_controller.stop()
+        
+        # Create full-screen dark overlay
+        self._lock_overlay = ctk.CTkFrame(self, fg_color="#000000")
+        self._lock_overlay.place(relx=0, rely=0, relwidth=1, relheight=1)
+        
+        ctk.CTkLabel(
+            self._lock_overlay,
+            text="⚠️ SYSTEM LOCKED",
+            font=ctk.CTkFont(size=30, weight="bold"),
+            text_color="#FF4C4C"
+        ).pack(expand=True, pady=(0, 10))
+        
+        ctk.CTkLabel(
+            self._lock_overlay,
+            text="This software has been remotely disabled by the owner.\nPlease contact the administrator.",
+            font=ctk.CTkFont(size=14),
+            text_color="white"
+        ).pack(expand=True, pady=(0, 100))
+        
+        logger.warning("Application UI locked by remote signal")
+        
     def _on_pause(self):
         """Handle pause/resume button"""
         if automation_controller.get_state() == AutomationState.PAUSED:
@@ -422,8 +550,16 @@ class MainWindow(ctk.CTk):
         self.after(0, _update)
     
     def _on_stats_update(self, stats: AutomationStats):
-        """Handle stats update - Thread Safe"""
+        """Handle stats update - Thread Safe, EVENT DRIVEN"""
+        # Skip if window is minimized or resizing
+        if self._is_minimized or self._resize_in_progress:
+            return
+        
         def _update():
+            # Double-check state before updating
+            if self._is_minimized or self._resize_in_progress:
+                return
+            
             dashboard = self.views.get("dashboard")
             if dashboard:
                 # Update portal status
@@ -435,15 +571,49 @@ class MainWindow(ctk.CTk):
                 # Update WhatsApp status
                 wa_status = "Connected" if stats.whatsapp_connected else "Disconnected"
                 dashboard.update_whatsapp_status(wa_status)
+                
+                # Get detailed WhatsApp stats (queue/sent preview) - NON-BLOCKING
+                try:
+                    from whatsapp_handler import whatsapp_handler
+                    
+                    # Only get detailed stats if dashboard widgets exist
+                    if hasattr(dashboard, 'queue_list') and hasattr(dashboard, 'recently_sent_list'):
+                        detailed_stats = whatsapp_handler.get_detailed_stats()
+                        
+                        # Build stats data for dashboard
+                        stats_data = {
+                            'status': wa_status,
+                            'messages_sent': stats.messages_sent,
+                            'queue_size': stats.messages_queued,
+                            'current': detailed_stats.get('current'),
+                            'queue_preview': detailed_stats.get('queue_preview', []),
+                            'sent_recent': detailed_stats.get('sent_recent', [])
+                        }
+                        
+                        # Update stats bar with queue/sent data
+                        dashboard.update_stats_bar_event(stats_data)
+                except Exception as e:
+                    # Don't log errors during startup
+                    pass
+                
+                # Also update stats
+                self._update_dashboard_stats(stats)
         
         self.after(0, _update)
     
     def _on_new_alarms(self, alarms, source: str = None):
-        """Handle new alarms - Thread Safe"""
+        """Handle new alarms - Thread Safe, EVENT DRIVEN"""
+        # Skip if minimized or resizing
+        if self._is_minimized or self._resize_in_progress:
+            return
+        
         def _update():
-            dashboard = self.views.get("dashboard")
-            if not dashboard:
+            # Double-check state
+            if self._is_minimized or self._resize_in_progress:
                 return
+            
+            dashboard = self.views.get("dashboard")
+            alarms_view = self.views.get("alarms")
                 
             def _get_alarm_dict(alarm):
                 return {
@@ -455,27 +625,40 @@ class MainWindow(ctk.CTk):
                     'status': 'Pending'
                 }
             
-            if source:
-                # Use replacement logic
-                alarm_dicts = [_get_alarm_dict(a) for a in alarms]
-                dashboard.update_alarms(alarm_dicts, source)
-                
-                # Add to log summary (just count or first few)
-                dashboard.log(
-                    f"Updated {len(alarms)} active alarms from {source}",
-                    "INFO"
-                )
-            else:
-                # Add additive logic (legacy)
-                for alarm in alarms:
-                    # Add to table
-                    dashboard.add_alarm(_get_alarm_dict(alarm))
+            # Update alarms view (not dashboard)
+            if alarms_view:
+                if source:
+                    # Use replacement logic
+                    try:
+                        alarm_dicts = [_get_alarm_dict(a) for a in alarms]
+                        alarms_view.update_alarms(alarm_dicts, source)
+                    except:
+                        pass
+                else:
+                    # Add individual alarms
+                    try:
+                        for alarm in alarms:
+                            alarms_view.add_alarm(_get_alarm_dict(alarm))
+                    except:
+                        pass
+            
+            # Update alarm counts in dashboard
+            if dashboard:
+                try:
+                    # Count alarms by type
+                    alarm_counts = {}
+                    for alarm in alarms:
+                        alarm_type = alarm.alarm_type or "Unknown"
+                        if alarm_type in alarm_counts:
+                            alarm_counts[alarm_type] += 1
+                        else:
+                            alarm_counts[alarm_type] = 1
                     
-                    # Add to log
-                    dashboard.log(
-                        f"New alarm: {alarm.alarm_type} - {alarm.site_code}",
-                        "ALARM" if "csl" in alarm.alarm_type.lower() else "INFO"
-                    )
+                    # Update dashboard with counts
+                    for alarm_type, count in alarm_counts.items():
+                        dashboard.add_alarm_update(alarm_type, count)
+                except:
+                    pass
         
         self.after(0, _update)
     
@@ -483,6 +666,26 @@ class MainWindow(ctk.CTk):
         """Show a toast notification"""
         toast = ToastNotification(self, message, toast_type)
         toast.place(relx=0.5, rely=0.95, anchor="s")
+    
+    def _on_window_configure(self, event):
+        """Handle window configuration changes (resize, maximize, etc.)"""
+        # CRITICAL FIX: Only track resize, not maximize/minimize
+        # Only process if this is the main window, not child widgets
+        if event.widget == self:
+            # Debounce resize events
+            if hasattr(self, '_resize_timer'):
+                self.after_cancel(self._resize_timer)
+            
+            self._resize_in_progress = True
+            # Wait 150ms after last event before allowing updates
+            self._resize_timer = self.after(150, self._on_resize_complete)
+    
+    def _on_resize_complete(self):
+        """Called when resize is complete"""
+        self._resize_in_progress = False
+        # Trigger immediate update after resize
+        if automation_controller.is_running() and not self._is_minimized:
+            self._do_smart_update()
     
     def _on_close(self):
         """Handle window close"""

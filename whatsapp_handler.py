@@ -875,8 +875,6 @@ class OrderedAlarmSender:
         "AC Main Failure",
         "Battery High Temp",
         "Genset Running",
-        "DG Running",
-        "Genset Operation",
         "Low Voltage",
         "System on Battery",
         "Toggle",

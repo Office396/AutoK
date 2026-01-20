@@ -22,33 +22,67 @@ class LogsView(ctk.CTkFrame):
         self._create_layout()
         self._load_logs()
         
-        # Buffer for log updates
+        # Buffer for log updates - OPTIMIZED
         self._log_buffer = []
         self._update_scheduled = False
+        self._last_buffer_time = 0
         
         # Register for real-time updates
         logger.add_callback(self._on_new_log)
     
     def _on_new_log(self, entry: str, level: str):
-        """Handle new log entry from logger (called from any thread)"""
+        """Handle new log entry from logger (called from any thread) - OPTIMIZED"""
+        # Skip if minimized or resizing
+        try:
+            root = self.winfo_toplevel()
+            if root:
+                if hasattr(root, '_is_minimized') and root._is_minimized:
+                    return
+                if hasattr(root, '_resize_in_progress') and root._resize_in_progress:
+                    return
+        except:
+            pass
+        
         # Add to buffer instead of scheduling immediate update
         self._log_buffer.append((entry, level))
         
         # Schedule update only if not already scheduled
+        # OPTIMIZED: Throttle to max 3 updates per second
         if not self._update_scheduled:
-            self._update_scheduled = True
-            self.after(100, self._process_log_buffer)
+            import time
+            now = time.time()
+            time_since_last = now - self._last_buffer_time
+            
+            if time_since_last >= 0.33:  # Max 3 updates/sec
+                self._update_scheduled = True
+                self.after(333, self._process_log_buffer)
+            elif len(self._log_buffer) > 100:  # Force update if buffer is very large
+                self._update_scheduled = True
+                self.after(100, self._process_log_buffer)
             
     def _process_log_buffer(self):
-        """Process buffered logs in a single batch update"""
+        """Process buffered logs in a single batch update - OPTIMIZED"""
+        import time
         self._update_scheduled = False
+        self._last_buffer_time = time.time()
         
         if not self._log_buffer:
             return
+        
+        # Skip if minimized or resizing
+        try:
+            root = self.winfo_toplevel()
+            if root:
+                if hasattr(root, '_is_minimized') and root._is_minimized:
+                    return
+                if hasattr(root, '_resize_in_progress') and root._resize_in_progress:
+                    return
+        except:
+            pass
             
-        # Get pending logs
-        pending = list(self._log_buffer)
-        self._log_buffer.clear()
+        # Get pending logs (limit to 50 at a time)
+        pending = list(self._log_buffer[:50])
+        self._log_buffer = self._log_buffer[50:]
         
         # Filter and process
         current_level = self.level_var.get()
@@ -60,22 +94,34 @@ class LogsView(ctk.CTkFrame):
             
         self.log_text.configure(state="normal")
         
-        # Add all pending entries in one go
+        # OPTIMIZED: Build all text first, then insert in one operation
+        log_text = ""
+        count = 0
         for entry, level in pending:
             if current_level != "All Levels" and level != current_level:
                 continue
-            self._add_log_entry(entry)
+            log_text += entry.strip() + "\n"
+            count += 1
+        
+        # Single insert operation
+        if log_text:
+            self.log_text.insert("end", log_text)
             
         self.log_text.configure(state="disabled")
         self.log_text.see("end")
         
-        # Update count
+        # Update count (lightweight)
         try:
-            current_text = self.log_text.get("1.0", "end-1c")
-            count = len(current_text.splitlines()) if current_text else 0
-            self.stats_label.configure(text=f"{count} log entries")
+            current_count = int(self.stats_label.cget("text").split()[0])
+            new_count = current_count + count
+            self.stats_label.configure(text=f"{new_count} log entries")
         except:
             pass
+        
+        # If there are still buffered logs, schedule another update
+        if self._log_buffer and not self._update_scheduled:
+            self._update_scheduled = True
+            self.after(333, self._process_log_buffer)
     
     def _create_layout(self):
         """Create the layout"""

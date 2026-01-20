@@ -99,6 +99,8 @@ class MessageFormatsView(ctk.CTkFrame):
         content = ctk.CTkScrollableFrame(self, fg_color="transparent")
         content.pack(fill="both", expand=True, padx=20, pady=(0, 20))
         
+        self._create_portal_management_section(content)
+        
         self._create_master_column_section(content)
         
         self._create_help_section(content)
@@ -117,6 +119,173 @@ class MessageFormatsView(ctk.CTkFrame):
         
         self._create_save_button()
     
+    def _create_portal_management_section(self, parent):
+        """Create section for managing dynamic portals"""
+        frame = ctk.CTkFrame(parent, fg_color=Colors.BG_CARD, corner_radius=10)
+        frame.pack(fill="x", pady=(0, 20))
+        
+        inner = ctk.CTkFrame(frame, fg_color="transparent")
+        inner.pack(fill="x", padx=20, pady=15)
+        
+        header = ctk.CTkFrame(inner, fg_color="transparent")
+        header.pack(fill="x", pady=(0, 10))
+        
+        title = ctk.CTkLabel(
+            header,
+            text="🌐 Portal Management",
+            font=ctk.CTkFont(size=16, weight="bold"),
+            text_color=Colors.TEXT_PRIMARY
+        )
+        title.pack(side="left")
+        
+        add_btn = ctk.CTkButton(
+            header,
+            text="+ Add New Portal",
+            width=120,
+            height=28,
+            fg_color=Colors.SUCCESS,
+            command=self._on_add_portal
+        )
+        add_btn.pack(side="right")
+        
+        # Portal list container
+        self.portal_list_frame = ctk.CTkFrame(inner, fg_color="transparent")
+        self.portal_list_frame.pack(fill="x", pady=5)
+        
+        self._refresh_portal_list()
+
+    def _refresh_portal_list(self):
+        """Redraw the list of portals"""
+        for widget in self.portal_list_frame.winfo_children():
+            widget.destroy()
+            
+        for portal in settings.portals:
+            row = ctk.CTkFrame(self.portal_list_frame, fg_color=Colors.BG_MEDIUM, corner_radius=5)
+            row.pack(fill="x", pady=2)
+            
+            # Using grid for better control over long links
+            row.grid_columnconfigure(1, weight=1)
+            
+            # Icon/Role
+            role_icon = "🔔" if "Alarm" in portal.role else "🗼" if "Topology" in portal.role else "🔗"
+            
+            name_label = ctk.CTkLabel(row, text=f"{role_icon} {portal.name}", font=ctk.CTkFont(size=12, weight="bold"), padx=10)
+            name_label.grid(row=0, column=0, sticky="w", pady=5)
+            
+            # USE ENTRY for long URLs - it provides internal horizontal scrolling!
+            url_scroll = ctk.CTkEntry(
+                row, 
+                height=22,
+                font=ctk.CTkFont(size=10),
+                fg_color="transparent",
+                border_width=0,
+                text_color=Colors.TEXT_MUTED
+            )
+            url_scroll.insert(0, portal.url)
+            url_scroll.configure(state="readonly")
+            url_scroll.grid(row=0, column=1, sticky="ew", padx=5, pady=5)
+            
+            btn_frame = ctk.CTkFrame(row, fg_color="transparent")
+            btn_frame.grid(row=0, column=2, padx=10, pady=5, sticky="e")
+            
+            ctk.CTkButton(
+                btn_frame, text="Edit", width=40, height=24, font=ctk.CTkFont(size=10),
+                fg_color=Colors.BG_LIGHT, command=lambda p=portal: self._on_edit_portal(p)
+            ).pack(side="left", padx=2)
+            
+            ctk.CTkButton(
+                btn_frame, text="Delete", width=40, height=24, font=ctk.CTkFont(size=10),
+                fg_color="#B71C1C", command=lambda p=portal: self._on_delete_portal(p)
+            ).pack(side="left", padx=2)
+
+    def _on_add_portal(self):
+        self._show_portal_dialog()
+
+    def _on_edit_portal(self, portal):
+        self._show_portal_dialog(portal)
+
+    def _on_delete_portal(self, portal):
+        from CTkMessagebox import CTkMessagebox
+        msg = CTkMessagebox(
+            title="Confirm Delete",
+            message=f"Are you sure you want to delete terminal '{portal.name}'?",
+            icon="question",
+            option_1="No",
+            option_2="Yes"
+        )
+        if msg.get() == "Yes":
+            from config import asdict
+            settings.portals = [p for p in settings.portals if p.id != portal.id]
+            settings.save()
+            self._refresh_portal_list()
+
+    def _show_portal_dialog(self, portal=None):
+        """Show dialog to add or edit a portal"""
+        dialog = ctk.CTkToplevel(self)
+        dialog.title("Portal Configuration")
+        dialog.geometry("500x450")
+        dialog.transient(self)
+        dialog.grab_set()
+        
+        # Center dialog
+        dialog.update_idletasks()
+        x = self.winfo_toplevel().winfo_x() + (self.winfo_toplevel().winfo_width() // 2) - 250
+        y = self.winfo_toplevel().winfo_y() + (self.winfo_toplevel().winfo_height() // 2) - 225
+        dialog.geometry(f"+{x}+{y}")
+        
+        ctk.CTkLabel(dialog, text="Portal Configuration", font=ctk.CTkFont(size=18, weight="bold")).pack(pady=20)
+        
+        content = ctk.CTkFrame(dialog, fg_color="transparent")
+        content.pack(fill="both", expand=True, padx=30)
+        
+        name_entry = SettingsEntry(content, "Portal Name:", width=400)
+        name_entry.pack(pady=5)
+        if portal: name_entry.set(portal.name)
+        
+        url_entry = SettingsEntry(content, "URL:", width=400)
+        url_entry.pack(pady=5)
+        if portal: url_entry.set(portal.url)
+        
+        role_label = ctk.CTkLabel(content, text="Role / Type:", font=ctk.CTkFont(size=12), text_color=Colors.TEXT_SECONDARY)
+        role_label.pack(anchor="w")
+        role_option = ctk.CTkOptionMenu(
+            content,
+            values=["CSL Fault", "RF Unit", "NodeB Cell", "All Alarms", "Dashboard"],
+            fg_color=Colors.BG_MEDIUM,
+            button_color=Colors.BG_LIGHT,
+            button_hover_color=Colors.BORDER,
+            width=400
+        )
+        role_option.pack(pady=(5, 15))
+        if portal: role_option.set(portal.role)
+        
+        def save():
+            name = name_entry.get()
+            url = url_entry.get()
+            role = role_option.get()
+            
+            if not name or not url:
+                return
+            
+            from config import PortalConfig
+            if portal:
+                # Update existing
+                portal.name = name
+                portal.url = url
+                portal.role = role
+            else:
+                # Add new
+                import uuid
+                new_portal = PortalConfig(str(uuid.uuid4())[:8], name, url, role)
+                settings.portals.append(new_portal)
+            
+            settings.save()
+            self._refresh_portal_list()
+            dialog.destroy()
+            
+        save_btn = ctk.CTkButton(dialog, text="Save Portal", command=save, fg_color=Colors.SUCCESS)
+        save_btn.pack(pady=20)
+
     def _create_master_column_section(self, parent):
         """Create Master Data Excel column mapping section"""
         frame = ctk.CTkFrame(parent, fg_color=Colors.BG_CARD, corner_radius=10)

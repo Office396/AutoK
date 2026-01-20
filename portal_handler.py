@@ -178,7 +178,7 @@ class PortalHandler:
     
     def __init__(self):
         self.status = PortalStatus()
-        self.portal_urls = settings.portal
+        # Dynmic portals are now loaded directly from settings.portals in logic
         self.lock = threading.Lock()
         self.monitoring = False
         self.monitor_thread: Optional[threading.Thread] = None
@@ -583,12 +583,13 @@ class PortalHandler:
         except Exception:
             return False
     
-    def navigate_to_portal(self, portal_type: PortalType) -> bool:
+    def navigate_to_portal(self, portal_type: PortalType, custom_url: Optional[str] = None) -> bool:
         """
         Navigate to a specific portal/alarm view
 
         Args:
             portal_type: The portal type to navigate to
+            custom_url: Optional override URL for dynamic portals
 
         Returns:
             True if navigation successful
@@ -599,17 +600,25 @@ class PortalHandler:
                 logger.error("No driver available for navigation")
                 return False
 
-            url_map = {
-                PortalType.MAIN_TOPOLOGY: self.portal_urls.main_topology,
-                PortalType.CSL_FAULT: self.portal_urls.csl_fault,
-                PortalType.RF_UNIT: self.portal_urls.rf_unit,
-                PortalType.NODEB_CELL: self.portal_urls.nodeb_cell,
-                PortalType.ALL_ALARMS: self.portal_urls.all_alarms,
-            }
-
-            url = url_map.get(portal_type)
+            # Resolve URL
+            url = custom_url
             if not url:
-                logger.error(f"Unknown portal type: {portal_type}")
+                # Find portal by role (mapping PortalType back to role name)
+                role_map = {
+                    PortalType.MAIN_TOPOLOGY: "Dashboard",
+                    PortalType.CSL_FAULT: "CSL Fault",
+                    PortalType.RF_UNIT: "RF Unit",
+                    PortalType.NODEB_CELL: "NodeB Cell",
+                    PortalType.ALL_ALARMS: "All Alarms",
+                }
+                role = role_map.get(portal_type)
+                if role:
+                    portal_config = next((p for p in settings.portals if p.role == role), None)
+                    if portal_config:
+                        url = portal_config.url
+            
+            if not url:
+                logger.error(f"No URL could be resolved for portal type: {portal_type}")
                 return False
 
             logger.info(f"Navigating to {portal_type.value}...")
@@ -689,13 +698,21 @@ class PortalHandler:
             self.portal_handles[PortalType.MAIN_TOPOLOGY] = main_handle
             logger.info("Preserved Tab 1 as Main Topology/Login Session")
             
-            # List of functional portals to open
-            portals_to_open = [
-                (PortalType.CSL_FAULT, self.portal_urls.csl_fault),
-                (PortalType.ALL_ALARMS, self.portal_urls.all_alarms),
-                (PortalType.RF_UNIT, self.portal_urls.rf_unit),
-                (PortalType.NODEB_CELL, self.portal_urls.nodeb_cell),
-            ]
+            # Define role-to-type mapping
+            role_map = {
+                "Dashboard": PortalType.MAIN_TOPOLOGY,
+                "CSL Fault": PortalType.CSL_FAULT,
+                "RF Unit": PortalType.RF_UNIT,
+                "NodeB Cell": PortalType.NODEB_CELL,
+                "All Alarms": PortalType.ALL_ALARMS,
+            }
+
+            # List of functional portals to open (exclude Dashboard as it's the main handle)
+            portals_to_open = []
+            for portal in settings.portals:
+                pt_type = role_map.get(portal.role)
+                if pt_type and pt_type != PortalType.MAIN_TOPOLOGY:
+                    portals_to_open.append((pt_type, portal.url))
             
             for pt, url in portals_to_open:
                 logger.info(f"Opening New Tab for {pt.value}...")
@@ -788,12 +805,13 @@ class PortalHandler:
             logger.error(f"Refresh error: {e}")
             return False
     
-    def export_alarms(self, portal_type: PortalType) -> Optional[str]:
+    def export_alarms(self, portal_type: PortalType, custom_url: Optional[str] = None) -> Optional[str]:
         """
         Export alarms from a portal to Excel file
         
         Args:
             portal_type: The portal to export from
+            custom_url: Optional override URL for dynamic portals
             
         Returns:
             path to downloaded file or None if failed
@@ -807,7 +825,7 @@ class PortalHandler:
             # Switch to the portal tab
             if not self.switch_to_tab(portal_type):
                 logger.info(f"Switching to portal {portal_type.value}...")
-                self.navigate_to_portal(portal_type)
+                self.navigate_to_portal(portal_type, custom_url=custom_url)
                 time.sleep(1)
 
             # Ensure we're in default content before looking for table

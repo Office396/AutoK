@@ -19,7 +19,7 @@ from alarm_processor import alarm_processor, ProcessedAlarm
 from alarm_scheduler import alarm_scheduler
 from site_code_extractor import SiteCodeExtractor
 from master_data import master_data
-from config import settings, AlarmTypes
+from config import settings, AlarmTypes, PortalConfig
 from logger_module import logger
 from portal_handler import portal_handler, PortalType
 
@@ -45,8 +45,6 @@ class PortalMonitor:
         self.running = False
         self.monitor_thread: Optional[threading.Thread] = None
         self.stats = MonitorStats()
-        self.seen_alarms: Set[str] = set()
-        self.seen_alarms_timestamps: Dict[str, datetime] = {}  # Track when alarms were seen
         self.alarm_callbacks: List[Callable] = []
         self.status_callbacks: List[Callable] = []
         self.lock = threading.Lock()
@@ -60,9 +58,8 @@ class PortalMonitor:
         self._cycle_handled_omo_triggers: Set[tuple] = set()
         self._first_scan_done = False
         
-        # Performance: TTL for seen alarms (24 hours)
-        self.seen_alarms_ttl_hours = 24
-        self._last_cleanup_time = datetime.now()
+        # Track last snapshot IDs per portal to avoid re-sending unchanged alarms across cycles
+        self._last_snapshot_ids: Dict[str, Set[str]] = defaultdict(set)
     
     def add_alarm_callback(self, callback: Callable):
         self.alarm_callbacks.append(callback)
@@ -71,22 +68,46 @@ class PortalMonitor:
         self.status_callbacks.append(callback)
     
     def _notify_alarms(self, alarms: List[ProcessedAlarm], source: str = None):
-        """Notify listeners of new alarms"""
+        """Notify listeners of new alarms - FIXED to prevent blocking"""
+        import tkinter as tk
         for callback in self.alarm_callbacks:
             try:
-                # Handle callbacks that support source argument
-                sig = inspect.signature(callback)
-                if 'source' in sig.parameters:
-                    callback(alarms, source=source)
+                # Check if this is a GUI callback that needs to be scheduled on the main thread
+                if hasattr(callback, '__self__') and isinstance(callback.__self__, tk.Widget):
+                    # Schedule GUI updates to run on the main thread
+                    try:
+                        callback.__self__.after(0, lambda: self._call_alarm_callback(callback, alarms, source))
+                    except:
+                        pass
                 else:
-                    callback(alarms)
+                    # Call directly for non-GUI callbacks
+                    self._call_alarm_callback(callback, alarms, source)
             except Exception as e:
                 logger.error(f"Error in alarm callback: {e}") 
+        
+    def _call_alarm_callback(self, callback, alarms, source):
+        """Helper method to call alarm callback with proper signature handling"""
+        import inspect
+        sig = inspect.signature(callback)
+        if 'source' in sig.parameters:
+            callback(alarms, source=source)
+        else:
+            callback(alarms)
     
     def _notify_status(self):
+        """Notify status callbacks - FIXED to prevent blocking"""
+        import tkinter as tk
         for callback in self.status_callbacks:
             try:
-                callback(self.stats)
+                # Check if this is a GUI callback that needs to be scheduled on the main thread
+                if hasattr(callback, '__self__') and isinstance(callback.__self__, tk.Widget):
+                    # Schedule GUI updates to run on the main thread
+                    try:
+                        callback.__self__.after(0, lambda: callback(self.stats))
+                    except:
+                        pass
+                else:
+                    callback(self.stats)
             except:
                 pass
     
@@ -257,15 +278,16 @@ class PortalMonitor:
 
     def _monitor_loop(self, interval: int):
         """Main monitoring loop"""
-        portals_to_check = [
-            TabType.CSL_FAULT,
-            TabType.ALL_ALARMS,
-            TabType.RF_UNIT,
-            TabType.NODEB_CELL,
-        ]
-        
         while self.running:
             try:
+                # Get dynamic list of portals to check (exclude Dashboard/Topology role from alarm extraction)
+                portals_to_check = [p for p in settings.portals if p.role != "Dashboard"]
+                
+                if not portals_to_check:
+                    logger.warning("No alarm portals configured. Waiting for configuration...")
+                    self._interruptible_sleep(interval)
+                    continue
+                
                 # No pause needed with dual browsers!
                 # if whatsapp_handler.sending_active: ...
                 
@@ -276,17 +298,20 @@ class PortalMonitor:
                 # Clear MBU tracker at start of cycle
                 self._cycle_handled_mbu_entries.clear()
                 
-                logger.info(f"Starting portal check cycle...")
+                # CRITICAL FIX: Reduce terminal spam - removed verbose cycle start log
+                # logger.info(f"Starting portal check cycle...")  # REMOVED - too verbose
                 
                 for portal in portals_to_check:
                     if not self.running:
                         break
                     
-                    logger.info(f"Checking portal: {portal.value}")
+                    # CRITICAL FIX: Reduce terminal spam - only log important events
+                    # logger.info(f"Checking portal: {portal.name}")  # REMOVED - too verbose
                     current_alarms, new_alarms = self._check_portal(portal)
                     
                     if current_alarms is None:
-                        logger.error(f"Check failed for {portal.value}. Marking cycle as incomplete.")
+                        # Only log errors, not every check
+                        logger.error(f"Check failed for {portal.name}. Marking cycle as incomplete.")
                         cycle_success = False
                         continue
                     
@@ -294,7 +319,11 @@ class PortalMonitor:
                         count = len(current_alarms)
                         all_new_alarms.extend(new_alarms) # Track new for total stats
                         cycle_alarms.extend(current_alarms) # Collect for instant logic
-                        logger.info(f"Found {count} alarms from {portal.value} ({len(new_alarms)} new)")
+                        # CRITICAL FIX: Only log if there are NEW alarms to reduce terminal spam
+                        if new_alarms:
+                            logger.info(f"Found {len(new_alarms)} new alarms from {portal.name} (Total: {count})")
+                        # else:
+                        #     logger.debug(f"Found {count} alarms from {portal.name} (no new)")
                         
                         # Process and notify immediately for this portal
                         if new_alarms:
@@ -303,24 +332,21 @@ class PortalMonitor:
                         # --- Trigger Instant Alarms IMMEDIATELY ---
                         # Use ONLY the current portal snapshot to avoid including stale sites
                         # This ensures the MBU/B2S messages reflect the latest terminal view
-                        snapshot_alarms = list({a.alarm_id: a for a in current_alarms}.values())
+                        snapshot_alarms = current_alarms
                         self._process_instant_alarms(snapshot_alarms, is_end_of_cycle=False)
                         # ------------------------------------------
                         
                         # Update GUI with ALL current alarms (snapshot view)
-                        self._notify_alarms(current_alarms, source=portal.value)
+                        self._notify_alarms(current_alarms, source=portal.name)
                     elif new_alarms: # Should not happen if current is empty but just in case
                          all_new_alarms.extend(new_alarms)
 
                 # --- Instant Alarm Cleanup (End of Cycle) ---
                 if self.running and cycle_success:
-                    # Deduplicate cycle_alarms based on alarm_id to prevent double processing
-                    # Use a dictionary to keep unique alarms
-                    unique_cycle_alarms = list({a.alarm_id: a for a in cycle_alarms}.values())
-                    
-                    # Only clean history if the cycle was fully successful
-                    # If we missed a tab (e.g. CSL failed), we shouldn't assume CSL faults are gone
-                    self._process_instant_alarms(unique_cycle_alarms, is_end_of_cycle=True)
+                    # Use all cycle alarms including duplicates for instant alarm processing
+                    # This ensures that if identical alarms appear multiple times in the terminal, 
+                    # they are all processed for instant alarm triggers
+                    self._process_instant_alarms(cycle_alarms, is_end_of_cycle=True)
                 # -----------------------------------------------
                 
                 self.stats.total_checks += 1
@@ -328,13 +354,16 @@ class PortalMonitor:
                 
                 if all_new_alarms:
                     self.stats.total_alarms_processed += len(all_new_alarms)
-                    logger.info(f"Total new alarms this cycle: {len(all_new_alarms)}")
-                else:
-                    logger.info("No new alarms found this cycle")
+                    # CRITICAL FIX: Only log if there are new alarms
+                    if all_new_alarms:
+                        logger.info(f"Total new alarms this cycle: {len(all_new_alarms)}")
+                # else:
+                #     logger.debug("No new alarms found this cycle")  # Changed to debug level
                 
                 self._notify_status()
                 
-                logger.info(f"Waiting {interval}s for next check...")
+                # CRITICAL FIX: Reduce terminal spam - removed verbose wait log
+                # logger.info(f"Waiting {interval}s for next check...")  # REMOVED - too verbose
                 self._interruptible_sleep(interval)
                 
             except Exception as e:
@@ -349,38 +378,38 @@ class PortalMonitor:
                 break
             time.sleep(1)
     
-    def _check_portal(self, portal: TabType) -> List[ProcessedAlarm]:
+    def _check_portal(self, portal: PortalConfig) -> List[ProcessedAlarm]:
         """Check a specific portal for new alarms using export functionality"""
         exported_file = None
         try:
-            # Map TabType to PortalType
-            portal_type_map = {
-                TabType.ALL_ALARMS: PortalType.ALL_ALARMS,
-                TabType.CSL_FAULT: PortalType.CSL_FAULT,
-                TabType.RF_UNIT: PortalType.RF_UNIT,
-                TabType.NODEB_CELL: PortalType.NODEB_CELL,
+            # Map Portal Role to PortalHandler's PortalType (for extraction logic)
+            # PortalType still exists for internal role handling (Selectors etc)
+            from portal_handler import PortalType
+            
+            portal_role_map = {
+                "CSL Fault": PortalType.CSL_FAULT,
+                "RF Unit": PortalType.RF_UNIT,
+                "NodeB Cell": PortalType.NODEB_CELL,
+                "All Alarms": PortalType.ALL_ALARMS,
             }
 
-            portal_type = portal_type_map.get(portal)
-            if not portal_type:
-                logger.error(f"No mapping for portal {portal.value}")
-                return [], []
+            portal_type = portal_role_map.get(portal.role, PortalType.ALL_ALARMS)
             
-            logger.info(f"Exporting alarms from {portal.value}...")
+            logger.info(f"Exporting alarms from {portal.name} ({portal.role})...")
 
-            # Export alarms to Excel file
-            exported_file = portal_handler.export_alarms(portal_type)
+            # Export alarms - pass the config so handler can use the custom URL
+            exported_file = portal_handler.export_alarms(portal_type, custom_url=portal.url)
 
             if not exported_file or not os.path.exists(exported_file):
-                logger.error(f"Export failed for {portal.value}")
+                logger.error(f"Export failed for {portal.name}")
                 return None, None
             
-            logger.success(f"Export completed: {exported_file}")
+            logger.success(f"Export completed for {portal.name}")
             
             # Process the exported Excel file
             processed_alarms = alarm_processor.process_exported_excel(exported_file)
             
-            logger.info(f"Processed {len(processed_alarms)} alarms from {portal.value}")
+            logger.info(f"Processed {len(processed_alarms)} alarms from {portal.name}")
             
             # Filter out ignored sites
             ignored_sites = [s.upper() for s in settings.ignored_sites]
@@ -393,22 +422,25 @@ class PortalMonitor:
             
             self.stats.total_alarms_found += len(processed_alarms)
             
-            # Filter for new alarms only (for scheduler) - but still return ALL for display
-            new_alarms = []
+            # Determine new alarms compared to last snapshot for this portal using stable keys
+            # Stable key: normalized alarm_type + site_code + timestamp_str (avoids instance_index instability)
+            def _key(a: ProcessedAlarm) -> str:
+                return f"{a.alarm_type.lower()}|{a.site_code}|{a.timestamp_str}"
+            last_keys = self._last_snapshot_ids.get(portal.name, set())
+            new_alarms = [a for a in processed_alarms if _key(a) not in last_keys]
+            # Update snapshot cache to current state
+            self._last_snapshot_ids[portal.name] = {_key(a) for a in processed_alarms}
             for alarm in processed_alarms:
-                if self._is_new_alarm(alarm):
-                    new_alarms.append(alarm)
-                    self._mark_alarm_seen(alarm)
-                    
-                    self.stats.alarms_by_type[alarm.alarm_type] += 1
-                    if alarm.mbu:
-                        self.stats.alarms_by_mbu[alarm.mbu] += 1
+                # Still update stats but don't filter based on seen status
+                self.stats.alarms_by_type[alarm.alarm_type] += 1
+                if alarm.mbu:
+                    self.stats.alarms_by_mbu[alarm.mbu] += 1
             
-            # Return BOTH all current alarms (for GUI display) and true new alarms (for scheduler)
+            # Return BOTH all current alarms (for GUI display) and all alarms (for scheduler)
             return processed_alarms, new_alarms
             
         except Exception as e:
-            logger.error(f"Error checking portal {portal.value}: {e}")
+            logger.error(f"Error checking portal {portal.name}: {e}")
             import traceback
             traceback.print_exc()
             return None, None
@@ -421,12 +453,7 @@ class PortalMonitor:
                 except Exception as cleanup_error:
                     logger.warning(f"Failed to cleanup export file {exported_file}: {cleanup_error}")
     
-    def clear_seen_alarms(self):
-        """Clear the seen alarms cache - useful for testing or fresh start"""
-        with self.lock:
-            count = len(self.seen_alarms)
-            self.seen_alarms.clear()
-            logger.info(f"Cleared {count} seen alarms from cache")
+
     
     # Removed _extract_all_alarms method - now using export functionality
     
@@ -449,38 +476,11 @@ class PortalMonitor:
                 continue
         return datetime.now()
     
-    def _is_new_alarm(self, alarm: ProcessedAlarm) -> bool:
-        return alarm.alarm_id not in self.seen_alarms
+
     
-    def _mark_alarm_seen(self, alarm: ProcessedAlarm):
-        """Mark alarm as seen with timestamp for TTL-based cleanup"""
-        current_time = datetime.now()
-        with self.lock:
-            self.seen_alarms.add(alarm.alarm_id)
-            self.seen_alarms_timestamps[alarm.alarm_id] = current_time
-            
-            # Perform cleanup every hour to avoid frequent operations
-            if (current_time - self._last_cleanup_time).total_seconds() > 3600:
-                self._cleanup_old_seen_alarms(current_time)
-                self._last_cleanup_time = current_time
+
     
-    def _cleanup_old_seen_alarms(self, current_time: datetime):
-        """Remove seen alarms older than TTL (called while holding lock)"""
-        cutoff_time = current_time - timedelta(hours=self.seen_alarms_ttl_hours)
-        
-        # Find expired alarm IDs
-        expired_ids = [
-            alarm_id for alarm_id, timestamp in self.seen_alarms_timestamps.items()
-            if timestamp < cutoff_time
-        ]
-        
-        # Remove expired alarms
-        for alarm_id in expired_ids:
-            self.seen_alarms.discard(alarm_id)
-            self.seen_alarms_timestamps.pop(alarm_id, None)
-        
-        if expired_ids:
-            logger.info(f"Cleaned up {len(expired_ids)} expired seen alarms (older than {self.seen_alarms_ttl_hours}h)")
+
     
     def force_check(self) -> List[ProcessedAlarm]:
         all_alarms = []
@@ -493,9 +493,7 @@ class PortalMonitor:
     def get_stats(self) -> MonitorStats:
         return self.stats
     
-    def reset_seen_alarms(self):
-        with self.lock:
-            self.seen_alarms.clear()
+
     
     def clear_stats(self):
         self.stats = MonitorStats()

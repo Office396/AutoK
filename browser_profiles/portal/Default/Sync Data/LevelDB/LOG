@@ -1,3 +1,3 @@
-2026/01/14-23:18:19.789 143c Reusing MANIFEST C:\wd\Autok\browser_profiles\portal\Default\Sync Data\LevelDB/MANIFEST-000001
-2026/01/14-23:18:19.790 143c Recovering log #3
-2026/01/14-23:18:19.790 143c Reusing old log C:\wd\Autok\browser_profiles\portal\Default\Sync Data\LevelDB/000003.log 
+2026/01/20-14:26:47.149 cfc Reusing MANIFEST C:\wd\Autok\browser_profiles\portal\Default\Sync Data\LevelDB/MANIFEST-000001
+2026/01/20-14:26:47.149 cfc Recovering log #3
+2026/01/20-14:26:47.150 cfc Reusing old log C:\wd\Autok\browser_profiles\portal\Default\Sync Data\LevelDB/000003.log 

@@ -18,6 +18,21 @@ class AlarmControllerView(ctk.CTkFrame):
         self._create_layout()
         self._load_state()
 
+    def _normalize_alarm_label(self, name: str) -> str:
+        n = (name or "").strip().lower()
+        patterns = [
+            "genset running",
+            "genset operation",
+            "dg running",
+            "dg operation",
+            "diesel generator running",
+            "generator running"
+        ]
+        for p in patterns:
+            if p in n:
+                return "Genset Running"
+        return name.strip()
+
     def _create_layout(self):
         # Make the entire view scrollable
         self.grid_columnconfigure(0, weight=1)
@@ -161,13 +176,22 @@ class AlarmControllerView(ctk.CTkFrame):
             alarm_types_grid.grid_columnconfigure(i, weight=1)
         
         # Dynamic alarm types for manual send
-        manual_alarm_types = list(OrderedAlarmSender.ALARM_TYPE_ORDER)
+        manual_alarm_types = []
+        seen_alarm_types = set()
+        for t in OrderedAlarmSender.ALARM_TYPE_ORDER:
+            label = self._normalize_alarm_label(t)
+            key = label.strip().lower()
+            if key and key not in seen_alarm_types:
+                seen_alarm_types.add(key)
+                manual_alarm_types.append(label)
         try:
             custom_types = set(settings.instant_alarms)
-            existing_types = {t.lower() for t in manual_alarm_types}
             for c_type in custom_types:
-                if c_type.lower() not in existing_types:
-                    manual_alarm_types.append(c_type)
+                label = self._normalize_alarm_label(c_type)
+                key = label.strip().lower()
+                if key and key not in seen_alarm_types:
+                    seen_alarm_types.add(key)
+                    manual_alarm_types.append(label)
         except:
             pass
 
@@ -262,13 +286,22 @@ class AlarmControllerView(ctk.CTkFrame):
 
         # Merge static list with any custom instant alarms defined in settings
         # This ensures user-defined alarms also appear in the controller
-        alarm_types = list(OrderedAlarmSender.ALARM_TYPE_ORDER)
+        alarm_types = []
+        seen_alarm_types = set()
+        for t in OrderedAlarmSender.ALARM_TYPE_ORDER:
+            label = self._normalize_alarm_label(t)
+            key = label.strip().lower()
+            if key and key not in seen_alarm_types:
+                seen_alarm_types.add(key)
+                alarm_types.append(label)
         try:
             custom_types = set(settings.instant_alarms)
-            existing_types = {t.lower() for t in alarm_types}
             for c_type in custom_types:
-                if c_type.lower() not in existing_types:
-                    alarm_types.append(c_type)
+                label = self._normalize_alarm_label(c_type)
+                key = label.strip().lower()
+                if key and key not in seen_alarm_types:
+                    seen_alarm_types.add(key)
+                    alarm_types.append(label)
         except:
             pass
             

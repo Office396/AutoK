@@ -27,7 +27,7 @@ try:
 except ImportError:
     WEBDRIVER_MANAGER_AVAILABLE = False
 
-from config import settings, PROFILES_DIR, EXPORTS_DIR, BASE_DIR
+from config import settings, PROFILES_DIR, EXPORTS_DIR, BASE_DIR, PortalConfig
 from logger_module import logger
 
 class TabType(Enum):
@@ -55,13 +55,24 @@ class BrowserManager:
     
     WHATSAPP_URL = "https://web.whatsapp.com"
     
-    PORTAL_URLS = {
-        TabType.MAIN_TOPOLOGY: "https://10.226.101.71:31943/ossfacewebsite/index.html#Access/Access_MainTopoTitle?switch",
-        TabType.CSL_FAULT: "https://10.226.101.71:31943/ossfacewebsite/index.html#Access/fmAlarmView?switch",
-        TabType.RF_UNIT: "https://10.226.101.71:31943/ossfacewebsite/index.html#Access/fmAlarmView@@fmAlarmApp_alarmView_templateId835%26tabTitle%3DRF-Unit%20AR?switch&maeUrl=%2Feviewwebsite%2Findex.html%23path%3D%2FfmAlarmApp%2FfmAlarmView%26templateId%3D835%26fmPage%3Dtrue%26_t%3D1767012340791&maeTitle=Current%20Alarms%20-%20%5BRF-Unit%20AR%5D&loadType=iframe",
-        TabType.NODEB_CELL: "https://10.226.101.71:31943/ossfacewebsite/index.html#Access/fmAlarmView@@fmAlarmApp_alarmView_templateId803%26tabTitle%3DC1%20NodeB%20UMTS%20Cell%20Unavailable%20.?switch=undefined&maeUrl=%2Feviewwebsite%2Findex.html%23path%3D%2FfmAlarmApp%2FfmAlarmView%26templateId%3D803%26fmPage%3Dtrue%26_t%3D1767012343615&maeTitle=Current%20Alarms%20-%20%5BC1%20NodeB%20UMTS%20Cell%20Unavailable%20.%5D&loadType=iframe",
-        TabType.ALL_ALARMS: "https://10.226.101.71:31943/ossfacewebsite/index.html#Access/fmAlarmView@@fmAlarmApp_alarmView_templateId592%26tabTitle%3Dc1-c2%20All%20Alarm?switch=undefined&maeUrl=%2Feviewwebsite%2Findex.html%23path%3D%2FfmAlarmApp%2FfmAlarmView%26templateId%3D592%26fmPage%3Dtrue%26_t%3D1767012370725&maeTitle=Current%20Alarms%20-%20%5Bc1-c2%20All%20Alarm%5D&loadType=iframe",
-    }
+    @property
+    def portal_urls(self) -> Dict[TabType, str]:
+        """Get dynamic portal URLs from settings"""
+        urls = {}
+        # Map portal roles to TabType
+        role_map = {
+            "Dashboard": TabType.MAIN_TOPOLOGY,
+            "CSL Fault": TabType.CSL_FAULT,
+            "RF Unit": TabType.RF_UNIT,
+            "NodeB Cell": TabType.NODEB_CELL,
+            "All Alarms": TabType.ALL_ALARMS,
+        }
+        
+        for portal in settings.portals:
+            t_type = role_map.get(portal.role)
+            if t_type:
+                urls[t_type] = portal.url
+        return urls
     
     def __init__(self):
         self.portal_driver: Optional[webdriver.Chrome] = None

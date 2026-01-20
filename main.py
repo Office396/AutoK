@@ -82,6 +82,10 @@ def main():
         LOGS_DIR.mkdir(exist_ok=True)
         EXPORTS_DIR.mkdir(exist_ok=True)
         
+        # Start Security Manager
+        from security_manager import security_manager
+        security_manager.start()
+        
         # Log startup
         logger.info("Application starting...")
         

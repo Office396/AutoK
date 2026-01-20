@@ -10,6 +10,7 @@ from dataclasses import dataclass, field
 from enum import Enum
 from collections import defaultdict
 import threading
+import hashlib
 
 from config import settings, AlarmTypes, PowerStatusClassifier
 from master_data import master_data, SiteInfo
@@ -228,8 +229,11 @@ class AlarmProcessor:
             if not alarm_name or not source:
                 return None
             
+            # Normalize alarm type (e.g., genset/dg synonyms)
+            alarm_name_norm = self._normalize_alarm_type(alarm_name)
+            
             # Skip alarms that should be ignored
-            if self._should_skip_alarm(alarm_name):
+            if self._should_skip_alarm(alarm_name_norm):
                 return None
             
             # Extract site code
@@ -250,8 +254,13 @@ class AlarmProcessor:
             timestamp = self._parse_timestamp(timestamp_str)
             
             # Create processed alarm
+            # Use instance_index to differentiate between identical alarms in the same file
+            id_source = f"{alarm_name_norm}_{site_code}_{timestamp_str}_{instance_index}"
+            alarm_id = hashlib.md5(id_source.encode()).hexdigest()[:16]
+            
             return self._create_processed_alarm(
-                alarm_type=alarm_name,
+                alarm_id=alarm_id,
+                alarm_type=alarm_name_norm,
                 severity=severity,
                 timestamp=timestamp,
                 timestamp_str=timestamp_str,
@@ -294,7 +303,10 @@ class AlarmProcessor:
             if not alarm_name or not source:
                 return None
             
-            if self._should_skip_alarm(alarm_name):
+            # Normalize alarm type (e.g., genset/dg synonyms)
+            alarm_name_norm = self._normalize_alarm_type(alarm_name)
+            
+            if self._should_skip_alarm(alarm_name_norm):
                 return None
             
             # Extract site code
@@ -310,8 +322,13 @@ class AlarmProcessor:
             
             timestamp = self._parse_timestamp(timestamp_str)
             
+            # Use instance_index to differentiate between identical alarms in the same file
+            id_source = f"{alarm_name_norm}_{site_code}_{timestamp_str}_{instance_index}"
+            alarm_id = hashlib.md5(id_source.encode()).hexdigest()[:16]
+            
             return self._create_processed_alarm(
-                alarm_type=alarm_name,
+                alarm_id=alarm_id,
+                alarm_type=alarm_name_norm,
                 severity=severity,
                 timestamp=timestamp,
                 timestamp_str=timestamp_str,
@@ -329,6 +346,7 @@ class AlarmProcessor:
     
     def _create_processed_alarm(
         self,
+        alarm_id: str,
         alarm_type: str,
         severity: str,
         timestamp: datetime,
@@ -343,9 +361,12 @@ class AlarmProcessor:
     ) -> ProcessedAlarm:
         """Create a ProcessedAlarm object"""
         
-        import hashlib
-        id_source = f"{alarm_type}_{site_code}_{timestamp_str}"
-        alarm_id = hashlib.md5(id_source.encode()).hexdigest()[:16]
+        # ID already provided as parameter
+        # import hashlib
+        # id_source = f"{alarm_type}_{site_code}_{timestamp_str}"
+        # alarm_id = hashlib.md5(id_source.encode()).hexdigest()[:16]
+        
+        # Use the provided alarm_id to allow duplicates based on instance_index
         
         # Determine category
         category = self._categorize_alarm(alarm_type)
@@ -402,10 +423,28 @@ class AlarmProcessor:
             return AlarmCategory.RF_UNIT
         elif "cell unavailable" in alarm_lower:
             return AlarmCategory.CELL_UNAVAILABLE
-        elif any(x in alarm_lower for x in ["voltage", "battery", "ac main", "mains", "genset"]):
+        elif any(x in alarm_lower for x in ["voltage", "battery", "ac main", "mains", "genset", "dg running", "dg operation", "generator"]):
             return AlarmCategory.POWER_ALARM
         else:
             return AlarmCategory.OTHER
+    
+    def _normalize_alarm_type(self, name: str) -> str:
+        """Normalize alarm type names to canonical forms for scheduling/grouping"""
+        n = (name or "").strip().lower()
+        # Genset/DG synonyms -> "Genset Running"
+        genset_patterns = [
+            "genset running",
+            "genset operation",
+            "dg running",
+            "dg operation",
+            "diesel generator running",
+            "generator running"
+        ]
+        for p in genset_patterns:
+            if p in n:
+                return "Genset Running"
+        # Default: original name (title-cased for consistency)
+        return name.strip()
     
     def _parse_timestamp(self, timestamp_str: str) -> datetime:
         """Parse timestamp string to datetime"""

@@ -110,37 +110,72 @@ class AutomationController:
         self.alarm_callbacks.append(callback)
     
     def _notify_state(self):
-        """Notify state callbacks"""
+        """Notify state callbacks - FIXED to prevent blocking"""
+        import tkinter as tk
         for callback in self.state_callbacks:
             try:
-                callback(self.state)
+                # Check if this is a GUI callback that needs to be scheduled on the main thread
+                if hasattr(callback, '__self__') and isinstance(callback.__self__, tk.Widget):
+                    # Schedule GUI updates to run on the main thread
+                    try:
+                        callback.__self__.after(0, lambda: callback(self.state))
+                    except:
+                        pass
+                else:
+                    callback(self.state)
             except:
                 pass
     
     def _notify_stats(self):
-        """Notify stats callbacks"""
+        """Notify stats callbacks - FIXED to prevent blocking"""
         self._update_stats()
         for callback in self.stats_callbacks:
             try:
-                callback(self.stats)
+                # Check if this is a GUI callback that needs to be scheduled on the main thread
+                import tkinter as tk
+                # If callback is bound to a tkinter widget, schedule it properly
+                if hasattr(callback, '__self__') and isinstance(callback.__self__, tk.Widget):
+                    # Schedule GUI updates to run on the main thread
+                    try:
+                        callback.__self__.after(0, lambda: callback(self.stats))
+                    except:
+                        pass
+                else:
+                    callback(self.stats)
             except:
                 pass
     
     def _notify_alarms(self, alarms: List[ProcessedAlarm], source: str = None):
-        """Notify alarm callbacks"""
+        """Notify alarm callbacks - FIXED to prevent blocking"""
         for callback in self.alarm_callbacks:
             try:
                 # Support both signatures for backward compatibility
                 import inspect
-                sig = inspect.signature(callback)
-                if 'source' in sig.parameters:
-                    callback(alarms, source=source)
+                import tkinter as tk
+                    
+                # Check if this is a GUI callback that needs to be scheduled on the main thread
+                if hasattr(callback, '__self__') and isinstance(callback.__self__, tk.Widget):
+                    # Schedule GUI updates to run on the main thread
+                    try:
+                        callback.__self__.after(0, lambda: self._call_alarm_callback(callback, alarms, source))
+                    except:
+                        pass
                 else:
-                    callback(alarms)
+                    # Call directly for non-GUI callbacks
+                    self._call_alarm_callback(callback, alarms, source)
             except Exception as e:
                 logger.error(f"Error in alarm callback {callback}: {e}")
                 import traceback
                 traceback.print_exc()
+        
+    def _call_alarm_callback(self, callback, alarms, source):
+        """Helper method to call alarm callback with proper signature handling"""
+        import inspect
+        sig = inspect.signature(callback)
+        if 'source' in sig.parameters:
+            callback(alarms, source=source)
+        else:
+            callback(alarms)
     
     def _update_stats(self):
         """Update statistics"""
